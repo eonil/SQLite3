@@ -1,0 +1,21 @@
+//
+// Prefix header for all source files of the 'EonilCocoaComplements-SQLite' target in the 'EonilCocoaComplements-SQLite' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif
+
+inline
+static
+NSException*
+EESQLiteExceptionFromError(NSError* originError)
+{
+	NSDictionary*	info	=	[NSDictionary dictionaryWithObjectsAndKeys:
+								 originError, NSUnderlyingErrorKey,
+								 nil];
+	
+	NSException*	ex		=	[NSException exceptionWithName:[originError domain] reason:[originError localizedDescription] userInfo:info];
+	return			ex;
+}
+
