@@ -1,0 +1,34 @@
+//
+// Prefix header for all source files of the 'EonilCocoaComplements-SQLite' target in the 'EonilCocoaComplements-SQLite' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+#endif
+
+inline
+static
+NSException*
+EESQLiteExceptionFromError(NSError* originError)
+{
+	NSDictionary*	info	=	[NSDictionary dictionaryWithObjectsAndKeys:
+								 originError, NSUnderlyingErrorKey,
+								 nil];
+	
+	NSException*	ex		=	[NSException exceptionWithName:[originError domain] reason:[originError localizedDescription] userInfo:info];
+	return			ex;
+}
+
+
+//typedef	int					EESQLiteInt;
+
+
+
+/*!
+ This macro determines `NSInteger` and `NSUInteger` limits are same with `int` and `unsigned int`.
+ This doesn't mean they have same size, but it's enough with limit checks.
+ 
+ In the case of equal limits, we can treat them have same range. So we can avoid overflow/underflow error check on assignment.
+ */
+
+#define					EESQLiteOptimizeForSystemHaveEqualSizedIntAndNSInteger		((INT_MAX == NSIntegerMax) && (UINT_MAX == NSUIntegerMax))
