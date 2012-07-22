@@ -670,10 +670,8 @@
 				GCC_PREFIX_HEADER = Targets/iOS/Prefix.pch;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = EonilSQLite;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "i368 armv7";
-				"VALID_ARCHS[sdk=iphoneos*]" = "i368 armv7";
-				"VALID_ARCHS[sdk=iphonesimulator*]" = "i368 armv7";
 			};
 			name = Debug;
 		};
@@ -684,16 +682,14 @@
 				GCC_PREFIX_HEADER = Targets/iOS/Prefix.pch;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = EonilSQLite;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "i368 armv7";
-				"VALID_ARCHS[sdk=*]" = "i368 armv7";
 			};
 			name = Release;
 		};
 		4572DA7815BB1D3D0091442D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -705,14 +701,12 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = "i368 x86_64";
 			};
 			name = Debug;
 		};
 		4572DA7915BB1D3D0091442D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -724,7 +718,6 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = "i368 x86_64";
 			};
 			name = Release;
 		};
