@@ -611,12 +611,27 @@
 }
 - (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames
 {
+	[self addTableWithName:tableName withColumnNames:columnNames rowIDAliasColumnName:nil];
+}
+- (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames rowIDAliasColumnName:(NSString *)rowIDAliasColumnName
+{
+	if (nil!=rowIDAliasColumnName && ![columnNames containsObject:rowIDAliasColumnName])
+	{
+		columnNames	=	[columnNames arrayByAddingObject:rowIDAliasColumnName];
+	}
+	
 	NSString*			tblexp	=	[[self class] stringWithEscapeForSQL:tableName];
 	NSMutableArray*		colexps	=	[NSMutableArray arrayWithCapacity:[columnNames count]];
 	
 	for (NSString* colnm in columnNames)
 	{
 		NSString*	colexp	=	[[self class] stringWithEscapeForSQL:colnm];
+		
+		if ([colnm isEqualToString:rowIDAliasColumnName])
+		{
+			colexp	=	[colexp stringByAppendingString:@" INTEGER PRIMARY KEY ASC"];
+		}
+		
 		[colexps addObject:colexp];
 	}
 	

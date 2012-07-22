@@ -64,3 +64,23 @@ NSString* const		EEDocumentStoreErrorDomain;
 - (BOOL)			setDictionaryValue:(NSDictionary*)dictionaryValue forCode:(NSString*)code error:(NSError**)error;
 
 @end
+
+
+
+
+
+
+
+
+
+
+/*!
+ Proposal for new design.
+ @classdesign
+ Document store stores binary data with integer ID and tags.
+ ID is an integer key and it is actually ROWID.
+ Tag is a string column contains arbtrary text. This is exist to help searching 
+ an entry by storing text-based metadata because binary content itself is not 
+ searchable. Anyway if you need more regular metadata, you must use regular SQLite
+ table directly.
+*/

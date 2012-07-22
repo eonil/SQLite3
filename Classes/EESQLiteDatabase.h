@@ -34,14 +34,14 @@
 /*!
  @abstract
  Creates a new in-memory database.
- The database will be erased when the connection being closed.
+ The database will be erased when the connection closes.
  */
 - (id)				initAsTemporaryDatabaseInMemoryWithError:(NSError**)error;
 
 /*!
  @abstract
  Open a new temporary database on temporary file.
- The database file will be deleted when the connecion being closed.
+ The database file will be deleted when the connecion closes.
  */
 - (id)				initAsTemporaryDatabaseOnDiskWithError:(NSError**)error;
 
@@ -111,6 +111,19 @@
 - (NSArray*)		tableInformationForName:(NSString*)tableName;
 
 /*!
+ @example
+ See this SQL statement.
+ 
+	CREATE TABLE IF NOT EXIST t(x INTEGER PRIMARY KEY ASC, y, z);
+ 
+ This is equal with this method call.
+ 
+	[db addTableWithExpression:@"t" withColumnExpression:[NSArray arrayWithObjects:@"x INTEGER PRIMARY KEY", @"y", @"z", nil] isTemporary:NO onlyWhenNotExist:YES];
+ 
+ @param
+ tableExpression
+ Table expression. This is usually just a table name.
+ 
  @param
  columnExpressions
  An array contains column-definition expressions for each columns.
@@ -119,10 +132,11 @@
  If you want to specify more constrains, see here:
  http://www.sqlite.org/lang_createtable.html
  
- @discussion
+ @note
  If you don't supply any column-definition, this method is no-op.
  */
 - (void)			addTableWithExpession:(NSString*)tableExpression withColumnExpressions:(NSArray*)columnExpressions isTemporary:(BOOL)temporary onlyWhenNotExist:(BOOL)ifNotExist;
+- (void)			addTableWithName:(NSString*)tableName withColumnNames:(NSArray*)columnNames rowIDAliasColumnName:(NSString*)rowIDAliasColumnName;
 - (void)			addTableWithName:(NSString*)tableName withColumnNames:(NSArray*)columnNames;
 - (void)			removeTableWithName:(NSString*)tableName;
 @end

@@ -107,7 +107,7 @@
 	[db addTableWithName:@"Table1" withColumnNames:[NSArray arrayWithObjects:@"column1", nil]];
 	[db addTableWithName:@"Table2" withColumnNames:[NSArray arrayWithObjects:@"column2", nil]];
 	[db addTableWithName:@"Table3" withColumnNames:[NSArray arrayWithObjects:@"column3", nil]];
-	[db addTableWithName:@"Table4" withColumnNames:[NSArray arrayWithObjects:@"column4", nil]];
+	[db addTableWithName:@"Table4" withColumnNames:[NSArray arrayWithObjects:@"column4", nil] rowIDAliasColumnName:@"column4"];
 	
 	NSArray*	names1	=	[NSArray arrayWithObjects:@"Table1", @"Table2", @"Table3", @"Table4", nil];
 	NSArray*	names2	=	[db allTableNames];
@@ -130,7 +130,7 @@
 
 	NSArray*		colnms	=	[NSArray arrayWithObjects:@"column1", @"column2", @"column3", @"column4", nil];
 
-	[db addTableWithName:@"Table1" withColumnNames:colnms];
+	[db addTableWithName:@"Table1" withColumnNames:colnms rowIDAliasColumnName:@"column5"];
 	
 	NSArray*	names1	=	[NSArray arrayWithObjects:@"Table1", nil];
 	NSArray*	names2	=	[db allTableNames];

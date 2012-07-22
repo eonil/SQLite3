@@ -11,6 +11,8 @@
 		4518C21114CBD11600EF0620 /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4518C21214CBD11600EF0620 /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
 		4522528B14CBF82100F05FF0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
+		4525F1A315BC7F1E00868258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4525F1A215BC7F1E00868258 /* Foundation.framework */; };
+		4525F1A615BC7F7100868258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4525F1A515BC7F7100868258 /* Foundation.framework */; };
 		4529166F15B9DB4000B7F55A /* EonilSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* EonilSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45452C9814CC857000886D70 /* EESQLiteRowIDList.h in Headers */ = {isa = PBXBuildFile; fileRef = 45452C9614CC857000886D70 /* EESQLiteRowIDList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
@@ -80,6 +82,8 @@
 		4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteDatabase.h; sourceTree = "<group>"; };
 		4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteDatabase.m; sourceTree = "<group>"; };
+		4525F1A215BC7F1E00868258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4525F1A515BC7F7100868258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		45452C9614CC857000886D70 /* EESQLiteRowIDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteRowIDList.h; sourceTree = "<group>"; };
 		45452C9714CC857000886D70 /* EESQLiteRowIDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteRowIDList.m; sourceTree = "<group>"; };
 		456D46B214CC2100005F6D62 /* EEDocumentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEDocumentStore.h; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4525F1A615BC7F7100868258 /* Foundation.framework in Frameworks */,
 				4572DABE15BB25B70091442D /* EonilSQLite.dylib in Frameworks */,
 				4572DA6915BB1D3D0091442D /* SenTestingKit.framework in Frameworks */,
 				4572DADD15BB3E440091442D /* libsqlite3.0.dylib in Frameworks */,
@@ -151,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4525F1A315BC7F1E00868258 /* Foundation.framework in Frameworks */,
 				4522528B14CBF82100F05FF0 /* libsqlite3.0.dylib in Frameworks */,
 				45CB652614CBF61A004EF17F /* libEonilSQLite.a in Frameworks */,
 				45CB651214CBF609004EF17F /* SenTestingKit.framework in Frameworks */,
@@ -163,6 +169,8 @@
 		4518C1F214CBD0CE00EF0620 = {
 			isa = PBXGroup;
 			children = (
+				4525F1A515BC7F7100868258 /* Foundation.framework */,
+				4525F1A215BC7F1E00868258 /* Foundation.framework */,
 				4595397F14CD8F5B00B6A0E2 /* README.md */,
 				4572DAAA15BB217D0091442D /* Others */,
 				4518C20214CBD0CE00EF0620 /* Classes */,
@@ -685,10 +693,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode45-DP3.app/Contents/Developer/Library/Frameworks\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Targets/Mac OS X/Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -705,10 +709,6 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode45-DP3.app/Contents/Developer/Library/Frameworks\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Targets/Mac OS X/Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
