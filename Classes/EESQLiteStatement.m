@@ -101,7 +101,7 @@
 #if	EESQLiteOptimizeForSystemHaveEqualSizedIntAndNSInteger
 #define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex)
 #else
-#define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex)		{ NSAssert((columnIndex) > INT_MAX || (columnIndex) < INT_MIN, @"Range of `columnIndex` can't exceed range of `int` defined by its limit. This is Objective-C wrapper level exception."); }
+#define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex)		{ NSAssert((columnIndex) <= INT_MAX && (columnIndex) >= INT_MIN, @"Range of `columnIndex` must be in range of `int` defined by its limit. This is Objective-C wrapper level exception."); }
 #endif
 
 - (long long)longLongValueForColumnIndex:(NSInteger)columnIndex
@@ -368,10 +368,10 @@ void				EESQLiteStatementDummyFreeMemory(void * memory)
 #if	EESQLiteOptimizeForSystemHaveEqualSizedIntAndNSInteger
 #define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex)
 #else
-#define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex)		{ NSAssert((parameterIndex) > INT_MAX || (parameterIndex) < INT_MIN, @"Range of `parameterIndex` can't exceed range of `int` defined by its limit. (This is Objective-C wrapper level assertion.)"); }
+#define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex)		{ NSAssert(((parameterIndex) <= INT_MAX) && ((parameterIndex) >= INT_MIN), @"Range of `parameterIndex` must be in range of `int` defined by its limit. (This is Objective-C wrapper level assertion.)"); }
 #endif
 
-#define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(parameterValue)		{ NSAssert((parameterValue) > (2^63-1) || (parameterValue) < (-(2^63)), @"Range of `parameterValue` can't exceed range of 64-bit signed integer. (This is Objective-C wrapper level assertion.)"); }
+#define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(parameterValue)		{ NSAssert(( ((unsigned long long)(parameterValue)) >= (0x8000000000000000ULL)) || ( ((unsigned long long)(parameterValue)) <= (0x7FFFFFFFFFFFFFFFULL)), @"Range of `parameterValue` must be in range of 64-bit signed integer. (This is Objective-C wrapper level assertion.)"); }
 
 - (void)setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
@@ -478,6 +478,9 @@ void				EESQLiteStatementDummyFreeMemory(void * memory)
 }
 @end
 
+
+#undef	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE
+#undef	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE
 
 
 

@@ -39,7 +39,7 @@
 			[sec setDictionaryValue:val forCode:code];
 		}
 		
-		NSLog(@"store = %@", store);
+		NSLog(@"store = %@, #%llu/%llu", store, (unsigned long long)i, (unsigned long long)seclen);
 	}
 }
 

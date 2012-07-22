@@ -7,7 +7,7 @@
 //
 
 #import "TTHappyCase.h"
-#import	"EonilCocoaComplementsSQLite.h"
+#import "EonilSQLite.h"
 
 
 @implementation TTHappyCase

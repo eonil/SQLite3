@@ -676,7 +676,7 @@
 	
 	EESQLiteHandleOKOrException(sqlite3_status(SQLITE_STATUS_MEMORY_USED, &current, &peak, false), db);
 	
-	return	current;
+	return	peak;
 }
 @end
 
