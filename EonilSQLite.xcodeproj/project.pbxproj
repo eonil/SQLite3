@@ -662,6 +662,7 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = "i368 armv7";
 			};
 			name = Debug;
 		};
@@ -675,6 +676,7 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = "i368 armv7";
 			};
 			name = Release;
 		};
@@ -693,6 +695,7 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
+				VALID_ARCHS = "i368 x86_64";
 			};
 			name = Debug;
 		};
@@ -711,6 +714,7 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
+				VALID_ARCHS = "i368 x86_64";
 			};
 			name = Release;
 		};
