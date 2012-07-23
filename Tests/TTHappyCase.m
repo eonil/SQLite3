@@ -270,7 +270,7 @@
 	STAssertFalse([EESQLiteDatabase isValidIdentifierString:@"'aa'"], @"");
 }
 
-- (void)testSimpleQueries
+- (void)testSimpleSelectQueries
 {
 	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
 	STAssertNotNil(db, @"");
@@ -283,6 +283,14 @@
 	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
 	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
 	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];
+	
+	{
+		NSArray*	result			=	[db arrayOfAllRowsInTable:@"table1"];
+		NSSet*		resultset		=	[NSSet setWithArray:result];
+		NSSet*		allsamples		=	[NSSet setWithObjects:sampleValue1, sampleValue2, sampleValue3, nil];
+		
+		STAssertEqualObjects(resultset, allsamples, @"All sample values must be equal.");
+	}
 	
 	{
 		NSDictionary*	result1			=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
@@ -319,6 +327,64 @@
 	{
 		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
 		STAssertTrue(rowcount == 3, @"Count of all rows must be 3.");
+	}
+}
+
+
+- (void)testSimpleDeleteQuery1
+{
+	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	STAssertNotNil(db, @"");
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
+	
+	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
+	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
+	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R3a", @"column1", @"R3b", @"column2", @"R3c", @"column3", nil];
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];
+	
+	{
+		[db deleteRowHasID:rowid2 inTable:@"table1"];
+		
+		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
+		STAssertTrue(rowcount == 2, @"Count of all rows must be 2 after delete one row.");	
+		
+		id				deletedvalue	=	[db dictionaryFromRowHasID:rowid2 inTable:@"table1"];
+		STAssertNil(deletedvalue, @"Deleted value must be returned as `nil`.");
+		
+		id				v1			=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
+		id				v3			=	[db dictionaryFromRowHasID:rowid3 inTable:@"table1"];
+		
+		STAssertEqualObjects(v1, sampleValue1, @"Value #1 must be alive and equal with sample.");
+		STAssertEqualObjects(v3, sampleValue3, @"Value #2 must be alive and equal with sample.");
+	}
+}
+
+- (void)testSimpleDeleteQuery2
+{
+	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	STAssertNotNil(db, @"");
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
+	
+	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
+	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
+	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R3a", @"column1", @"R3b", @"column2", @"R3c", @"column3", nil];
+
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];	
+	{
+		[db deleteAllRowsInTable:@"table1"];
+		
+		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
+		STAssertTrue(rowcount == 0, @"Count of all rows must be 0 after delete all rows.");	
+		
+		STAssertNil([db dictionaryFromRowHasID:rowid1 inTable:@"table1"], @"Any row must be nil now.");
+		STAssertNil([db dictionaryFromRowHasID:rowid2 inTable:@"table1"], @"Any row must be nil now.");
+		STAssertNil([db dictionaryFromRowHasID:rowid3 inTable:@"table1"], @"Any row must be nil now.");
 	}
 }
 @end

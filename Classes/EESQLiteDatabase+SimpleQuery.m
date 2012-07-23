@@ -15,6 +15,15 @@
 
 @implementation EESQLiteDatabase (Query)
 
+- (NSArray *)arrayOfAllRowsInTable:(NSString *)tableName
+{
+	if (![[self class] isValidIdentifierString:tableName])	return	nil;
+	
+	NSString*	cmdform	=	@"SELECT * FROM %@";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
+	
+	return	[self arrayOfRowsByExecutingSQL:cmd];
+}
 - (NSArray *)arrayOfRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount
 {
 	if (![[self class] isValidIdentifierString:columnName])	return	nil;
@@ -202,6 +211,8 @@
 }
 - (void)deleteValuesFromTable:(NSString *)tableName withFilteringSQLExpression:(NSString *)filteringExpression error:(NSError *__autoreleasing *)error
 {
+	if (![[self class] isValidIdentifierString:tableName])	return;
+	
 	NSString*	cmd		=	[NSString stringWithFormat:@"DELETE FROM '%@' WHERE %@", tableName, filteringExpression];
 	
 	[self executeTransactionBlock:^BOOL
@@ -217,4 +228,46 @@
 	 }];
 }
 
+- (void)deleteAllRowsInTable:(NSString *)tableName
+{
+	if (![[self class] isValidIdentifierString:tableName])	return;
+	
+	NSString*	cmdform	=	@"DELETE FROM %@;";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
+	
+	[self executeTransactionBlock:^BOOL
+	{	
+		[self executeSQL:cmd];
+		return	YES;
+	}];
+}
+- (void)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName
+{
+	if (![[self class] isValidIdentifierString:columnName])	return;
+	if (![[self class] isValidIdentifierString:tableName])	return;
+	
+	[self executeTransactionBlock:^BOOL
+	{	
+		NSString*	cmdform	=	@"DELETE FROM %@ WHERE %@ = %@";
+		NSString*	valuenm	=	@"@valueParameter";
+		NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, valuenm];
+		NSError*	inerr	=	nil;
+		
+		EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd] lastObject];
+		[stmt setValue:value forParameterName:valuenm error:&inerr];
+		
+		while ([stmt stepWithError:&inerr]) 
+		{
+			if (inerr != nil)
+			{
+				return	NO;
+			}
+		}
+		return	YES;
+	}];
+}
+- (void)deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName
+{
+	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName];
+}
 @end

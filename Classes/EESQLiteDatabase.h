@@ -13,13 +13,13 @@
 
 - (BOOL)			executeSQL:(NSString*)command;
 - (BOOL)			executeSQL:(NSString*)command error:(NSError**)error;
-- (NSArray*)		statementsByParsingSQL:(NSString*)command;
-- (NSArray*)		statementsByParsingSQL:(NSString*)command error:(NSError**)error;
+- (NSArray*)		statementsByParsingSQL:(NSString*)command;									//	Returns `nil` for any error.
+- (NSArray*)		statementsByParsingSQL:(NSString*)command error:(NSError**)error;			//	Returns `nil` for any error.
 
 - (void)			beginTransaction;
 - (void)			commitTransaction;
 - (void)			rollbackTransaction;
-- (void)			executeTransactionBlock:(BOOL(^)(void))transaction;		//	Trnsaction will be commited if the block returns YES, all otherwise will be rolled back.
+- (void)			executeTransactionBlock:(BOOL(^)(void))transaction;							//	Trnsaction will be commited if the block returns YES, all otherwise will be rolled back.
 
 /*!
  @abstract
