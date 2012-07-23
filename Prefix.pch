@@ -32,3 +32,4 @@ EESQLiteExceptionFromError(NSError* originError)
  */
 
 #define					EESQLiteOptimizeForSystemHaveEqualSizedIntAndNSInteger		((INT_MAX == NSIntegerMax) && (UINT_MAX == NSUIntegerMax))
+

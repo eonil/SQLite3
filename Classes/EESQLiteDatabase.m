@@ -20,32 +20,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @implementation		EESQLiteDatabase
-{
+{	
 	sqlite3*		db;
 	
 	BOOL			inTransaction;
@@ -85,20 +61,6 @@
 {
 	EESQLiteHandleOKOrError(sqlite3_close(db), error, db);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - (sqlite3*)rawdb
 {
 	return	db;
@@ -107,20 +69,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma mark	-	EESQLiteDatabase
 - (BOOL)executeSQL:(NSString *)command
 {
 	return	[self executeSQL:command error:NULL];
@@ -328,352 +277,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@implementation		EESQLiteDatabase (Select)
-
-- (NSArray *)arrayOfValuesByExecutingSQL:(NSString *)command
-{
-	return	[self arrayOfValuesByExecutingSQL:command replacingNullsWithValue:nil];
-}
-- (NSArray *)arrayOfValuesByExecutingSQL:(NSString *)command replacingNullsWithValue:(id)nullValue
-{
-	NSMutableArray*	array	=	[NSMutableArray array];
-	
-	[self enumerateRowsByExecutingSQL:command block:^(NSDictionary *row, BOOL *stop) 
-	{
-		[array addObject:row];
-	}];
-	
-	return	array;
-}
-- (void)enumerateRowsByExecutingSQL:(NSString *)command block:(void (^)(NSDictionary *, BOOL *))block
-{
-	return	[self enumerateRowsByExecutingSQL:command replacingNullsWithValue:nil block:block];
-}
-- (void)enumerateRowsByExecutingSQL:(NSString *)command replacingNullsWithValue:(id)nullValue block:(void (^)(NSDictionary *, BOOL *))block
-{
-	NSArray*	stmts	=	[self statementsByParsingSQL:command];
-	
-	for (EESQLiteStatement*	stmt in stmts)
-	{
-		BOOL				internstop	=	NO;
-		while ([stmt step])
-		{
-			block([stmt dictionaryValueReplacingNullsWithValue:nullValue], &internstop);
-			if (internstop)	break;
-		};
-
-		if (internstop)	break;
-	}
-}
-@end
-
-
-
-
-
-
-
-
-@implementation		EESQLiteDatabase (Mutate)
-- (EESQLiteRowID)insertDictionaryValue:(NSDictionary *)dictionaryValue intoTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
-{
-	if (dictionaryValue == nil)
-	{
-		dictionaryValue	=	[NSDictionary dictionary];
-	}
-	
-	NSArray*			vallist	=	[NSArray arrayWithObject:dictionaryValue];
-	EESQLiteRowIDList*	ridlist	=	[self insertArrayOfDictionaryValues:vallist intoTable:tableName error:error];
-	return				[ridlist lastRowID];
-}
-- (EESQLiteRowIDList *)insertArrayOfDictionaryValues:(NSArray *)dictionaryValues intoTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
-{
-	NSArray*			cols	=	[self allColumnNamesOfTable:tableName];
-	NSUInteger			len		=	[cols count];
-	NSMutableString*	cmd		=	[NSMutableString string];
-	
-	[cmd appendString:@"INSERT INTO "];
-	[cmd appendString:tableName];
-	[cmd appendString:@" ("];
-
-	for (NSUInteger i=0; i<len-1 ;i++)
-	{
-		[cmd appendString:[cols objectAtIndex:i]];
-		[cmd appendString:@","];
-	};
-	[cmd appendString:[cols lastObject]];
-	[cmd appendString:@")"];
-	[cmd appendString:@" VALUES ("];
-	
-	for (NSUInteger i=0; i<len-1; i++)
-	{
-		[cmd appendString:@"@"];
-		[cmd appendString:[cols objectAtIndex:i]];
-		[cmd appendString:@","];
-	}
-	[cmd appendString:@"@"];
-	[cmd appendString:[cols lastObject]];
-	[cmd appendString:@");"];
-	
-	////
-	
-	NSArray*					stmts	=	[self statementsByParsingSQL:cmd];
-	EESQLiteStatement*			stmt	=	[stmts objectAtIndex:0];
-	EESQLiteMutableRowIDList*	ridlist	=	[[EESQLiteMutableRowIDList alloc] init];
-	
-	[self executeTransactionBlock:^BOOL
-	{
-		for (NSDictionary* dict in dictionaryValues)
-		{
-			__block
-			NSError*	inerr	=	nil;
-			
-			[dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
-			{
-				NSString*	paramname	=	[NSString stringWithFormat:@"@%@", key];
-				[stmt setValue:obj forParameterName:paramname error:&inerr];
-				
-				*stop	=	inerr != nil;
-			}];
-			
-			if (inerr != nil)
-			{
-				if (error != NULL)
-				{
-					*error	=	inerr;
-				}
-				return	NO;
-			}
-			
-			[stmt stepWithError:&inerr];
-			[stmt reset];
-			[ridlist appendRowID:sqlite3_last_insert_rowid(db)];
-			
-			if (inerr != nil)
-			{
-				return	NO;
-			}
-			
-			[stmt clearParametersValuesWithError:&inerr];
-			
-			if (inerr != nil)
-			{
-				return	NO;
-			}
-		}	
-		return	YES;
-	}];
-	
-	return	ridlist;
-}
-- (void)updateTable:(NSString *)tableName withDictionaryValue:(NSDictionary *)dictionaryValue filteringSQLExpression:(NSString *)filteringExpression error:(NSError *__autoreleasing *)error
-{
-	NSMutableString*	cmd		=	[NSMutableString string];
-	
-	[cmd appendString:@"UPDATE '"];
-	[cmd appendString:tableName];
-	[cmd appendString:@"' SET ("];
-
-	[dictionaryValue enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
-	{
-		[cmd appendFormat:@"%@ = @%@", key, key];
-		[cmd appendString:@","];
-	}];
-	
-	[cmd deleteCharactersInRange:(NSRange){cmd.length-1,1}];
-	[cmd appendString:@") WHERE "];
-	[cmd appendString:filteringExpression];
-	
-	////
-	
-	[self executeTransactionBlock:^BOOL
-	{
-		NSError*	inerr	=	nil;
-		[self executeSQL:cmd error:&inerr];
-		
-		if (error != NULL)
-		{
-			*error	=	inerr;
-		}
-		return		inerr == nil;
-	}];
-}
-- (void)deleteValuesFromTable:(NSString *)tableName withFilteringSQLExpression:(NSString *)filteringExpression error:(NSError *__autoreleasing *)error
-{
-	NSString*	cmd		=	[NSString stringWithFormat:@"DELETE FROM '%@' WHERE %@", tableName, filteringExpression];
-	
-	[self executeTransactionBlock:^BOOL
-	{
-		NSError*	inerr	=	nil;
-		[self executeSQL:cmd error:&inerr];
-		
-		if (error != NULL)
-		{
-			*error	=	inerr;
-		}
-		return		inerr == nil;
-	}];
-}
-
-@end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@implementation		EESQLiteDatabase (Schema)
-- (NSArray *)allSchema
-{
-	return	[self arrayOfValuesByExecutingSQL:@"SELECT * FROM sqlite_master;"];
-}
-- (NSArray *)allTableNames
-{
-	NSArray*			list	=	[self arrayOfValuesByExecutingSQL:@"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;"];
-	NSMutableArray*		names	=	[NSMutableArray arrayWithCapacity:[list count]];
-	
-	[list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) 
-	{
-		NSDictionary*	dict	=	obj;
-		[names addObject:[dict objectForKey:@"name"]];
-	}];
-	
-	return	names;
-}
-- (NSArray *)allColumnNamesOfTable:(NSString *)tableName
-{
-	NSArray*			list	=	[self tableInformationForName:tableName];
-	NSMutableArray*		names	=	[NSMutableArray arrayWithCapacity:[list count]];
-	
-	[list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) 
-	{
-		NSDictionary*	dict	=	obj;
-		[names addObject:[dict objectForKey:@"name"]];
-	}];
-	
-	return	names;
-}
-- (NSArray *)tableInformationForName:(NSString *)tableName
-{
-	NSString*	cmd		=	[NSString stringWithFormat:@"PRAGMA table_info('%@');", tableName];
-	return	[self arrayOfValuesByExecutingSQL:cmd];
-}
-- (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames
-{
-	[self addTableWithName:tableName withColumnNames:columnNames rowIDAliasColumnName:nil];
-}
-- (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames rowIDAliasColumnName:(NSString *)rowIDAliasColumnName
-{
-	if (nil!=rowIDAliasColumnName && ![columnNames containsObject:rowIDAliasColumnName])
-	{
-		columnNames	=	[columnNames arrayByAddingObject:rowIDAliasColumnName];
-	}
-	
-	NSString*			tblexp	=	[[self class] stringWithEscapeForSQL:tableName];
-	NSMutableArray*		colexps	=	[NSMutableArray arrayWithCapacity:[columnNames count]];
-	
-	for (NSString* colnm in columnNames)
-	{
-		NSString*	colexp	=	[[self class] stringWithEscapeForSQL:colnm];
-		
-		if ([colnm isEqualToString:rowIDAliasColumnName])
-		{
-			colexp	=	[colexp stringByAppendingString:@" INTEGER PRIMARY KEY ASC"];
-		}
-		
-		[colexps addObject:colexp];
-	}
-	
-	[self addTableWithExpession:tblexp withColumnExpressions:colexps isTemporary:NO onlyWhenNotExist:NO];
-}
-- (void)addTableWithExpession:(NSString *)tableExpression withColumnExpressions:(NSArray *)columnExpressions isTemporary:(BOOL)temporary onlyWhenNotExist:(BOOL)ifNotExist
-{
-	NSString*			tmpexp	=	temporary ? @"TEMP" : @"";
-	NSString*			extexp	=	ifNotExist ? @"IF NOT EXIST" : @"";
-	NSString*			colexps	=	[columnExpressions componentsJoinedByString:@","];
-	NSString*			sqlcmd	=	[NSString stringWithFormat:@"CREATE %@ TABLE %@ %@ (%@);", tmpexp, extexp, tableExpression, colexps];
-
-	[self executeSQL:sqlcmd];
-}
-- (void)removeTableWithName:(NSString *)tableName
-{
-	NSString*	cmd		=	[NSString stringWithFormat:@"DROP TABLE '%@';", tableName];
-	[self executeSQL:cmd];
-}
-@end
-
-
-
-
-
-									 
-									 
-									 
-									 
-									 
-									
-
-
-
-
-
-
-
-
-
-
-
 @implementation		EESQLiteDatabase (Status)
 - (NSUInteger)usingMemorySizeCurrent
 {
@@ -694,25 +297,23 @@
 	return	peak;
 }
 @end
-
-
-
-
-
-
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
-									 
+			 					 
 @implementation		EESQLiteDatabase (Utility)
++ (BOOL)isValidIdentifierString:(NSString *)identifierString
+{
+	static	NSMutableCharacterSet*	validCharacters	=	nil;
+	static dispatch_once_t			onceToken;
+	dispatch_once(&onceToken, ^
+	{
+		validCharacters	=	[[NSMutableCharacterSet alloc] init];
+		[validCharacters formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
+		[validCharacters formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];	
+		[validCharacters invert];
+	});
+
+	NSRange	firstInvalidRange	=	[identifierString rangeOfCharacterFromSet:validCharacters];
+	return	firstInvalidRange.location	==	NSNotFound;
+}
 + (NSString *)stringWithEscapeForSQL:(NSString *)string
 {
 	NSString*	str2	=	[string stringByReplacingOccurrencesOfString:@"'" withString:@"''"];

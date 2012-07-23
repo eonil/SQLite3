@@ -8,6 +8,9 @@
 
 #import				"EEDocumentStore.h"
 #import				"EESQLiteDatabase.h"
+#import				"EESQLiteDatabase+CommandExecution.h"
+#import				"EESQLiteDatabase+Schema.h"
+#import				"EESQLiteDatabase+SimpleQuery.h"
 #import				"EESQLiteStatement.h"
 
 
@@ -246,7 +249,7 @@ EEDocumentStoreInvalidValueForPropertyListError(NSError* underlyingError)
 - (NSDictionary *)dictionaryValueForCode:(NSString *)code error:(NSError *__autoreleasing *)error;
 {
 	NSString*	cmd		=	[NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = '%@';", tbl, CODE_COLUMN, code];
-	NSArray*	list	=	[db arrayOfValuesByExecutingSQL:cmd];
+	NSArray*	list	=	[db arrayOfRowsByExecutingSQL:cmd];
 	
 	if ([list count] == 0)
 	{

@@ -13,6 +13,20 @@
 		4522528B14CBF82100F05FF0 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
 		4525F1A315BC7F1E00868258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4525F1A215BC7F1E00868258 /* Foundation.framework */; };
 		4525F1A615BC7F7100868258 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4525F1A515BC7F7100868258 /* Foundation.framework */; };
+		4525F1C215BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; };
+		4525F1C315BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; };
+		4525F1C415BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
+		4525F1C515BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
+		4525F1C815BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; };
+		4525F1C915BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; };
+		4525F1CA15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
+		4525F1CB15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
+		4525F1CE15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; };
+		4525F1CF15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; };
+		4525F1D015BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
+		4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
+		4525F1D615BCFBA800868258 /* EESQLiteSymbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */; };
+		4525F1D715BCFBA800868258 /* EESQLiteSymbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */; };
 		4529166F15B9DB4000B7F55A /* EonilSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* EonilSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45452C9814CC857000886D70 /* EESQLiteRowIDList.h in Headers */ = {isa = PBXBuildFile; fileRef = 45452C9614CC857000886D70 /* EESQLiteRowIDList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
@@ -84,6 +98,13 @@
 		4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteDatabase.m; sourceTree = "<group>"; };
 		4525F1A215BC7F1E00868258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4525F1A515BC7F7100868258 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+SimpleQuery.h"; sourceTree = "<group>"; };
+		4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLiteDatabase+SimpleQuery.m"; sourceTree = "<group>"; };
+		4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+CommandExecution.h"; sourceTree = "<group>"; };
+		4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLiteDatabase+CommandExecution.m"; sourceTree = "<group>"; };
+		4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+Schema.h"; sourceTree = "<group>"; };
+		4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLiteDatabase+Schema.m"; sourceTree = "<group>"; };
+		4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteSymbols.h; sourceTree = "<group>"; };
 		45452C9614CC857000886D70 /* EESQLiteRowIDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteRowIDList.h; sourceTree = "<group>"; };
 		45452C9714CC857000886D70 /* EESQLiteRowIDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteRowIDList.m; sourceTree = "<group>"; };
 		456D46B214CC2100005F6D62 /* EEDocumentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEDocumentStore.h; sourceTree = "<group>"; };
@@ -207,20 +228,35 @@
 			isa = PBXGroup;
 			children = (
 				4518C20514CBD0CE00EF0620 /* EonilSQLite.h */,
+				4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */,
 				458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */,
 				458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */,
-				4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */,
 				458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */,
+				4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */,
 				4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */,
+				4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */,
+				4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */,
+				4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */,
+				4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */,
+				4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */,
+				4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */,
 				458F446814CBDE3200FF39ED /* EESQLiteStatement.h */,
 				458F446C14CBDE5800FF39ED /* EESQLiteStatement+Internal.h */,
 				458F446914CBDE3200FF39ED /* EESQLiteStatement.m */,
-				456D46B214CC2100005F6D62 /* EEDocumentStore.h */,
-				456D46B314CC2100005F6D62 /* EEDocumentStore.m */,
 				45452C9614CC857000886D70 /* EESQLiteRowIDList.h */,
 				45452C9714CC857000886D70 /* EESQLiteRowIDList.m */,
+				4525F1D915BCFC6000868258 /* document store */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		4525F1D915BCFC6000868258 /* document store */ = {
+			isa = PBXGroup;
+			children = (
+				456D46B214CC2100005F6D62 /* EEDocumentStore.h */,
+				456D46B314CC2100005F6D62 /* EEDocumentStore.m */,
+			);
+			name = "document store";
 			sourceTree = "<group>";
 		};
 		4572DA5D15BB1D3D0091442D /* SQLite for Mac OS X */ = {
@@ -327,6 +363,10 @@
 				4572DAA415BB212D0091442D /* Prefix.pch in Headers */,
 				4572DAB515BB224D0091442D /* EESQLiteDatabase+Internal.h in Headers */,
 				4572DAB615BB224D0091442D /* EESQLiteStatement+Internal.h in Headers */,
+				4525F1C215BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h in Headers */,
+				4525F1C815BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h in Headers */,
+				4525F1CE15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */,
+				4525F1D615BCFBA800868258 /* EESQLiteSymbols.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +383,10 @@
 				4572DAB415BB22320091442D /* EESQLiteRowIDList.h in Headers */,
 				4572DAB715BB224E0091442D /* EESQLiteDatabase+Internal.h in Headers */,
 				4572DAB815BB224E0091442D /* EESQLiteStatement+Internal.h in Headers */,
+				4525F1C315BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h in Headers */,
+				4525F1C915BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h in Headers */,
+				4525F1CF15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */,
+				4525F1D715BCFBA800868258 /* EESQLiteSymbols.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +550,9 @@
 				458F447114CBDF3700FF39ED /* EESQLite-Internal.m in Sources */,
 				456D46B514CC2100005F6D62 /* EEDocumentStore.m in Sources */,
 				45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */,
+				4525F1C415BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				4525F1CA15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				4525F1D015BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +565,9 @@
 				4572DABB15BB225A0091442D /* EESQLiteStatement.m in Sources */,
 				4572DABC15BB225A0091442D /* EEDocumentStore.m in Sources */,
 				4572DABD15BB225A0091442D /* EESQLiteRowIDList.m in Sources */,
+				4525F1C515BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				4525F1CB15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,6 +826,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tests/Prefix.pch;
 				INFOPLIST_FILE = Tests/Info.plist;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "SQLite-Test";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -791,6 +842,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tests/Prefix.pch;
 				INFOPLIST_FILE = Tests/Info.plist;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "SQLite-Test";
 				WRAPPER_EXTENSION = octest;
 			};

@@ -6,5 +6,14 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
+
+
+
+
+
+#import			"EESQLiteSymbols.h"
 #import			"EESQLiteDatabase.h"
+#import			"EESQLiteDatabase+CommandExecution.h"
+#import			"EESQLiteDatabase+Schema.h"
+#import			"EESQLiteDatabase+SimpleQuery.h"
 #import			"EESQLiteStatement.h"

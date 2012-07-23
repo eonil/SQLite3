@@ -48,7 +48,7 @@
 	STAssertNil(err, @"Should be no error.");
 	
 	
-	NSArray*	list	=	[db arrayOfValuesByExecutingSQL:@"SELECT * FROM 'Table1'"];
+	NSArray*	list	=	[db arrayOfRowsByExecutingSQL:@"SELECT * FROM 'Table1'"];
 	
 //	STAssertTrue([list count] == 0, @"The count of result must be 0. `INSERT` should be no-op.");
 	STAssertTrue([list count] == 1, @"The count of list must be 1.");
@@ -71,7 +71,7 @@
 	STAssertNil(err, @"Should be no error.");
 	
 	
-	NSArray*		list		=	[db arrayOfValuesByExecutingSQL:@"SELECT * FROM 'Table1'"];
+	NSArray*		list		=	[db arrayOfRowsByExecutingSQL:@"SELECT * FROM 'Table1'"];
 	NSDictionary*	dict2		=	[list lastObject];
 	
 	STAssertTrue([list count] == 1, @"The count of list must be 1.");

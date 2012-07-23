@@ -220,7 +220,7 @@
 	NSLog(@"error = %@", err);
 	STAssertNil(err, @"Should be no error.");
 	
-	NSArray*			newlist	=	[db arrayOfValuesByExecutingSQL:@"SELECT * FROM 'Table1'"];
+	NSArray*			newlist	=	[db arrayOfRowsByExecutingSQL:@"SELECT * FROM 'Table1'"];
 	
 //	NSLog(@"srclist = %@", srclist);
 //	NSLog(@"newlist = %@", newlist);
@@ -259,8 +259,68 @@
 	NSLog(@"dict2 = %@", dict2);
 	STAssertTrue([dict2 isEqual:dict1], @"Inserted value must be equal with original.");
 }
+- (void)testUtilityFeatures
+{
+	STAssertTrue([EESQLiteDatabase isValidIdentifierString:@"_adw1"], @"");
+	STAssertTrue([EESQLiteDatabase isValidIdentifierString:@"_a_dw1"], @"");
+	STAssertTrue([EESQLiteDatabase isValidIdentifierString:@"adw1"], @"");
+	STAssertFalse([EESQLiteDatabase isValidIdentifierString:@"_a.dw1"], @"");
+	STAssertFalse([EESQLiteDatabase isValidIdentifierString:@"1_a.dw1"], @"");
+	STAssertFalse([EESQLiteDatabase isValidIdentifierString:@"a a"], @"");
+	STAssertFalse([EESQLiteDatabase isValidIdentifierString:@"'aa'"], @"");
+}
 
-
+- (void)testSimpleQueries
+{
+	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	STAssertNotNil(db, @"");
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
+	
+	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
+	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
+	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R3a", @"column1", @"R3b", @"column2", @"R3c", @"column3", nil];
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];
+	
+	{
+		NSDictionary*	result1			=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
+		NSDictionary*	result2			=	[db dictionaryFromRowHasID:rowid2 inTable:@"table1"];
+		NSDictionary*	result3			=	[db dictionaryFromRowHasID:rowid3 inTable:@"table1"];
+		
+		STAssertTrue([[result1 valueForKey:@"column1"] isEqual:@"R1a"], @"Sample value state should match.");
+		STAssertTrue([[result1 valueForKey:@"column2"] isEqual:@"R1b"], @"Sample value state should match.");
+		STAssertTrue([[result1 valueForKey:@"column3"] isEqual:@"R1c"], @"Sample value state should match.");
+		STAssertTrue([[result2 valueForKey:@"column1"] isEqual:@"R2a"], @"Sample value state should match.");
+		STAssertTrue([[result2 valueForKey:@"column2"] isEqual:@"R2b"], @"Sample value state should match.");
+		STAssertTrue([[result2 valueForKey:@"column3"] isEqual:@"R2c"], @"Sample value state should match.");
+		STAssertTrue([[result3 valueForKey:@"column1"] isEqual:@"R3a"], @"Sample value state should match.");
+		STAssertTrue([[result3 valueForKey:@"column2"] isEqual:@"R3b"], @"Sample value state should match.");
+		STAssertTrue([[result3 valueForKey:@"column3"] isEqual:@"R3c"], @"Sample value state should match.");
+	}
+	
+	{
+		NSDictionary*	result1			=	[db dictionaryFromRowHasValue:@"R1a" atColumne:@"column1" inTable:@"table1"];
+		NSDictionary*	result2			=	[db dictionaryFromRowHasValue:@"R2b" atColumne:@"column2" inTable:@"table1"];
+		NSDictionary*	result3			=	[db dictionaryFromRowHasValue:@"R3c" atColumne:@"column3" inTable:@"table1"];
+		
+		STAssertTrue([[result1 valueForKey:@"column1"] isEqual:@"R1a"], @"Sample value state should match.");
+		STAssertTrue([[result1 valueForKey:@"column2"] isEqual:@"R1b"], @"Sample value state should match.");
+		STAssertTrue([[result1 valueForKey:@"column3"] isEqual:@"R1c"], @"Sample value state should match.");
+		STAssertTrue([[result2 valueForKey:@"column1"] isEqual:@"R2a"], @"Sample value state should match.");
+		STAssertTrue([[result2 valueForKey:@"column2"] isEqual:@"R2b"], @"Sample value state should match.");
+		STAssertTrue([[result2 valueForKey:@"column3"] isEqual:@"R2c"], @"Sample value state should match.");
+		STAssertTrue([[result3 valueForKey:@"column1"] isEqual:@"R3a"], @"Sample value state should match.");
+		STAssertTrue([[result3 valueForKey:@"column2"] isEqual:@"R3b"], @"Sample value state should match.");
+		STAssertTrue([[result3 valueForKey:@"column3"] isEqual:@"R3c"], @"Sample value state should match.");
+	}
+	
+	{
+		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
+		STAssertTrue(rowcount == 3, @"Count of all rows must be 3.");
+	}
+}
 @end
 
 
