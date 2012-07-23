@@ -19,7 +19,14 @@
 - (void)			beginTransaction;
 - (void)			commitTransaction;
 - (void)			rollbackTransaction;
-- (void)			executeTransactionBlock:(BOOL(^)(void))transaction;							//	Trnsaction will be commited if the block returns YES, all otherwise will be rolled back.
+
+/*!
+ Transaction will be commited if the block returns YES, all otherwise will be rolled back. 
+  
+ @return
+ This method returns the whole transaction result.
+ */
+- (BOOL)			executeTransactionBlock:(BOOL(^)(void))transactionBlock;
 
 /*!
  @abstract

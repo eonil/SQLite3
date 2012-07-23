@@ -34,10 +34,12 @@
  */
 - (EESQLiteRowID)		insertDictionaryValue:(NSDictionary*)dictionaryValue intoTable:(NSString*)tableName error:(NSError**)error;
 - (EESQLiteRowIDList*)	insertArrayOfDictionaryValues:(NSArray*)dictionaryValues intoTable:(NSString*)tableName error:(NSError**)error;
-- (void)				updateTable:(NSString*)tableName withDictionaryValue:(NSDictionary*)dictionaryValue filteringSQLExpression:(NSString*)filteringExpression error:(NSError**)error;
 - (void)				deleteValuesFromTable:(NSString*)tableName withFilteringSQLExpression:(NSString*)filteringExpression error:(NSError**)error;
 
+- (BOOL)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;	//	Returns `YES` if the transaction succeeds. `NO` for failure with any reason.
+- (BOOL)				updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;						//	Returns `YES` if the transaction succeeds. `NO` for failure with any reason.
 - (void)				deleteAllRowsInTable:(NSString*)tableName;
 - (void)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName;			//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
 - (void)				deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName;									//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name.
+
 @end

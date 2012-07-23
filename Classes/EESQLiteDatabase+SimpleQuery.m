@@ -193,38 +193,6 @@
 	
 	return	ridlist;
 }
-- (void)updateTable:(NSString *)tableName withDictionaryValue:(NSDictionary *)dictionaryValue filteringSQLExpression:(NSString *)filteringExpression error:(NSError *__autoreleasing *)error
-{
-	NSMutableString*	cmd		=	[NSMutableString string];
-	
-	[cmd appendString:@"UPDATE '"];
-	[cmd appendString:tableName];
-	[cmd appendString:@"' SET ("];
-	
-	[dictionaryValue enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
-	 {
-		 [cmd appendFormat:@"%@ = @%@", key, key];
-		 [cmd appendString:@","];
-	 }];
-	
-	[cmd deleteCharactersInRange:(NSRange){cmd.length-1,1}];
-	[cmd appendString:@") WHERE "];
-	[cmd appendString:filteringExpression];
-	
-	////
-	
-	[self executeTransactionBlock:^BOOL
-	 {
-		 NSError*	inerr	=	nil;
-		 [self executeSQL:cmd error:&inerr];
-		 
-		 if (error != NULL)
-		 {
-			 *error	=	inerr;
-		 }
-		 return		inerr == nil;
-	 }];
-}
 - (void)deleteValuesFromTable:(NSString *)tableName withFilteringSQLExpression:(NSString *)filteringExpression error:(NSError *__autoreleasing *)error
 {
 	if (![[self class] isValidIdentifierString:tableName])	return;
@@ -244,6 +212,89 @@
 	 }];
 }
 
+
+
+
+
+
+- (BOOL)updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
+{
+	return	[self updateRowHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName withDictionary:newValue];
+}
+- (BOOL)updateRowHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
+{
+	NSArray*	allKeyNames	=	[newValue allKeys];
+	if (![[self class] isValidIdentifierString:columnName])	return	NO;
+	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	for (NSString* colnm in allKeyNames)
+	{
+		if (![[self class] isValidIdentifierString:colnm])	return	NO;
+	}
+	
+	NSString*			(^setParameterNameForColumnName)(NSString*)=^(NSString* columnName)
+	{
+		return	[NSString stringWithFormat:@"@set_param_to_column_%@", columnName];
+	};
+	
+	NSMutableArray*		setexps	=	[NSMutableArray arrayWithCapacity:[newValue count]];
+	[newValue enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
+	{
+		NSString*		setexp	=	[NSString stringWithFormat:@"%@ = %@", key, setParameterNameForColumnName(key)];
+		[setexps addObject:setexp];
+	}];
+	
+	NSString*			setexpr	=	[setexps componentsJoinedByString:@","];
+	NSString*			valPN	=	@"@criteria_column_value";
+	NSString*			cmdform	=	@"UPDATE %@ SET %@ WHERE %@ = %@;";
+	NSString*			cmd		=	[NSString stringWithFormat:cmdform, tableName, setexpr, columnName, valPN];
+	
+	////
+	
+	return
+	[self executeTransactionBlock:^BOOL
+	{
+		NSError*			inerr	=	nil;
+		EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd error:&inerr] lastObject];
+		
+		if (inerr != nil)
+		{
+			return	NO;
+		}
+		else
+		{
+			NSError*	inerr4	=	nil;
+			[stmt setValue:value forParameterName:valPN error:&inerr4];
+			if (inerr4 != nil)
+			{
+				return	NO;
+			}
+			
+			for (NSString*	keynm in allKeyNames)
+			{
+				NSError*	inerr2	=	nil;
+				id			val		=	[newValue valueForKey:keynm];
+				[stmt setValue:val forParameterName:setParameterNameForColumnName(keynm) error:&inerr2];
+				
+				if (inerr2 != nil)
+				{
+					return	NO;
+				}
+			}
+			
+			NSError*	inerr3	=	nil;
+			while ([stmt stepWithError:&inerr3])
+			{
+				if (inerr3 != nil)
+				{
+					return	NO;
+				}
+			};
+			
+			return	YES;	
+		}
+		
+	}];
+}
 - (void)deleteAllRowsInTable:(NSString *)tableName
 {
 	if (![[self class] isValidIdentifierString:tableName])	return;

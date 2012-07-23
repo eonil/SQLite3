@@ -298,13 +298,9 @@ EEDocumentStoreInvalidValueForPropertyListError(NSError* underlyingError)
 				return			operr	==	nil;
 			}
 			else 
-			{
-				NSError*		operr	=	nil;
-				NSString*		filtexp	=	[NSString stringWithFormat:@"'%@' = '%@'", ID_COLUMN, [newdoc objectForKey:ID_COLUMN]];
-				
-				[db updateTable:tbl withDictionaryValue:newdoc filteringSQLExpression:filtexp error:&operr];
-				
-				return			operr	==	nil;
+			{				
+				BOOL			opok	=	[db updateRowHasValue:[newdoc objectForKey:ID_COLUMN] atColumn:ID_COLUMN inTable:tbl withDictionary:newdoc];
+				return			opok;
 			}
 		}];
 	}

@@ -382,7 +382,7 @@
 	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
 	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
 	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R3a", @"column1", @"R3b", @"column2", @"R3c", @"column3", nil];
-
+	
 	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
 	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
 	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];	
@@ -395,6 +395,26 @@
 		STAssertNil([db dictionaryFromRowHasID:rowid1 inTable:@"table1"], @"Any row must be nil now.");
 		STAssertNil([db dictionaryFromRowHasID:rowid2 inTable:@"table1"], @"Any row must be nil now.");
 		STAssertNil([db dictionaryFromRowHasID:rowid3 inTable:@"table1"], @"Any row must be nil now.");
+	}
+}
+- (void)testSimpleUpdateQuery1
+{
+	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	STAssertNotNil(db, @"");
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
+	
+	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
+	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
+	
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	{
+		BOOL	ok			=	[db updateRowHasID:rowid1 inTable:@"table1" withDictionary:sampleValue2];
+		STAssertTrue(ok, @"");
+		
+		id		rowValue1	=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
+		
+		STAssertEqualObjects(rowValue1, sampleValue2, @"");
 	}
 }
 @end

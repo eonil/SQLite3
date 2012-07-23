@@ -129,11 +129,13 @@
 	[self executeSQL:@"ROLLBACK TRANSACTION;"];
 	inTransaction	=	NO;
 }
-- (void)executeTransactionBlock:(BOOL (^)(void))transaction
+- (BOOL)executeTransactionBlock:(BOOL (^)(void))transaction
 {
 	[self beginTransaction];
 	
-	if (transaction())
+	BOOL	tranok	=	transaction();
+	
+	if (tranok)
 	{
 		[self commitTransaction];
 	}
@@ -141,6 +143,8 @@
 	{
 		[self rollbackTransaction];
 	}
+	
+	return	tranok;
 }
 
 
