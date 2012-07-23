@@ -18,6 +18,9 @@
  But all *expressions* won't be checked at all. It's user's responsibility to make expressions to be safe.
  */
 @interface EESQLiteDatabase (SimpleQuery)
+
+- (BOOL)				containsRawID:(EESQLiteRowID)rowID inTable:(NSString*)tableName;		//	Returns `NO` if the table name is invalid.
+
 - (NSArray*)			arrayOfAllRowsInTable:(NSString*)tableName;
 - (NSArray*)			arrayOfRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount;	//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
 - (NSDictionary*)		dictionaryFromRowHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName;								//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.

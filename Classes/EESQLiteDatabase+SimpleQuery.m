@@ -13,7 +13,23 @@
 #import "EESQLiteDatabase+Schema.h"
 #import "EESQLiteDatabase+SimpleQuery.h"
 
-@implementation EESQLiteDatabase (Query)
+@implementation EESQLiteDatabase (SimpleQuery)
+
+
+
+- (BOOL)containsRawID:(EESQLiteRowID)rowID inTable:(NSString *)tableName
+{
+	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	
+	NSString*	cmdform	=	@"SELECT COUNT(_ROWID_) AS count FROM %@ WHERE _ROWID_ = %@";
+	NSString*	idstr	=	[NSString stringWithFormat:@"%lld", rowID];
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, idstr];
+	NSArray*	rows	=	[self arrayOfRowsByExecutingSQL:cmd];
+	NSNumber*	count	=	[[rows lastObject] valueForKey:@"count"];
+	
+	return		[count longLongValue] > 0;
+}
+
 
 - (NSArray *)arrayOfAllRowsInTable:(NSString *)tableName
 {

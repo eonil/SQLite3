@@ -285,6 +285,16 @@
 	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];
 	
 	{
+		BOOL		hasit			=	[db containsRawID:rowid2 inTable:@"table1"];
+		STAssertTrue(hasit, @"");
+	}
+	
+	{
+		BOOL		hasit			=	[db containsRawID:-1 inTable:@"table1"];		//	SQLite3 won't make negative ROWID automatically.
+		STAssertTrue(!hasit, @"");
+	}
+	
+	{
 		NSArray*	result			=	[db arrayOfAllRowsInTable:@"table1"];
 		NSSet*		resultset		=	[NSSet setWithArray:result];
 		NSSet*		allsamples		=	[NSSet setWithObjects:sampleValue1, sampleValue2, sampleValue3, nil];
