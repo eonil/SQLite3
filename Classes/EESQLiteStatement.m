@@ -84,9 +84,9 @@
 		}
 	}
 }
-- (void)resetWithError:(NSError *__autoreleasing *)error
+- (BOOL)resetWithError:(NSError *__autoreleasing *)error
 {
-	EESQLiteHandleOKOrError(sqlite3_reset(stmt), error, db);
+	return	EESQLiteHandleOKOrError(sqlite3_reset(stmt), error, db);
 }
 - (void)reset
 {
@@ -373,24 +373,30 @@ void				EESQLiteStatementDummyFreeMemory(void * memory)
 
 #define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(parameterValue)		{ NSAssert(( ((unsigned long long)(parameterValue)) >= (0x8000000000000000ULL)) || ( ((unsigned long long)(parameterValue)) <= (0x7FFFFFFFFFFFFFFFULL)), @"Range of `parameterValue` must be in range of 64-bit signed integer. (This is Objective-C wrapper level assertion.)"); }
 
-- (void)setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
+- (BOOL)setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(value);
+
+	return
 	EESQLiteHandleOKOrError(sqlite3_bind_int64(stmt, (int)parameterIndex, value), error, db);
 }
-- (void)setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
+- (BOOL)setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(value);
+	
+	return
 	EESQLiteHandleOKOrError(sqlite3_bind_int64(stmt, (int)parameterIndex, value), error, db);
 }
-- (void)setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
+- (BOOL)setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
+	
+	return
 	EESQLiteHandleOKOrError(sqlite3_bind_double(stmt, (int)parameterIndex, value), error, db);
 }
-- (void)setStringValue:(NSString *)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
+- (BOOL)setStringValue:(NSString *)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	const char *	buffer	=	[value cStringUsingEncoding:NSUTF8StringEncoding];
@@ -400,17 +406,19 @@ void				EESQLiteStatementDummyFreeMemory(void * memory)
 	if (buflen>INT_MAX)
 	{
 		if (error!=NULL)	*error	=	EESQLiteInputArgumentErrorDataIsTooLong();
+		return	NO;
 	}
 	else
 #endif
 	{
 		int	len	=	(int)buflen;
 		
+		return
 		//	EESQLiteHandleOKOrError(sqlite3_bind_text(stmt, parameterIndex, buffer, len, EESQLiteStatementDummyFreeMemory), error, db);
 		EESQLiteHandleOKOrError(sqlite3_bind_text(stmt, (int)parameterIndex, buffer, len, SQLITE_TRANSIENT), error, db);
 	}
 }
-- (void)setDataValue:(NSData *)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
+- (BOOL)setDataValue:(NSData *)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	const void *	buffer	=	[value bytes];
@@ -420,31 +428,35 @@ void				EESQLiteStatementDummyFreeMemory(void * memory)
 	if (buflen>INT_MAX)
 	{
 		if (error!=NULL)	*error	=	EESQLiteInputArgumentErrorDataIsTooLong();
+		return	NO;
 	}
 	else
 #endif
 	{
 		int	len	=	(int)buflen;
 		
+		return 
 		//	EESQLiteHandleOKOrError(sqlite3_bind_blob(stmt, parameterIndex, buffer, len, EESQLiteStatementDummyFreeMemory), error, db);
 		EESQLiteHandleOKOrError(sqlite3_bind_blob(stmt, (int)parameterIndex, buffer, len, SQLITE_TRANSIENT), error, db);
 	}
 }
-- (void)setNullForParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
+- (BOOL)setNullForParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
+	
+	return 
 	EESQLiteHandleOKOrError(sqlite3_bind_null(stmt, (int)parameterIndex), error, db);
 }
-- (void)setValue:(id)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
+- (BOOL)setValue:(id)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
 	if ([value isKindOfClass:[NSData class]])
 	{
-		[self setDataValue:value forParameterIndex:parameterIndex error:error];
+		return	[self setDataValue:value forParameterIndex:parameterIndex error:error];
 	}
 	else
 	if ([value isKindOfClass:[NSString class]])
 	{
-		[self setStringValue:value forParameterIndex:parameterIndex error:error];
+		return	[self setStringValue:value forParameterIndex:parameterIndex error:error];
 	}
 	else
 	if ([value isKindOfClass:[NSNumber class]])
@@ -453,28 +465,29 @@ void				EESQLiteStatementDummyFreeMemory(void * memory)
 
 		if (tc == 'd' || tc == 'f')
 		{
-			[self setDoubleValue:[value doubleValue] forParameterIndex:parameterIndex error:error];
+			return	[self setDoubleValue:[value doubleValue] forParameterIndex:parameterIndex error:error];
 		}
 		else
 		{
-			[self setLongLongValue:[value longLongValue] forParameterIndex:parameterIndex error:error];
+			return	[self setLongLongValue:[value longLongValue] forParameterIndex:parameterIndex error:error];
 		}
 	}
 	else 
 	{
 		//	Bad typed value. Ignore it.
+		return	NO;
 	}	
 }
-- (void)setValue:(id)value forParameterName:(NSString *)parameterName error:(NSError *__autoreleasing *)error
+- (BOOL)setValue:(id)value forParameterName:(NSString *)parameterName error:(NSError *__autoreleasing *)error
 {
 	int	paramidx	=	sqlite3_bind_parameter_index(stmt, [parameterName cStringUsingEncoding:NSUTF8StringEncoding]);
 	
-	[self setValue:value forParameterIndex:paramidx error:error];
+	return	[self setValue:value forParameterIndex:paramidx error:error];
 }
 
-- (void)clearParametersValuesWithError:(NSError *__autoreleasing *)error
+- (BOOL)clearParametersValuesWithError:(NSError *__autoreleasing *)error
 {
-	EESQLiteHandleOKOrError(sqlite3_clear_bindings(stmt), error, db);
+	return	EESQLiteHandleOKOrError(sqlite3_clear_bindings(stmt), error, db);
 }
 @end
 

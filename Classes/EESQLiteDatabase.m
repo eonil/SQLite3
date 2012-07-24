@@ -23,8 +23,6 @@
 @implementation		EESQLiteDatabase
 {	
 	sqlite3*		db;
-	
-	BOOL			inTransaction;
 }
 
 
@@ -57,9 +55,9 @@
 		}
 	}
 }
-- (void)			EESQLiteDatabaseCleanupWithError:(NSError**)error
+- (BOOL)			EESQLiteDatabaseCleanupWithError:(NSError**)error
 {
-	EESQLiteHandleOKOrError(sqlite3_close(db), error, db);
+	return	EESQLiteHandleOKOrError(sqlite3_close(db), error, db);
 }
 - (sqlite3*)rawdb
 {
@@ -76,30 +74,25 @@
 }
 - (BOOL)executeSQL:(NSString *)command error:(NSError *__autoreleasing *)error
 {
-	NSError*	internerr	=	nil;
-	NSArray*	stmts		=	[self statementsByParsingSQL:command error:&internerr];
+	NSError*	parerr		=	nil;
+	NSArray*	stmts		=	[self statementsByParsingSQL:command error:&parerr];
 	
-	if (internerr != nil)
+	if (!EESQLiteCheckForNoError(parerr, error))
 	{
-		if (error != NULL)
-		{
-			*error	=	internerr;
-		}
 		return	NO;
 	}
 	
+	////
+	
 	for (EESQLiteStatement* stmt in stmts)
 	{
-		NSError*	internerr	=	nil;
-		BOOL		internret	=	[stmt stepWithError:&internerr];
-		
-		if (!internret || internerr != nil)
+		NSError*	steperr		=	nil;
+		while ([stmt stepWithError:&steperr])
 		{
-			if (error != NULL)
+			if (!EESQLiteCheckForNoError(steperr, error))
 			{
-				*error	=	internerr;
+				return	NO;
 			}
-			return	NO;
 		}
 	}
 	
@@ -114,37 +107,118 @@
 	return	[EESQLiteStatement statementsWithSQLString:sql database:self error:error];
 }
 
+
+- (BOOL)beginTransactionWithError:(NSError *__autoreleasing *)error
+{
+	return		[self executeSQL:@"BEGIN TRANSACTION;" error:error];
+}
+- (BOOL)commitTransactionWithError:(NSError *__autoreleasing *)error
+{
+	return		[self executeSQL:@"COMMIT TRANSACTION;" error:error];
+}
+- (BOOL)rollbackTransactionWithError:(NSError *__autoreleasing *)error
+{
+	return		[self executeSQL:@"ROLLBACK TRANSACTION;" error:error];
+}
 - (void)beginTransaction
 {
-	inTransaction	=	YES;
-	[self executeSQL:@"BEGIN TRANSACTION;"];
+	NSError*	exeerr	=	nil;
+	BOOL		exeok	=	[self beginTransactionWithError:&exeerr];
+	
+	if (!exeok)
+	{
+		@throw	EESQLiteExceptionFromError(exeerr);
+	}
 }
 - (void)commitTransaction
 {
-	[self executeSQL:@"COMMIT TRANSACTION;"];
-	inTransaction	=	NO;
+	NSError*	exeerr	=	nil;
+	BOOL		exeok	=	[self commitTransactionWithError:&exeerr];
+	
+	if (!exeok)
+	{
+		@throw	EESQLiteExceptionFromError(exeerr);
+	}
 }
 - (void)rollbackTransaction
 {
-	[self executeSQL:@"ROLLBACK TRANSACTION;"];
-	inTransaction	=	NO;
-}
-- (BOOL)executeTransactionBlock:(BOOL (^)(void))transaction
-{
-	[self beginTransaction];
+	NSError*	exeerr	=	nil;
+	BOOL		exeok	=	[self rollbackTransactionWithError:&exeerr];
 	
-	BOOL	tranok	=	transaction();
+	if (!exeok)
+	{
+		@throw	EESQLiteExceptionFromError(exeerr);
+	}
+}
+- (BOOL)markSavepointWithName:(NSString *)savepointName error:(NSError *__autoreleasing *)error
+{
+	if (!EESQLiteCheckValidityOfIdentifierName(savepointName, error)) { return NO; }
+	
+	NSString*	cmdform	=	@"SAVEPOINT %@;";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, savepointName];
+	
+	return		[self executeSQL:cmd error:error];
+}
+- (BOOL)releaseSavepointOfName:(NSString *)savepointName error:(NSError *__autoreleasing *)error
+{
+	if (!EESQLiteCheckValidityOfIdentifierName(savepointName, error)) { return NO; }
+	
+	NSString*	cmdform	=	@"RELEASE %@;";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, savepointName];
+	
+	return		[self executeSQL:cmd error:error];
+}
+- (BOOL)rollbackToSavepointOfName:(NSString *)savepointName error:(NSError *__autoreleasing *)error
+{
+	if (!EESQLiteCheckValidityOfIdentifierName(savepointName, error)) { return NO; }
+	
+	NSString*	cmdform	=	@"ROLLBACK %@;";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, savepointName];
+	
+	return		[self executeSQL:cmd error:error];
+}
+- (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock error:(NSError *__autoreleasing *)error
+{
+	BOOL	hasNoTransactionNow	=	[self autocommitMode];
+	
+	if (!hasNoTransactionNow)
+	{
+		@throw	[NSException exceptionWithName:@"EESQLITE-DATABASE-TRANSACTION" reason:@"Currently the database is not in auto-commit mode. It means there's active transaction, and new transaction cannot be started." userInfo:nil];
+	}
+	
+	////
+	
+	BOOL		begok	=	[self beginTransactionWithError:error];
+	if (!begok) 
+	{
+		return	NO; 
+	}
+	
+	BOOL		tranok	=	transactionBlock();
 	
 	if (tranok)
 	{
-		[self commitTransaction];
+		BOOL	commok	=	[self commitTransactionWithError:error];
+
+		if (!commok) 
+		{
+			return	NO;
+		}
 	}
-	else 
+	else
 	{
-		[self rollbackTransaction];
+		BOOL	rollok	=	[self rollbackTransactionWithError:error];
+		if (!rollok)
+		{
+			return	NO;
+		}
 	}
 	
-	return	tranok;
+	return	YES;
+}
+- (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock 
+{
+	return	[self executeTransactionBlock:transactionBlock error:NULL];
 }
 
 
@@ -282,6 +356,10 @@
 
 
 @implementation		EESQLiteDatabase (Status)
+- (BOOL)autocommitMode
+{
+	return	sqlite3_get_autocommit(self->db) != 0;
+}
 - (NSUInteger)usingMemorySizeCurrent
 {
 	int current;

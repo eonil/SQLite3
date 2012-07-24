@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
+#import "EESQLite-Internal.h"
 #import "EESQLiteDatabase.h"
 #import "EESQLiteDatabase+Internal.h"
 #import "EESQLiteStatement.h"
@@ -16,6 +17,19 @@
 @implementation EESQLiteDatabase (SimpleQuery)
 
 
+- (BOOL)checkIntegrity
+{
+	NSArray*	rows	=	[self arrayOfRowsByExecutingSQL:@"PRAGMA integrity_check;"];
+	
+	if ([rows count] == 1 && [[[rows objectAtIndex:0] uppercaseString] isEqual:@"OK"])
+	{
+		return	YES;
+	}
+	else
+	{
+		return	NO;
+	}
+}
 
 - (BOOL)containsRawID:(EESQLiteRowID)rowID inTable:(NSString *)tableName
 {
@@ -111,6 +125,7 @@
 	
 	NSArray*			vallist	=	[NSArray arrayWithObject:dictionaryValue];
 	EESQLiteRowIDList*	ridlist	=	[self insertArrayOfDictionaryValues:vallist intoTable:tableName error:error];
+	
 	return				[ridlist lastRowID];
 }
 - (EESQLiteRowIDList *)insertArrayOfDictionaryValues:(NSArray *)dictionaryValues intoTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
@@ -148,69 +163,52 @@
 	EESQLiteStatement*			stmt	=	[stmts objectAtIndex:0];
 	EESQLiteMutableRowIDList*	ridlist	=	[[EESQLiteMutableRowIDList alloc] init];
 	
-	[self executeTransactionBlock:^BOOL
-	 {
-		 for (NSDictionary* dict in dictionaryValues)
-		 {
-			 __block
-			 NSError*	inerr	=	nil;
-			 
-			 [dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
-			  {
-				  NSString*	paramname	=	[NSString stringWithFormat:@"@%@", key];
-				  [stmt setValue:obj forParameterName:paramname error:&inerr];
-				  
-				  *stop	=	inerr != nil;
-			  }];
-			 
-			 if (inerr != nil)
+	for (NSDictionary* dict in dictionaryValues)
+	{
+		{
+			__block
+			NSError*	inerr	=	nil;
+			
+			[dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
 			 {
-				 if (error != NULL)
-				 {
-					 *error	=	inerr;
-				 }
-				 return	NO;
-			 }
-			 
-			 [stmt stepWithError:&inerr];
-			 [stmt reset];
-			 [ridlist appendRowID:sqlite3_last_insert_rowid([self rawdb])];
-			 
-			 if (inerr != nil)
-			 {
-				 return	NO;
-			 }
-			 
-			 [stmt clearParametersValuesWithError:&inerr];
-			 
-			 if (inerr != nil)
-			 {
-				 return	NO;
-			 }
-		 }	
-		 return	YES;
-	 }];
+				 NSString*	paramname	=	[NSString stringWithFormat:@"@%@", key];
+				 [stmt setValue:obj forParameterName:paramname error:&inerr];
+				 
+				 *stop	=	inerr != nil;
+			 }];
+			
+			if (!EESQLiteCheckForNoError(inerr, error))
+			{
+				return	nil;
+			}
+
+		}
+		
+		{
+			NSError*	steperr	=	nil;
+			[stmt stepWithError:&steperr];
+			if (!EESQLiteCheckForNoError(steperr, error))
+			{
+				return	nil;
+			}
+		}
+		
+		[stmt reset];
+		[ridlist appendRowID:sqlite3_last_insert_rowid([self rawdb])];
+		
+		{
+			NSError*	clrerr	=	nil;
+			[stmt clearParametersValuesWithError:&clrerr];
+			if (!EESQLiteCheckForNoError(clrerr, error))
+			{
+				return	nil;
+			}				
+		}
+	}	
 	
 	return	ridlist;
 }
-- (void)deleteValuesFromTable:(NSString *)tableName withFilteringSQLExpression:(NSString *)filteringExpression error:(NSError *__autoreleasing *)error
-{
-	if (![[self class] isValidIdentifierString:tableName])	return;
-	
-	NSString*	cmd		=	[NSString stringWithFormat:@"DELETE FROM '%@' WHERE %@", tableName, filteringExpression];
-	
-	[self executeTransactionBlock:^BOOL
-	 {
-		 NSError*	inerr	=	nil;
-		 [self executeSQL:cmd error:&inerr];
-		 
-		 if (error != NULL)
-		 {
-			 *error	=	inerr;
-		 }
-		 return		inerr == nil;
-	 }];
-}
+
 
 
 
@@ -249,92 +247,88 @@
 	NSString*			cmd		=	[NSString stringWithFormat:cmdform, tableName, setexpr, columnName, valPN];
 	
 	////
+
+	NSError*			inerr	=	nil;
+	EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd error:&inerr] lastObject];
 	
-	return
-	[self executeTransactionBlock:^BOOL
+	if (inerr != nil)
 	{
-		NSError*			inerr	=	nil;
-		EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd error:&inerr] lastObject];
-		
-		if (inerr != nil)
+		return	NO;
+	}
+	else
+	{
+		NSError*	inerr4	=	nil;
+		[stmt setValue:value forParameterName:valPN error:&inerr4];
+		if (inerr4 != nil)
 		{
 			return	NO;
 		}
-		else
+		
+		for (NSString*	keynm in allKeyNames)
 		{
-			NSError*	inerr4	=	nil;
-			[stmt setValue:value forParameterName:valPN error:&inerr4];
-			if (inerr4 != nil)
+			NSError*	inerr2	=	nil;
+			id			val		=	[newValue valueForKey:keynm];
+			[stmt setValue:val forParameterName:setParameterNameForColumnName(keynm) error:&inerr2];
+			
+			if (inerr2 != nil)
 			{
 				return	NO;
 			}
-			
-			for (NSString*	keynm in allKeyNames)
-			{
-				NSError*	inerr2	=	nil;
-				id			val		=	[newValue valueForKey:keynm];
-				[stmt setValue:val forParameterName:setParameterNameForColumnName(keynm) error:&inerr2];
-				
-				if (inerr2 != nil)
-				{
-					return	NO;
-				}
-			}
-			
-			NSError*	inerr3	=	nil;
-			while ([stmt stepWithError:&inerr3])
-			{
-				if (inerr3 != nil)
-				{
-					return	NO;
-				}
-			};
-			
-			return	YES;	
 		}
 		
-	}];
+		NSError*	inerr3	=	nil;
+		while ([stmt stepWithError:&inerr3])
+		{
+			if (inerr3 != nil)
+			{
+				return	NO;
+			}
+		};
+		
+		return	YES;	
+	}
 }
-- (void)deleteAllRowsInTable:(NSString *)tableName
+- (BOOL)deleteAllRowsInTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
 {
-	if (![[self class] isValidIdentifierString:tableName])	return;
+	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
 	
 	NSString*	cmdform	=	@"DELETE FROM %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
-	
-	[self executeTransactionBlock:^BOOL
-	{	
-		[self executeSQL:cmd];
-		return	YES;
-	}];
+
+	return		[self executeSQL:cmd error:error];
 }
-- (void)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName
+- (BOOL)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
 {
-	if (![[self class] isValidIdentifierString:columnName])	return;
-	if (![[self class] isValidIdentifierString:tableName])	return;
+	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
+	if (!EESQLiteCheckValidityOfIdentifierName(columnName, error))	return	NO;
+
+	NSString*	cmdform	=	@"DELETE FROM %@ WHERE %@ = %@";
+	NSString*	valuenm	=	@"@valueParameter";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, valuenm];
+	NSError*	parerr	=	nil;
+	EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd error:&parerr] lastObject];
 	
-	[self executeTransactionBlock:^BOOL
-	{	
-		NSString*	cmdform	=	@"DELETE FROM %@ WHERE %@ = %@";
-		NSString*	valuenm	=	@"@valueParameter";
-		NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, valuenm];
-		NSError*	inerr	=	nil;
-		
-		EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd] lastObject];
-		[stmt setValue:value forParameterName:valuenm error:&inerr];
-		
-		while ([stmt stepWithError:&inerr]) 
+	{
+		NSError*	seterr	=	nil;
+		[stmt setValue:value forParameterName:valuenm error:&seterr];
+		if (!EESQLiteCheckForNoError(seterr, error))
 		{
-			if (inerr != nil)
-			{
-				return	NO;
-			}
+			return	NO;
 		}
-		return	YES;
-	}];
+	}
+	
+	NSError*	exeerr	=	nil;
+	while ([stmt stepWithError:&exeerr]) 
+	{
+		if (!EESQLiteCheckForNoError(exeerr, error))
+		{
+			return	NO;
+		}
+	}
+	return	YES;
 }
-- (void)deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName
+- (BOOL)deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
 {
-	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName];
+	return	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName error:error];
 }
 @end

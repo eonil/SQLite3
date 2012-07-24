@@ -94,4 +94,78 @@
 //		}
 //	}
 //}
+
+
+
+
+
+
+- (void)testTransactionNesting
+{	
+	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	NSDictionary*		row	=	[NSDictionary dictionaryWithObjectsAndKeys:
+								 [NSNumber numberWithLongLong:12], @"ID",
+								 nil];
+	
+	BOOL	(^checkSampleIsValue)(NSString*)=^(NSString* value)
+	{
+		id		current	=	[[db dictionaryFromRowHasID:12 inTable:@"table1"] valueForKey:@"content"];
+		return	(BOOL)(current == value || [current isEqual:value]);
+	};
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"ID", @"content", nil] rowIDAliasColumnName:@"ID"];
+	[db insertDictionaryValue:row intoTable:@"table1" error:NULL];
+	STAssertTrue(checkSampleIsValue(nil), @"At first, it should be `nil`.");
+	
+	[db executeTransactionBlock:^BOOL
+	 {
+		 NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#1", @"content", nil];
+		 [db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
+		 STAssertTrue(checkSampleIsValue(@"#1"), @"After update, it should be `#1`.");
+		 
+		 @try
+		 {
+			 [db executeTransactionBlock:^BOOL
+			  {
+				  return	NO;
+			  }];	 
+		 }
+		 @catch (NSException* ex)
+		 {
+			 STAssertNotNil(ex, @"Must throw an exception calling nested transaction.");
+		 }
+		 
+		 STAssertTrue(checkSampleIsValue(@"#1"), @"After rollback, it should be back to `#1`.");
+		 
+		 return	YES;	//	COMMIT.
+	 }];
+	
+	STAssertTrue(checkSampleIsValue(@"#1"), @"After commit, it should be remain as `#1`.");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+

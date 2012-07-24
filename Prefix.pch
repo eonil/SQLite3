@@ -33,3 +33,33 @@ EESQLiteExceptionFromError(NSError* originError)
 
 #define					EESQLiteOptimizeForSystemHaveEqualSizedIntAndNSInteger		((INT_MAX == NSIntegerMax) && (UINT_MAX == NSUIntegerMax))
 
+
+
+
+/*!
+ Returns test result. `NO` if there's an error. `YES` for no error.
+ */
+inline
+static
+BOOL
+EESQLiteCheckForNoError(NSError* errorToTest, NSError** error)
+{
+	BOOL	ok	=	errorToTest == nil;
+	
+	if (!ok && error != NULL)
+	{
+		*error	=	errorToTest;
+	}
+	return	ok;
+}
+
+/*!
+ Returns test result. `YES` if there's an error. `NO` for no error.
+inline
+static
+BOOL
+EESQLiteCheckErrorExistenceAndSetToArgumentVariableInverted(NSError* actualErrorValue, NSError** errorArgument)	
+{
+	return	!EESQLiteCheckTheErrorIsNilAndSetToArgumentIfItIsExist(actualErrorValue, errorArgument);
+ }
+ */

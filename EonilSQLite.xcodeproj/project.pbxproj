@@ -110,7 +110,6 @@
 		456D46B214CC2100005F6D62 /* EEDocumentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEDocumentStore.h; sourceTree = "<group>"; };
 		456D46B314CC2100005F6D62 /* EEDocumentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEDocumentStore.m; sourceTree = "<group>"; };
 		4572DA5615BB1D3D0091442D /* EonilSQLite.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = EonilSQLite.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		4572DA5F15BB1D3D0091442D /* SQLite for Mac OS X-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SQLite for Mac OS X-Prefix.pch"; sourceTree = "<group>"; };
 		4572DA6815BB1D3D0091442D /* Mac OS X Dynamic Library (Tests).octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mac OS X Dynamic Library (Tests).octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4572DA8615BB20A30091442D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4572DA8715BB20A30091442D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -138,9 +137,6 @@
 		4595397F14CD8F5B00B6A0E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		45CB651014CBF609004EF17F /* SQLite-Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLite-Test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CB651114CBF609004EF17F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		45CB651814CBF609004EF17F /* SQLite-Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SQLite-Test-Info.plist"; sourceTree = "<group>"; };
-		45CB651A14CBF609004EF17F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		45CB651F14CBF609004EF17F /* SQLite-Test-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SQLite-Test-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,13 +186,9 @@
 		4518C1F214CBD0CE00EF0620 = {
 			isa = PBXGroup;
 			children = (
-				4525F1A515BC7F7100868258 /* Foundation.framework */,
-				4525F1A215BC7F1E00868258 /* Foundation.framework */,
 				4595397F14CD8F5B00B6A0E2 /* README.md */,
 				4572DAAA15BB217D0091442D /* Others */,
 				4518C20214CBD0CE00EF0620 /* Classes */,
-				45CB651614CBF609004EF17F /* EonilCocoaComplements-SQLite-Test */,
-				4572DA5D15BB1D3D0091442D /* SQLite for Mac OS X */,
 				4518C1FF14CBD0CE00EF0620 /* Frameworks and Libraries */,
 				4572DAA015BB21100091442D /* Targets */,
 				4518C1FE14CBD0CE00EF0620 /* Products */,
@@ -219,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				4572DAAC15BB21E70091442D /* Foundation.framework */,
-				45CB651114CBF609004EF17F /* SenTestingKit.framework */,
 			);
 			name = "Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -259,22 +250,6 @@
 			name = "document store";
 			sourceTree = "<group>";
 		};
-		4572DA5D15BB1D3D0091442D /* SQLite for Mac OS X */ = {
-			isa = PBXGroup;
-			children = (
-				4572DA5E15BB1D3D0091442D /* Supporting Files */,
-			);
-			path = "SQLite for Mac OS X";
-			sourceTree = "<group>";
-		};
-		4572DA5E15BB1D3D0091442D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4572DA5F15BB1D3D0091442D /* SQLite for Mac OS X-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		4572DA8315BB20A30091442D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +265,9 @@
 				4572DA8F15BB20A30091442D /* TTHappyCase.m */,
 				4572DA9015BB20A30091442D /* TTTestUtility.h */,
 				4572DA9115BB20A30091442D /* TTTestUtility.m */,
+				45CB651114CBF609004EF17F /* SenTestingKit.framework */,
+				4525F1A515BC7F7100868258 /* Foundation.framework */,
+				4525F1A215BC7F1E00868258 /* Foundation.framework */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -327,24 +305,6 @@
 				4572DAA915BB21670091442D /* Prefix.pch */,
 			);
 			name = Others;
-			sourceTree = "<group>";
-		};
-		45CB651614CBF609004EF17F /* EonilCocoaComplements-SQLite-Test */ = {
-			isa = PBXGroup;
-			children = (
-				45CB651714CBF609004EF17F /* Supporting Files */,
-			);
-			path = "EonilCocoaComplements-SQLite-Test";
-			sourceTree = "<group>";
-		};
-		45CB651714CBF609004EF17F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45CB651814CBF609004EF17F /* SQLite-Test-Info.plist */,
-				45CB651914CBF609004EF17F /* InfoPlist.strings */,
-				45CB651F14CBF609004EF17F /* SQLite-Test-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -610,17 +570,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		45CB651914CBF609004EF17F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				45CB651A14CBF609004EF17F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		4518C20814CBD0CE00EF0620 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -699,6 +648,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "i386 x86_64 armv7";
@@ -788,6 +738,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -811,6 +762,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -828,6 +780,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "SQLite-Test";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -844,6 +797,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "SQLite-Test";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;

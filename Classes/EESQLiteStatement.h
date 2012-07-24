@@ -34,11 +34,16 @@
  Any error while executing this method.
  
  @result
- `YES` if the command is succeed without any error.
- `NO` if the command processing has been over or should be stopped for any error.
+ Returns iterability.
+ `YES` if the command need to be stepped more. Normally, this returned because 
+ execution is not finished and has more steps to go.
+ `NO` if the command finished, and cannot be iterated anymore.
  
- @discussion 
  You can continue stepping while this method returns `YES`.
+ 
+ @note
+ For any error cases, the `error` argument will be set. If it is `nil`, that's 
+ not an error.
 
  */
 - (BOOL)			stepWithError:(NSError**)error;
@@ -56,7 +61,7 @@
  If you want to issue same command without re-compiling it again, 
  you can use this method to re-use it.
  */
-- (void)			resetWithError:(NSError**)error;
+- (BOOL)			resetWithError:(NSError**)error;
 - (void)			reset;
 
 @end
@@ -123,19 +128,19 @@
 
 - (NSUInteger)		parameterCount;
 
-- (void)			setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
-- (void)			setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;		//	Size of `NSInteger` can be vary by the system.
-- (void)			setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
-- (void)			setStringValue:(NSString*)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
-- (void)			setDataValue:(NSData*)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
-- (void)			setNullForParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
+- (BOOL)			setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
+- (BOOL)			setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;		//	Size of `NSInteger` can be vary by the system.
+- (BOOL)			setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
+- (BOOL)			setStringValue:(NSString*)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
+- (BOOL)			setDataValue:(NSData*)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
+- (BOOL)			setNullForParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
 
-- (void)			setValue:(id)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
-- (void)			setValue:(id)value forParameterName:(NSString*)parameterName error:(NSError**)error;
+- (BOOL)			setValue:(id)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
+- (BOOL)			setValue:(id)value forParameterName:(NSString*)parameterName error:(NSError**)error;
 //- (void)			setValuesFromArray:(NSArray*)valuesArray;
 //- (void)			setDictionaryValue:(NSDictionary*)dictionaryValue;
 
-- (void)			clearParametersValuesWithError:(NSError**)error;
+- (BOOL)			clearParametersValuesWithError:(NSError**)error;
 
 @end
 

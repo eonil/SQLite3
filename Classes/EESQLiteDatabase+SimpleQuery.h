@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
+#import "EESQLiteSymbols.h"
 #import "EESQLiteDatabase.h"
 
 /*!
@@ -16,9 +17,16 @@
  @discussion
  All *names* will be checked for ill-formed or not.
  But all *expressions* won't be checked at all. It's user's responsibility to make expressions to be safe.
+ 
+ @warning
+ All of these operations doesn't use explicit tracsaction at all.
+ So all of them are not atomic at all.
+ If you want to make them as atomic operation, wrap them with explicit transaction.
+ Using methods such as `-executeTransactionBlock:usingSavepointName:`.
  */
 @interface EESQLiteDatabase (SimpleQuery)
 
+- (BOOL)				checkIntegrity;
 - (BOOL)				containsRawID:(EESQLiteRowID)rowID inTable:(NSString*)tableName;		//	Returns `NO` if the table name is invalid.
 
 - (NSArray*)			arrayOfAllRowsInTable:(NSString*)tableName;
@@ -34,12 +42,11 @@
  */
 - (EESQLiteRowID)		insertDictionaryValue:(NSDictionary*)dictionaryValue intoTable:(NSString*)tableName error:(NSError**)error;
 - (EESQLiteRowIDList*)	insertArrayOfDictionaryValues:(NSArray*)dictionaryValues intoTable:(NSString*)tableName error:(NSError**)error;
-- (void)				deleteValuesFromTable:(NSString*)tableName withFilteringSQLExpression:(NSString*)filteringExpression error:(NSError**)error;
 
-- (BOOL)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;	//	Returns `YES` if the transaction succeeds. `NO` for failure with any reason.
-- (BOOL)				updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;						//	Returns `YES` if the transaction succeeds. `NO` for failure with any reason.
-- (void)				deleteAllRowsInTable:(NSString*)tableName;
-- (void)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName;			//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
-- (void)				deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName;									//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name.
+- (BOOL)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;	//	Returns `YES` if the operation succeeds. `NO` for failure with any reason.
+- (BOOL)				updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;						//	Returns `YES` if the operation succeeds. `NO` for failure with any reason.
+- (BOOL)				deleteAllRowsInTable:(NSString*)tableName error:(NSError**)error;
+- (BOOL)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName error:(NSError**)error;				//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
+- (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName error:(NSError**)error;										//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name.
 
 @end

@@ -30,7 +30,17 @@
 
 
 
-
+inline
+static
+EESQLiteDatabase*
+TTCreateDatabaseForGenericTest()
+{
+//	return	[EESQLiteDatabase temporaryDatabaseInMemory];
+	
+	TTRemoveTestDatabaseFile();
+	[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:TTPathToTestDatabase() error:NULL];
+	return	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:TTPathToTestDatabase()];
+}
 
 
 
@@ -73,7 +83,7 @@
 }
 - (void)testMakingMultipleStatements
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	
 	NSError*				err		=	nil;
 	NSArray*				stmts	=	[db statementsByParsingSQL:@"CREATE TABLE Table1 (column1 INTEGER); CREATE TABLE Table2 (column2 INTEGER);" error:&err];
@@ -85,7 +95,7 @@
 }
 - (void)testExecuteMultipleStatements
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	
 	NSError*				err		=	nil;
 	NSArray*				stmts	=	[db statementsByParsingSQL:@"CREATE TABLE Table1 (column1 INTEGER);" error:&err];
@@ -101,7 +111,7 @@
 
 - (void)testCreatingAndDroppingTables
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	[db addTableWithName:@"Table1" withColumnNames:[NSArray arrayWithObjects:@"column1", nil]];
@@ -125,7 +135,7 @@
 }
 - (void)testCreatingAndDroppingTableWithMultipleColumns
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 
 	NSArray*		colnms	=	[NSArray arrayWithObjects:@"column1", @"column2", @"column3", @"column4", nil];
@@ -145,7 +155,7 @@
 }
 - (void)testTableInfo
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	NSArray*		colnms	=	[NSArray arrayWithObjects:@"column1", @"column2", @"column3", @"column4", nil];
@@ -159,7 +169,7 @@
 }
 - (void)testInsertIntoTable
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	NSArray*		colnms	=	[NSArray arrayWithObjects:@"column1", @"column2", @"column3", @"column4", nil];
@@ -194,7 +204,7 @@
 }
 - (void)testInsertIntoTableRandomValues
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	NSArray*		colnms	=	[NSArray arrayWithObjects:@"column1", @"column2", @"column3", @"column4", nil];
@@ -229,7 +239,7 @@
 
 - (void)testUpdateTablewithSingleValue
 {
-	EESQLiteDatabase*		db		=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*		db		=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	NSArray*		colnms	=	[NSArray arrayWithObjects:@"column1", @"column2", @"column3", @"column4", nil];
@@ -272,7 +282,7 @@
 
 - (void)testSimpleSelectQueries
 {
-	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*	db	=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
@@ -343,7 +353,7 @@
 
 - (void)testSimpleDeleteQuery1
 {
-	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*	db	=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
@@ -356,7 +366,9 @@
 	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];
 	
 	{
-		[db deleteRowHasID:rowid2 inTable:@"table1"];
+		NSError*	err	=	nil;
+		[db deleteRowHasID:rowid2 inTable:@"table1" error:&err];
+		STAssertNil(err, [err description]);
 		
 		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
 		STAssertTrue(rowcount == 2, @"Count of all rows must be 2 after delete one row.");	
@@ -374,7 +386,7 @@
 
 - (void)testSimpleDeleteQuery2
 {
-	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*	db	=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
@@ -387,7 +399,9 @@
 	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
 	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];	
 	{
-		[db deleteAllRowsInTable:@"table1"];
+		NSError* err	=	nil;
+		[db deleteAllRowsInTable:@"table1" error:&err];
+		STAssertNil(err, [err description]);
 		
 		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
 		STAssertTrue(rowcount == 0, @"Count of all rows must be 0 after delete all rows.");	
@@ -399,7 +413,7 @@
 }
 - (void)testSimpleUpdateQuery1
 {
-	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*	db	=	TTCreateDatabaseForGenericTest();
 	STAssertNotNil(db, @"");
 	
 	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
@@ -416,6 +430,79 @@
 		
 		STAssertEqualObjects(rowValue1, sampleValue2, @"");
 	}
+}
+
+
+
+
+
+
+
+
+
+- (void)testTransactionCommit
+{	
+	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	NSDictionary*		row	=	[NSDictionary dictionaryWithObjectsAndKeys:
+								 [NSNumber numberWithLongLong:12], @"ID",
+								 nil];
+	
+	BOOL	(^checkSampleIsValue)(NSString*)=^(NSString* value)
+	{
+		id		current	=	[[db dictionaryFromRowHasID:12 inTable:@"table1"] valueForKey:@"content"];
+		return	(BOOL)(current == value || [current isEqual:value]);
+	};
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"ID", @"content", nil] rowIDAliasColumnName:@"ID"];
+	[db insertDictionaryValue:row intoTable:@"table1" error:NULL];
+	STAssertTrue(checkSampleIsValue(nil), @"At first, it should be `nil`.");
+	
+	NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#1", @"content", nil];
+	[db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
+	STAssertTrue(checkSampleIsValue(@"#1"), @"After update, it should become `#1`.");
+	
+	[db executeTransactionBlock:^BOOL
+	 {
+		 NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#2", @"content", nil];
+		 [db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
+		 STAssertTrue(checkSampleIsValue(@"#2"), @"After update, it should become `#2`.");
+		 
+		 return	YES;	//	COMMIT.
+	 }];
+	
+	STAssertTrue(checkSampleIsValue(@"#2"), @"After commit, it should be back to `#2`.");
+}
+- (void)testTransactionRollback
+{	
+	EESQLiteDatabase*	db	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	NSDictionary*		row	=	[NSDictionary dictionaryWithObjectsAndKeys:
+								 [NSNumber numberWithLongLong:12], @"ID",
+								 nil];
+	
+	BOOL	(^checkSampleIsValue)(NSString*)=^(NSString* value)
+	{
+		id		current	=	[[db dictionaryFromRowHasID:12 inTable:@"table1"] valueForKey:@"content"];
+		return	(BOOL)(current == value || [current isEqual:value]);
+	};
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"ID", @"content", nil] rowIDAliasColumnName:@"ID"];
+	[db insertDictionaryValue:row intoTable:@"table1" error:NULL];
+	STAssertTrue(checkSampleIsValue(nil), @"At first, it should be `nil`.");
+	
+	NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#1", @"content", nil];
+	[db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
+	STAssertTrue(checkSampleIsValue(@"#1"), @"After update, it should become `#1`.");
+	
+	[db executeTransactionBlock:^BOOL
+	 {
+		 NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#2", @"content", nil];
+		 [db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
+		 STAssertTrue(checkSampleIsValue(@"#2"), @"After update, it should become `#2`.");
+		 
+		 return	NO;	//	ROLLBACK.
+	 }];
+	
+	STAssertTrue(checkSampleIsValue(@"#1"), @"After rollback, it should be back to `#1`.");
 }
 @end
 
