@@ -177,7 +177,7 @@
 	
 	return		[self executeSQL:cmd error:error];
 }
-- (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock error:(NSError *__autoreleasing *)error
+- (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock
 {
 	BOOL	hasNoTransactionNow	=	[self autocommitMode];
 	
@@ -187,40 +187,38 @@
 	}
 	
 	////
-	
-	BOOL		begok	=	[self beginTransactionWithError:error];
-	if (!begok) 
 	{
-		return	NO; 
+		NSError*	begerr	=	nil;
+		BOOL		begok	=	[self beginTransactionWithError:&begerr];
+		if (!begok) 
+		{
+			@throw	EESQLiteExceptionFromError(begerr);
+		}
 	}
 	
 	BOOL		tranok	=	transactionBlock();
 	
 	if (tranok)
 	{
-		BOOL	commok	=	[self commitTransactionWithError:error];
-
+		NSError*	commerr	=	nil;
+		BOOL		commok	=	[self commitTransactionWithError:&commerr];
 		if (!commok) 
 		{
-			return	NO;
+			@throw	EESQLiteExceptionFromError(commerr);
 		}
 	}
 	else
 	{
-		BOOL	rollok	=	[self rollbackTransactionWithError:error];
-		if (!rollok)
+		NSError*	rollerr	=	nil;
+		BOOL		rollok	=	[self rollbackTransactionWithError:&rollerr];
+		if (!rollok) 
 		{
-			return	NO;
+			@throw	EESQLiteExceptionFromError(rollerr);
 		}
 	}
 	
-	return	YES;
+	return	tranok;
 }
-- (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock 
-{
-	return	[self executeTransactionBlock:transactionBlock error:NULL];
-}
-
 
 
 

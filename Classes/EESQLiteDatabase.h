@@ -91,13 +91,13 @@
  Perform BEGIN/COMMIT/ROLLBACK transaction.
  
  @return
- Returns `YES` for everything OK regardless of the transaction has 
- been COMMIT or ROLLBACK.
- 
- Returns `NO` for any failure. This caused by failure of 
- BEGIN/COMMIT/ROLLBACK commands themselves.
+ Returns `YES` if the transaction has been COMMIT.
+ Returns `NO` if the transaction has been ROLLBACK.
+ So this is equal with the result of the tracsaction block.
  
  @discussion
+ For any transaction command itself failure, this method
+ will throw an exception.
  
  Nested Transaction
  ------------------
@@ -105,12 +105,7 @@
  So traditional BEGIN/COMMIT/ROLLBACK cannot be nested.
  This method will fail if there's any existing transaction.
  Not only fails, it throws an exception.
- 
- @note
- This method doesn't give any information about COMMIT/ROLLBACK status.
- You need to track it manually.
  */
-- (BOOL)			executeTransactionBlock:(BOOL(^)(void))transactionBlock error:(NSError**)error;
 - (BOOL)			executeTransactionBlock:(BOOL(^)(void))transactionBlock;
 @end
 
