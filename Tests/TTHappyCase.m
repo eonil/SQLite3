@@ -504,6 +504,24 @@ TTCreateDatabaseForGenericTest()
 	
 	STAssertTrue(checkSampleIsValue(@"#1"), @"After rollback, it should be back to `#1`.");
 }
+
+
+
+- (void)testCheckIntegrity
+{
+	NSError*	err1	=	nil;
+	EESQLiteDatabase*	db	=	[[EESQLiteDatabase alloc] initAsTemporaryDatabaseInMemoryWithError:&err1];
+	
+	STAssertNil(err1, @"");
+		
+	BOOL	ok1		=	[db checkIntegrity];
+	
+	STAssertTrue(ok1, @"");
+}
+
+
+
+
 @end
 
 

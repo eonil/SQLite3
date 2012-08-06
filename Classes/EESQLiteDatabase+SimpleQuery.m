@@ -19,9 +19,9 @@
 
 - (BOOL)checkIntegrity
 {
-	NSArray*	rows	=	[self arrayOfRowsByExecutingSQL:@"PRAGMA integrity_check;"];
+	NSArray*		rows	=	[self arrayOfRowsByExecutingSQL:@"PRAGMA integrity_check;"];
 	
-	if ([rows count] == 1 && [[[rows objectAtIndex:0] uppercaseString] isEqual:@"OK"])
+	if ([rows count] == 1 && [[rows lastObject] count] == 1 && [[[[[rows lastObject] allValues] lastObject] uppercaseString] isEqual:@"OK"])
 	{
 		return	YES;
 	}
