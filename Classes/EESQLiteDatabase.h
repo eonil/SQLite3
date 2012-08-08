@@ -107,6 +107,33 @@
  Not only fails, it throws an exception.
  */
 - (BOOL)			executeTransactionBlock:(BOOL(^)(void))transactionBlock;
+/*!
+ Perform BEGIN/COMMIT/ROLLBACK transaction.
+ 
+ @param
+ transactionBlock
+ This block MUST return `nil` to rollback transaction. Otherwise transaction will 
+ be committed. 
+ 
+ @return
+ The value returned by `transactionBlock`.
+ 
+ @discussion
+ `transactionBlock` MUST return non-`nil` value to COMMIT transaction. Otherwise
+ transaction will be ROLLBACK. If you don't have any value to return, use 
+ `-executeTransactionBlock:` method instead of.
+ 
+ If there's an error on issuing transaction command itself, it will throw an 
+ exception. because nothing can be done at that point.
+ 
+ Nested Transaction
+ ------------------
+ SQLite doesn't support nested transaction. It supports only SAVEPOINT.
+ So traditional BEGIN/COMMIT/ROLLBACK cannot be nested.
+ This method will fail if there's any existing transaction.
+ Not only fails, it throws an exception.
+ */
+- (id)				objectByExecutingTransactionBlock:(id(^)(void))transactionBlock;
 @end
 
 @interface			EESQLiteDatabase (Status)

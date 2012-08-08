@@ -179,6 +179,54 @@
 }
 - (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock
 {
+	return
+	[[self objectByExecutingTransactionBlock:^id
+	{
+		BOOL	result	=	transactionBlock();
+		return	result ? @(YES) : nil;
+	}] boolValue];
+//	BOOL	hasNoTransactionNow	=	[self autocommitMode];
+//	
+//	if (!hasNoTransactionNow)
+//	{
+//		@throw	[NSException exceptionWithName:@"EESQLITE-DATABASE-TRANSACTION" reason:@"Currently the database is not in auto-commit mode. It means there's active transaction, and new transaction cannot be started." userInfo:nil];
+//	}
+//	
+//	////
+//	{
+//		NSError*	begerr	=	nil;
+//		BOOL		begok	=	[self beginTransactionWithError:&begerr];
+//		if (!begok) 
+//		{
+//			@throw	EESQLiteExceptionFromError(begerr);
+//		}
+//	}
+//	
+//	BOOL		tranok	=	transactionBlock();
+//	
+//	if (tranok)
+//	{
+//		NSError*	commerr	=	nil;
+//		BOOL		commok	=	[self commitTransactionWithError:&commerr];
+//		if (!commok) 
+//		{
+//			@throw	EESQLiteExceptionFromError(commerr);
+//		}
+//	}
+//	else
+//	{
+//		NSError*	rollerr	=	nil;
+//		BOOL		rollok	=	[self rollbackTransactionWithError:&rollerr];
+//		if (!rollok) 
+//		{
+//			@throw	EESQLiteExceptionFromError(rollerr);
+//		}
+//	}
+//	
+//	return	tranok;
+}
+- (id)objectByExecutingTransactionBlock:(id (^)(void))transactionBlock
+{
 	BOOL	hasNoTransactionNow	=	[self autocommitMode];
 	
 	if (!hasNoTransactionNow)
@@ -190,19 +238,19 @@
 	{
 		NSError*	begerr	=	nil;
 		BOOL		begok	=	[self beginTransactionWithError:&begerr];
-		if (!begok) 
+		if (!begok)
 		{
 			@throw	EESQLiteExceptionFromError(begerr);
 		}
 	}
 	
-	BOOL		tranok	=	transactionBlock();
+	id	transactionResult	=	transactionBlock();
 	
-	if (tranok)
+	if (transactionResult != nil)
 	{
 		NSError*	commerr	=	nil;
 		BOOL		commok	=	[self commitTransactionWithError:&commerr];
-		if (!commok) 
+		if (!commok)
 		{
 			@throw	EESQLiteExceptionFromError(commerr);
 		}
@@ -211,15 +259,13 @@
 	{
 		NSError*	rollerr	=	nil;
 		BOOL		rollok	=	[self rollbackTransactionWithError:&rollerr];
-		if (!rollok) 
+		if (!rollok)
 		{
 			@throw	EESQLiteExceptionFromError(rollerr);
 		}
 	}
-	
-	return	tranok;
+	return	transactionResult;
 }
-
 
 
 

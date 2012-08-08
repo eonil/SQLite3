@@ -144,6 +144,20 @@ EESQLiteOutOfMemoryError()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark	-	Objective-C Level Raises
+
 inline
 static
 NSError*
@@ -153,6 +167,18 @@ EESQLiteFileDoesNotExistAtPathError(NSString* path)
 	NSDictionary*	info	=	[NSDictionary dictionaryWithObjectsAndKeys:message, NSLocalizedDescriptionKey, nil];
 	return	[NSError errorWithDomain:EESQLiteErrorDomain code:-2 userInfo:info];
 }
+//inline
+//static
+//NSError*
+//EESQLiteErrorWithUnderlyingError(NSError* underlyingError, NSString* message)
+//{
+//	NSDictionary*	info	=	@
+//	{
+//		NSUnderlyingErrorKey		:	underlyingError,
+//		NSLocalizedDescriptionKey	:	message,
+//	};
+//	return	[NSError errorWithDomain:EESQLiteErrorDomain code:-3 userInfo:info];
+//}
 
 
 
