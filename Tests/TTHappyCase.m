@@ -313,6 +313,40 @@ TTCreateDatabaseForGenericTest()
 	}
 	
 	{
+		NSMutableArray*		result	=	[NSMutableArray array];
+		[db enumerateAllRowsInTable:@"table1" block:^(NSDictionary *row, BOOL *stop) {
+			[result addObject:row];
+		}];
+		NSSet*		resultset		=	[NSSet setWithArray:result];
+		NSSet*		allsamples		=	[NSSet setWithObjects:sampleValue1, sampleValue2, sampleValue3, nil];
+		
+		STAssertEqualObjects(resultset, allsamples, @"All sample values must be equal.");
+	}
+	
+	{
+		NSMutableArray*		result	=	[NSMutableArray array];
+		[db enumerateRowsHasValue:@"R2a" atColumne:@"column1" inTable:@"table1" limitCount:2 block:^(NSDictionary *row, BOOL *stop)
+		 {
+			 [result addObject:row];
+		 }];
+		NSSet*		resultset		=	[NSSet setWithArray:result];
+		NSSet*		allsamples		=	[NSSet setWithObjects:sampleValue2, nil];
+		
+		STAssertEqualObjects(resultset, allsamples, @"All sample values must be equal.");
+	}
+	{
+		NSMutableArray*		result	=	[NSMutableArray array];
+		[db enumerateRowsHasValue:@"R2a" atColumne:@"column1" inTable:@"table1" limitCount:0 block:^(NSDictionary *row, BOOL *stop)
+		 {
+			 [result addObject:row];
+		 }];
+		NSSet*		resultset		=	[NSSet setWithArray:result];
+		NSSet*		allsamples		=	[NSSet setWithObjects:nil];
+		
+		STAssertEqualObjects(resultset, allsamples, @"All sample values must be equal.");
+	}
+	
+	{
 		NSDictionary*	result1			=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
 		NSDictionary*	result2			=	[db dictionaryFromRowHasID:rowid2 inTable:@"table1"];
 		NSDictionary*	result3			=	[db dictionaryFromRowHasID:rowid3 inTable:@"table1"];

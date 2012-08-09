@@ -89,6 +89,48 @@
 	}
 	return	nil;	
 }
+- (BOOL)enumerateAllRowsInTable:(NSString *)tableName block:(void (^)(NSDictionary *, BOOL *))block
+{
+	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	
+	NSString*	cmdform	=	@"SELECT * FROM %@";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
+	
+	return	[self enumerateRowsByExecutingSQL:cmd block:block];
+}
+- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount block:(void (^)(NSDictionary *, BOOL *))block
+{
+	if (![[self class] isValidIdentifierString:columnName])	return	NO;
+	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	
+	NSError*	inerr	=	nil;
+	NSString*	paramnm	=	@"@columnValue";
+	NSString*	limstr	=	[NSString stringWithFormat:@"%llu", (unsigned long long)limitCount];
+	NSString*	cmdform	=	@"SELECT * FROM %@ WHERE %@ = %@ LIMIT %@;";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, paramnm, limstr];
+	NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
+	
+	if (inerr == nil && [stmts count]== 1)
+	{
+		EESQLiteStatement*	stmt	=	[stmts lastObject];
+		[stmt setValue:value forParameterName:paramnm error:&inerr];
+		
+		if (inerr == nil)
+		{
+			BOOL			stop	=	NO;
+			while (!stop && [stmt stepWithError:&inerr])
+			{
+				if (inerr != nil)
+				{
+					return	NO;
+				}
+				
+				block([stmt dictionaryValue], &stop);
+			}
+		}
+	}
+	return	YES;
+}
 - (NSDictionary *)dictionaryFromRowHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName
 {
 	return	[[self arrayOfRowsHasValue:value atColumne:columnName inTable:tableName limitCount:1] lastObject];

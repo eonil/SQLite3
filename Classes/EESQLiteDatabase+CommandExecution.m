@@ -33,24 +33,31 @@ return	[self arrayOfRowsByExecutingSQL:command replacingNullsWithValue:nullValue
 	
 	return	array;
 }
-- (void)enumerateRowsByExecutingSQL:(NSString *)command block:(void (^)(NSDictionary *, BOOL *))block
+- (BOOL)enumerateRowsByExecutingSQL:(NSString *)command block:(void (^)(NSDictionary *, BOOL *))block
 {
 	return	[self enumerateRowsByExecutingSQL:command replacingNullsWithValue:nil block:block];
 }
-- (void)enumerateRowsByExecutingSQL:(NSString *)command replacingNullsWithValue:(id)nullValue block:(void (^)(NSDictionary *, BOOL *))block
+- (BOOL)enumerateRowsByExecutingSQL:(NSString *)command replacingNullsWithValue:(id)nullValue block:(void (^)(NSDictionary *, BOOL *))block
 {
 	NSArray*	stmts	=	[self statementsByParsingSQL:command];
 	
 	for (EESQLiteStatement*	stmt in stmts)
 	{
 		BOOL				internstop	=	NO;
-		while ([stmt step])
+		NSError*			err			=	nil;
+		while ([stmt stepWithError:&err])
 		{
+			if (err!=nil)
+			{
+				return	NO;
+			}
+			
 			block([stmt dictionaryValueReplacingNullsWithValue:nullValue], &internstop);
 			if (internstop)	break;
 		};
 		
 		if (internstop)	break;
 	}
+	return	YES;
 }
 @end

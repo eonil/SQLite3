@@ -91,8 +91,8 @@
  Perform BEGIN/COMMIT/ROLLBACK transaction.
  
  @return
- Returns `YES` if the transaction has been COMMIT.
- Returns `NO` if the transaction has been ROLLBACK.
+ Returns `YES` if the transaction finished with COMMIT.
+ Returns `NO` if the transaction finished with ROLLBACK.
  So this is equal with the result of the tracsaction block.
  
  @discussion
