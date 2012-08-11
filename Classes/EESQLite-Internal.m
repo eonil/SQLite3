@@ -10,8 +10,3 @@
 
 
 
-
-
-NSString* const
-EESQLiteErrorDomain		=	@"EESQLiteErrorDomain";
-

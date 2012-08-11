@@ -27,9 +27,11 @@
 {	
 	sqlite3*		db;
 }
-- (sqlite3*)rawdb	EESQLiteDeprecatedMethod
+
+sqlite3*
+EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* self)
 {
-	return	db;
+	return	self->db;
 }
 
 static

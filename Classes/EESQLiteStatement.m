@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				"EESQLite-Internal.h"
+#import				"EESQLiteError.h"
 #import				"EESQLiteStatement.h"
 #import				"EESQLiteStatement+Internal.h"
 
@@ -291,8 +291,10 @@
 		
 		do 
 		{
+			sqlite3*			coredb		=	EESQLiteDatabaseGetCorePointerToSQLite3(database);
+			
 			NSError*			internerr	=	nil;
-			EESQLiteStatement*	statement	=	[[self alloc] initWithDB:[database rawdb] sql:sql byte:byte tail:&tail error:&internerr];
+			EESQLiteStatement*	statement	=	[[self alloc] initWithDB:coredb sql:sql byte:byte tail:&tail error:&internerr];
 			
 			if (statement != nil)
 			{

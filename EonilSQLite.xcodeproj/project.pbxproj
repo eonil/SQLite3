@@ -102,6 +102,10 @@
 		458F446B14CBDE3200FF39ED /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
 		458F447014CBDF3700FF39ED /* EESQLite-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */; };
 		458F447114CBDF3700FF39ED /* EESQLite-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */; };
+		45AAB09615D6D5010094EA7A /* EESQLiteError.h in Headers */ = {isa = PBXBuildFile; fileRef = 45AAB09415D6D5010094EA7A /* EESQLiteError.h */; };
+		45AAB09715D6D5010094EA7A /* EESQLiteError.h in Headers */ = {isa = PBXBuildFile; fileRef = 45AAB09415D6D5010094EA7A /* EESQLiteError.h */; };
+		45AAB09815D6D5010094EA7A /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
+		45AAB09915D6D5010094EA7A /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
 		45CB651214CBF609004EF17F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB651114CBF609004EF17F /* SenTestingKit.framework */; };
 		45CB652614CBF61A004EF17F /* libEonilSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libEonilSQLite.a */; };
 /* End PBXBuildFile section */
@@ -213,6 +217,8 @@
 		458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLite-Internal.m"; sourceTree = "<group>"; };
 		458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+Internal.h"; sourceTree = "<group>"; };
 		4595397F14CD8F5B00B6A0E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		45AAB09415D6D5010094EA7A /* EESQLiteError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteError.h; sourceTree = "<group>"; };
+		45AAB09515D6D5010094EA7A /* EESQLiteError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteError.m; sourceTree = "<group>"; };
 		45CB651014CBF609004EF17F /* SQLite-Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLite-Test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CB651114CBF609004EF17F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -328,6 +334,8 @@
 				458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */,
 				4503075A15D61CD800202ED3 /* EESQLiteException.h */,
 				4503075B15D61CD800202ED3 /* EESQLiteException.m */,
+				45AAB09415D6D5010094EA7A /* EESQLiteError.h */,
+				45AAB09515D6D5010094EA7A /* EESQLiteError.m */,
 				458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */,
 				4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */,
 				4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */,
@@ -485,6 +493,7 @@
 				4525F1CE15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */,
 				4525F1D615BCFBA800868258 /* EESQLiteSymbols.h in Headers */,
 				4503075C15D61CD800202ED3 /* EESQLiteException.h in Headers */,
+				45AAB09615D6D5010094EA7A /* EESQLiteError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +515,7 @@
 				4525F1CF15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */,
 				4525F1D715BCFBA800868258 /* EESQLiteSymbols.h in Headers */,
 				4503075D15D61CD800202ED3 /* EESQLiteException.h in Headers */,
+				45AAB09715D6D5010094EA7A /* EESQLiteError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +729,7 @@
 				4525F1CA15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
 				4525F1D015BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 				4503075E15D61CD800202ED3 /* EESQLiteException.m in Sources */,
+				45AAB09815D6D5010094EA7A /* EESQLiteError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,6 +776,7 @@
 				4525F1CB15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
 				4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 				4503075F15D61CD800202ED3 /* EESQLiteException.m in Sources */,
+				45AAB09915D6D5010094EA7A /* EESQLiteError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

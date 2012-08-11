@@ -8,10 +8,12 @@
 
 #import				<Foundation/Foundation.h>
 #import				<sqlite3.h>
+#import				"EESQLiteError.h"
 
-@interface			EESQLiteDatabase (Internal)
-@property			(readonly,nonatomic,assign)			sqlite3*	rawdb;
-@end
+inline
+extern
+sqlite3*
+EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* self);
 
 
 

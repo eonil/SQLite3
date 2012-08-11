@@ -153,27 +153,22 @@
 	
 	EETempTestMacroAssertTrue(C == 1, @"");
 	
-//	@try
+	@try
 	{
-		BOOL	r	=
 		[db executeTransactionBlock:^BOOL
 		 {
 			 [db insertDictionaryValue:@{ @"C1": @(6) } intoTable:@"T1" error:NULL];
 			 @throw	[NSException exceptionWithName:@"sample-exception" reason:@"" userInfo:nil];
-			 return	YES;
 		 }];
 	}
-//	@catch (...)
-//	{
-//		//
-//		//
-//		//
-////		NSLog ( @"%@", exception);
-//	}
-//	@finally {
-//			
-//	}
-	EETempTestMacroAssertTrue(C == 1, @"");
+	@catch (NSException* exception)
+	{
+		NSLog ( @"the exceptionis = %@", exception);
+	}
+	@finally {
+			
+	}
+	ASS (C == (2-1));	//	Last insert should be rollback.
 }
 
 

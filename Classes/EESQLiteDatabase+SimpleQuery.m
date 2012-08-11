@@ -236,7 +236,7 @@
 		}
 		
 		[stmt reset];
-		[ridlist appendRowID:sqlite3_last_insert_rowid([self rawdb])];
+		[ridlist appendRowID:sqlite3_last_insert_rowid(EESQLiteDatabaseGetCorePointerToSQLite3(self))];
 		
 		{
 			NSError*	clrerr	=	nil;

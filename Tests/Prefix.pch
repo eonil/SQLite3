@@ -13,14 +13,25 @@
 
 
 
+#import	"TestContainer.h"
+#import	"UnitTestContainer.h"
+
 //#import <sqlite3.h>
 
 
-//static
-//inline
-//sqlite3*
-//CoreSQLite3ObjectFromDatabase (id database)
-//{
-//	sqlite3*	db	=	NULL;
-//	object_getInstanceVariable(database, "db", &db);
-//}
+
+#define	ASS(expression)			NSAssert ((expression), @"")
+#define	SAME(a,b)				NSAssert ( ((a) == (b)) || [(a) isEqual:(b)], @"")
+
+#define	EETempTestMacroAssertTrue(exp,m)				ASS (exp)
+#define	EETempTestMacroAssertFalse(exp,m)				ASS (!(exp))
+#define	EETempTestMacroAssertNotNil(exp,m)				ASS (exp != nil)
+#define	EETempTestMacroAssertNil(exp,m)					ASS (exp == nil)
+#define	EETempTestMacroAssertEqualObjects(a,b,m)		SAME(a,b)
+
+
+
+
+
+
+

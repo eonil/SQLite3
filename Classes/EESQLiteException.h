@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-
+#import			<sqlite3.h>
+#import			"EESQLiteError.h"
 
 
 //#define		EESQLiteExceptionDomain		(@"EONIL-SQLITE-EXCEPTION")
@@ -26,6 +27,23 @@ EESQLiteExceptionFromError(NSError* originError)
 	return			ex;
 }
 
+
+inline
+static
+void
+EESQLiteHandleOKOrException(int result, sqlite3* db)
+{
+	if (result == SQLITE_OK)
+	{
+	}
+	else
+	{
+		NSError*		err	=	EESQLiteErrorFromReturnCode(result, db);
+		NSException*	ex	=	EESQLiteExceptionFromError(err);
+		
+		@throw			ex;
+	}
+}
 
 
 
