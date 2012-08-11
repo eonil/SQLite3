@@ -13,14 +13,6 @@
 
 
 @implementation		TTDocumentStoreHappyCase
-- (void)setUp
-{
-	[super setUp];
-}
-- (void)tearDown
-{
-	[super tearDown];
-}
 
 
 
@@ -31,7 +23,7 @@
 {
 	EEDocumentStore*	docs	=	[[EEDocumentStore alloc] init];
 	
-	STAssertNotNil(docs, @"New instance must be created.");
+	EETempTestMacroAssertNotNil(docs, @"New instance must be created.");
 }
 - (void)testInsertingNewDocument
 {
@@ -45,7 +37,7 @@
 	
 	NSDictionary*			val2		=	[section1 dictionaryValueForCode:@"T001"];
 	
-	STAssertTrue([val1 isEqual:val2], @"In/out values must be equal.");
+	EETempTestMacroAssertTrue([val1 isEqual:val2], @"In/out values must be equal.");
 }
 - (void)testInsertingManyRandomDocuments
 {
@@ -81,7 +73,7 @@
 		[vallist2 addObject:val];
 	}
 
-	STAssertTrue([vallist1 isEqual:vallist2], @"In/out values must be equal.");
+	EETempTestMacroAssertTrue([vallist1 isEqual:vallist2], @"In/out values must be equal.");
 }
 
 @end

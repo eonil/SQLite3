@@ -31,6 +31,35 @@
 		4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
 		4525F1D615BCFBA800868258 /* EESQLiteSymbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4525F1D715BCFBA800868258 /* EESQLiteSymbols.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		452740A615D6974500258461 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A515D6974500258461 /* UIKit.framework */; };
+		452740A815D6974500258461 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A715D6974500258461 /* Foundation.framework */; };
+		452740AA15D6974500258461 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A915D6974500258461 /* CoreGraphics.framework */; };
+		452740B015D6974500258461 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 452740AE15D6974500258461 /* InfoPlist.strings */; };
+		452740B215D6974500258461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740B115D6974500258461 /* main.m */; };
+		452740BB15D6975200258461 /* libEonilSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libEonilSQLite.a */; };
+		452740BE15D6976900258461 /* TTDocumentStoreHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */; };
+		452740BF15D6976900258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */; };
+		452740C015D6976900258461 /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
+		452740C115D6976900258461 /* TTHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8F15BB20A30091442D /* TTHappyCase.m */; };
+		452740C215D6976900258461 /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
+		452740C915D697F800258461 /* UnitTestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740C815D697F800258461 /* UnitTestContainer.m */; };
+		452740CA15D697F800258461 /* UnitTestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740C815D697F800258461 /* UnitTestContainer.m */; };
+		452740CB15D697F800258461 /* UnitTestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740C815D697F800258461 /* UnitTestContainer.m */; };
+		452740CF15D6980E00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
+		452740D015D6980E00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
+		452740D115D6980E00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
+		452740D215D69AA700258461 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
+		452740D915D69DBE00258461 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A715D6974500258461 /* Foundation.framework */; };
+		452740DC15D69DBE00258461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740DB15D69DBE00258461 /* main.m */; };
+		452740E015D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 452740DF15D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 */; };
+		452740E415D69DC900258461 /* EonilSQLite.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* EonilSQLite.dylib */; };
+		452740E715D69DDC00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
+		452740E815D69DDC00258461 /* UnitTestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740C815D697F800258461 /* UnitTestContainer.m */; };
+		452740E915D69DDC00258461 /* TTDocumentStoreHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */; };
+		452740EA15D69DDC00258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */; };
+		452740EB15D69DDC00258461 /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
+		452740EC15D69DDC00258461 /* TTHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8F15BB20A30091442D /* TTHappyCase.m */; };
+		452740ED15D69DDC00258461 /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
 		4529166F15B9DB4000B7F55A /* EonilSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* EonilSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45452C9814CC857000886D70 /* EESQLiteRowIDList.h in Headers */ = {isa = PBXBuildFile; fileRef = 45452C9614CC857000886D70 /* EESQLiteRowIDList.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
@@ -78,6 +107,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		452740BC15D6975D00258461 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4518C1FC14CBD0CE00EF0620;
+			remoteInfo = "iOS Static Library";
+		};
+		452740E515D69DCE00258461 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4572DA5515BB1D3D0091442D;
+			remoteInfo = "Mac OS X Dynamic Library";
+		};
 		4572DA6B15BB1D3D0091442D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
@@ -93,6 +136,19 @@
 			remoteInfo = "EonilCocoaComplements-SQLite";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		452740D515D69DBE00258461 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				452740E015D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4503075A15D61CD800202ED3 /* EESQLiteException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteException.h; sourceTree = "<group>"; };
@@ -111,6 +167,22 @@
 		4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+Schema.h"; sourceTree = "<group>"; };
 		4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLiteDatabase+Schema.m"; sourceTree = "<group>"; };
 		4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteSymbols.h; sourceTree = "<group>"; };
+		452740A215D6974500258461 /* Manual Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manual Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		452740A515D6974500258461 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		452740A715D6974500258461 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		452740A915D6974500258461 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		452740AD15D6974500258461 /* Manual Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Manual Test-Info.plist"; sourceTree = "<group>"; };
+		452740AF15D6974500258461 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		452740B115D6974500258461 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		452740B315D6974500258461 /* Manual Test-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Manual Test-Prefix.pch"; sourceTree = "<group>"; };
+		452740C715D697F800258461 /* UnitTestContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTestContainer.h; sourceTree = "<group>"; };
+		452740C815D697F800258461 /* UnitTestContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitTestContainer.m; sourceTree = "<group>"; };
+		452740CD15D6980E00258461 /* TestContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestContainer.h; sourceTree = "<group>"; };
+		452740CE15D6980E00258461 /* TestContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestContainer.m; sourceTree = "<group>"; };
+		452740D715D69DBE00258461 /* Manual Test for Mac OS X */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Manual Test for Mac OS X"; sourceTree = BUILT_PRODUCTS_DIR; };
+		452740DB15D69DBE00258461 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		452740DE15D69DBE00258461 /* Manual Test for Mac OS X-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Manual Test for Mac OS X-Prefix.pch"; sourceTree = "<group>"; };
+		452740DF15D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Manual_Test_for_Mac_OS_X.1; sourceTree = "<group>"; };
 		45452C9614CC857000886D70 /* EESQLiteRowIDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteRowIDList.h; sourceTree = "<group>"; };
 		45452C9714CC857000886D70 /* EESQLiteRowIDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteRowIDList.m; sourceTree = "<group>"; };
 		456D46B214CC2100005F6D62 /* EEDocumentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEDocumentStore.h; sourceTree = "<group>"; };
@@ -152,6 +224,27 @@
 			files = (
 				4572DAAE15BB220B0091442D /* Foundation.framework in Frameworks */,
 				4518C20E14CBD10100EF0620 /* libsqlite3.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4527409F15D6974500258461 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				452740D215D69AA700258461 /* libsqlite3.0.dylib in Frameworks */,
+				452740BB15D6975200258461 /* libEonilSQLite.a in Frameworks */,
+				452740A615D6974500258461 /* UIKit.framework in Frameworks */,
+				452740A815D6974500258461 /* Foundation.framework in Frameworks */,
+				452740AA15D6974500258461 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		452740D415D69DBE00258461 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				452740E415D69DC900258461 /* EonilSQLite.dylib in Frameworks */,
+				452740D915D69DBE00258461 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +290,9 @@
 				4518C20214CBD0CE00EF0620 /* Classes */,
 				4518C1FF14CBD0CE00EF0620 /* Frameworks and Libraries */,
 				4572DAA015BB21100091442D /* Targets */,
+				452740AB15D6974500258461 /* Manual Test */,
+				452740DA15D69DBE00258461 /* Manual Test for Mac OS X */,
+				452740A415D6974500258461 /* Frameworks */,
 				4518C1FE14CBD0CE00EF0620 /* Products */,
 				4572DA8315BB20A30091442D /* Tests */,
 			);
@@ -209,6 +305,8 @@
 				45CB651014CBF609004EF17F /* SQLite-Test.octest */,
 				4572DA5615BB1D3D0091442D /* EonilSQLite.dylib */,
 				4572DA6815BB1D3D0091442D /* Mac OS X Dynamic Library (Tests).octest */,
+				452740A215D6974500258461 /* Manual Test.app */,
+				452740D715D69DBE00258461 /* Manual Test for Mac OS X */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -258,11 +356,62 @@
 			name = "document store";
 			sourceTree = "<group>";
 		};
+		452740A415D6974500258461 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				452740A515D6974500258461 /* UIKit.framework */,
+				452740A715D6974500258461 /* Foundation.framework */,
+				452740A915D6974500258461 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		452740AB15D6974500258461 /* Manual Test */ = {
+			isa = PBXGroup;
+			children = (
+				452740AC15D6974500258461 /* Supporting Files */,
+			);
+			path = "Manual Test";
+			sourceTree = "<group>";
+		};
+		452740AC15D6974500258461 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				452740AD15D6974500258461 /* Manual Test-Info.plist */,
+				452740AE15D6974500258461 /* InfoPlist.strings */,
+				452740B115D6974500258461 /* main.m */,
+				452740B315D6974500258461 /* Manual Test-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		452740DA15D69DBE00258461 /* Manual Test for Mac OS X */ = {
+			isa = PBXGroup;
+			children = (
+				452740DB15D69DBE00258461 /* main.m */,
+				452740DF15D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 */,
+				452740DE15D69DBE00258461 /* Manual Test for Mac OS X-Prefix.pch */,
+				452740DD15D69DBE00258461 /* Supporting Files */,
+			);
+			path = "Manual Test for Mac OS X";
+			sourceTree = "<group>";
+		};
+		452740DD15D69DBE00258461 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		4572DA8315BB20A30091442D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				4572DA8615BB20A30091442D /* Info.plist */,
 				4572DA8715BB20A30091442D /* Prefix.pch */,
+				452740CD15D6980E00258461 /* TestContainer.h */,
+				452740CE15D6980E00258461 /* TestContainer.m */,
+				452740C715D697F800258461 /* UnitTestContainer.h */,
+				452740C815D697F800258461 /* UnitTestContainer.m */,
 				4572DA8815BB20A30091442D /* TTDocumentStoreHappyCase.h */,
 				4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */,
 				4572DA8A15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.h */,
@@ -380,6 +529,42 @@
 			productReference = 4518C1FD14CBD0CE00EF0620 /* libEonilSQLite.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		452740A115D6974500258461 /* Manual Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 452740B915D6974500258461 /* Build configuration list for PBXNativeTarget "Manual Test" */;
+			buildPhases = (
+				4527409E15D6974500258461 /* Sources */,
+				4527409F15D6974500258461 /* Frameworks */,
+				452740A015D6974500258461 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				452740BD15D6975D00258461 /* PBXTargetDependency */,
+			);
+			name = "Manual Test";
+			productName = "Manual Test";
+			productReference = 452740A215D6974500258461 /* Manual Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+		452740D615D69DBE00258461 /* Manual Test for Mac OS X */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 452740E115D69DBE00258461 /* Build configuration list for PBXNativeTarget "Manual Test for Mac OS X" */;
+			buildPhases = (
+				452740D315D69DBE00258461 /* Sources */,
+				452740D415D69DBE00258461 /* Frameworks */,
+				452740D515D69DBE00258461 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				452740E615D69DCE00258461 /* PBXTargetDependency */,
+			);
+			name = "Manual Test for Mac OS X";
+			productName = "Manual Test for Mac OS X";
+			productReference = 452740D715D69DBE00258461 /* Manual Test for Mac OS X */;
+			productType = "com.apple.product-type.tool";
+		};
 		4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4572DA7715BB1D3D0091442D /* Build configuration list for PBXNativeTarget "Mac OS X Dynamic Library" */;
@@ -460,11 +645,21 @@
 				45CB650F14CBF609004EF17F /* iOS Static Library (Test) */,
 				4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */,
 				4572DA6715BB1D3D0091442D /* Mac OS X Dynamic Library (Tests) */,
+				452740A115D6974500258461 /* Manual Test */,
+				452740D615D69DBE00258461 /* Manual Test for Mac OS X */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		452740A015D6974500258461 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				452740B015D6974500258461 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4572DA6515BB1D3D0091442D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -527,6 +722,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4527409E15D6974500258461 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				452740B215D6974500258461 /* main.m in Sources */,
+				452740BE15D6976900258461 /* TTDocumentStoreHappyCase.m in Sources */,
+				452740BF15D6976900258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */,
+				452740C015D6976900258461 /* TTEvilCase.m in Sources */,
+				452740C115D6976900258461 /* TTHappyCase.m in Sources */,
+				452740C215D6976900258461 /* TTTestUtility.m in Sources */,
+				452740CB15D697F800258461 /* UnitTestContainer.m in Sources */,
+				452740D115D6980E00258461 /* TestContainer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		452740D315D69DBE00258461 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				452740DC15D69DBE00258461 /* main.m in Sources */,
+				452740E715D69DDC00258461 /* TestContainer.m in Sources */,
+				452740E815D69DDC00258461 /* UnitTestContainer.m in Sources */,
+				452740E915D69DDC00258461 /* TTDocumentStoreHappyCase.m in Sources */,
+				452740EA15D69DDC00258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */,
+				452740EB15D69DDC00258461 /* TTEvilCase.m in Sources */,
+				452740EC15D69DDC00258461 /* TTHappyCase.m in Sources */,
+				452740ED15D69DDC00258461 /* TTTestUtility.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4572DA5215BB1D3D0091442D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -552,6 +777,8 @@
 				4572DA9B15BB20A30091442D /* TTEvilCase.m in Sources */,
 				4572DA9D15BB20A30091442D /* TTHappyCase.m in Sources */,
 				4572DA9F15BB20A30091442D /* TTTestUtility.m in Sources */,
+				452740CA15D697F800258461 /* UnitTestContainer.m in Sources */,
+				452740D015D6980E00258461 /* TestContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,12 +791,24 @@
 				4572DA9A15BB20A30091442D /* TTEvilCase.m in Sources */,
 				4572DA9C15BB20A30091442D /* TTHappyCase.m in Sources */,
 				4572DA9E15BB20A30091442D /* TTTestUtility.m in Sources */,
+				452740C915D697F800258461 /* UnitTestContainer.m in Sources */,
+				452740CF15D6980E00258461 /* TestContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		452740BD15D6975D00258461 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4518C1FC14CBD0CE00EF0620 /* iOS Static Library */;
+			targetProxy = 452740BC15D6975D00258461 /* PBXContainerItemProxy */;
+		};
+		452740E615D69DCE00258461 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */;
+			targetProxy = 452740E515D69DCE00258461 /* PBXContainerItemProxy */;
+		};
 		4572DA6C15BB1D3D0091442D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */;
@@ -581,6 +820,17 @@
 			targetProxy = 45CB652414CBF616004EF17F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		452740AE15D6974500258461 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				452740AF15D6974500258461 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4518C20814CBD0CE00EF0620 /* Debug */ = {
@@ -697,6 +947,71 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				VALID_ARCHS = "i386 armv7";
+			};
+			name = Release;
+		};
+		452740B715D6974500258461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Manual Test/Manual Test-Prefix.pch";
+				INFOPLIST_FILE = "Manual Test/Manual Test-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		452740B815D6974500258461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Manual Test/Manual Test-Prefix.pch";
+				INFOPLIST_FILE = "Manual Test/Manual Test-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		452740E215D69DBE00258461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Manual Test for Mac OS X/Manual Test for Mac OS X-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		452740E315D69DBE00258461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Manual Test for Mac OS X/Manual Test for Mac OS X-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -833,6 +1148,24 @@
 			buildConfigurations = (
 				4518C20B14CBD0CE00EF0620 /* Debug */,
 				4518C20C14CBD0CE00EF0620 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		452740B915D6974500258461 /* Build configuration list for PBXNativeTarget "Manual Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				452740B715D6974500258461 /* Debug */,
+				452740B815D6974500258461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		452740E115D69DBE00258461 /* Build configuration list for PBXNativeTarget "Manual Test for Mac OS X" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				452740E215D69DBE00258461 /* Debug */,
+				452740E315D69DBE00258461 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

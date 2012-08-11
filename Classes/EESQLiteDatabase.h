@@ -126,10 +126,12 @@
  
  Exception Handlings
  -------------------
- Supplied operation block will be executed wrapped by `@try...@finally` block.
- Notice there's no `@catch`. Thie method doesn't catch the exception, but any
- exception will trigger ROLLBACK in `@finally` block. If there's no exception
- COMMIT will be executed insteadof ROLLBACK.
+ Supplied operation block will be executed wrapped by `@try...@finally` block. 
+ Any exception will trigger ROLLBACK in `@finally` block. If there's no exception,
+ COMMIT will be triggered. And this method will re-throw the exception. Anyway this
+ method does not `@catch` any exception, so exceptions will be thrown again.
+ Don't be confused with debugger's current breaking stack trace. See first-thrown 
+ stack-trace of the exception object to investigate where the problems come.
  
  Nested Transaction
  ------------------

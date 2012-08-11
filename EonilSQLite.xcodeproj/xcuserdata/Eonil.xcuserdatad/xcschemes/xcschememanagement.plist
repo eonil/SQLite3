@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Manual Test for Mac OS X.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Manual Test.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>iOS Static Library.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +28,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>4518C1FC14CBD0CE00EF0620</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>452740A115D6974500258461</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>452740D615D69DBE00258461</key>
 		<dict>
 			<key>primary</key>
 			<true/>

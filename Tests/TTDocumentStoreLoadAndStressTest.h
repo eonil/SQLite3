@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				<SenTestingKit/SenTestingKit.h>
 
-@interface			TTDocumentStoreLoadAndStressTest : SenTestCase
+@interface			TTDocumentStoreLoadAndStressTest : UnitTestContainer
 
 @end

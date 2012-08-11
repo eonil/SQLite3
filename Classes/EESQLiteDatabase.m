@@ -213,7 +213,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 	}
 	
 	id	transactionResult	=	nil;
-	
+
 	@try
 	{
 		transactionResult	=	transactionBlock();
@@ -238,8 +238,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 				@throw	EESQLiteExceptionFromError(rollerr);
 			}
 		}
-		return	transactionResult;
 	}
+	
+	////	Return is fine to be here becasue there's nothing to return in exception situation.
+	return	transactionResult;
 }
 
 

@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				<SenTestingKit/SenTestingKit.h>
 
-@interface			TTDocumentStoreHappyCase : SenTestCase
+
+@interface			TTDocumentStoreHappyCase : UnitTestContainer
 
 @end
