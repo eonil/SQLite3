@@ -124,6 +124,13 @@
  If there's an error on issuing transaction command itself, it will throw an 
  exception. because nothing can be done at that point.
  
+ Exception Handlings
+ -------------------
+ Supplied operation block will be executed wrapped by `@try...@finally` block.
+ Notice there's no `@catch`. Thie method doesn't catch the exception, but any
+ exception will trigger ROLLBACK in `@finally` block. If there's no exception
+ COMMIT will be executed insteadof ROLLBACK.
+ 
  Nested Transaction
  ------------------
  SQLite doesn't support nested transaction. It supports only SAVEPOINT.

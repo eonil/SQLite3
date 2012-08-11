@@ -212,27 +212,34 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 		}
 	}
 	
-	id	transactionResult	=	transactionBlock();
+	id	transactionResult	=	nil;
 	
-	if (transactionResult != nil)
+	@try
 	{
-		NSError*	commerr	=	nil;
-		BOOL		commok	=	[self commitTransactionWithError:&commerr];
-		if (!commok)
-		{
-			@throw	EESQLiteExceptionFromError(commerr);
-		}
+		transactionResult	=	transactionBlock();
 	}
-	else
+	@finally
 	{
-		NSError*	rollerr	=	nil;
-		BOOL		rollok	=	[self rollbackTransactionWithError:&rollerr];
-		if (!rollok)
+		if (transactionResult != nil)
 		{
-			@throw	EESQLiteExceptionFromError(rollerr);
+			NSError*	commerr	=	nil;
+			BOOL		commok	=	[self commitTransactionWithError:&commerr];
+			if (!commok)
+			{
+				@throw	EESQLiteExceptionFromError(commerr);
+			}
 		}
+		else
+		{
+			NSError*	rollerr	=	nil;
+			BOOL		rollok	=	[self rollbackTransactionWithError:&rollerr];
+			if (!rollok)
+			{
+				@throw	EESQLiteExceptionFromError(rollerr);
+			}
+		}
+		return	transactionResult;
 	}
-	return	transactionResult;
 }
 
 
