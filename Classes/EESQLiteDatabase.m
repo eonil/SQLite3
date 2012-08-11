@@ -27,6 +27,11 @@
 {	
 	sqlite3*		db;
 }
+- (sqlite3*)rawdb	EESQLiteDeprecatedMethod
+{
+	return	db;
+}
+
 static
 inline
 BOOL
@@ -65,10 +70,6 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
 	return	EESQLiteHandleOKOrError(sqlite3_close(self->db), error, self->db);
 }
-//- (sqlite3*)rawdb	EESQLiteDeprecatedMethod
-//{
-//	return	db;
-//}
 
 
 
@@ -302,7 +303,6 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 	{
 		@throw	EESQLiteExceptionFromError(error);
 	}
-//	[self EESQLiteDatabaseCleanupWithError:NULL];
 }
 
 

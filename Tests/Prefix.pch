@@ -3,10 +3,22 @@
 //
 
 #ifdef __OBJC__
-	#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
+//#import	<objc/runtime.h>
 #endif
 
 #import	"TTTestUtility.h"
 
 
 
+//#import <sqlite3.h>
+
+
+//static
+//inline
+//sqlite3*
+//CoreSQLite3ObjectFromDatabase (id database)
+//{
+//	sqlite3*	db	=	NULL;
+//	object_getInstanceVariable(database, "db", &db);
+//}

@@ -90,21 +90,19 @@
 /*!
  Perform BEGIN/COMMIT/ROLLBACK transaction.
  
+ @param
+ transactionBlock
+ This block MUST return `NO` to rollback transaction. 
+ Otherwise transaction will be committed.
+ 
  @return
  Returns `YES` if the transaction finished with COMMIT.
  Returns `NO` if the transaction finished with ROLLBACK.
  So this is equal with the result of the tracsaction block.
  
  @discussion
- For any transaction command itself failure, this method
- will throw an exception.
- 
- Nested Transaction
- ------------------
- SQLite doesn't support nested transaction. It supports only SAVEPOINT.
- So traditional BEGIN/COMMIT/ROLLBACK cannot be nested.
- This method will fail if there's any existing transaction.
- Not only fails, it throws an exception.
+ This method implemented by calling `-objectByExecutingTransactionBlock:` 
+ method. See the method description for more details.
  */
 - (BOOL)			executeTransactionBlock:(BOOL(^)(void))transactionBlock;
 /*!
@@ -113,7 +111,7 @@
  @param
  transactionBlock
  This block MUST return `nil` to rollback transaction. Otherwise transaction will 
- be committed. 
+ be committed.
  
  @return
  The value returned by `transactionBlock`.
@@ -132,6 +130,17 @@
  So traditional BEGIN/COMMIT/ROLLBACK cannot be nested.
  This method will fail if there's any existing transaction.
  Not only fails, it throws an exception.
+ 
+ This prohibition is because of partiall rollback.
+ If you rollback inside transaction, and commit outmost transaction, the
+ rollback part shouldn't be applied, and other outer part should be.
+ But without nested transaction, it's impossible to implement, so I don't
+ offer nested transaction feature with trandotional semantic methods.
+ 
+ Anyway the partial rollback is known as possible with SAVEPOINT feature,
+ but unfourtunately, I don't know well about how it behaves. And it needs
+ explicit name argument. If you relly want partial rollback, use SAVEPOINT
+ methods.
  */
 - (id)				objectByExecutingTransactionBlock:(id(^)(void))transactionBlock;
 @end

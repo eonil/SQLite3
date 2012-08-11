@@ -22,6 +22,14 @@
 /*!
  @abstract
  Prepared statement. (compiled byte-code program in SQLite engine)
+ 
+ @warning
+ You MUST deallocate this object before hosting `EESQLiteDatabase` object
+ deallocates. Because SQLite3 checks all the statements are finalized when
+ it is dying. If any of them are still remains, it will raise an error,
+ `EESQLiteDatabase` will detect it and throw an exception.
+ 
+ Take care about autoreleased objects.
  */
 @interface			EESQLiteStatement : NSObject
 @property			(readonly,nonatomic)		NSString*		SQL;

@@ -22,7 +22,6 @@
  All of these operations doesn't use explicit tracsaction at all.
  So all of them are not atomic at all.
  If you want to make them as atomic operation, wrap them with explicit transaction.
- Using methods such as `-executeTransactionBlock:usingSavepointName:`.
  */
 @interface EESQLiteDatabase (SimpleQuery)
 

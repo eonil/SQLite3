@@ -39,25 +39,28 @@ return	[self arrayOfRowsByExecutingSQL:command replacingNullsWithValue:nullValue
 }
 - (BOOL)enumerateRowsByExecutingSQL:(NSString *)command replacingNullsWithValue:(id)nullValue block:(void (^)(NSDictionary *, BOOL *))block
 {
-	NSArray*	stmts	=	[self statementsByParsingSQL:command];
-	
-	for (EESQLiteStatement*	stmt in stmts)
+	@autoreleasepool
 	{
-		BOOL				internstop	=	NO;
-		NSError*			err			=	nil;
-		while ([stmt stepWithError:&err])
-		{
-			if (err!=nil)
-			{
-				return	NO;
-			}
-			
-			block([stmt dictionaryValueReplacingNullsWithValue:nullValue], &internstop);
-			if (internstop)	break;
-		};
+		NSArray*	stmts	=	[self statementsByParsingSQL:command];
 		
-		if (internstop)	break;
+		for (EESQLiteStatement*	stmt in stmts)
+		{
+			BOOL				internstop	=	NO;
+			NSError*			err			=	nil;
+			while ([stmt stepWithError:&err])
+			{
+				if (err!=nil)
+				{
+					return	NO;
+				}
+				
+				block([stmt dictionaryValueReplacingNullsWithValue:nullValue], &internstop);
+				if (internstop)	break;
+			};
+			
+			if (internstop)	break;
+		}
+		return	YES;
 	}
-	return	YES;
 }
 @end
