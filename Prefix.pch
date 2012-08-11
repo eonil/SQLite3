@@ -6,21 +6,7 @@
 	#import <Foundation/Foundation.h>
 #endif
 
-inline
-static
-NSException*
-EESQLiteExceptionFromError(NSError* originError)
-{
-	NSDictionary*	info	=	[NSDictionary dictionaryWithObjectsAndKeys:
-								 originError, NSUnderlyingErrorKey,
-								 nil];
-	
-	NSException*	ex		=	[NSException exceptionWithName:[originError domain] reason:[originError localizedDescription] userInfo:info];
-	return			ex;
-}
 
-
-//typedef	int					EESQLiteInt;
 
 
 

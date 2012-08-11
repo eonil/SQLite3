@@ -6,15 +6,18 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				"EESQLiteDatabase.h"
+#import				"EESQLiteException.h"
 #import				"EESQLite-Internal.h"
 #import				"EESQLiteStatement.h"
 #import				"EESQLiteStatement+Internal.h"
 
+#import				"EESQLiteDatabase.h"
 
 
 
 
+
+#define				IN_MEMORY_DATABASE_NAME	@":memory:"
 
 
 
@@ -24,45 +27,48 @@
 {	
 	sqlite3*		db;
 }
-
-
-
-- (BOOL)			EESQLiteDatabasePrepareWithName:(NSString*)name error:(NSError**)error
+static
+inline
+BOOL
+PrepareWithName(EESQLiteDatabase* self, NSString* name, NSError** error)
 {
 	const char * filename = [name cStringUsingEncoding:NSUTF8StringEncoding];
 	int flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
 	const char * vfs = NULL;
-	int result = sqlite3_open_v2(filename, &db, flags, vfs);
+	int result = sqlite3_open_v2(filename, &(self->db), flags, vfs);
 	
-	if (db == NULL)
-	{	
+	if (self->db == NULL)
+	{
 		if (error != NULL)
 		{
 			*error = EESQLiteOutOfMemoryError();
 		}
 		return	NO;
 	}
-	else 
+	else
 	{
-		if (EESQLiteHandleOKOrError(result, error, db))
+		if (EESQLiteHandleOKOrError(result, error, self->db))
 		{
 			return	YES;
 		}
 		else
 		{
-			sqlite3_close(db);
+			sqlite3_close(self->db);
 			return	NO;
 		}
 	}
 }
-- (BOOL)			EESQLiteDatabaseCleanupWithError:(NSError**)error
+static
+inline
+BOOL
+CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
-	return	EESQLiteHandleOKOrError(sqlite3_close(db), error, db);
+	return	EESQLiteHandleOKOrError(sqlite3_close(self->db), error, self->db);
 }
-- (sqlite3*)rawdb
-{
-	return	db;
-}
+//- (sqlite3*)rawdb	EESQLiteDeprecatedMethod
+//{
+//	return	db;
+//}
 
 
 
@@ -185,53 +191,14 @@
 		BOOL	result	=	transactionBlock();
 		return	result ? @(YES) : nil;
 	}] boolValue];
-//	BOOL	hasNoTransactionNow	=	[self autocommitMode];
-//	
-//	if (!hasNoTransactionNow)
-//	{
-//		@throw	[NSException exceptionWithName:@"EESQLITE-DATABASE-TRANSACTION" reason:@"Currently the database is not in auto-commit mode. It means there's active transaction, and new transaction cannot be started." userInfo:nil];
-//	}
-//	
-//	////
-//	{
-//		NSError*	begerr	=	nil;
-//		BOOL		begok	=	[self beginTransactionWithError:&begerr];
-//		if (!begok) 
-//		{
-//			@throw	EESQLiteExceptionFromError(begerr);
-//		}
-//	}
-//	
-//	BOOL		tranok	=	transactionBlock();
-//	
-//	if (tranok)
-//	{
-//		NSError*	commerr	=	nil;
-//		BOOL		commok	=	[self commitTransactionWithError:&commerr];
-//		if (!commok) 
-//		{
-//			@throw	EESQLiteExceptionFromError(commerr);
-//		}
-//	}
-//	else
-//	{
-//		NSError*	rollerr	=	nil;
-//		BOOL		rollok	=	[self rollbackTransactionWithError:&rollerr];
-//		if (!rollok) 
-//		{
-//			@throw	EESQLiteExceptionFromError(rollerr);
-//		}
-//	}
-//	
-//	return	tranok;
 }
 - (id)objectByExecutingTransactionBlock:(id (^)(void))transactionBlock
 {
-	BOOL	hasNoTransactionNow	=	[self autocommitMode];
+	BOOL	hasNoTransactionNow	=	[self isAutocommitMode];
 	
 	if (!hasNoTransactionNow)
 	{
-		@throw	[NSException exceptionWithName:@"EESQLITE-DATABASE-TRANSACTION" reason:@"Currently the database is not in auto-commit mode. It means there's active transaction, and new transaction cannot be started." userInfo:nil];
+		@throw		EESQLiteExceptionForNestedExplicitTransaction();
 	}
 	
 	////
@@ -282,7 +249,7 @@
 {
 	self	=	[super init];
 	
-	if (self && [self EESQLiteDatabasePrepareWithName:@":memory:" error:error])
+	if (self && PrepareWithName(self, IN_MEMORY_DATABASE_NAME, error))
 	{
 		return	self;
 	}
@@ -292,12 +259,11 @@
 - (id)initAsTemporaryDatabaseOnDiskWithError:(NSError *__autoreleasing *)error
 {
 	self	=	[super init];
-	
-	if (self && [self EESQLiteDatabasePrepareWithName:nil error:error])
+
+	if (self && PrepareWithName(self, nil, error))
 	{
 		return	self;
-	}
-	
+	}	
 	return	nil;
 }
 
@@ -305,6 +271,7 @@
 {
 	if (!createIfNotExist && ![[NSFileManager defaultManager] fileExistsAtPath:pathTodDatabase])
 	{
+		
 		if (error != NULL)
 		{
 			*error	=	EESQLiteFileDoesNotExistAtPathError(pathTodDatabase);
@@ -316,10 +283,11 @@
 	
 	self	=	[super init];
 	
-	if (self && [self EESQLiteDatabasePrepareWithName:pathTodDatabase error:error])
+	if (self && PrepareWithName(self, pathTodDatabase, error))
 	{
 		return	self;
 	}
+
 	
 	return	nil;
 }
@@ -329,7 +297,12 @@
 }
 - (void)dealloc
 {
-	[self EESQLiteDatabaseCleanupWithError:NULL];
+	NSError*	error	=	nil;
+	if(!CleanupWithError(self, &error))
+	{
+		@throw	EESQLiteExceptionFromError(error);
+	}
+//	[self EESQLiteDatabaseCleanupWithError:NULL];
 }
 
 
@@ -401,6 +374,10 @@
 
 @implementation		EESQLiteDatabase (Status)
 - (BOOL)autocommitMode
+{
+	return	[self isAutocommitMode];
+}
+- (BOOL)isAutocommitMode
 {
 	return	sqlite3_get_autocommit(self->db) != 0;
 }

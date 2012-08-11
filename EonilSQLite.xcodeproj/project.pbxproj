@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4503075C15D61CD800202ED3 /* EESQLiteException.h in Headers */ = {isa = PBXBuildFile; fileRef = 4503075A15D61CD800202ED3 /* EESQLiteException.h */; };
+		4503075D15D61CD800202ED3 /* EESQLiteException.h in Headers */ = {isa = PBXBuildFile; fileRef = 4503075A15D61CD800202ED3 /* EESQLiteException.h */; };
+		4503075E15D61CD800202ED3 /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
+		4503075F15D61CD800202ED3 /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
 		4518C20E14CBD10100EF0620 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
 		4518C21114CBD11600EF0620 /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4518C21214CBD11600EF0620 /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
@@ -91,6 +95,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4503075A15D61CD800202ED3 /* EESQLiteException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteException.h; sourceTree = "<group>"; };
+		4503075B15D61CD800202ED3 /* EESQLiteException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteException.m; sourceTree = "<group>"; };
 		4518C1FD14CBD0CE00EF0620 /* libEonilSQLite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEonilSQLite.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4518C20514CBD0CE00EF0620 /* EonilSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EonilSQLite.h; sourceTree = "<group>"; };
 		4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -222,6 +228,8 @@
 				4525F1D515BCFBA800868258 /* EESQLiteSymbols.h */,
 				458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */,
 				458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */,
+				4503075A15D61CD800202ED3 /* EESQLiteException.h */,
+				4503075B15D61CD800202ED3 /* EESQLiteException.m */,
 				458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */,
 				4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */,
 				4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */,
@@ -327,6 +335,7 @@
 				4525F1C815BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h in Headers */,
 				4525F1CE15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */,
 				4525F1D615BCFBA800868258 /* EESQLiteSymbols.h in Headers */,
+				4503075C15D61CD800202ED3 /* EESQLiteException.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +356,7 @@
 				4525F1C915BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h in Headers */,
 				4525F1CF15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */,
 				4525F1D715BCFBA800868258 /* EESQLiteSymbols.h in Headers */,
+				4503075D15D61CD800202ED3 /* EESQLiteException.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +523,7 @@
 				4525F1C415BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
 				4525F1CA15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
 				4525F1D015BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
+				4503075E15D61CD800202ED3 /* EESQLiteException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +539,7 @@
 				4525F1C515BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
 				4525F1CB15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
 				4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
+				4503075F15D61CD800202ED3 /* EESQLiteException.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
