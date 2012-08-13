@@ -451,6 +451,11 @@ void				EESQLiteStatementDummyFreeMemory(void * memory)
 }
 - (BOOL)setValue:(id)value forParameterIndex:(NSInteger)parameterIndex error:(NSError *__autoreleasing *)error
 {
+	if (value == nil)
+	{
+		return	[self setNullForParameterIndex:parameterIndex error:error];
+	}
+	else
 	if ([value isKindOfClass:[NSData class]])
 	{
 		return	[self setDataValue:value forParameterIndex:parameterIndex error:error];

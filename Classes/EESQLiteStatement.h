@@ -143,6 +143,9 @@
 - (BOOL)			setDataValue:(NSData*)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
 - (BOOL)			setNullForParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
 
+/*!
+ If the `value` is `nil`, the parameter will be set to `NULL`.
+ */
 - (BOOL)			setValue:(id)value forParameterIndex:(NSInteger)parameterIndex error:(NSError**)error;
 - (BOOL)			setValue:(id)value forParameterName:(NSString*)parameterName error:(NSError**)error;
 //- (void)			setValuesFromArray:(NSArray*)valuesArray;

@@ -261,7 +261,7 @@
 {
 	return	[self updateRowHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName withDictionary:newValue];
 }
-- (BOOL)updateRowHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
+- (BOOL)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue replacingValueAsNull:(id)nullValue
 {
 	NSArray*	allKeyNames	=	[newValue allKeys];
 	if (![[self class] isValidIdentifierString:columnName])	return	NO;
@@ -283,10 +283,15 @@
 		[setexps addObject:setexp];
 	}];
 	
+	id (^filterNullValue)(id value) = ^(id value)
+	{
+		return	(value == nullValue || [value isEqual:nullValue]) ? nil : value;
+	};
+	
 	NSString*			setexpr	=	[setexps componentsJoinedByString:@","];
-	NSString*			valPN	=	@"@criteria_column_value";
+	NSString*			FCPN	=	@"@criteria_column_value";					//	Filter-Column Paramter Name.
 	NSString*			cmdform	=	@"UPDATE %@ SET %@ WHERE %@ = %@;";
-	NSString*			cmd		=	[NSString stringWithFormat:cmdform, tableName, setexpr, columnName, valPN];
+	NSString*			cmd		=	[NSString stringWithFormat:cmdform, tableName, setexpr, columnName, FCPN];
 	
 	////
 
@@ -300,7 +305,7 @@
 	else
 	{
 		NSError*	inerr4	=	nil;
-		[stmt setValue:value forParameterName:valPN error:&inerr4];
+		[stmt setValue:filterNullValue(columnValue) forParameterName:FCPN error:&inerr4];
 		if (inerr4 != nil)
 		{
 			return	NO;
@@ -310,7 +315,7 @@
 		{
 			NSError*	inerr2	=	nil;
 			id			val		=	[newValue valueForKey:keynm];
-			[stmt setValue:val forParameterName:setParameterNameForColumnName(keynm) error:&inerr2];
+			[stmt setValue:filterNullValue(val) forParameterName:setParameterNameForColumnName(keynm) error:&inerr2];
 			
 			if (inerr2 != nil)
 			{
@@ -329,6 +334,10 @@
 		
 		return	YES;	
 	}
+}
+- (BOOL)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
+{
+	return	[self updateRowHasValue:columnValue atColumn:columnName inTable:tableName withDictionary:newValue replacingValueAsNull:nil];
 }
 - (BOOL)deleteAllRowsInTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
 {

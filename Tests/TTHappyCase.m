@@ -270,6 +270,8 @@ TTCreateDatabaseForGenericTest()
 	NSLog(@"dict2 = %@", dict2);
 	EETempTestMacroAssertTrue([dict2 isEqual:dict1], @"Inserted value must be equal with original.");
 }
+
+
 - (void)testUtilityFeatures
 {
 	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"_adw1"], @"");
@@ -466,7 +468,48 @@ TTCreateDatabaseForGenericTest()
 		EETempTestMacroAssertEqualObjects(rowValue1, sampleValue2, @"");
 	}
 }
-
+- (void)testSimpleUpdateQuery2
+{
+	EESQLiteDatabase*	db	=	TTCreateDatabaseForGenericTest();
+	EETempTestMacroAssertNotNil(db, @"");
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
+	
+	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
+	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", [NSNull null], @"column3", nil];
+	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", nil];
+	
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	{
+		BOOL	ok			=	[db updateRowHasValue:@(rowid1) atColumn:@"_ROWID_" inTable:@"table1" withDictionary:sampleValue2 replacingValueAsNull:[NSNull null]];
+		EETempTestMacroAssertTrue(ok, @"");
+		
+		id		rowValue1	=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
+		
+		EETempTestMacroAssertEqualObjects(rowValue1, sampleValue3, @"");
+	}
+}
+- (void)testSimpleUpdateQuery3
+{
+	EESQLiteDatabase*	db	=	TTCreateDatabaseForGenericTest();
+	EETempTestMacroAssertNotNil(db, @"");
+	
+	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"column1", @"column2", @"column3", nil]];
+	
+	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
+	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
+	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", nil];
+	
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	{
+		BOOL	ok			=	[db updateRowHasValue:@(rowid1) atColumn:@"_ROWID_" inTable:@"table1" withDictionary:sampleValue2 replacingValueAsNull:@"R2c"];
+		EETempTestMacroAssertTrue(ok, @"");
+		
+		id		rowValue1	=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
+		
+		EETempTestMacroAssertEqualObjects(rowValue1, sampleValue3, @"");
+	}
+}
 
 
 
