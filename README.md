@@ -27,7 +27,7 @@ As far as I know, it should work with non-ARC code, but actually no test has bee
 Goal
 ----
 
-Primary goal of this library is *reducing complexity* by following Objective-C conventions.
+Primary goal of this library is *reducing things to remember* by offering classes following Objective-C conventions.
 To archive this goal, these policies are set.
 
 -	Use Objective-C/Cocoa types rather than C types unless exact type matching is required to guarantee integrity by default.
