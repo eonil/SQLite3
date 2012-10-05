@@ -76,9 +76,6 @@ won't check anything, and just passes the values as is to SQLite3 engine.
 I don't know what will be happen too. Overflow, underflow, truncation, 
 exception or anything. So, make it sure that you will store only values 
 in valid range.
-
-This library won't check anything. And just pass values as is to
-SQLite3 engine.
 	
 For example, this library offers accessing method typed as `long long`
 . This type *MAY* be 16-byte in some system. In that case, users
