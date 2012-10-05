@@ -60,7 +60,7 @@ C Integral Type Size Issue
 --------------------------
 According to [SQLite3 manual](http://www.sqlite.org/datatype3.html),
 all integers are 8-byte signed integer in memory. And variable size
-in disk, but the size of storage size is not deterministic. So I just
+in disk, but the size in storage is not deterministic. So I just
 treat all integers are just 8-byte signed integer.
 
 But actually, SQLite3 API function uses just `int` or `long long` type
