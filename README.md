@@ -22,15 +22,6 @@ As far as I know, it should work with non-ARC code, but actually no test has bee
 
 
 
-Requirements, Compilation & Build
----------------------------------
-
-#.	Download project.
-#.	Double-click `Build and Package from Latest Tag.command` file.
-#.	Binary and header package will be built in `Package` folder.
-
-
-
 
 
 Goal
