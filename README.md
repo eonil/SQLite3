@@ -79,9 +79,9 @@ in valid range.
 	
 For example, this library offers accessing method typed as `long long`
 . This type *MAY* be 16-byte in some system. In that case, users
-should make specially care to keep thier values are within valid range.
+should make special care to keep thier values are within valid range.
 
-Regular systems for Objective-C such as Mac OS X or iOS are all uses
+Trivial systems for Objective-C such as Mac OS X or iOS are all uses
 `long long` as 8-byte signed integer. So in that case, you don't need 
 to care anything. Anyway you have to keep these facts in mind. Always 
 have some policies for limits.
@@ -106,7 +106,7 @@ have some policies for limits.
 	
 Future Roadmap
 --------------
-If I can make more time, I will add duplication between databases using online-backup API.
+If I can make more time, I will add database duplication feature using online-backup API.
 
 
 	
