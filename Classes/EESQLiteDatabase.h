@@ -68,7 +68,7 @@
 /*!
  In SQLite3, nested transaction offered as SAVEPOINT.
  BEGIN/COMMIT/ROLLBACK TRANSACTION command is offered because it's defined,
- but I don't recommen to use them because they don't offer nested transaction.
+ but I don't recommend to use them because they don't offer nested transaction.
  
  Basically, these are convenient utility method for calling `-executeSQL:error:`
  method. Semantics of same arguments are same with the methods.
@@ -92,8 +92,9 @@
  
  @param
  transactionBlock
- This block MUST return `NO` to rollback transaction. 
- Otherwise transaction will be committed.
+ This block MUST return whether to commit or rollback the transaction.
+ Return `YES` to commit transaction.
+ Return `NO` to rollback transaction.
  
  @return
  Returns `YES` if the transaction finished with COMMIT.
@@ -105,13 +106,14 @@
  method. See the method description for more details.
  */
 - (BOOL)			executeTransactionBlock:(BOOL(^)(void))transactionBlock;
+
 /*!
  Perform BEGIN/COMMIT/ROLLBACK transaction.
  
  @param
  transactionBlock
- This block MUST return `nil` to rollback transaction. Otherwise transaction will 
- be committed.
+ This block MUST return `nil` to rollback transaction.
+ Otherwise transaction will be committed.
  
  @return
  The value returned by `transactionBlock`.
@@ -126,10 +128,10 @@
  
  Exception Handlings
  -------------------
- Supplied operation block will be executed wrapped by `@try...@finally` block. 
+ Supplied operation block will be executed with wrapping by `@try...@finally` block. 
  Any exception will trigger ROLLBACK in `@finally` block. If there's no exception,
- COMMIT will be triggered. And this method will re-throw the exception. Anyway this
- method does not `@catch` any exception, so exceptions will be thrown again.
+ your return value will select the trasaction result.
+ This method does not `@catch` any exception, so exceptions will be thrown again.
  Don't be confused with debugger's current breaking stack trace. See first-thrown 
  stack-trace of the exception object to investigate where the problems come.
  
@@ -138,18 +140,18 @@
  SQLite doesn't support nested transaction. It supports only SAVEPOINT.
  So traditional BEGIN/COMMIT/ROLLBACK cannot be nested.
  This method will fail if there's any existing transaction.
- Not only fails, it throws an exception.
+ Not only fails, but also throws an exception.
  
  This prohibition is because of partiall rollback.
  If you rollback inside transaction, and commit outmost transaction, the
  rollback part shouldn't be applied, and other outer part should be.
  But without nested transaction, it's impossible to implement, so I don't
- offer nested transaction feature with trandotional semantic methods.
+ offer nested transaction feature with tranditional semantic methods.
  
  Anyway the partial rollback is known as possible with SAVEPOINT feature,
  but unfourtunately, I don't know well about how it behaves. And it needs
  explicit name argument. If you relly want partial rollback, use SAVEPOINT
- methods.
+ feature.
  */
 - (id)				objectByExecutingTransactionBlock:(id(^)(void))transactionBlock;
 @end

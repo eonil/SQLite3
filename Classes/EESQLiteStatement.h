@@ -9,10 +9,6 @@
 #import				<Foundation/Foundation.h>
 
 
-//typedef				long long		EESQLiteDataTypeInteger64;
-//typedef				double			EESQLiteDataTypeReal8;
-//typedef				int				EESQLiteDataTypeText;
-//typedef				int				EESQLiteDataTypeText;
 
 
 
@@ -21,13 +17,16 @@
 
 /*!
  @abstract
- Prepared statement. (compiled byte-code program in SQLite engine)
+ Prepared statement.
+ 
+ @discussion
+ This is essentially a proxy object for compiled byte-code program in SQLite engine.
  
  @warning
  You MUST deallocate this object before hosting `EESQLiteDatabase` object
  deallocates. Because SQLite3 checks all the statements are finalized when
  it is dying. If any of them are still remains, it will raise an error,
- `EESQLiteDatabase` will detect it and throw an exception.
+ `EESQLiteDatabase` object will detect it and throw an exception.
  
  Take care about autoreleased objects.
  */
@@ -47,11 +46,11 @@
  execution is not finished and has more steps to go.
  `NO` if the command finished, and cannot be iterated anymore.
  
- You can continue stepping while this method returns `YES`.
+ You can continue stepping only while this method returns `YES`.
  
  @note
- For any error cases, the `error` argument will be set. If it is `nil`, that's 
- not an error.
+ For any error cases, the `error` argument will be set. If it is `nil`, there's 
+ no error.
 
  */
 - (BOOL)			stepWithError:(NSError**)error;
@@ -102,21 +101,26 @@
 - (long long)		longLongValueForColumnIndex:(NSInteger)columnIndex;
 - (NSInteger)		integerValueForColumnIndex:(NSInteger)columnIndex;		//	Size of `NSInteger` can be vary by the system.
 - (double)			doubleValueForColumnIndex:(NSInteger)columnIndex;
-- (NSString*)		stringValueForColumnIndex:(NSInteger)columnIndex;
-- (NSData*)			dataValueForColumnIndex:(NSInteger)columnIndex;
+- (NSString*)		stringValueForColumnIndex:(NSInteger)columnIndex;		//	Returning string is copied value.
+- (NSData*)			dataValueForColumnIndex:(NSInteger)columnIndex;			//	Returning data is copied value.
 - (BOOL)			isNullAtColumnIndex:(NSInteger)columnIndex;
 
-////				Access as collected and automatically typed object.
-////				Each field can be one of `NSData`, `NSString` or `NSNumber` which
-////				contains integeral or floating point numbers.
-////				SQLite's `NULL` will be replaced with specified value. 
-////				You can specify `nil` for replacement, and the field with `nil` value
-////				will not be stored in dictionary.
-////				String or binary data copied before return. So it's safe to keep them.
-////				This is a lot slower than access by raw storage class methods.
-////				
+/*!
+ @abstract
+ Read whole current row as dictionary.
+ 
+ @discussion
+ Access as collected and automatically typed object.
+ Each field can be one of `NSData`, `NSString` or `NSNumber` which
+ contains integral or floating point numbers.
+ SQLite's `NULL` will be replaced with specified value.
+ You can specify `nil` for replacement, and the field with `nil` value
+ will not be stored in dictionary.
+ String or binary data copied before return. So it's safe to keep them.
+ This is a lot slower than access by raw storage class methods.
+ */
 - (NSDictionary*)	dictionaryValueReplacingNullsWithValue:(id)nullValue;
-- (NSDictionary*)	dictionaryValue;
+- (NSDictionary*)	dictionaryValue;	//	Set `nullValue` as `nil`.
 
 
 

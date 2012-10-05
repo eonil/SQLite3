@@ -18,7 +18,7 @@
  @example
  See this SQL statement.
  
- CREATE TABLE IF NOT EXIST t(x INTEGER PRIMARY KEY ASC, y, z);
+	CREATE TABLE IF NOT EXIST t(x INTEGER PRIMARY KEY ASC, y, z);
  
  This is equal with this method call.
  
