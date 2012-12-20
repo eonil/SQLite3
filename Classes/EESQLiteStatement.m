@@ -112,7 +112,7 @@
 - (NSInteger)integerValueForColumnIndex:(NSInteger)columnIndex
 {
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex);
-	return	sqlite3_column_int64(stmt, (int)columnIndex);
+	return	(NSInteger)sqlite3_column_int64(stmt, (int)columnIndex);
 }
 - (double)doubleValueForColumnIndex:(NSInteger)columnIndex
 {
