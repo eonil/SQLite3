@@ -853,6 +853,7 @@
 					i386,
 					x86_64,
 					armv7,
+					armv7s,
 				);
 				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=iphonesimulator*]" = i386;
@@ -883,8 +884,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "i386 x86_64 armv7";
-				"VALID_ARCHS[sdk=iphoneos*]" = armv7;
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s";
+				"VALID_ARCHS[sdk=iphoneos*]" = "armv7 armv7s";
 				"VALID_ARCHS[sdk=iphonesimulator*]" = i368;
 				"VALID_ARCHS[sdk=macosx*]" = x86_64;
 			};
@@ -898,8 +899,9 @@
 					i386,
 					x86_64,
 					armv7,
+					armv7s,
 				);
-				"ARCHS[sdk=iphoneos*]" = armv7;
+				"ARCHS[sdk=iphoneos*]" = "$(ARCHS_STANDARD_32_BIT)";
 				"ARCHS[sdk=iphonesimulator*]" = i386;
 				"ARCHS[sdk=macosx*]" = (
 					i386,
@@ -925,8 +927,8 @@
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "i386 x86_64 armv7";
-				"VALID_ARCHS[sdk=iphoneos*]" = armv7;
+				VALID_ARCHS = "i386 x86_64 armv7 armv7s";
+				"VALID_ARCHS[sdk=iphoneos*]" = "armv7 armv7s";
 				"VALID_ARCHS[sdk=iphonesimulator*]" = i368;
 				"VALID_ARCHS[sdk=macosx*]" = x86_64;
 			};
@@ -943,7 +945,7 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "i386 armv7";
+				VALID_ARCHS = "i386 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -958,7 +960,7 @@
 				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				VALID_ARCHS = "i386 armv7";
+				VALID_ARCHS = "i386 armv7 armv7s";
 			};
 			name = Release;
 		};
