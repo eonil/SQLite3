@@ -101,6 +101,10 @@
 		45E68B491683347F00DAE96E /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
 		45E68B4A1683347F00DAE96E /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
 		45E68B4B1683347F00DAE96E /* EEDocumentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 456D46B314CC2100005F6D62 /* EEDocumentStore.m */; };
+		45E68BAF16839EAA00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
+		45E68BB016839EAB00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
+		45E68BB116839EAC00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
+		45E68BB216839EAD00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -220,6 +224,9 @@
 		45E68B361683342700DAE96E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		45E68B371683342700DAE96E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45E68B3A1683342700DAE96E /* OS X Static Library-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Static Library-Prefix.pch"; sourceTree = "<group>"; };
+		45E68BA416839E8700DAE96E /* TTRegressionTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRegressionTestCases.h; sourceTree = "<group>"; };
+		45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRegressionTestCases.m; sourceTree = "<group>"; };
+		45E68BB316840B7000DAE96E /* ISSUES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISSUES; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				4595397F14CD8F5B00B6A0E2 /* README.md */,
+				45E68BB316840B7000DAE96E /* ISSUES */,
 				4572DAAA15BB217D0091442D /* Others */,
 				4518C20214CBD0CE00EF0620 /* Classes */,
 				4518C1FF14CBD0CE00EF0620 /* Frameworks and Libraries */,
@@ -436,6 +444,8 @@
 				4572DA8D15BB20A30091442D /* TTEvilCase.m */,
 				4572DA8E15BB20A30091442D /* TTHappyCase.h */,
 				4572DA8F15BB20A30091442D /* TTHappyCase.m */,
+				45E68BA416839E8700DAE96E /* TTRegressionTestCases.h */,
+				45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */,
 				4572DA9015BB20A30091442D /* TTTestUtility.h */,
 				4572DA9115BB20A30091442D /* TTTestUtility.m */,
 				45CB651114CBF609004EF17F /* SenTestingKit.framework */,
@@ -789,6 +799,7 @@
 				452740C215D6976900258461 /* TTTestUtility.m in Sources */,
 				452740CB15D697F800258461 /* UnitTestContainer.m in Sources */,
 				452740D115D6980E00258461 /* TestContainer.m in Sources */,
+				45E68BB116839EAC00DAE96E /* TTRegressionTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +815,7 @@
 				452740EB15D69DDC00258461 /* TTEvilCase.m in Sources */,
 				452740EC15D69DDC00258461 /* TTHappyCase.m in Sources */,
 				452740ED15D69DDC00258461 /* TTTestUtility.m in Sources */,
+				45E68BB216839EAD00DAE96E /* TTRegressionTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +847,7 @@
 				4572DA9F15BB20A30091442D /* TTTestUtility.m in Sources */,
 				452740CA15D697F800258461 /* UnitTestContainer.m in Sources */,
 				452740D015D6980E00258461 /* TestContainer.m in Sources */,
+				45E68BB016839EAB00DAE96E /* TTRegressionTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +862,7 @@
 				4572DA9E15BB20A30091442D /* TTTestUtility.m in Sources */,
 				452740C915D697F800258461 /* UnitTestContainer.m in Sources */,
 				452740CF15D6980E00258461 /* TestContainer.m in Sources */,
+				45E68BAF16839EAA00DAE96E /* TTRegressionTestCases.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,6 +930,7 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -946,7 +961,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

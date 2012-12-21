@@ -28,7 +28,7 @@
  it is dying. If any of them are still remains, it will raise an error,
  `EESQLiteDatabase` object will detect it and throw an exception.
  
- Take care about autoreleased objects.
+ I recommend `@autoreleasepool` block to make it sure to be deallocated.
  */
 @interface			EESQLiteStatement : NSObject
 @property			(readonly,nonatomic)		NSString*		SQL;

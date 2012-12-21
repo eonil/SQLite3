@@ -11,7 +11,9 @@
 
 
 @implementation TTEvilCase
-
+{
+	id	holderForTest;
+}
 
 
 

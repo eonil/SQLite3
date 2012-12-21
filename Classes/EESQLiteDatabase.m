@@ -34,13 +34,17 @@ EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* self)
 	return	self->db;
 }
 
+/*!
+ Returns YES if prepared succesfully.
+ Otherwise, NO.
+ */
 static
 inline
 BOOL
-PrepareWithName(EESQLiteDatabase* self, NSString* name, NSError** error)
+PrepareWithName(EESQLiteDatabase* self, NSString* name, NSError** error, BOOL allowCreation)
 {
 	const char * filename = [name cStringUsingEncoding:NSUTF8StringEncoding];
-	int flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE;
+	int flags = allowCreation ? SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE : SQLITE_OPEN_READWRITE;
 	const char * vfs = NULL;
 	int result = sqlite3_open_v2(filename, &(self->db), flags, vfs);
 	
@@ -54,15 +58,18 @@ PrepareWithName(EESQLiteDatabase* self, NSString* name, NSError** error)
 	}
 	else
 	{
-		if (EESQLiteHandleOKOrError(result, error, self->db))
-		{
-			return	YES;
-		}
-		else
-		{
-			sqlite3_close(self->db);
-			return	NO;
-		}
+		return	EESQLiteHandleOKOrError(result, error, self->db);
+
+		//	dealloc will take care of closing.
+//		if (EESQLiteHandleOKOrError(result, error, self->db))
+//		{
+//			return	YES;
+//		}
+//		else
+//		{
+////			sqlite3_close(self->db);
+//			return	NO;
+//		}
 	}
 }
 static
@@ -83,28 +90,30 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (BOOL)executeSQL:(NSString *)command error:(NSError *__autoreleasing *)error
 {
-	NSError*	parerr		=	nil;
-	NSArray*	stmts		=	[self statementsByParsingSQL:command error:&parerr];
-	
-	if (!EESQLiteCheckForNoError(parerr, error))
+	@autoreleasepool
 	{
-		return	NO;
-	}
-	
-	////
-	
-	for (EESQLiteStatement* stmt in stmts)
-	{
-		NSError*	steperr		=	nil;
-		while ([stmt stepWithError:&steperr])
+		NSError*	parerr		=	nil;
+		NSArray*	stmts		=	[self statementsByParsingSQL:command error:&parerr];
+		
+		if (!EESQLiteCheckForNoError(parerr, error))
 		{
-			if (!EESQLiteCheckForNoError(steperr, error))
+			return	NO;
+		}
+		
+		////
+	
+		for (EESQLiteStatement* stmt in stmts)
+		{
+			NSError*	steperr		=	nil;
+			while ([stmt stepWithError:&steperr])
 			{
-				return	NO;
+				if (!EESQLiteCheckForNoError(steperr, error))
+				{
+					return	NO;
+				}
 			}
 		}
 	}
-	
 	return	YES;
 }
 - (NSArray *)statementsByParsingSQL:(NSString *)sql
@@ -261,7 +270,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
 	self	=	[super init];
 	
-	if (self && PrepareWithName(self, IN_MEMORY_DATABASE_NAME, error))
+	if (self && PrepareWithName(self, IN_MEMORY_DATABASE_NAME, error, YES))
 	{
 		return	self;
 	}
@@ -272,7 +281,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
 	self	=	[super init];
 
-	if (self && PrepareWithName(self, nil, error))
+	if (self && PrepareWithName(self, nil, error, YES))
 	{
 		return	self;
 	}	
@@ -283,7 +292,6 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
 	if (!createIfNotExist && ![[NSFileManager defaultManager] fileExistsAtPath:pathTodDatabase])
 	{
-		
 		if (error != NULL)
 		{
 			*error	=	EESQLiteFileDoesNotExistAtPathError(pathTodDatabase);
@@ -295,11 +303,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 	
 	self	=	[super init];
 	
-	if (self && PrepareWithName(self, pathTodDatabase, error))
+	if (self && PrepareWithName(self, pathTodDatabase, error, createIfNotExist))
 	{
 		return	self;
 	}
-
 	
 	return	nil;
 }

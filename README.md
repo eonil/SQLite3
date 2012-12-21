@@ -106,8 +106,8 @@ have some policies for limits.
 	
 Future Roadmap
 --------------
-If I can make more time, I will add database duplication feature using online-backup API.
 
+If I can make more time, I will add database duplication feature using online-backup API.
 
 	
 

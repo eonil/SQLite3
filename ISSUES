@@ -1,0 +1,13 @@
+ISSUES
+======
+
+
+
+2012/12/21, Eonil; Should I make `EESQLiteStatement` to retain `EESQLiteDatabase` object?
+-----------------------------------------------------------------------------------------
+Currently, statement object doesn't retain database object, but SQLite3 actually
+does it. It forces the DB object to be alive until all the statement objects are dead
+by error.
+
+I expect I will update statement object to retain database object.
+

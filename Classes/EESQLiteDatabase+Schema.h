@@ -20,9 +20,9 @@
  
 	CREATE TABLE IF NOT EXIST t(x INTEGER PRIMARY KEY ASC, y, z);
  
- This is equal with this method call.
+ Above SQL command is equal to below method call.
  
- [db addTableWithExpression:@"t" withColumnExpression:[NSArray arrayWithObjects:@"x INTEGER PRIMARY KEY", @"y", @"z", nil] isTemporary:NO onlyWhenNotExist:YES];
+	[db addTableWithExpression:@"t" withColumnExpression:[NSArray arrayWithObjects:@"x INTEGER PRIMARY KEY", @"y", @"z", nil] isTemporary:NO onlyWhenNotExist:YES];
  
  @param
  tableExpression
