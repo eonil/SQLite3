@@ -404,7 +404,7 @@ TTCreateDatabaseForGenericTest()
 	
 	{
 		NSError*	err	=	nil;
-		[db deleteRowHasID:rowid2 inTable:@"table1" error:&err];
+		[db deleteRowHasID:rowid2 fromTable:@"table1" error:&err];
 		EETempTestMacroAssertNil(err, [err description]);
 		
 		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
@@ -437,7 +437,7 @@ TTCreateDatabaseForGenericTest()
 	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];	
 	{
 		NSError* err	=	nil;
-		[db deleteAllRowsInTable:@"table1" error:&err];
+		[db deleteAllRowsFromTable:@"table1" error:&err];
 		EETempTestMacroAssertNil(err, [err description]);
 		
 		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];

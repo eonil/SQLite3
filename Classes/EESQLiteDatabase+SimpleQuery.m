@@ -339,7 +339,7 @@
 {
 	return	[self updateRowHasValue:columnValue atColumn:columnName inTable:tableName withDictionary:newValue replacingValueAsNull:nil];
 }
-- (BOOL)deleteAllRowsInTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (BOOL)deleteAllRowsFromTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
 {
 	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
 	
@@ -348,7 +348,7 @@
 
 	return		[self executeSQL:cmd error:error];
 }
-- (BOOL)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (BOOL)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName fromTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
 {
 	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
 	if (!EESQLiteCheckValidityOfIdentifierName(columnName, error))	return	NO;
@@ -378,8 +378,44 @@
 	}
 	return	YES;
 }
+- (BOOL)deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+{
+	return	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" fromTable:tableName error:error];
+}
+
+
+- (BOOL)deleteAllRowsInTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+{
+	return	[self deleteAllRowsFromTable:tableName error:error];
+}
 - (BOOL)deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
 {
-	return	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName error:error];
+	return	[self deleteRowHasID:rowID fromTable:tableName error:error];
 }
+- (BOOL)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+{
+	return	[self deleteRowsHasValue:value atColumn:columnName fromTable:tableName error:error];
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

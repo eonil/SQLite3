@@ -1,5 +1,5 @@
 //
-//  EESQLiteSymbols.h
+//  EESQLiteCommon.h
 //  EonilSQLite
 //
 //  Created by Hoon Hwangbo on 7/23/12.

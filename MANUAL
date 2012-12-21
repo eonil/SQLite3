@@ -1,22 +1,10 @@
-Eonil's SQLite3 wrapper library
-===============================
-Hoon Hwangbo
-2012/10/04
-
-
-`EonilSQLite` is an Objective-C library which wraps C-level SQLite3 database engine library.
-This library offers these features.
-
--	Reducing complexity of using C level functions directly.
--	Offers simple and object-oriented data handling. (handling data using `NSValue`, `NSDictionary` and `NSArray`)
+MANUAL
+======
+Hoon Hwagbo
+2012/12/21
 
 
 
-
-Limitation
-----------
-This project uses ARC. There is no consideration of non-ARC code.
-As far as I know, it should work with non-ARC code, but actually no test has been done for that.
 
 
 
@@ -27,7 +15,7 @@ As far as I know, it should work with non-ARC code, but actually no test has bee
 Goal
 ----
 
-Primary goal of this library is *reducing things to remember* by offering classes following Objective-C conventions.
+Primary goal of this library is *reducing things to care* by offering classes following Objective-C conventions.
 To archive this goal, these policies are set.
 
 -	Use Objective-C/Cocoa types rather than C types unless exact type matching is required to guarantee integrity by default.
@@ -37,10 +25,11 @@ To archive this goal, these policies are set.
 
 
 
+Limitations and Behaviors
+-------------------------
+This project uses ARC. There is no consideration of non-ARC code.
+As far as I know, compiled binary should work with non-ARC code, but actually no test has been done for that.
 
-
-Limits and Behaviors
---------------------
 SQLite3 can store only these types.
 
 -	NULL
@@ -92,22 +81,37 @@ have some policies for limits.
 	
 	
 	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
 Future Roadmap
 --------------
 
 If I can make more time, I will add database duplication feature using online-backup API.
 
-	
+
+
+
+
+
+
+
+
+
+
+
+License
+-------
+This libray is licensed under MIT license.
+
 

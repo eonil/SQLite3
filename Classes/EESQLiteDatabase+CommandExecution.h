@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				"EESQLiteSymbols.h"
+#import				"EESQLiteCommon.h"
 #import				"EESQLiteDatabase.h"
 
 @interface			EESQLiteDatabase (CommandExecution)

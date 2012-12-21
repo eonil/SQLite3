@@ -11,7 +11,7 @@
 
 
 
-#import			"EESQLiteSymbols.h"
+#import			"EESQLiteCommon.h"
 #import			"EESQLiteDatabase.h"
 #import			"EESQLiteDatabase+CommandExecution.h"
 #import			"EESQLiteDatabase+Schema.h"

@@ -6,11 +6,13 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import "EESQLiteSymbols.h"
+#import "EESQLiteCommon.h"
 #import "EESQLiteDatabase.h"
 
 /*!
- Query utility methods designed for simplisity.
+ Query utility methods designed for simplicity using Property List types.
+ 
+ @classdesign
  All methods defined in this category returns simple result.
  And returns `nil` if any error raised. 
  
@@ -78,11 +80,18 @@
 - (BOOL)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;	//	Execute above method with `nil` for last parameter. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
 - (BOOL)				updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;						//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
 
-- (BOOL)				deleteAllRowsInTable:(NSString*)tableName error:(NSError**)error;																//	Returns `YES` if the operation succeeds. `NO` for failure with any reason.
-- (BOOL)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName error:(NSError**)error;				//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
-- (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName error:(NSError**)error;										//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
+- (BOOL)				deleteAllRowsFromTable:(NSString*)tableName error:(NSError**)error;																//	Returns `YES` if the operation succeeds. `NO` for failure with any reason.
+- (BOOL)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName fromTable:(NSString*)tableName error:(NSError**)error;				//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
+- (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString*)tableName error:(NSError**)error;										//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
 
+/*
+ Decprecated methods.
+ */
+- (BOOL)				deleteAllRowsInTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
+- (BOOL)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
+- (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
 @end
+
 
 
 
