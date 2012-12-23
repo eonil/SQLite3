@@ -328,7 +328,7 @@ TTCreateDatabaseForGenericTest()
 	
 	{
 		NSMutableArray*		result	=	[NSMutableArray array];
-		[db enumerateRowsHasValue:@"R2a" atColumne:@"column1" inTable:@"table1" limitCount:2 block:^(NSDictionary *row, BOOL *stop)
+		[db enumerateRowsHasValue:@"R2a" atColumne:@"column1" inTable:@"table1" limitCount:2 usingBlock:^(NSDictionary *row, BOOL *stop)
 		 {
 			 [result addObject:row];
 		 }];
@@ -339,7 +339,7 @@ TTCreateDatabaseForGenericTest()
 	}
 	{
 		NSMutableArray*		result	=	[NSMutableArray array];
-		[db enumerateRowsHasValue:@"R2a" atColumne:@"column1" inTable:@"table1" limitCount:0 block:^(NSDictionary *row, BOOL *stop)
+		[db enumerateRowsHasValue:@"R2a" atColumne:@"column1" inTable:@"table1" limitCount:0 usingBlock:^(NSDictionary *row, BOOL *stop)
 		 {
 			 [result addObject:row];
 		 }];

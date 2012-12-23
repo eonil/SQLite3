@@ -98,7 +98,7 @@
 	
 	return	[self enumerateRowsByExecutingSQL:cmd block:block];
 }
-- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount block:(void (^)(NSDictionary *, BOOL *))block
+- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount usingBlock:(void (^)(NSDictionary *, BOOL *))block
 {
 	if (![[self class] isValidIdentifierString:columnName])	return	NO;
 	if (![[self class] isValidIdentifierString:tableName])	return	NO;
@@ -128,9 +128,54 @@
 				block([stmt dictionaryValue], &stop);
 			}
 		}
+		return	YES;
 	}
-	return	YES;
+	else
+	{
+		return	NO;
+	}
 }
+- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName usingBlock:(void (^)(NSDictionary *, BOOL *))block
+{
+	if (![[self class] isValidIdentifierString:columnName])	return	NO;
+	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	
+	NSError*	inerr	=	nil;
+	NSString*	paramnm	=	@"@columnValue";
+	NSString*	cmdform	=	@"SELECT * FROM %@ WHERE %@ = %@;";
+	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, paramnm];
+	NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
+	
+	if (inerr == nil && [stmts count]== 1)
+	{
+		EESQLiteStatement*	stmt	=	[stmts lastObject];
+		[stmt setValue:value forParameterName:paramnm error:&inerr];
+		
+		if (inerr == nil)
+		{
+			BOOL			stop	=	NO;
+			while (!stop && [stmt stepWithError:&inerr])
+			{
+				if (inerr != nil)
+				{
+					return	NO;
+				}
+				
+				block([stmt dictionaryValue], &stop);
+			}
+		}
+		return	YES;
+	}
+	else
+	{
+		return	NO;
+	}
+}
+- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount block:(void (^)(NSDictionary *, BOOL *))block
+{
+	return	[self enumerateRowsHasValue:value atColumne:columnName inTable:tableName limitCount:limitCount usingBlock:block];
+}
+
 - (NSDictionary *)dictionaryFromRowHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName
 {
 	return	[[self arrayOfRowsHasValue:value atColumne:columnName inTable:tableName limitCount:1] lastObject];

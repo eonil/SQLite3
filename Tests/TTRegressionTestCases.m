@@ -56,6 +56,92 @@
 		NSLog(@"created database tables = %@", self->DB.allTableNames);
 	}
 }
+
+
+
+
+
+
+
+
+//- (void)test022_creatingNewTable
+//{
+//	/*
+//	 ISSUE:
+//	 Currently, 
+//
+//	 */
+//	NSString*	path	=	[@"~/Temp/SubwayRoute/osm.sqlite" stringByExpandingTildeInPath];
+//	
+//	if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+//	{
+//		NSError*	err	=	nil;
+//		[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:path error:&err];
+//		EETempTestMacroAssertNil(err, @"Error while creating DB.");
+//		
+//	}
+//	
+//	
+//	@autoreleasepool
+//	{
+//		NSError*	err	=	nil;
+//		self->DB	=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:path error:&err];
+//		EETempTestMacroAssertNil(err, @"Error while opening DB.");
+//		
+//		/*
+//		 refID			Integer. PK and ID to the target object.
+//		 completion		Boolean. If this is NO, the object and all related objects must be re-downlaoded.
+//		 */
+//		[self->DB addTableWithName:@"DataloadingStateForNode" withColumnNames:@[@"refID", @"completion"] rowIDAliasColumnName:@"refID"];
+//		[self->DB addTableWithName:@"DataloadingStateForWay" withColumnNames:@[@"refID", @"completion"] rowIDAliasColumnName:@"refID"];
+//
+//		self->DB	=	nil;
+//	}
+//	
+//	@autoreleasepool
+//	{
+//		self->DB	=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:path error:NULL];
+//		
+//		NSDictionary*	dict	=	@
+//		{
+//			@"refID"			:	@(11223344),
+//			@"completion"		:	@(NO),
+//		};
+//		
+//		if (![DB executeTransactionBlock:^BOOL
+//			  {
+//				  NSError*	errD	=	nil;
+//				  NSError*	errI	=	nil;
+//				  [DB deleteRowHasID:11223344 fromTable:@"DataloadingStateForNode" error:&errD];
+//				  [DB insertDictionaryValue:dict intoTable:@"DataloadingStateForNode" error:&errI];
+//				  EETempTestMacroAssertNil(errD, @"Error while opening DB.");
+//				  EETempTestMacroAssertNil(errI, @"Error while opening DB.");
+//				  return	errD == nil && errI == nil;
+//			  }])
+//		{
+//			printf("error");
+//			abort();
+//		}
+//	}
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end
 
 

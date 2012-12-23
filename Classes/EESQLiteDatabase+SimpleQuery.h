@@ -18,20 +18,26 @@
  
  @discussion
  All *names* will be checked for ill-formed or not.
- But all *expressions* won't be checked at all. It's user's responsibility to make expressions to be safe.
+ But all *expressions* won't be checked at all. It's user's responsibility to make 
+ expressions to be safe. (from such as SQL injection)
  
  @warning
  All of these operations doesn't use explicit tracsaction at all.
  So all of them are not atomic at all.
  If you want to make them as atomic operation, wrap them with explicit transaction.
+ 
+ *	This behavior may change in future release to use transaction only when
+	there's no active transactions. (by checking auto-commit mode)
+ 
  */
 @interface EESQLiteDatabase (SimpleQuery)
 
 - (BOOL)				checkIntegrity;
+
 - (BOOL)				containsRawID:(EESQLiteRowID)rowID inTable:(NSString*)tableName;		//	Returns `NO` if the table name is invalid.
 
 - (NSArray*)			arrayOfAllRowsInTable:(NSString*)tableName;
-- (NSArray*)			arrayOfRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount;	//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
+- (NSArray*)			arrayOfRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount;	//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values. If you need large dataset, use -enumerate~ method series.
 - (BOOL)				enumerateAllRowsInTable:(NSString*)tableName block:(void(^)(NSDictionary* row, BOOL* stop))block;
 /*!
  Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
@@ -42,8 +48,11 @@
  If this method encounters any error while enumerating, enumeration will stop and return `NO`.
  Validity of already enumerated values are not defined.
  */
-- (BOOL)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount block:(void(^)(NSDictionary* row, BOOL* stop))block;
+- (BOOL)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount usingBlock:(void(^)(NSDictionary* row, BOOL* stop))block;
+- (BOOL)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName usingBlock:(void(^)(NSDictionary* row, BOOL* stop))block;
 
+//	Deprecated for better name.
+- (BOOL)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount block:(void(^)(NSDictionary* row, BOOL* stop))block EESQLiteDeprecatedMethod;
 
 - (NSDictionary*)		dictionaryFromRowHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName;								//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
 - (NSDictionary*)		dictionaryFromRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName;														//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name.
@@ -85,11 +94,22 @@
 - (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString*)tableName error:(NSError**)error;										//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
 
 /*
- Decprecated methods.
+ Deprecated methods.
  */
 - (BOOL)				deleteAllRowsInTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
 - (BOOL)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
 - (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
+
+/*
+ This method is designed to delete and re-insert the row with new values.
+ But it may cause a problem if there're some relations set.
+ Possible implementation is removing existing value from existing row by inspecting 
+ schema dynamically, may be very expecsive.
+ And this operation also needs transaction support to work properly.
+ */
+//- (BOOL)				setRowHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue replacingValueAsNull:(id)nullValue;
+
+
 @end
 
 

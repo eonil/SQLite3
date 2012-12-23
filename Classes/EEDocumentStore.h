@@ -19,6 +19,10 @@ NSString* const		EEDocumentStoreErrorDomain;
 /*!
  A simple document store based on SQLite3 engine.
  
+ @deprecated
+ This class is deprecated. Do not use this.
+ Preserved for legacy code support purpose.
+ 
  @warning
  This class is designed to be a full abstraction layer on top of SQLite3 database.
  This means you should not touch or access the underlying SQLite3 database directly
@@ -84,3 +88,14 @@ NSString* const		EEDocumentStoreErrorDomain;
  searchable. Anyway if you need more regular metadata, you must use regular SQLite
  table directly.
 */
+
+
+
+
+
+
+
+
+
+
+

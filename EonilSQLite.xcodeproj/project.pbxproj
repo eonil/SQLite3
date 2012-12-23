@@ -308,7 +308,7 @@
 				45934D52168443A8009C3D30 /* MANUAL */,
 				45E68BB316840B7000DAE96E /* ISSUES */,
 				45934D50168441D4009C3D30 /* LICENSE */,
-				4572DAAA15BB217D0091442D /* Others */,
+				4572DAA915BB21670091442D /* Prefix.pch */,
 				4518C20214CBD0CE00EF0620 /* Classes */,
 				4518C1FF14CBD0CE00EF0620 /* Frameworks and Libraries */,
 				4572DAA015BB21100091442D /* Targets */,
@@ -484,14 +484,6 @@
 				4572DAA615BB21390091442D /* Prefix.pch */,
 			);
 			path = "Mac OS X";
-			sourceTree = "<group>";
-		};
-		4572DAAA15BB217D0091442D /* Others */ = {
-			isa = PBXGroup;
-			children = (
-				4572DAA915BB21670091442D /* Prefix.pch */,
-			);
-			name = Others;
 			sourceTree = "<group>";
 		};
 		45E68B341683342700DAE96E /* Other Frameworks */ = {
@@ -693,7 +685,7 @@
 		4518C1F414CBD0CE00EF0620 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Eonil Company";
 			};
 			buildConfigurationList = 4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "EonilSQLite" */;
@@ -1016,6 +1008,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Manual Test/Manual Test-Prefix.pch";
@@ -1034,6 +1027,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Manual Test/Manual Test-Prefix.pch";
@@ -1198,8 +1192,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -1207,8 +1202,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
