@@ -59,7 +59,7 @@
 
 
 
-- (void)test022_insertIntoWithNonExistingTable
+- (void)test022_insertIntoWithBadTableName
 {
 	@autoreleasepool
 	{
@@ -71,6 +71,20 @@
 		NSError*	err	=	nil;
 		[DB insertDictionaryValue:@{} intoTable:@"ttt" error:&err];
 		EETempTestMacroAssertNotNil(err, @"It should raise an error.");
+	}
+}
+- (void)test022_insertIntoWithTableNameWithSpecialCharacter
+{
+	@autoreleasepool
+	{
+		[[NSFileManager defaultManager] removeItemAtPath:@"./t.db" error:nil];
+		[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:@"./t.db"];
+		EESQLiteDatabase*	DB	=	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:@"./t.db" ];
+		[DB addTableWithName:@"t+t" withColumnNames:@[@"c1"] rowIDAliasColumnName:@"c1"];
+		
+		NSError*	err	=	nil;
+		[DB insertDictionaryValue:@{} intoTable:@"t+t" error:&err];
+		EETempTestMacroAssertNil(err, @"Should be no error.");
 	}
 }
 

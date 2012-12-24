@@ -244,9 +244,9 @@
 		}
 		else
 		{
-			[cmd appendString:@"INSERT INTO "];
+			[cmd appendString:@"INSERT INTO ["];
 			[cmd appendString:tableName];
-			[cmd appendString:@" ("];
+			[cmd appendString:@"]("];
 			
 			if (len > 0)		//	`len` can be zero. In that case, `len-1` goes to insane number.
 			{
