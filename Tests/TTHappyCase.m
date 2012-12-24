@@ -277,10 +277,12 @@ TTCreateDatabaseForGenericTest()
 	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"_adw1"], @"");
 	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"_a_dw1"], @"");
 	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"adw1"], @"");
-	EETempTestMacroAssertFalse([EESQLiteDatabase isValidIdentifierString:@"_a.dw1"], @"");
-	EETempTestMacroAssertFalse([EESQLiteDatabase isValidIdentifierString:@"1_a.dw1"], @"");
-	EETempTestMacroAssertFalse([EESQLiteDatabase isValidIdentifierString:@"a a"], @"");
+	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"_a.dw1"], @"");
+	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"1_a.dw1"], @"");
+	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"a a"], @"");
+	EETempTestMacroAssertTrue([EESQLiteDatabase isValidIdentifierString:@"a++a"], @"");
 	EETempTestMacroAssertFalse([EESQLiteDatabase isValidIdentifierString:@"'aa'"], @"");
+ 	EETempTestMacroAssertFalse([EESQLiteDatabase isValidIdentifierString:@"[aa]"], @"");
 }
 
 - (void)testSimpleSelectQueries

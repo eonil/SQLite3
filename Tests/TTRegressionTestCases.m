@@ -88,6 +88,20 @@
 	}
 }
 
+- (void)test023_selectingWithTableNameWithSpecialLetters
+{
+	@autoreleasepool
+	{
+		EESQLiteDatabase*	DB	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+		[DB addTableWithName:@"t+t" withColumnNames:@[@"c1"] rowIDAliasColumnName:@"c1"];
+		[DB insertDictionaryValue:@{} intoTable:@"t+t" error:nil];
+		
+		NSArray*	A	=	[DB arrayOfAllRowsInTable:@"t+t"];
+		
+		EETempTestMacroAssertNotNil(A, @"Should return some value.");
+	}
+}
+
 
 
 

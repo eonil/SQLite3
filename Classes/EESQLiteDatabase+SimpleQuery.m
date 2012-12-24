@@ -36,7 +36,7 @@
 {
 	if (![[self class] isValidIdentifierString:tableName])	return	NO;
 	
-	NSString*	cmdform	=	@"SELECT COUNT(_ROWID_) AS count FROM %@ WHERE _ROWID_ = %@";
+	NSString*	cmdform	=	@"SELECT COUNT(_ROWID_) AS count FROM [%@] WHERE _ROWID_ = %@";
 	NSString*	idstr	=	[NSString stringWithFormat:@"%lld", rowID];
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, idstr];
 	NSArray*	rows	=	[self arrayOfRowsByExecutingSQL:cmd];
@@ -50,7 +50,7 @@
 {
 	if (![[self class] isValidIdentifierString:tableName])	return	nil;
 	
-	NSString*	cmdform	=	@"SELECT * FROM %@";
+	NSString*	cmdform	=	@"SELECT * FROM [%@]";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
 	
 	return	[self arrayOfRowsByExecutingSQL:cmd];
@@ -63,7 +63,7 @@
 	NSError*	inerr	=	nil;
 	NSString*	paramnm	=	@"@columnValue";
 	NSString*	limstr	=	[NSString stringWithFormat:@"%llu", (unsigned long long)limitCount];
-	NSString*	cmdform	=	@"SELECT * FROM %@ WHERE %@ = %@ LIMIT %@;";
+	NSString*	cmdform	=	@"SELECT * FROM [%@] WHERE [%@] = %@ LIMIT %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, paramnm, limstr];
 	NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
 	
@@ -94,7 +94,7 @@
 {
 	if (![[self class] isValidIdentifierString:tableName])	return	NO;
 	
-	NSString*	cmdform	=	@"SELECT * FROM %@";
+	NSString*	cmdform	=	@"SELECT * FROM [%@]";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
 	
 	return	[self enumerateRowsByExecutingSQL:cmd block:block];
@@ -107,7 +107,7 @@
 	NSError*	inerr	=	nil;
 	NSString*	paramnm	=	@"@columnValue";
 	NSString*	limstr	=	[NSString stringWithFormat:@"%llu", (unsigned long long)limitCount];
-	NSString*	cmdform	=	@"SELECT * FROM %@ WHERE %@ = %@ LIMIT %@;";
+	NSString*	cmdform	=	@"SELECT * FROM [%@] WHERE [%@] = %@ LIMIT %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, paramnm, limstr];
 	NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
 	
@@ -143,7 +143,7 @@
 	
 	NSError*	inerr	=	nil;
 	NSString*	paramnm	=	@"@columnValue";
-	NSString*	cmdform	=	@"SELECT * FROM %@ WHERE %@ = %@;";
+	NSString*	cmdform	=	@"SELECT * FROM [%@] WHERE [%@] = %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, paramnm];
 	NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
 	
@@ -189,7 +189,7 @@
 {
 	if (![[self class] isValidIdentifierString:tableName])	return	0;
 	
-	NSString*	cmdform	=	@"SELECT count(*) AS COUNT FROM %@;";
+	NSString*	cmdform	=	@"SELECT count(*) AS COUNT FROM [%@];";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
 	NSArray*	result	=	[self arrayOfRowsByExecutingSQL:cmd];
 	
@@ -252,7 +252,9 @@
 			{
 				for (NSUInteger i=0; i<len-1 ;i++)
 				{
+					[cmd appendString:@"["];
 					[cmd appendString:[cols objectAtIndex:i]];
+					[cmd appendString:@"]"];
 					[cmd appendString:@","];
 				}
 				[cmd appendString:[cols lastObject]];
@@ -365,7 +367,7 @@
 	NSMutableArray*		setexps	=	[NSMutableArray arrayWithCapacity:[newValue count]];
 	[newValue enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
 	{
-		NSString*		setexp	=	[NSString stringWithFormat:@"%@ = %@", key, setParameterNameForColumnName(key)];
+		NSString*		setexp	=	[NSString stringWithFormat:@"[%@] = %@", key, setParameterNameForColumnName(key)];
 		[setexps addObject:setexp];
 	}];
 	
@@ -376,7 +378,7 @@
 	
 	NSString*			setexpr	=	[setexps componentsJoinedByString:@","];
 	NSString*			FCPN	=	@"@criteria_column_value";					//	Filter-Column Paramter Name.
-	NSString*			cmdform	=	@"UPDATE %@ SET %@ WHERE %@ = %@;";
+	NSString*			cmdform	=	@"UPDATE [%@] SET %@ WHERE [%@] = %@;";
 	NSString*			cmd		=	[NSString stringWithFormat:cmdform, tableName, setexpr, columnName, FCPN];
 	
 	////
@@ -429,7 +431,7 @@
 {
 	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
 	
-	NSString*	cmdform	=	@"DELETE FROM %@;";
+	NSString*	cmdform	=	@"DELETE FROM [%@];";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
 
 	return		[self executeSQL:cmd error:error];
@@ -439,7 +441,7 @@
 	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
 	if (!EESQLiteCheckValidityOfIdentifierName(columnName, error))	return	NO;
 
-	NSString*	cmdform	=	@"DELETE FROM %@ WHERE %@ = %@";
+	NSString*	cmdform	=	@"DELETE FROM [%@] WHERE [%@] = %@";
 	NSString*	valuenm	=	@"@valueParameter";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, valuenm];
 	NSError*	parerr	=	nil;

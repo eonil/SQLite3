@@ -422,23 +422,25 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 @implementation		EESQLiteDatabase (Utility)
 + (BOOL)isValidIdentifierString:(NSString *)identifierString
 {
-	static	NSMutableCharacterSet*	validCharacters	=	nil;
-	static dispatch_once_t			onceToken;
-	dispatch_once(&onceToken, ^
-	{
-		validCharacters	=	[[NSMutableCharacterSet alloc] init];
-		[validCharacters formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
-		[validCharacters formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];	
-		[validCharacters invert];
-	});
-
-	NSRange	firstInvalidRange	=	[identifierString rangeOfCharacterFromSet:validCharacters];
-	return	firstInvalidRange.location	==	NSNotFound;
+	return	[identifierString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"[]'\""]].location == NSNotFound;
+//	static	NSMutableCharacterSet*	validCharacters	=	nil;
+//	static dispatch_once_t			onceToken;
+//	dispatch_once(&onceToken, ^
+//	{
+//		validCharacters	=	[[NSMutableCharacterSet alloc] init];
+//		[validCharacters formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@"_"]];
+//		[validCharacters formUnionWithCharacterSet:[NSCharacterSet alphanumericCharacterSet]];	
+//		[validCharacters invert];
+//	});
+//
+//	NSRange	firstInvalidRange	=	[identifierString rangeOfCharacterFromSet:validCharacters];
+//	return	firstInvalidRange.location	==	NSNotFound;
 }
 + (NSString *)stringWithEscapeForSQL:(NSString *)string
 {
-	NSString*	str2	=	[string stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
-	return	[NSString stringWithFormat:@"'%@'", str2];
+	return	[[NSString alloc] initWithFormat:@"[%@]", string];
+//	NSString*	str2	=	[string stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
+//	return	[NSString stringWithFormat:@"'%@'", str2];
 }
 @end
 
