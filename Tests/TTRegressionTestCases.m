@@ -11,7 +11,7 @@
 
 @implementation TTRegressionTestCases
 {
-	EESQLiteDatabase*	DB;
+	EESQLiteDatabase*	DBHolder;
 }
 
 - (void)test020_creatingNewTable
@@ -24,7 +24,7 @@
 	 2.	All statements used in -executeSQL method wrapped by @autoreleasepool block. Now they are deallocated before database object.
 	 
 	 */
-	NSString*	path	=	[@"~/Temp/SubwayRoute/osm.sqlite" stringByExpandingTildeInPath];
+	NSString*	path	=	[@"./osm.sqlite" stringByExpandingTildeInPath];
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path])
 	{
@@ -38,26 +38,41 @@
 	@autoreleasepool
 	{
 		NSError*	err	=	nil;
-		self->DB	=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:path error:&err];
+		self->DBHolder	=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:path error:&err];
 		EETempTestMacroAssertNil(err, @"Error while opening DB.");
 		
-		[self->DB addTableWithName:@"Node" withColumnNames:@[@"ID", @"timestamp", @"version", @"changeset", @"latitude", @"longitude"] rowIDAliasColumnName:@"ID"];
-		[self->DB addTableWithName:@"Way" withColumnNames:@[@"ID", @"timestamp", @"version", @"changeset"] rowIDAliasColumnName:@"ID"];
-		[self->DB addTableWithName:@"NodeTag" withColumnNames:@[@"ID", @"nodeID", @"key", @"value"] rowIDAliasColumnName:@"ID"];
-		[self->DB addTableWithName:@"WayTag" withColumnNames:@[@"ID", @"wayID", @"key", @"value"] rowIDAliasColumnName:@"ID"];
+		[self->DBHolder addTableWithName:@"Node" withColumnNames:@[@"ID", @"timestamp", @"version", @"changeset", @"latitude", @"longitude"] rowIDAliasColumnName:@"ID"];
+		[self->DBHolder addTableWithName:@"Way" withColumnNames:@[@"ID", @"timestamp", @"version", @"changeset"] rowIDAliasColumnName:@"ID"];
+		[self->DBHolder addTableWithName:@"NodeTag" withColumnNames:@[@"ID", @"nodeID", @"key", @"value"] rowIDAliasColumnName:@"ID"];
+		[self->DBHolder addTableWithName:@"WayTag" withColumnNames:@[@"ID", @"wayID", @"key", @"value"] rowIDAliasColumnName:@"ID"];
 		
-		self->DB	=	nil;
+		self->DBHolder	=	nil;
 	}
 	
 	@autoreleasepool
 	{
-		self->DB	=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:path error:NULL];
-		NSLog(@"created database schema = %@", self->DB.allSchema);
-		NSLog(@"created database tables = %@", self->DB.allTableNames);
+		self->DBHolder	=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:path error:NULL];
+		NSLog(@"created database schema = %@", self->DBHolder.allSchema);
+		NSLog(@"created database tables = %@", self->DBHolder.allTableNames);
 	}
 }
 
 
+
+- (void)test022_insertIntoWithNonExistingTable
+{
+	@autoreleasepool
+	{
+		[[NSFileManager defaultManager] removeItemAtPath:@"./t.db" error:nil];
+		[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:@"./t.db"];
+		EESQLiteDatabase*	DB	=	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:@"./t.db" ];
+		[DB addTableWithName:@"t" withColumnNames:@[@"c1"] rowIDAliasColumnName:@"c1"];
+		
+		NSError*	err	=	nil;
+		[DB insertDictionaryValue:@{} intoTable:@"ttt" error:&err];
+		EETempTestMacroAssertNotNil(err, @"It should raise an error.");
+	}
+}
 
 
 

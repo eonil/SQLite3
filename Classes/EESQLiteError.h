@@ -161,6 +161,27 @@ EESQLiteFileDoesNotExistAtPathError(NSString* path)
 //}
 
 
+inline
+static
+NSError*
+EESQLiteNoColumnInTableForNameError(NSString* tableName)
+{
+	NSString*		message	=	[NSString stringWithFormat:@"There's no column defined for the table-name. Seems no table exist for the name: %@", tableName];
+	NSDictionary*	info	=	[NSDictionary dictionaryWithObjectsAndKeys:message, NSLocalizedDescriptionKey, nil];
+	return	[NSError errorWithDomain:EESQLiteErrorDomain code:-4 userInfo:info];
+}
+
+
+
+//inline
+//static
+//NSError*
+//EESQLiteCannotInsertIntoTableBecauseOfNoColumnError(NSString* tableName)
+//{
+//	NSString*		message	=	[NSString stringWithFormat:@"Cannot INSERT INO because there's no insertable column in the table: %@", tableName];
+//	NSDictionary*	info	=	[NSDictionary dictionaryWithObjectsAndKeys:message, NSLocalizedDescriptionKey, nil];
+//	return	[NSError errorWithDomain:EESQLiteErrorDomain code:-4 userInfo:info];
+//}
 
 
 
