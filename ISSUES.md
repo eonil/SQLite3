@@ -12,6 +12,9 @@ Currently library API is using too many error-patterns which are mostly inapprop
 Replace them to exception-pattern. For example, wrong use of API should be an exception,
 because it cannot be recoverable.
 
+Fixed. All meaningless error-patterns are removed. API is not compatible to legacy anymore.
+
+
 
 
 2012/12/21, Eonil; Should I make `EESQLiteStatement` to retain `EESQLiteDatabase` object?

@@ -226,9 +226,9 @@
 		458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLite-Internal.h"; sourceTree = "<group>"; };
 		458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLite-Internal.m"; sourceTree = "<group>"; };
 		458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+Internal.h"; sourceTree = "<group>"; };
-		45934D50168441D4009C3D30 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		45934D52168443A8009C3D30 /* MANUAL */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MANUAL; sourceTree = "<group>"; };
-		4595397F14CD8F5B00B6A0E2 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		45934D50168441D4009C3D30 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
+		45934D52168443A8009C3D30 /* MANUAL.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MANUAL.md; sourceTree = "<group>"; };
+		4595397F14CD8F5B00B6A0E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		45AAB09415D6D5010094EA7A /* EESQLiteError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteError.h; sourceTree = "<group>"; };
 		45AAB09515D6D5010094EA7A /* EESQLiteError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteError.m; sourceTree = "<group>"; };
 		45CB651014CBF609004EF17F /* SQLite-Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLite-Test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,7 +241,7 @@
 		45E68B3A1683342700DAE96E /* OS X Static Library-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Static Library-Prefix.pch"; sourceTree = "<group>"; };
 		45E68BA416839E8700DAE96E /* TTRegressionTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRegressionTestCases.h; sourceTree = "<group>"; };
 		45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRegressionTestCases.m; sourceTree = "<group>"; };
-		45E68BB316840B7000DAE96E /* ISSUES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISSUES; sourceTree = "<group>"; };
+		45E68BB316840B7000DAE96E /* ISSUES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISSUES.md; sourceTree = "<group>"; };
 		45E796DE174FA43F00380A38 /* EESQLiteStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteStorage.h; sourceTree = "<group>"; };
 		45E796DF174FA43F00380A38 /* EESQLiteStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteStorage.m; sourceTree = "<group>"; };
 		45E796E6174FAEC600380A38 /* EESQLiteCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteCommon.m; sourceTree = "<group>"; };
@@ -322,10 +322,10 @@
 		4518C1F214CBD0CE00EF0620 = {
 			isa = PBXGroup;
 			children = (
-				4595397F14CD8F5B00B6A0E2 /* README */,
-				45934D52168443A8009C3D30 /* MANUAL */,
-				45E68BB316840B7000DAE96E /* ISSUES */,
-				45934D50168441D4009C3D30 /* LICENSE */,
+				4595397F14CD8F5B00B6A0E2 /* README.md */,
+				45934D52168443A8009C3D30 /* MANUAL.md */,
+				45E68BB316840B7000DAE96E /* ISSUES.md */,
+				45934D50168441D4009C3D30 /* LICENSE.md */,
 				4572DAA915BB21670091442D /* Prefix.pch */,
 				4518C20214CBD0CE00EF0620 /* EonilSQLite */,
 				4518C1FF14CBD0CE00EF0620 /* Frameworks and Libraries */,
