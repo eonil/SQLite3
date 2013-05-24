@@ -63,9 +63,7 @@ NSString* const		EEDocumentStoreErrorDomain;
 @interface			EEDocumentStoreSection : NSObject
 @property			(readonly,nonatomic)	NSString*		name;
 - (NSDictionary*)	dictionaryValueForCode:(NSString*)code;
-- (NSDictionary*)	dictionaryValueForCode:(NSString*)code error:(NSError**)error;
 - (void)			setDictionaryValue:(NSDictionary*)dictionaryValue forCode:(NSString*)code;
-- (BOOL)			setDictionaryValue:(NSDictionary*)dictionaryValue forCode:(NSString*)code error:(NSError**)error;
 
 @end
 

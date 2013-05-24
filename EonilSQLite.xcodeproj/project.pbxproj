@@ -105,6 +105,19 @@
 		45E68BB016839EAB00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
 		45E68BB116839EAC00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
 		45E68BB216839EAD00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
+		45E796E0174FA43F00380A38 /* EESQLiteStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E796DE174FA43F00380A38 /* EESQLiteStorage.h */; };
+		45E796E1174FA43F00380A38 /* EESQLiteStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E796DE174FA43F00380A38 /* EESQLiteStorage.h */; };
+		45E796E2174FA43F00380A38 /* EESQLiteStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E796DE174FA43F00380A38 /* EESQLiteStorage.h */; };
+		45E796E3174FA43F00380A38 /* EESQLiteStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796DF174FA43F00380A38 /* EESQLiteStorage.m */; };
+		45E796E4174FA43F00380A38 /* EESQLiteStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796DF174FA43F00380A38 /* EESQLiteStorage.m */; };
+		45E796E5174FA43F00380A38 /* EESQLiteStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796DF174FA43F00380A38 /* EESQLiteStorage.m */; };
+		45E796E7174FAEC600380A38 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		45E796E8174FAEC600380A38 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		45E796E9174FAEC600380A38 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		45E796EC174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
+		45E796ED174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
+		45E796EE174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
+		45E796EF174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +242,11 @@
 		45E68BA416839E8700DAE96E /* TTRegressionTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRegressionTestCases.h; sourceTree = "<group>"; };
 		45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRegressionTestCases.m; sourceTree = "<group>"; };
 		45E68BB316840B7000DAE96E /* ISSUES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISSUES; sourceTree = "<group>"; };
+		45E796DE174FA43F00380A38 /* EESQLiteStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteStorage.h; sourceTree = "<group>"; };
+		45E796DF174FA43F00380A38 /* EESQLiteStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteStorage.m; sourceTree = "<group>"; };
+		45E796E6174FAEC600380A38 /* EESQLiteCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteCommon.m; sourceTree = "<group>"; };
+		45E796EA174FC2F800380A38 /* TTHelperFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHelperFunctions.h; sourceTree = "<group>"; };
+		45E796EB174FC2F800380A38 /* TTHelperFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHelperFunctions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +366,7 @@
 			children = (
 				4518C20514CBD0CE00EF0620 /* EonilSQLite.h */,
 				4525F1D515BCFBA800868258 /* EESQLiteCommon.h */,
+				45E796E6174FAEC600380A38 /* EESQLiteCommon.m */,
 				458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */,
 				458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */,
 				4503075A15D61CD800202ED3 /* EESQLiteException.h */,
@@ -369,6 +388,8 @@
 				45452C9614CC857000886D70 /* EESQLiteRowIDList.h */,
 				45452C9714CC857000886D70 /* EESQLiteRowIDList.m */,
 				4525F1D915BCFC6000868258 /* document store */,
+				45E796DE174FA43F00380A38 /* EESQLiteStorage.h */,
+				45E796DF174FA43F00380A38 /* EESQLiteStorage.m */,
 			);
 			path = EonilSQLite;
 			sourceTree = "<group>";
@@ -436,6 +457,8 @@
 			children = (
 				4572DA8615BB20A30091442D /* Info.plist */,
 				4572DA8715BB20A30091442D /* Prefix.pch */,
+				45E796EA174FC2F800380A38 /* TTHelperFunctions.h */,
+				45E796EB174FC2F800380A38 /* TTHelperFunctions.m */,
 				452740CD15D6980E00258461 /* TestContainer.h */,
 				452740CE15D6980E00258461 /* TestContainer.m */,
 				452740C715D697F800258461 /* UnitTestContainer.h */,
@@ -519,6 +542,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45E796E0174FA43F00380A38 /* EESQLiteStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +565,7 @@
 				4525F1D715BCFBA800868258 /* EESQLiteCommon.h in Headers */,
 				4503075D15D61CD800202ED3 /* EESQLiteException.h in Headers */,
 				45AAB09715D6D5010094EA7A /* EESQLiteError.h in Headers */,
+				45E796E1174FA43F00380A38 /* EESQLiteStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,6 +573,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45E796E2174FA43F00380A38 /* EESQLiteStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,6 +807,8 @@
 				4525F1D015BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 				4503075E15D61CD800202ED3 /* EESQLiteException.m in Sources */,
 				45AAB09815D6D5010094EA7A /* EESQLiteError.m in Sources */,
+				45E796E3174FA43F00380A38 /* EESQLiteStorage.m in Sources */,
+				45E796E7174FAEC600380A38 /* EESQLiteCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +825,7 @@
 				452740CB15D697F800258461 /* UnitTestContainer.m in Sources */,
 				452740D115D6980E00258461 /* TestContainer.m in Sources */,
 				45E68BB116839EAC00DAE96E /* TTRegressionTestCases.m in Sources */,
+				45E796EE174FC2F800380A38 /* TTHelperFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +842,7 @@
 				452740EC15D69DDC00258461 /* TTHappyCase.m in Sources */,
 				452740ED15D69DDC00258461 /* TTTestUtility.m in Sources */,
 				45E68BB216839EAD00DAE96E /* TTRegressionTestCases.m in Sources */,
+				45E796EF174FC2F800380A38 /* TTHelperFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,6 +860,8 @@
 				4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 				4503075F15D61CD800202ED3 /* EESQLiteException.m in Sources */,
 				45AAB09915D6D5010094EA7A /* EESQLiteError.m in Sources */,
+				45E796E4174FA43F00380A38 /* EESQLiteStorage.m in Sources */,
+				45E796E8174FAEC600380A38 /* EESQLiteCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,6 +877,7 @@
 				452740CA15D697F800258461 /* UnitTestContainer.m in Sources */,
 				452740D015D6980E00258461 /* TestContainer.m in Sources */,
 				45E68BB016839EAB00DAE96E /* TTRegressionTestCases.m in Sources */,
+				45E796ED174FC2F800380A38 /* TTHelperFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +893,7 @@
 				452740C915D697F800258461 /* UnitTestContainer.m in Sources */,
 				452740CF15D6980E00258461 /* TestContainer.m in Sources */,
 				45E68BAF16839EAA00DAE96E /* TTRegressionTestCases.m in Sources */,
+				45E796EC174FC2F800380A38 /* TTHelperFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +911,8 @@
 				45E68B491683347F00DAE96E /* EESQLiteStatement.m in Sources */,
 				45E68B4A1683347F00DAE96E /* EESQLiteRowIDList.m in Sources */,
 				45E68B4B1683347F00DAE96E /* EEDocumentStore.m in Sources */,
+				45E796E5174FA43F00380A38 /* EESQLiteStorage.m in Sources */,
+				45E796E9174FAEC600380A38 /* EESQLiteCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -938,6 +974,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"EESQLITE_DEBUG=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -945,6 +982,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DEESQLITE_DEBUG=1";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 			};
 			name = Debug;

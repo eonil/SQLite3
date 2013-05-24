@@ -264,23 +264,14 @@ EEDocumentStoreInvalidValueForPropertyListError(NSError* underlyingError)
 }
 - (void)setDictionaryValue:(NSDictionary *)dictionaryValue forCode:(NSString *)code
 {
-	[self setDictionaryValue:dictionaryValue forCode:code error:NULL];
-}
-- (BOOL)setDictionaryValue:(NSDictionary *)dictionaryValue forCode:(NSString *)code error:(NSError *__autoreleasing *)error
-{	
 	NSError*		inerr	=	nil;
 	NSData*			payload	=	[self EEDocumentStoreSectionDataFromPropertyListValue:dictionaryValue error:&inerr];
-	
-	if (inerr != nil)
+	EESQLiteExceptIfThereIsAnError(inerr);
+
 	{
-		if (error != NULL) 
-		{
-			*error	=	inerr;
-		}
-	}
-	else 
-	{
-		[db executeTransactionBlock:^BOOL
+		[db beginTransaction];
+		
+		@try
 		{
 			NSDictionary*	olddoc	=	[self dictionaryValueForCode:code];
 			NSDictionary*	newdoc	=	[NSDictionary dictionaryWithObjectsAndKeys:
@@ -291,21 +282,20 @@ EEDocumentStoreInvalidValueForPropertyListError(NSError* underlyingError)
 			
 			if (olddoc == nil)
 			{
-				NSError*		operr	=	nil;
-
-				[db insertDictionaryValue:newdoc intoTable:tbl error:&operr];
-				
-				return			operr	==	nil;
+				[db insertDictionaryValue:newdoc intoTable:tbl];
 			}
 			else 
 			{				
-				BOOL			opok	=	[db updateRowHasValue:[newdoc objectForKey:ID_COLUMN] atColumn:ID_COLUMN inTable:tbl withDictionary:newdoc];
-				return			opok;
+				[db updateRowHasValue:[newdoc objectForKey:ID_COLUMN] atColumn:ID_COLUMN inTable:tbl withDictionary:newdoc];
 			}
-		}];
+			[db commitTransaction];
+		}
+		@catch (NSException* exc)
+		{
+			[db rollbackTransaction];
+			@throw	exc;
+		}
 	}
-	
-	return	YES;
 }
 
 

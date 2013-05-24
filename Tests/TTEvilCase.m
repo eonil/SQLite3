@@ -35,11 +35,15 @@
 	
 	[db addTableWithName:@"Table1" withColumnNames:colnms];
 	
-	NSError*	err;
-	[db insertDictionaryValue:nil intoTable:@"Table1" error:&err];
-	NSLog(@"error = %@", err);
-	EETempTestMacroAssertNil(err, @"Should be no error.");
-	
+	@try
+	{
+		[db insertDictionaryValue:nil intoTable:@"Table1"];
+	}
+	@catch (NSException* exc)
+	{
+		NSLog(@"exception = %@", exc);
+		EETempTestMacroAssertNil(exc, @"Should be no exception.");
+	}
 	
 	NSArray*	list	=	[db arrayOfRowsByExecutingSQL:@"SELECT * FROM 'Table1'"];
 	
@@ -58,11 +62,15 @@
 	
 	NSDictionary*	dict1		=	[NSDictionary dictionary];
 	
-	NSError*	err;
-	[db insertDictionaryValue:dict1 intoTable:@"Table1" error:&err];
-	NSLog(@"error = %@", err);
-	EETempTestMacroAssertNil(err, @"Should be no error.");
-	
+	@try
+	{
+		[db insertDictionaryValue:dict1 intoTable:@"Table1"];
+	}
+	@catch (NSException* exc)
+	{
+		NSLog(@"exception = %@", exc);
+		EETempTestMacroAssertNil(exc, @"Should be no exception.");
+	}
 	
 	NSArray*		list		=	[db arrayOfRowsByExecutingSQL:@"SELECT * FROM 'Table1'"];
 	NSDictionary*	dict2		=	[list lastObject];
@@ -107,21 +115,21 @@
 	};
 	
 	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"ID", @"content", nil] rowIDAliasColumnName:@"ID"];
-	[db insertDictionaryValue:row intoTable:@"table1" error:NULL];
+	[db insertDictionaryValue:row intoTable:@"table1"];
 	EETempTestMacroAssertTrue(checkSampleIsValue(nil), @"At first, it should be `nil`.");
 	
-	[db executeTransactionBlock:^BOOL
-	 {
+	[db performTransactionUsingBlock:^
+	{
 		 NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#1", @"content", nil];
 		 [db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
 		 EETempTestMacroAssertTrue(checkSampleIsValue(@"#1"), @"After update, it should be `#1`.");
 		 
 		 @try
 		 {
-			 [db executeTransactionBlock:^BOOL
-			  {
-				  return	NO;
-			  }];	 
+			 [db performTransactionUsingBlock:^
+			 {
+				 @throw	[NSException exceptionWithName:@"TEST" reason:@"This is tester exception." userInfo:nil];
+			 }];
 		 }
 		 @catch (NSException* ex)
 		 {
@@ -130,7 +138,7 @@
 		 
 		 EETempTestMacroAssertTrue(checkSampleIsValue(@"#1"), @"After rollback, it should be back to `#1`.");
 		 
-		 return	YES;	//	COMMIT.
+		//	COMMIT at end.
 	 }];
 	
 	EETempTestMacroAssertTrue(checkSampleIsValue(@"#1"), @"After commit, it should be remain as `#1`.");
@@ -149,7 +157,7 @@
 	
 	[db addTableWithName:@"T1" withColumnNames:@[@"C1"] rowIDAliasColumnName:@"C1"];
 	
-	[db insertDictionaryValue:@{ @"C1": @(5) } intoTable:@"T1" error:NULL];
+	[db insertDictionaryValue:@{ @"C1": @(5) } intoTable:@"T1"];
 	
 	NSUInteger	C	=	[db countOfAllRowsInTable:@"T1"];
 	
@@ -157,11 +165,11 @@
 	
 	@try
 	{
-		[db executeTransactionBlock:^BOOL
-		 {
-			 [db insertDictionaryValue:@{ @"C1": @(6) } intoTable:@"T1" error:NULL];
-			 @throw	[NSException exceptionWithName:@"sample-exception" reason:@"" userInfo:nil];
-		 }];
+		[db performTransactionUsingBlock:^
+		{
+			[db insertDictionaryValue:@{ @"C1": @(6) } intoTable:@"T1"];
+			@throw	[NSException exceptionWithName:@"sample-exception" reason:@"" userInfo:nil];
+		}];
 	}
 	@catch (NSException* exception)
 	{

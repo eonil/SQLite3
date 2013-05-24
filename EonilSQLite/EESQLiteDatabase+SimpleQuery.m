@@ -15,6 +15,41 @@
 #import "EESQLiteDatabase+Schema.h"
 #import "EESQLiteDatabase+SimpleQuery.h"
 
+
+
+
+
+inline static void
+EXCEPT_IF_STATEMENT_IS_NOT_SINGLE(NSArray* stmts)
+{
+	if ([stmts count] != 1)
+	{
+		EESQLiteExcept(@"Reason unknown, but count of generated statement is not 1.");
+	}
+}
+
+inline static void
+EXCEPT_IF_NAME_IS_INVALID(NSString* name)
+{
+	if (![EESQLiteDatabase isValidIdentifierString:name])
+	{
+		EESQLiteExcept([NSString stringWithFormat:@"The name %@ is invalid for SQLite3.", name]);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @implementation EESQLiteDatabase (SimpleQuery)
 
 
@@ -34,7 +69,7 @@
 
 - (BOOL)containsRawID:(EESQLiteRowID)rowID inTable:(NSString *)tableName
 {
-	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT COUNT(_ROWID_) AS count FROM [%@] WHERE _ROWID_ = %@";
 	NSString*	idstr	=	[NSString stringWithFormat:@"%lld", rowID];
@@ -48,7 +83,7 @@
 
 - (NSArray *)arrayOfAllRowsInTable:(NSString *)tableName
 {
-	if (![[self class] isValidIdentifierString:tableName])	return	nil;
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT * FROM [%@]";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
@@ -57,8 +92,8 @@
 }
 - (NSArray *)arrayOfRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount
 {
-	if (![[self class] isValidIdentifierString:columnName])	return	nil;
-	if (![[self class] isValidIdentifierString:tableName])	return	nil;
+	EXCEPT_IF_NAME_IS_INVALID(columnName);
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSError*	inerr	=	nil;
 	NSString*	paramnm	=	@"@columnValue";
@@ -70,13 +105,13 @@
 	if (inerr == nil && [stmts count]== 1)
 	{
 		EESQLiteStatement*	stmt	=	[stmts lastObject];
-		[stmt setValue:value forParameterName:paramnm error:&inerr];
+		[stmt setValue:value forParameterName:paramnm];
 		
 		if (inerr == nil)
 		{
 			NSMutableArray*	results	=	[NSMutableArray array];
 			
-			while ([stmt stepWithError:&inerr])
+			while ([stmt step])
 			{
 				if (inerr != nil)
 				{
@@ -90,89 +125,69 @@
 	}
 	return	nil;	
 }
-- (BOOL)enumerateAllRowsInTable:(NSString *)tableName block:(void (^)(NSDictionary *, BOOL *))block
+- (void)enumerateAllRowsInTable:(NSString *)tableName block:(void (^)(NSDictionary *, BOOL *))block
 {
-	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT * FROM [%@]";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
 	
-	return	[self enumerateRowsByExecutingSQL:cmd block:block];
+	[self enumerateRowsByExecutingSQL:cmd block:block];
 }
-- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount usingBlock:(void (^)(NSDictionary *, BOOL *))block
+- (void)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount usingBlock:(void (^)(NSDictionary *, BOOL *))block
 {
-	if (![[self class] isValidIdentifierString:columnName])	return	NO;
-	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	EXCEPT_IF_NAME_IS_INVALID(columnName);
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
-	NSError*	inerr	=	nil;
 	NSString*	paramnm	=	@"@columnValue";
 	NSString*	limstr	=	[NSString stringWithFormat:@"%llu", (unsigned long long)limitCount];
 	NSString*	cmdform	=	@"SELECT * FROM [%@] WHERE [%@] = %@ LIMIT %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, paramnm, limstr];
-	NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
 	
-	if (inerr == nil && [stmts count]== 1)
+	@autoreleasepool
 	{
-		EESQLiteStatement*	stmt	=	[stmts lastObject];
-		[stmt setValue:value forParameterName:paramnm error:&inerr];
+		NSError*	inerr	=	nil;
+		NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
+		EXCEPT_IF_STATEMENT_IS_NOT_SINGLE(stmts);
+		EESQLiteExceptIfThereIsAnError(inerr);
 		
-		if (inerr == nil)
+		EESQLiteStatement*	stmt	=	stmts[0];
+		[stmt setValue:value forParameterName:paramnm];
+		
+		BOOL	stop	=	NO;
+		while (!stop && [stmt step])
 		{
-			BOOL			stop	=	NO;
-			while (!stop && [stmt stepWithError:&inerr])
-			{
-				if (inerr != nil)
-				{
-					return	NO;
-				}
-				
-				block([stmt dictionaryValue], &stop);
-			}
+			block([stmt dictionaryValue], &stop);
 		}
-		return	YES;
-	}
-	else
-	{
-		return	NO;
 	}
 }
-- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName usingBlock:(void (^)(NSDictionary *, BOOL *))block
+- (void)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName usingBlock:(void (^)(NSDictionary *, BOOL *))block
 {
-	if (![[self class] isValidIdentifierString:columnName])	return	NO;
-	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	EXCEPT_IF_NAME_IS_INVALID(columnName);
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
-	NSError*	inerr	=	nil;
 	NSString*	paramnm	=	@"@columnValue";
 	NSString*	cmdform	=	@"SELECT * FROM [%@] WHERE [%@] = %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, paramnm];
-	NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
 	
-	if (inerr == nil && [stmts count]== 1)
+	@autoreleasepool
 	{
-		EESQLiteStatement*	stmt	=	[stmts lastObject];
-		[stmt setValue:value forParameterName:paramnm error:&inerr];
+		NSError*	inerr	=	nil;
+		NSArray*	stmts	=	[self statementsByParsingSQL:cmd error:&inerr];
+		EXCEPT_IF_STATEMENT_IS_NOT_SINGLE(stmts);
+		EESQLiteExceptIfThereIsAnError(inerr);
+
+		EESQLiteStatement*	stmt	=	stmts[0];
+		[stmt setValue:value forParameterName:paramnm];
 		
-		if (inerr == nil)
+		BOOL	stop	=	NO;
+		while (!stop && [stmt step])
 		{
-			BOOL			stop	=	NO;
-			while (!stop && [stmt stepWithError:&inerr])
-			{
-				if (inerr != nil)
-				{
-					return	NO;
-				}
-				
-				block([stmt dictionaryValue], &stop);
-			}
+			block([stmt dictionaryValue], &stop);
 		}
-		return	YES;
-	}
-	else
-	{
-		return	NO;
 	}
 }
-- (BOOL)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount block:(void (^)(NSDictionary *, BOOL *))block
+- (void)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount block:(void (^)(NSDictionary *, BOOL *))block
 {
 	return	[self enumerateRowsHasValue:value atColumne:columnName inTable:tableName limitCount:limitCount usingBlock:block];
 }
@@ -187,7 +202,7 @@
 }
 - (unsigned long long)countOfAllRowsInTable:(NSString *)tableName
 {
-	if (![[self class] isValidIdentifierString:tableName])	return	0;
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT count(*) AS COUNT FROM [%@];";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
@@ -204,7 +219,7 @@
 
 
 
-- (EESQLiteRowID)insertDictionaryValue:(NSDictionary *)dictionaryValue intoTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (EESQLiteRowID)insertDictionaryValue:(NSDictionary *)dictionaryValue intoTable:(NSString *)tableName
 {
 	if (dictionaryValue == nil)
 	{
@@ -212,19 +227,15 @@
 	}
 	
 	NSArray*			vallist	=	[NSArray arrayWithObject:dictionaryValue];
-	EESQLiteRowIDList*	ridlist	=	[self insertArrayOfDictionaryValues:vallist intoTable:tableName error:error];
+	EESQLiteRowIDList*	ridlist	=	[self insertArrayOfDictionaryValues:vallist intoTable:tableName];
 	
 	return				[ridlist lastRowID];
 }
-- (EESQLiteRowIDList *)insertArrayOfDictionaryValues:(NSArray *)dictionaryValues intoTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (EESQLiteRowIDList *)insertArrayOfDictionaryValues:(NSArray *)dictionaryValues intoTable:(NSString *)tableName
 {
-//	if (![[self allTableNames] containsObject:tableName])
-//	{
-//		//	No talbe for the name.
-//		EESQLiteCheckForNoError(EESQLiteUnknownTableNameError(tableName), error);
-//		return	nil;
-//	}
-//	else
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
+	EESQLiteAssert([[self allTableNames] containsObject:tableName], @"The table-name must be exist.");
+	
 	{
 		NSArray*			cols	=	[self allColumnNamesOfTable:tableName];
 		NSUInteger			len		=	[cols count];
@@ -238,8 +249,8 @@
 			//
 			//	Ref:
 			//	http://stackoverflow.com/questions/4567180/sqlite3-creating-table-with-no-columns
-			
-			EESQLiteCheckForNoError(EESQLiteNoColumnInTableForNameError(tableName), error);
+			NSString*		message	=	[NSString stringWithFormat:@"There's no column defined for the table-name. Seems no table exist for the name: %@", tableName];
+			EESQLiteExcept(message);
 			return	nil;
 		}
 		else
@@ -280,58 +291,28 @@
 			NSError*					err		=	nil;
 			NSArray*					stmts	=	[self statementsByParsingSQL:cmd error:&err];
 			
-			if (err)
-			{
-				//	SQL command parsing error.
-				//	This should not happen because SQL command is generated by program.
-				//	This means a bug in the program. Fix it.
-				@throw	EESQLiteExceptionFromError(err);
-			}
+			//	SQL command parsing error.
+			//	This should not happen because SQL command is generated by program.
+			//	This means a bug in the program. Fix it.
+			EESQLiteExceptIfThereIsAnError(err);
 			
-			EESQLiteStatement*			stmt	=	[stmts objectAtIndex:0];
+			////
+			
+			EESQLiteStatement*			stmt	=	stmts[0];
 			EESQLiteMutableRowIDList*	ridlist	=	[[EESQLiteMutableRowIDList alloc] init];
 			
 			for (NSDictionary* dict in dictionaryValues)
 			{
+				[dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
 				{
-					__block
-					NSError*	inerr	=	nil;
-					
-					[dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) 
-					 {
-						 NSString*	paramname	=	[NSString stringWithFormat:@"@%@", key];
-						 [stmt setValue:obj forParameterName:paramname error:&inerr];
-						 
-						 *stop	=	inerr != nil;
-					 }];
-					
-					if (!EESQLiteCheckForNoError(inerr, error))
-					{
-						return	nil;
-					}
-
-				}
+					NSString*	paramname	=	[NSString stringWithFormat:@"@%@", key];
+					[stmt setValue:obj forParameterName:paramname];
+				}];
 				
-				{
-					NSError*	steperr	=	nil;
-					[stmt stepWithError:&steperr];
-					if (!EESQLiteCheckForNoError(steperr, error))
-					{
-						return	nil;
-					}
-				}
-				
+				[stmt step];
 				[stmt reset];
 				[ridlist appendRowID:sqlite3_last_insert_rowid(EESQLiteDatabaseGetCorePointerToSQLite3(self))];
-				
-				{
-					NSError*	clrerr	=	nil;
-					[stmt clearParametersValuesWithError:&clrerr];
-					if (!EESQLiteCheckForNoError(clrerr, error))
-					{
-						return	nil;
-					}				
-				}
+				[stmt clearParametersValues];
 			}	
 			
 			return	ridlist;
@@ -345,19 +326,21 @@
 
 
 
-- (BOOL)updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
+- (void)updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
 {
-	return	[self updateRowHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName withDictionary:newValue];
+	[self updateRowHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName withDictionary:newValue];
 }
-- (BOOL)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue replacingValueAsNull:(id)nullValue
+- (void)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue replacingValueAsNull:(id)nullValue
 {
 	NSArray*	allKeyNames	=	[newValue allKeys];
-	if (![[self class] isValidIdentifierString:columnName])	return	NO;
-	if (![[self class] isValidIdentifierString:tableName])	return	NO;
+	EXCEPT_IF_NAME_IS_INVALID(columnName);
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	for (NSString* colnm in allKeyNames)
 	{
-		if (![[self class] isValidIdentifierString:colnm])	return	NO;
+		EXCEPT_IF_NAME_IS_INVALID(colnm);
 	}
+	
+	////
 	
 	NSString*			(^setParameterNameForColumnName)(NSString*)=^(NSString* columnName)
 	{
@@ -385,104 +368,113 @@
 
 	NSError*			inerr	=	nil;
 	EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd error:&inerr] lastObject];
-	
-	if (inerr != nil)
+	EESQLiteExceptIfThereIsAnError(inerr);
+
 	{
-		return	NO;
-	}
-	else
-	{
-		NSError*	inerr4	=	nil;
-		[stmt setValue:filterNullValue(columnValue) forParameterName:FCPN error:&inerr4];
-		if (inerr4 != nil)
-		{
-			return	NO;
-		}
+		[stmt setValue:filterNullValue(columnValue) forParameterName:FCPN];
 		
 		for (NSString*	keynm in allKeyNames)
 		{
-			NSError*	inerr2	=	nil;
 			id			val		=	[newValue valueForKey:keynm];
-			[stmt setValue:filterNullValue(val) forParameterName:setParameterNameForColumnName(keynm) error:&inerr2];
-			
-			if (inerr2 != nil)
-			{
-				return	NO;
-			}
+			[stmt setValue:filterNullValue(val) forParameterName:setParameterNameForColumnName(keynm)];
 		}
 		
-		NSError*	inerr3	=	nil;
-		while ([stmt stepWithError:&inerr3])
+		while ([stmt step])
 		{
-			if (inerr3 != nil)
-			{
-				return	NO;
-			}
 		};
-		
-		return	YES;	
 	}
 }
-- (BOOL)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
+- (void)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
 {
-	return	[self updateRowHasValue:columnValue atColumn:columnName inTable:tableName withDictionary:newValue replacingValueAsNull:nil];
+	[self updateRowHasValue:columnValue atColumn:columnName inTable:tableName withDictionary:newValue replacingValueAsNull:nil];
 }
-- (BOOL)deleteAllRowsFromTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (void)deleteAllRowsFromTable:(NSString *)tableName
 {
-	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"DELETE FROM [%@];";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName];
 
-	return		[self executeSQL:cmd error:error];
+	[self executeSQL:cmd];
 }
-- (BOOL)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName fromTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (void)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName fromTable:(NSString *)tableName
 {
-	if (!EESQLiteCheckValidityOfIdentifierName(tableName, error))	return	NO;
-	if (!EESQLiteCheckValidityOfIdentifierName(columnName, error))	return	NO;
+	EXCEPT_IF_NAME_IS_INVALID(tableName);
+	EXCEPT_IF_NAME_IS_INVALID(columnName);
 
 	NSString*	cmdform	=	@"DELETE FROM [%@] WHERE [%@] = %@";
 	NSString*	valuenm	=	@"@valueParameter";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, tableName, columnName, valuenm];
-	NSError*	parerr	=	nil;
-	EESQLiteStatement*	stmt	=	[[self statementsByParsingSQL:cmd error:&parerr] lastObject];
 	
+	@autoreleasepool
 	{
-		NSError*	seterr	=	nil;
-		[stmt setValue:value forParameterName:valuenm error:&seterr];
-		if (!EESQLiteCheckForNoError(seterr, error))
+		NSError*			parerr	=	nil;
+		EESQLiteStatement*	stmt	=	[self statementsByParsingSQL:cmd error:&parerr][0];
+		EESQLiteExceptIfThereIsAnError(parerr);
+		
+		[stmt setValue:value forParameterName:valuenm];
+		while ([stmt step])
 		{
-			return	NO;
 		}
 	}
-	
-	NSError*	exeerr	=	nil;
-	while ([stmt stepWithError:&exeerr]) 
-	{
-		if (!EESQLiteCheckForNoError(exeerr, error))
-		{
-			return	NO;
-		}
-	}
-	return	YES;
 }
-- (BOOL)deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (void)deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString *)tableName
 {
-	return	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" fromTable:tableName error:error];
+	return	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" fromTable:tableName];
 }
 
 
-- (BOOL)deleteAllRowsInTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+
+
+
+
+
+
+
+- (void)performTransactionUsingBlock:(void (^)(void))block
 {
-	return	[self deleteAllRowsFromTable:tableName error:error];
+	[self objecyByPerformingTransactionUsingBlock:^id
+	{
+		block();
+		return 	nil;
+	}];
 }
-- (BOOL)deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
+- (id)objecyByPerformingTransactionUsingBlock:(id (^)(void))block
 {
-	return	[self deleteRowHasID:rowID fromTable:tableName error:error];
-}
-- (BOOL)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName inTable:(NSString *)tableName error:(NSError *__autoreleasing *)error
-{
-	return	[self deleteRowsHasValue:value atColumn:columnName fromTable:tableName error:error];
+	BOOL	hasNoTransactionNow	=	[self isAutocommitMode];
+
+	if (!hasNoTransactionNow)
+	{
+		@throw		EESQLiteExceptionForNestedExplicitTransaction();
+	}
+
+	////
+
+	[self beginTransaction];
+
+	id				transactionResult	=	nil;
+	NSException*	caughtException		=	nil;
+
+	@try
+	{
+		transactionResult	=	block();
+		[self commitTransaction];
+		
+		//	Do not return at here because it may abuse stack-unwinding, and may cause
+		//	weird behavior. Return at the end of the function.
+	}
+	@catch (NSException* exc)
+	{
+		[self rollbackTransaction];
+		caughtException	=	exc;
+	}
+	
+	if (caughtException)
+	{
+		@throw	caughtException;
+	}
+	
+	return	transactionResult;
 }
 
 @end

@@ -6,8 +6,25 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
+#import "TTHelperFunctions.h"
 #import "TTHappyCase.h"
 #import "EonilSQLite.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @implementation TTHappyCase
@@ -42,6 +59,7 @@ TTCreateDatabaseForGenericTest()
 	[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:TTPathToTestDatabase() error:NULL];
 	return	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:TTPathToTestDatabase()];
 }
+
 
 
 
@@ -186,10 +204,10 @@ TTCreateDatabaseForGenericTest()
 								 [NSData dataWithBytes:(const void*)ddd length:8], @"column4",
 								 nil];
 
-	NSError*	err;
-	[db insertDictionaryValue:dict1 intoTable:@"Table1" error:&err];
-	NSLog(@"error = %@", err);
-	EETempTestMacroAssertNil(err, @"Should be no error.");
+	TTAssertNoException(^
+						{
+							[db insertDictionaryValue:dict1 intoTable:@"Table1"];
+						});
 
 	EESQLiteStatement*	stmt	=	[[db statementsByParsingSQL:@"SELECT * FROM 'Table1'"] lastObject];
 	[stmt step];
@@ -226,10 +244,9 @@ TTCreateDatabaseForGenericTest()
 		[srclist addObject:dict1];
 	}
 	
-	NSError*	err;
-	[db insertArrayOfDictionaryValues:srclist intoTable:@"Table1" error:&err];
-	NSLog(@"error = %@", err);
-	EETempTestMacroAssertNil(err, @"Should be no error.");
+	TTAssertNoException(^{
+	[db insertArrayOfDictionaryValues:srclist intoTable:@"Table1"];
+	});
 	
 	NSArray*			newlist	=	[db arrayOfRowsByExecutingSQL:@"SELECT * FROM 'Table1'"];
 	
@@ -256,10 +273,9 @@ TTCreateDatabaseForGenericTest()
 								 [NSData dataWithBytes:(const void*)ddd length:8], @"column4",
 								 nil];
 	
-	NSError*	err;
-	[db insertDictionaryValue:dict1 intoTable:@"Table1" error:&err];
-	NSLog(@"error = %@", err);
-	EETempTestMacroAssertNil(err, @"Should be no error.");
+	TTAssertNoException(^{
+		[db insertDictionaryValue:dict1 intoTable:@"Table1"];
+	});
 	
 	EESQLiteStatement*	stmt	=	[[db statementsByParsingSQL:@"SELECT * FROM 'Table1'"] lastObject];
 	[stmt step];
@@ -295,9 +311,9 @@ TTCreateDatabaseForGenericTest()
 	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
 	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
 	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R3a", @"column1", @"R3b", @"column2", @"R3c", @"column3", nil];
-	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
-	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
-	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1"];
+	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1"];
+	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1"];
 	
 	{
 		BOOL		hasit			=	[db containsRawID:rowid2 inTable:@"table1"];
@@ -400,14 +416,19 @@ TTCreateDatabaseForGenericTest()
 	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
 	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
 	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R3a", @"column1", @"R3b", @"column2", @"R3c", @"column3", nil];
-	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
-	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
-	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1"];
+	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1"];
+	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1"];
 	
 	{
-		NSError*	err	=	nil;
-		[db deleteRowHasID:rowid2 fromTable:@"table1" error:&err];
-		EETempTestMacroAssertNil(err, [err description]);
+		@try
+		{
+			[db deleteRowHasID:rowid2 fromTable:@"table1"];
+		}
+		@catch (NSException* exc)
+		{
+			EETempTestMacroAssertNil(exc, [exc description]);
+		}
 		
 		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
 		EETempTestMacroAssertTrue(rowcount == 2, @"Count of all rows must be 2 after delete one row.");	
@@ -434,13 +455,18 @@ TTCreateDatabaseForGenericTest()
 	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
 	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R3a", @"column1", @"R3b", @"column2", @"R3c", @"column3", nil];
 	
-	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
-	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1" error:NULL];
-	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1" error:NULL];	
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1"];
+	EESQLiteRowID	rowid2			=	[db insertDictionaryValue:sampleValue2 intoTable:@"table1"];
+	EESQLiteRowID	rowid3			=	[db insertDictionaryValue:sampleValue3 intoTable:@"table1"];
 	{
-		NSError* err	=	nil;
-		[db deleteAllRowsFromTable:@"table1" error:&err];
-		EETempTestMacroAssertNil(err, [err description]);
+		@try
+		{
+			[db deleteAllRowsFromTable:@"table1"];
+		}
+		@catch (NSException* exc)
+		{
+			EETempTestMacroAssertNil(exc, [exc description]);
+		}
 		
 		long long		rowcount		=	[db countOfAllRowsInTable:@"table1"];
 		EETempTestMacroAssertTrue(rowcount == 0, @"Count of all rows must be 0 after delete all rows.");	
@@ -460,10 +486,11 @@ TTCreateDatabaseForGenericTest()
 	NSDictionary*	sampleValue1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R1a", @"column1", @"R1b", @"column2", @"R1c", @"column3", nil];
 	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
 	
-	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1"];
 	{
-		BOOL	ok			=	[db updateRowHasID:rowid1 inTable:@"table1" withDictionary:sampleValue2];
-		EETempTestMacroAssertTrue(ok, @"");
+		TTAssertNoException(^{
+			[db updateRowHasID:rowid1 inTable:@"table1" withDictionary:sampleValue2];
+		});
 		
 		id		rowValue1	=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
 		
@@ -481,10 +508,11 @@ TTCreateDatabaseForGenericTest()
 	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", [NSNull null], @"column3", nil];
 	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", nil];
 	
-	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1"];
 	{
-		BOOL	ok			=	[db updateRowHasValue:@(rowid1) atColumn:@"_ROWID_" inTable:@"table1" withDictionary:sampleValue2 replacingValueAsNull:[NSNull null]];
-		EETempTestMacroAssertTrue(ok, @"");
+		TTAssertNoException(^{
+			[db updateRowHasValue:@(rowid1) atColumn:@"_ROWID_" inTable:@"table1" withDictionary:sampleValue2 replacingValueAsNull:[NSNull null]];
+		});
 		
 		id		rowValue1	=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
 		
@@ -502,10 +530,11 @@ TTCreateDatabaseForGenericTest()
 	NSDictionary*	sampleValue2	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", @"R2c", @"column3", nil];
 	NSDictionary*	sampleValue3	=	[NSDictionary dictionaryWithObjectsAndKeys:@"R2a", @"column1", @"R2b", @"column2", nil];
 	
-	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1" error:NULL];
+	EESQLiteRowID	rowid1			=	[db insertDictionaryValue:sampleValue1 intoTable:@"table1"];
 	{
-		BOOL	ok			=	[db updateRowHasValue:@(rowid1) atColumn:@"_ROWID_" inTable:@"table1" withDictionary:sampleValue2 replacingValueAsNull:@"R2c"];
-		EETempTestMacroAssertTrue(ok, @"");
+		TTAssertNoException(^{
+			[db updateRowHasValue:@(rowid1) atColumn:@"_ROWID_" inTable:@"table1" withDictionary:sampleValue2 replacingValueAsNull:@"R2c"];
+		});
 		
 		id		rowValue1	=	[db dictionaryFromRowHasID:rowid1 inTable:@"table1"];
 		
@@ -534,21 +563,21 @@ TTCreateDatabaseForGenericTest()
 	};
 	
 	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"ID", @"content", nil] rowIDAliasColumnName:@"ID"];
-	[db insertDictionaryValue:row intoTable:@"table1" error:NULL];
+	[db insertDictionaryValue:row intoTable:@"table1"];
 	EETempTestMacroAssertTrue(checkSampleIsValue(nil), @"At first, it should be `nil`.");
 	
 	NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#1", @"content", nil];
 	[db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
 	EETempTestMacroAssertTrue(checkSampleIsValue(@"#1"), @"After update, it should become `#1`.");
 	
-	[db executeTransactionBlock:^BOOL
-	 {
-		 NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#2", @"content", nil];
-		 [db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
-		 EETempTestMacroAssertTrue(checkSampleIsValue(@"#2"), @"After update, it should become `#2`.");
-		 
-		 return	YES;	//	COMMIT.
-	 }];
+	[db performTransactionUsingBlock:^
+	{
+		NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#2", @"content", nil];
+		[db updateRowHasID:12 inTable:@"table1" withDictionary:state1];
+		EETempTestMacroAssertTrue(checkSampleIsValue(@"#2"), @"After update, it should become `#2`.");
+		
+		//	COMMIT.
+	}];
 	
 	EETempTestMacroAssertTrue(checkSampleIsValue(@"#2"), @"After commit, it should be back to `#2`.");
 }
@@ -566,21 +595,27 @@ TTCreateDatabaseForGenericTest()
 	};
 	
 	[db addTableWithName:@"table1" withColumnNames:[NSArray arrayWithObjects:@"ID", @"content", nil] rowIDAliasColumnName:@"ID"];
-	[db insertDictionaryValue:row intoTable:@"table1" error:NULL];
+	[db insertDictionaryValue:row intoTable:@"table1"];
 	EETempTestMacroAssertTrue(checkSampleIsValue(nil), @"At first, it should be `nil`.");
 	
 	NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#1", @"content", nil];
 	[db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
 	EETempTestMacroAssertTrue(checkSampleIsValue(@"#1"), @"After update, it should become `#1`.");
 	
-	[db executeTransactionBlock:^BOOL
-	 {
-		 NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#2", @"content", nil];
-		 [db updateRowHasID:12 inTable:@"table1" withDictionary:state1];		
-		 EETempTestMacroAssertTrue(checkSampleIsValue(@"#2"), @"After update, it should become `#2`.");
-		 
-		 return	NO;	//	ROLLBACK.
-	 }];
+	@try
+	{
+		[db performTransactionUsingBlock:^
+		{
+			NSDictionary*		state1	=	[NSDictionary dictionaryWithObjectsAndKeys:@"#2", @"content", nil];
+			[db updateRowHasID:12 inTable:@"table1" withDictionary:state1];
+			EETempTestMacroAssertTrue(checkSampleIsValue(@"#2"), @"After update, it should become `#2`.");
+		
+			@throw	[NSException exceptionWithName:@"example" reason:@"example" userInfo:nil];	//	ROLLBACK.
+		}];
+	}
+	@catch (NSException *exception)
+	{
+	}
 	
 	EETempTestMacroAssertTrue(checkSampleIsValue(@"#1"), @"After rollback, it should be back to `#1`.");
 }

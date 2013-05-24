@@ -17,7 +17,7 @@ EESQLiteDatabase (Schema)
 
 
 
-- (NSArray *)allSchema
+- (NSArray *)allRawSchema
 {
 	return		[self arrayOfRowsByExecutingSQL:@"SELECT * FROM sqlite_master;"];
 }

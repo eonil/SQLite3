@@ -23,6 +23,32 @@
 
 
 
+
+
+
+
+
+
+
+inline static void
+EXCEPT_IF_NAME_IS_INVALID(NSString* name)
+{
+	if (![EESQLiteDatabase isValidIdentifierString:name])
+	{
+		EESQLiteExcept([NSString stringWithFormat:@"The name %@ is invalid for SQLite3.", name]);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 @implementation		EESQLiteDatabase
 {	
 	sqlite3*		db;
@@ -84,37 +110,21 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 
 
 #pragma mark	-	EESQLiteDatabase
-- (BOOL)executeSQL:(NSString *)command
-{
-	return	[self executeSQL:command error:NULL];
-}
-- (BOOL)executeSQL:(NSString *)command error:(NSError *__autoreleasing *)error
+- (void)executeSQL:(NSString *)command
 {
 	@autoreleasepool
 	{
 		NSError*	parerr		=	nil;
 		NSArray*	stmts		=	[self statementsByParsingSQL:command error:&parerr];
+		EESQLiteExceptIfThereIsAnError(parerr);
 		
-		if (!EESQLiteCheckForNoError(parerr, error))
-		{
-			return	NO;
-		}
-		
-		////
-	
 		for (EESQLiteStatement* stmt in stmts)
 		{
-			NSError*	steperr		=	nil;
-			while ([stmt stepWithError:&steperr])
+			while ([stmt step])
 			{
-				if (!EESQLiteCheckForNoError(steperr, error))
-				{
-					return	NO;
-				}
 			}
 		}
 	}
-	return	YES;
 }
 - (NSArray *)statementsByParsingSQL:(NSString *)sql
 {
@@ -126,134 +136,88 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 
 
-- (BOOL)beginTransactionWithError:(NSError *__autoreleasing *)error
-{
-	return		[self executeSQL:@"BEGIN TRANSACTION;" error:error];
-}
-- (BOOL)commitTransactionWithError:(NSError *__autoreleasing *)error
-{
-	return		[self executeSQL:@"COMMIT TRANSACTION;" error:error];
-}
-- (BOOL)rollbackTransactionWithError:(NSError *__autoreleasing *)error
-{
-	return		[self executeSQL:@"ROLLBACK TRANSACTION;" error:error];
-}
 - (void)beginTransaction
 {
-	NSError*	exeerr	=	nil;
-	BOOL		exeok	=	[self beginTransactionWithError:&exeerr];
-	
-	if (!exeok)
-	{
-		@throw	EESQLiteExceptionFromError(exeerr);
-	}
+	[self executeSQL:@"BEGIN TRANSACTION;"];
 }
 - (void)commitTransaction
 {
-	NSError*	exeerr	=	nil;
-	BOOL		exeok	=	[self commitTransactionWithError:&exeerr];
-	
-	if (!exeok)
-	{
-		@throw	EESQLiteExceptionFromError(exeerr);
-	}
+	[self executeSQL:@"COMMIT TRANSACTION;"];
 }
 - (void)rollbackTransaction
 {
-	NSError*	exeerr	=	nil;
-	BOOL		exeok	=	[self rollbackTransactionWithError:&exeerr];
-	
-	if (!exeok)
-	{
-		@throw	EESQLiteExceptionFromError(exeerr);
-	}
+	[self executeSQL:@"ROLLBACK TRANSACTION;"];
 }
-- (BOOL)markSavepointWithName:(NSString *)savepointName error:(NSError *__autoreleasing *)error
+- (void)markSavepointWithName:(NSString *)savepointName
 {
-	if (!EESQLiteCheckValidityOfIdentifierName(savepointName, error)) { return NO; }
+	EXCEPT_IF_NAME_IS_INVALID(savepointName);
 	
 	NSString*	cmdform	=	@"SAVEPOINT %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, savepointName];
 	
-	return		[self executeSQL:cmd error:error];
+	[self executeSQL:cmd];
 }
-- (BOOL)releaseSavepointOfName:(NSString *)savepointName error:(NSError *__autoreleasing *)error
+- (void)releaseSavepointOfName:(NSString *)savepointName
 {
-	if (!EESQLiteCheckValidityOfIdentifierName(savepointName, error)) { return NO; }
+	EXCEPT_IF_NAME_IS_INVALID(savepointName);
 	
 	NSString*	cmdform	=	@"RELEASE %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, savepointName];
 	
-	return		[self executeSQL:cmd error:error];
+	[self executeSQL:cmd];
 }
-- (BOOL)rollbackToSavepointOfName:(NSString *)savepointName error:(NSError *__autoreleasing *)error
+- (void)rollbackToSavepointOfName:(NSString *)savepointName
 {
-	if (!EESQLiteCheckValidityOfIdentifierName(savepointName, error)) { return NO; }
+	EXCEPT_IF_NAME_IS_INVALID(savepointName);
 	
 	NSString*	cmdform	=	@"ROLLBACK %@;";
 	NSString*	cmd		=	[NSString stringWithFormat:cmdform, savepointName];
 	
-	return		[self executeSQL:cmd error:error];
+	[self executeSQL:cmd];
 }
-- (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock
-{
-	return
-	[[self objectByExecutingTransactionBlock:^id
-	{
-		BOOL	result	=	transactionBlock();
-		return	result ? @(YES) : nil;
-	}] boolValue];
-}
-- (id)objectByExecutingTransactionBlock:(id (^)(void))transactionBlock
-{
-	BOOL	hasNoTransactionNow	=	[self isAutocommitMode];
-	
-	if (!hasNoTransactionNow)
-	{
-		@throw		EESQLiteExceptionForNestedExplicitTransaction();
-	}
-	
-	////
-	{
-		NSError*	begerr	=	nil;
-		BOOL		begok	=	[self beginTransactionWithError:&begerr];
-		if (!begok)
-		{
-			@throw	EESQLiteExceptionFromError(begerr);
-		}
-	}
-	
-	id	transactionResult	=	nil;
-
-	@try
-	{
-		transactionResult	=	transactionBlock();
-	}
-	@finally
-	{
-		if (transactionResult != nil)
-		{
-			NSError*	commerr	=	nil;
-			BOOL		commok	=	[self commitTransactionWithError:&commerr];
-			if (!commok)
-			{
-				@throw	EESQLiteExceptionFromError(commerr);
-			}
-		}
-		else
-		{
-			NSError*	rollerr	=	nil;
-			BOOL		rollok	=	[self rollbackTransactionWithError:&rollerr];
-			if (!rollok)
-			{
-				@throw	EESQLiteExceptionFromError(rollerr);
-			}
-		}
-	}
-	
-	////	Return is fine to be here becasue there's nothing to return in exception situation.
-	return	transactionResult;
-}
+//- (BOOL)executeTransactionBlock:(BOOL (^)(void))transactionBlock
+//{
+//	return
+//	[[self objectByExecutingTransactionBlock:^id
+//	{
+//		BOOL	result	=	transactionBlock();
+//		return	result ? @(YES) : nil;
+//	}] boolValue];
+//}
+//- (id)objectByExecutingTransactionBlock:(id (^)(void))transactionBlock
+//{
+//	BOOL	hasNoTransactionNow	=	[self isAutocommitMode];
+//	
+//	if (!hasNoTransactionNow)
+//	{
+//		@throw		EESQLiteExceptionForNestedExplicitTransaction();
+//	}
+//	
+//	////
+//	
+//	[self beginTransaction];
+//	
+//	id	transactionResult	=	nil;
+//
+//	@try
+//	{
+//		transactionResult	=	transactionBlock();
+//	}
+//	@finally
+//	{
+//		if (transactionResult != nil)
+//		{
+//			[self commitTransaction];
+//		}
+//		else
+//		{
+//			[self rollbackTransaction];
+//		}
+//	}
+//	
+//	////	Return is fine to be here becasue there's nothing to return in exception situation.
+//	return	transactionResult;
+//}
 
 
 

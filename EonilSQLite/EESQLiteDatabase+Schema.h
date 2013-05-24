@@ -9,7 +9,7 @@
 #import "EESQLiteDatabase.h"
 
 @interface EESQLiteDatabase (Schema)
-- (NSArray*)		allSchema;
+- (NSArray*)		allRawSchema;									//	Only for debugging purpose.
 - (NSArray*)		allTableNames;
 - (NSArray*)		allColumnNamesOfTable:(NSString*)tableName;
 - (NSArray*)		tableInformationForName:(NSString*)tableName;

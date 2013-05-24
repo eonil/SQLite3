@@ -40,20 +40,20 @@ EESQLiteInputArgumentErrorDataIsTooLong()
 	return	err;
 }
 
-inline
-static
-NSError*
-EESQLiteInputArgumentErrorHasInvalidCharactersForIdentifierNames()
-{
-	NSString*				desc	=	@"Argument string contains invalid character for identifier names. Only alphanumeric and underscore letters are permitted. This is Objective-C wrapper level error.";
-	NSMutableDictionary*	info	=	[NSMutableDictionary dictionary];
-	
-	[info setObject:desc forKey:NSLocalizedDescriptionKey];
-	
-	NSError*				err		=	[NSError errorWithDomain:EESQLiteErrorDomain code:0 userInfo:info];
-	
-	return	err;
-}
+//inline
+//static
+//NSError*
+//EESQLiteInputArgumentErrorHasInvalidCharactersForIdentifierNames()
+//{
+//	NSString*				desc	=	@"Argument string contains invalid character for identifier names. Only alphanumeric and underscore letters are permitted. This is Objective-C wrapper level error.";
+//	NSMutableDictionary*	info	=	[NSMutableDictionary dictionary];
+//	
+//	[info setObject:desc forKey:NSLocalizedDescriptionKey];
+//	
+//	NSError*				err		=	[NSError errorWithDomain:EESQLiteErrorDomain code:0 userInfo:info];
+//	
+//	return	err;
+//}
 
 
 
@@ -160,16 +160,6 @@ EESQLiteFileDoesNotExistAtPathError(NSString* path)
 //	return	[NSError errorWithDomain:EESQLiteErrorDomain code:-3 userInfo:info];
 //}
 
-
-inline
-static
-NSError*
-EESQLiteNoColumnInTableForNameError(NSString* tableName)
-{
-	NSString*		message	=	[NSString stringWithFormat:@"There's no column defined for the table-name. Seems no table exist for the name: %@", tableName];
-	NSDictionary*	info	=	[NSDictionary dictionaryWithObjectsAndKeys:message, NSLocalizedDescriptionKey, nil];
-	return	[NSError errorWithDomain:EESQLiteErrorDomain code:-4 userInfo:info];
-}
 
 
 

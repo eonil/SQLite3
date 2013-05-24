@@ -29,6 +29,9 @@
  *	This behavior may change in future release to use transaction only when
 	there's no active transactions. (by checking auto-commit mode)
  
+ @exception
+ All method in this category will throw an exception for wrong API use.
+ 
  */
 @interface EESQLiteDatabase (SimpleQuery)
 
@@ -38,7 +41,7 @@
 
 - (NSArray*)			arrayOfAllRowsInTable:(NSString*)tableName;
 - (NSArray*)			arrayOfRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount;	//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values. If you need large dataset, use -enumerate~ method series.
-- (BOOL)				enumerateAllRowsInTable:(NSString*)tableName block:(void(^)(NSDictionary* row, BOOL* stop))block;
+- (void)				enumerateAllRowsInTable:(NSString*)tableName block:(void(^)(NSDictionary* row, BOOL* stop))block;
 /*!
  Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
  @return
@@ -48,11 +51,11 @@
  If this method encounters any error while enumerating, enumeration will stop and return `NO`.
  Validity of already enumerated values are not defined.
  */
-- (BOOL)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount usingBlock:(void(^)(NSDictionary* row, BOOL* stop))block;
-- (BOOL)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName usingBlock:(void(^)(NSDictionary* row, BOOL* stop))block;
+- (void)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount usingBlock:(void(^)(NSDictionary* row, BOOL* stop))block;
+- (void)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName usingBlock:(void(^)(NSDictionary* row, BOOL* stop))block;
 
 //	Deprecated for better name.
-- (BOOL)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount block:(void(^)(NSDictionary* row, BOOL* stop))block EESQLiteDeprecatedMethod;
+- (void)				enumerateRowsHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName limitCount:(NSUInteger)limitCount block:(void(^)(NSDictionary* row, BOOL* stop))block EESQLiteDeprecatedMethod;
 
 - (NSDictionary*)		dictionaryFromRowHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName;								//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
 - (NSDictionary*)		dictionaryFromRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName;														//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name.
@@ -63,8 +66,8 @@
  You can set `dictioaryValue` to nil, it'll be treated as empty dictionary.
  And this will insert a new row with only `NULL` values.
  */
-- (EESQLiteRowID)		insertDictionaryValue:(NSDictionary*)dictionaryValue intoTable:(NSString*)tableName error:(NSError**)error;
-- (EESQLiteRowIDList*)	insertArrayOfDictionaryValues:(NSArray*)dictionaryValues intoTable:(NSString*)tableName error:(NSError**)error;
+- (EESQLiteRowID)		insertDictionaryValue:(NSDictionary*)dictionaryValue intoTable:(NSString*)tableName;
+- (EESQLiteRowIDList*)	insertArrayOfDictionaryValues:(NSArray*)dictionaryValues intoTable:(NSString*)tableName;
 
 /*!
  @param
@@ -85,20 +88,13 @@
  @return
  Returns `YES` if the operation succeeds. `NO` for failure with any reason.
  */
-- (BOOL)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue replacingValueAsNull:(id)nullValue;
-- (BOOL)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;	//	Execute above method with `nil` for last parameter. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
-- (BOOL)				updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;						//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
+- (void)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue replacingValueAsNull:(id)nullValue;
+- (void)				updateRowHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;	//	Execute above method with `nil` for last parameter.
+- (void)				updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue;						//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name.
 
-- (BOOL)				deleteAllRowsFromTable:(NSString*)tableName error:(NSError**)error;																//	Returns `YES` if the operation succeeds. `NO` for failure with any reason.
-- (BOOL)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName fromTable:(NSString*)tableName error:(NSError**)error;				//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
-- (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString*)tableName error:(NSError**)error;										//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name. Returns `YES` if the operation succeeds. `NO` for failure with any reason.
-
-/*
- Deprecated methods.
- */
-- (BOOL)				deleteAllRowsInTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
-- (BOOL)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName inTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
-- (BOOL)				deleteRowHasID:(EESQLiteRowID)rowID inTable:(NSString*)tableName error:(NSError**)error EESQLiteDeprecatedMethod;
+- (void)				deleteAllRowsFromTable:(NSString*)tableName;
+- (void)				deleteRowsHasValue:(id)value atColumn:(NSString*)columnName fromTable:(NSString*)tableName;				//	Result is defined only for `NSString` or `NSNumber`(with integral or floating-point number) values.
+- (void)				deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString*)tableName;										//	Result is defined only when the most safe row-ID column name `_ROWID_` is not used for general column name.
 
 /*
  This method is designed to delete and re-insert the row with new values.
@@ -109,6 +105,51 @@
  */
 //- (BOOL)				setRowHasValue:(id)value atColumne:(NSString*)columnName inTable:(NSString*)tableName withDictionary:(NSDictionary*)newValue replacingValueAsNull:(id)nullValue;
 
+
+/*!
+ Performs an explicit transaction for multiple operations.
+ This method will commit after all block command executed.
+ Also rollbacks for any exceptions. Throwing an exception 
+ is the only way to perform rollback. If you need some 
+ performance-intensive code, use these methods diectly.
+ 
+	 -[EESQLiteDatabase beginTransaction]
+	 -[EESQLiteDatabase commitTransaction]
+	 -[EESQLiteDatabase rollbackTransaction];
+ 
+ @discussion
+
+ Exception Handlings
+ -------------------
+ Supplied operation block will be executed with wrapping by `@try...@catch` block.
+ Any exception will trigger ROLLBACK.
+
+ This method `@catch` internal exception, and re-throw it after ROLLBACK.
+ Debugger stack trace may indicate some other place than original catching frame.
+ Don't be confused and see first-thrown stack-trace of the exception object to 
+ investigate where the problems came.
+
+ Nested Transaction
+ ------------------
+ SQLite doesn't support nested transaction. It supports only SAVEPOINT.
+ So traditional BEGIN/COMMIT/ROLLBACK cannot be nested.
+ This method will fail if there's any existing transaction.
+ Not only fails, but also throws an exception.
+
+ This prohibition is because of partiall rollback.
+ If you rollback inside transaction, and commit outmost transaction, the
+ rollback part shouldn't be applied, and other outer part should be.
+ But without nested transaction, it's impossible to implement, so I don't
+ offer nested transaction feature with tranditional semantic methods.
+
+ Anyway the partial rollback is known as possible with SAVEPOINT feature,
+ but unfourtunately, I don't know well about how it behaves. And it needs
+ explicit name argument. If you relly want partial rollback, use SAVEPOINT
+ feature.
+
+ */
+- (id)					objecyByPerformingTransactionUsingBlock:(id(^)(void))block;
+- (void)				performTransactionUsingBlock:(void(^)(void))block;
 
 @end
 

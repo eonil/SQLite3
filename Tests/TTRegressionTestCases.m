@@ -9,6 +9,10 @@
 #import "EonilSQLite.h"
 #import "TTRegressionTestCases.h"
 
+
+#define TEST_FILE		@"./EESQLITE3_LIBRARY_REGRESSION_TEST_FILE.sqlite"
+
+
 @implementation TTRegressionTestCases
 {
 	EESQLiteDatabase*	DBHolder;
@@ -24,8 +28,12 @@
 	 2.	All statements used in -executeSQL method wrapped by @autoreleasepool block. Now they are deallocated before database object.
 	 
 	 */
-	NSString*	path	=	[@"./osm.sqlite" stringByExpandingTildeInPath];
+	NSString*	path	=	[TEST_FILE stringByExpandingTildeInPath];
 	
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path])
+	{
+		[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+	}
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path])
 	{
 		NSError*	err	=	nil;
@@ -52,7 +60,7 @@
 	@autoreleasepool
 	{
 		self->DBHolder	=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:path error:NULL];
-		NSLog(@"created database schema = %@", self->DBHolder.allSchema);
+		NSLog(@"created database schema = %@", self->DBHolder.allRawSchema);
 		NSLog(@"created database tables = %@", self->DBHolder.allTableNames);
 	}
 }
@@ -63,28 +71,44 @@
 {
 	@autoreleasepool
 	{
-		[[NSFileManager defaultManager] removeItemAtPath:@"./t.db" error:nil];
-		[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:@"./t.db"];
-		EESQLiteDatabase*	DB	=	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:@"./t.db" ];
+		[[NSFileManager defaultManager] removeItemAtPath:TEST_FILE error:nil];
+		[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:TEST_FILE];
+		EESQLiteDatabase*	DB	=	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:TEST_FILE ];
 		[DB addTableWithName:@"t" withColumnNames:@[@"c1"] rowIDAliasColumnName:@"c1"];
 		
-		NSError*	err	=	nil;
-		[DB insertDictionaryValue:@{} intoTable:@"ttt" error:&err];
-		EETempTestMacroAssertNotNil(err, @"It should raise an error.");
+		
+		NSException*	test_exc	=	nil;
+		@try
+		{
+			[DB insertDictionaryValue:@{} intoTable:@"ttt"];
+		}
+		@catch (NSException* exc)
+		{
+			test_exc	=	exc;
+		}
+		EETempTestMacroAssertNotNil(test_exc, @"Should be an exception.");
 	}
 }
 - (void)test022_insertIntoWithTableNameWithSpecialCharacter
 {
 	@autoreleasepool
 	{
-		[[NSFileManager defaultManager] removeItemAtPath:@"./t.db" error:nil];
-		[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:@"./t.db"];
-		EESQLiteDatabase*	DB	=	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:@"./t.db" ];
+		[[NSFileManager defaultManager] removeItemAtPath:TEST_FILE error:nil];
+		[EESQLiteDatabase createEmptyPersistentDatabaseOnDiskAtPath:TEST_FILE];
+		EESQLiteDatabase*	DB	=	[EESQLiteDatabase persistentDatabaseOnDiskAtPath:TEST_FILE];
 		[DB addTableWithName:@"t+t" withColumnNames:@[@"c1"] rowIDAliasColumnName:@"c1"];
 		
-		NSError*	err	=	nil;
-		[DB insertDictionaryValue:@{} intoTable:@"t+t" error:&err];
-		EETempTestMacroAssertNil(err, @"Should be no error.");
+		
+		NSException*	test_exc	=	nil;
+		@try
+		{
+			[DB insertDictionaryValue:@{} intoTable:@"t+t"];
+		}
+		@catch (NSException* exc)
+		{
+			test_exc	=	exc;
+		}
+		EETempTestMacroAssertNil(test_exc, @"Should be no exception.");
 	}
 }
 
@@ -94,7 +118,7 @@
 	{
 		EESQLiteDatabase*	DB	=	[EESQLiteDatabase temporaryDatabaseInMemory];
 		[DB addTableWithName:@"t+t" withColumnNames:@[@"c1"] rowIDAliasColumnName:@"c1"];
-		[DB insertDictionaryValue:@{} intoTable:@"t+t" error:nil];
+		[DB insertDictionaryValue:@{} intoTable:@"t+t"];
 		
 		NSArray*	A	=	[DB arrayOfAllRowsInTable:@"t+t"];
 		
