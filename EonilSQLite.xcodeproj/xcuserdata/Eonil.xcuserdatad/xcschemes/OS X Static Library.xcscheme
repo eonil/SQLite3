@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "45E68B301683342700DAE96E"
-               BuildableName = "libOS X Static Library.a"
+               BuildableName = "libEonilSQLite.a"
                BlueprintName = "OS X Static Library"
                ReferencedContainer = "container:EonilSQLite.xcodeproj">
             </BuildableReference>
