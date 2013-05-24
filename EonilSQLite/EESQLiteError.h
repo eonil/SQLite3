@@ -40,21 +40,6 @@ EESQLiteInputArgumentErrorDataIsTooLong()
 	return	err;
 }
 
-//inline
-//static
-//NSError*
-//EESQLiteInputArgumentErrorHasInvalidCharactersForIdentifierNames()
-//{
-//	NSString*				desc	=	@"Argument string contains invalid character for identifier names. Only alphanumeric and underscore letters are permitted. This is Objective-C wrapper level error.";
-//	NSMutableDictionary*	info	=	[NSMutableDictionary dictionary];
-//	
-//	[info setObject:desc forKey:NSLocalizedDescriptionKey];
-//	
-//	NSError*				err		=	[NSError errorWithDomain:EESQLiteErrorDomain code:0 userInfo:info];
-//	
-//	return	err;
-//}
-
 
 
 

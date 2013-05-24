@@ -209,17 +209,20 @@ TTCreateDatabaseForGenericTest()
 							[db insertDictionaryValue:dict1 intoTable:@"Table1"];
 						});
 
-	EESQLiteStatement*	stmt	=	[[db statementsByParsingSQL:@"SELECT * FROM 'Table1'"] lastObject];
-	[stmt step];
-
-	NSDictionary*		dict2	=	[stmt dictionaryValue];
-	
-	NSLog(@"dict1 = %@", dict1);
-	NSLog(@"dict2 = %@", dict2);
-	EETempTestMacroAssertTrue([dict2 isEqual:dict1], @"Inserted value must be equal with original.");
-	
-	BOOL	isDoubleNumber	=	0 == strncmp([((NSNumber*)[dict2 objectForKey:@"column2"]) objCType], @encode(double), 1);	
-	EETempTestMacroAssertTrue(isDoubleNumber, @"2nd field must be double type.");
+	@autoreleasepool
+	{
+		EESQLiteStatement*	stmt	=	[[db statementsByParsingSQL:@"SELECT * FROM 'Table1'"] lastObject];
+		[stmt step];
+		
+		NSDictionary*		dict2	=	[stmt dictionaryValue];
+		
+		NSLog(@"dict1 = %@", dict1);
+		NSLog(@"dict2 = %@", dict2);
+		EETempTestMacroAssertTrue([dict2 isEqual:dict1], @"Inserted value must be equal with original.");
+		
+		BOOL	isDoubleNumber	=	0 == strncmp([((NSNumber*)[dict2 objectForKey:@"column2"]) objCType], @encode(double), 1);
+		EETempTestMacroAssertTrue(isDoubleNumber, @"2nd field must be double type.");
+	}
 }
 - (void)testInsertIntoTableRandomValues
 {
@@ -277,14 +280,17 @@ TTCreateDatabaseForGenericTest()
 		[db insertDictionaryValue:dict1 intoTable:@"Table1"];
 	});
 	
-	EESQLiteStatement*	stmt	=	[[db statementsByParsingSQL:@"SELECT * FROM 'Table1'"] lastObject];
-	[stmt step];
+	@autoreleasepool
+	{
+		EESQLiteStatement*	stmt	=	[[db statementsByParsingSQL:@"SELECT * FROM 'Table1'"] lastObject];
+		[stmt step];
+		
+		NSDictionary*		dict2	=	[stmt dictionaryValue];
+		NSLog(@"dict1 = %@", dict1);
+		NSLog(@"dict2 = %@", dict2);
+		EETempTestMacroAssertTrue([dict2 isEqual:dict1], @"Inserted value must be equal with original.");
+	}
 	
-	NSDictionary*		dict2	=	[stmt dictionaryValue];
-	
-	NSLog(@"dict1 = %@", dict1);
-	NSLog(@"dict2 = %@", dict2);
-	EETempTestMacroAssertTrue([dict2 isEqual:dict1], @"Inserted value must be equal with original.");
 }
 
 

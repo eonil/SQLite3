@@ -6,7 +6,13 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
+
+
 #import "EESQLiteDatabase.h"
+
+
+
+
 
 @interface EESQLiteDatabase (Schema)
 - (NSArray*)		allRawSchema;									//	Only for debugging purpose.
@@ -44,3 +50,16 @@
 - (void)			addTableWithName:(NSString*)tableName withColumnNames:(NSArray*)columnNames;
 - (void)			removeTableWithName:(NSString*)tableName;
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+

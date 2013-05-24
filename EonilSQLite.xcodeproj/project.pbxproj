@@ -633,9 +633,9 @@
 			productReference = 452740D715D69DBE00258461 /* Manual Test for Mac OS X */;
 			productType = "com.apple.product-type.tool";
 		};
-		4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */ = {
+		4572DA5515BB1D3D0091442D /* OSX Dynamic Library */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4572DA7715BB1D3D0091442D /* Build configuration list for PBXNativeTarget "Mac OS X Dynamic Library" */;
+			buildConfigurationList = 4572DA7715BB1D3D0091442D /* Build configuration list for PBXNativeTarget "OSX Dynamic Library" */;
 			buildPhases = (
 				4572DA5215BB1D3D0091442D /* Sources */,
 				4572DA5315BB1D3D0091442D /* Frameworks */,
@@ -645,7 +645,7 @@
 			);
 			dependencies = (
 			);
-			name = "Mac OS X Dynamic Library";
+			name = "OSX Dynamic Library";
 			productName = "SQLite for Mac OS X";
 			productReference = 4572DA5615BB1D3D0091442D /* EonilSQLite.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
@@ -688,9 +688,9 @@
 			productReference = 45CB651014CBF609004EF17F /* SQLite-Test.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		45E68B301683342700DAE96E /* OS X Static Library */ = {
+		45E68B301683342700DAE96E /* OSX Static Library */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45E68B401683342700DAE96E /* Build configuration list for PBXNativeTarget "OS X Static Library" */;
+			buildConfigurationList = 45E68B401683342700DAE96E /* Build configuration list for PBXNativeTarget "OSX Static Library" */;
 			buildPhases = (
 				45E68B2D1683342700DAE96E /* Sources */,
 				45E68B2E1683342700DAE96E /* Frameworks */,
@@ -700,7 +700,7 @@
 			);
 			dependencies = (
 			);
-			name = "OS X Static Library";
+			name = "OSX Static Library";
 			productName = "OS X Static Library";
 			productReference = 45E68B311683342700DAE96E /* libEonilSQLite.a */;
 			productType = "com.apple.product-type.library.static";
@@ -728,12 +728,12 @@
 			projectRoot = "";
 			targets = (
 				4518C1FC14CBD0CE00EF0620 /* iOS Static Library */,
+				45E68B301683342700DAE96E /* OSX Static Library */,
+				4572DA5515BB1D3D0091442D /* OSX Dynamic Library */,
 				45CB650F14CBF609004EF17F /* iOS Static Library (Test) */,
-				4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */,
 				4572DA6715BB1D3D0091442D /* Mac OS X Dynamic Library (Tests) */,
 				452740A115D6974500258461 /* Manual Test */,
 				452740D615D69DBE00258461 /* Manual Test for Mac OS X */,
-				45E68B301683342700DAE96E /* OS X Static Library */,
 			);
 		};
 /* End PBXProject section */
@@ -926,12 +926,12 @@
 		};
 		452740E615D69DCE00258461 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */;
+			target = 4572DA5515BB1D3D0091442D /* OSX Dynamic Library */;
 			targetProxy = 452740E515D69DCE00258461 /* PBXContainerItemProxy */;
 		};
 		4572DA6C15BB1D3D0091442D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4572DA5515BB1D3D0091442D /* Mac OS X Dynamic Library */;
+			target = 4572DA5515BB1D3D0091442D /* OSX Dynamic Library */;
 			targetProxy = 4572DA6B15BB1D3D0091442D /* PBXContainerItemProxy */;
 		};
 		45CB652514CBF616004EF17F /* PBXTargetDependency */ = {
@@ -1117,7 +1117,6 @@
 				GCC_PREFIX_HEADER = "Targets/Mac OS X/Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				MACH_O_TYPE = mh_dylib;
-				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = x86_64;
@@ -1134,7 +1133,6 @@
 				GCC_PREFIX_HEADER = "Targets/Mac OS X/Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				MACH_O_TYPE = mh_dylib;
-				PRODUCT_NAME = EonilSQLite;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = x86_64;
@@ -1284,7 +1282,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4572DA7715BB1D3D0091442D /* Build configuration list for PBXNativeTarget "Mac OS X Dynamic Library" */ = {
+		4572DA7715BB1D3D0091442D /* Build configuration list for PBXNativeTarget "OSX Dynamic Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4572DA7815BB1D3D0091442D /* Debug */,
@@ -1311,7 +1309,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45E68B401683342700DAE96E /* Build configuration list for PBXNativeTarget "OS X Static Library" */ = {
+		45E68B401683342700DAE96E /* Build configuration list for PBXNativeTarget "OSX Static Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45E68B3E1683342700DAE96E /* Debug */,

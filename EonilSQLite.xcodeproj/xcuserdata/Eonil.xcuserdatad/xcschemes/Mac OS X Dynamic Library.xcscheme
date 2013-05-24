@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4572DA5515BB1D3D0091442D"
                BuildableName = "EonilSQLite.dylib"
-               BlueprintName = "Mac OS X Dynamic Library"
+               BlueprintName = "OSX Dynamic Library"
                ReferencedContainer = "container:EonilSQLite.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
