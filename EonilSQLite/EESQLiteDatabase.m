@@ -29,7 +29,6 @@
 
 
 
-
 inline static void
 EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 {
@@ -68,6 +67,11 @@ inline
 BOOL
 PrepareWithName(EESQLiteDatabase* self, NSString* name, NSError** error, BOOL allowCreation)
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(self, EESQLiteDatabase);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(name, NSString);
+	
+	////
+	
 	const char * filename = [name cStringUsingEncoding:NSUTF8StringEncoding];
 	int flags = allowCreation ? SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE : SQLITE_OPEN_READWRITE;
 	const char * vfs = NULL;
@@ -102,6 +106,11 @@ inline
 BOOL
 CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(self, EESQLiteDatabase);
+
+	
+	////
+	
 	return	EESQLiteHandleOKOrError(sqlite3_close(self->db), error, self->db);
 }
 
@@ -111,6 +120,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 #pragma mark	-	EESQLiteDatabase
 - (void)executeSQL:(NSString *)command
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(command, NSString);
+	
+	////
+	
 	@autoreleasepool
 	{
 		NSError*	parerr		=	nil;
@@ -127,10 +140,18 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (NSArray *)statementsByParsingSQL:(NSString *)sql
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(sql, NSString);
+	
+	////
+	
 	return	[self statementsByParsingSQL:sql error:NULL];
 }
 - (NSArray *)statementsByParsingSQL:(NSString *)sql error:(NSError *__autoreleasing *)error
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(sql, NSString);
+	
+	////
+	
 	return	[EESQLiteStatement statementsWithSQLString:sql database:self error:error];
 }
 
@@ -149,6 +170,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (void)markSavepointWithName:(NSString *)savepointName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(savepointName);
 	
 	NSString*	cmdform	=	@"SAVEPOINT %@;";
@@ -158,6 +183,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (void)releaseSavepointOfName:(NSString *)savepointName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(savepointName);
 	
 	NSString*	cmdform	=	@"RELEASE %@;";
@@ -167,6 +196,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (void)rollbackToSavepointOfName:(NSString *)savepointName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(savepointName);
 	
 	NSString*	cmdform	=	@"ROLLBACK %@;";
@@ -251,13 +284,17 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 	return	nil;
 }
 
-- (id)initAsPersistentDatabaseOnDiskAtPath:(NSString *)pathTodDatabase error:(NSError *__autoreleasing *)error createIfNotExist:(BOOL)createIfNotExist
+- (id)initAsPersistentDatabaseOnDiskAtPath:(NSString *)pathToDatabase error:(NSError *__autoreleasing *)error createIfNotExist:(BOOL)createIfNotExist
 {
-	if (!createIfNotExist && ![[NSFileManager defaultManager] fileExistsAtPath:pathTodDatabase])
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
+	
+	////
+	
+	if (!createIfNotExist && ![[NSFileManager defaultManager] fileExistsAtPath:pathToDatabase])
 	{
 		if (error != NULL)
 		{
-			*error	=	EESQLiteFileDoesNotExistAtPathError(pathTodDatabase);
+			*error	=	EESQLiteFileDoesNotExistAtPathError(pathToDatabase);
 		}
 		return	nil;
 	}
@@ -266,16 +303,20 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 	
 	self	=	[super init];
 	
-	if (self && PrepareWithName(self, pathTodDatabase, error, createIfNotExist))
+	if (self && PrepareWithName(self, pathToDatabase, error, createIfNotExist))
 	{
 		return	self;
 	}
 	
 	return	nil;
 }
-- (id)initAsPersistentDatabaseOnDiskAtPath:(NSString *)pathTodDatabase error:(NSError *__autoreleasing *)error
+- (id)initAsPersistentDatabaseOnDiskAtPath:(NSString *)pathToDatabase error:(NSError *__autoreleasing *)error
 {
-	return	[self initAsPersistentDatabaseOnDiskAtPath:pathTodDatabase error:error createIfNotExist:NO];
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
+	
+	////
+	
+	return	[self initAsPersistentDatabaseOnDiskAtPath:pathToDatabase error:error createIfNotExist:NO];
 }
 - (void)dealloc
 {
@@ -311,14 +352,26 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 + (EESQLiteDatabase *)persistentDatabaseOnDiskAtPath:(NSString *)pathToDatabase
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
+	
+	////
+	
 	return	[[self alloc] initAsPersistentDatabaseOnDiskAtPath:pathToDatabase error:NULL];
 }
 + (BOOL)createEmptyPersistentDatabaseOnDiskAtPath:(NSString *)path
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(path, NSString);
+	
+	////
+	
 	return	[self createEmptyPersistentDatabaseOnDiskAtPath:path error:NULL];
 }
 + (BOOL)createEmptyPersistentDatabaseOnDiskAtPath:(NSString *)path error:(NSError *__autoreleasing *)error
-{	
+{
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(path, NSString);
+	
+	////
+	
 	EESQLiteDatabase*	db	=	[[self alloc] initAsPersistentDatabaseOnDiskAtPath:path error:error createIfNotExist:YES];
 	BOOL				ok	=	db != nil;
 	return				ok;
@@ -385,6 +438,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 @implementation		EESQLiteDatabase (Utility)
 + (BOOL)isValidIdentifierString:(NSString *)identifierString
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(identifierString, NSString);
+	
+	////
+	
 	return	[identifierString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"[]'\""]].location == NSNotFound;
 //	static	NSMutableCharacterSet*	validCharacters	=	nil;
 //	static dispatch_once_t			onceToken;
@@ -401,6 +458,10 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 + (NSString *)stringWithEscapeForSQL:(NSString *)string
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(string, NSString);
+	
+	////
+	
 	return	[[NSString alloc] initWithFormat:@"[%@]", string];
 //	NSString*	str2	=	[string stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
 //	return	[NSString stringWithFormat:@"'%@'", str2];

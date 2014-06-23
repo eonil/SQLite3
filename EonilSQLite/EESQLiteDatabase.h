@@ -54,7 +54,7 @@
  @result
  An object instance. `nil` for any error.
  */
-- (id)				initAsPersistentDatabaseOnDiskAtPath:(NSString*)pathTodDatabase error:(NSError**)error;
+- (id)				initAsPersistentDatabaseOnDiskAtPath:(NSString*)pathToDatabase error:(NSError**)error;
 
 + (EESQLiteDatabase*)	temporaryDatabaseInMemory;
 + (EESQLiteDatabase*)	temporaryDatabaseOnDisk;

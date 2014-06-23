@@ -69,6 +69,10 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 
 - (BOOL)containsRawID:(EESQLiteRowID)rowID inTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT COUNT(_ROWID_) AS count FROM [%@] WHERE _ROWID_ = %@";
@@ -83,6 +87,10 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 
 - (NSArray *)arrayOfAllRowsInTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT * FROM [%@]";
@@ -92,6 +100,11 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (NSArray *)arrayOfRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(columnName);
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
@@ -121,6 +134,11 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (void)enumerateAllRowsInTable:(NSString *)tableName block:(void (^)(NSDictionary *, BOOL *))block
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	UNIVERSE_DEBUG_ASSERT(block != nil);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT * FROM [%@]";
@@ -130,6 +148,12 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (void)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount usingBlock:(void (^)(NSDictionary *, BOOL *))block
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	UNIVERSE_DEBUG_ASSERT(block != nil);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(columnName);
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
@@ -157,6 +181,12 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (void)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName usingBlock:(void (^)(NSDictionary *, BOOL *))block
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	UNIVERSE_DEBUG_ASSERT(block != nil);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(columnName);
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
@@ -183,19 +213,38 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (void)enumerateRowsHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName limitCount:(NSUInteger)limitCount block:(void (^)(NSDictionary *, BOOL *))block
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	UNIVERSE_DEBUG_ASSERT(block != nil);
+
+	////
+	
 	return	[self enumerateRowsHasValue:value atColumne:columnName inTable:tableName limitCount:limitCount usingBlock:block];
 }
 
 - (NSDictionary *)dictionaryFromRowHasValue:(id)value atColumne:(NSString *)columnName inTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+
+	////
+	
 	return	[[self arrayOfRowsHasValue:value atColumne:columnName inTable:tableName limitCount:1] lastObject];
 }
 - (NSDictionary *)dictionaryFromRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	return	[self dictionaryFromRowHasValue:[NSNumber numberWithLongLong:rowID] atColumne:@"_ROWID_" inTable:tableName];
 }
 - (unsigned long long)countOfAllRowsInTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"SELECT count(*) AS COUNT FROM [%@];";
@@ -215,6 +264,10 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 
 - (EESQLiteRowID)insertDictionaryValue:(NSDictionary *)dictionaryValue intoTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	if (dictionaryValue == nil)
 	{
 		dictionaryValue	=	[NSDictionary dictionary];
@@ -227,6 +280,10 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (EESQLiteRowIDList *)insertArrayOfDictionaryValues:(NSArray *)dictionaryValues intoTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	EESQLiteAssert([[self allTableNames] containsObject:tableName], @"The table-name must be exist.");
 	
@@ -326,10 +383,19 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 
 - (void)updateRowHasID:(EESQLiteRowID)rowID inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	[self updateRowHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" inTable:tableName withDictionary:newValue];
 }
 - (void)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue replacingValueAsNull:(id)nullValue
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	NSArray*	allKeyNames	=	[newValue allKeys];
 	EXCEPT_IF_NAME_IS_INVALID(columnName);
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
@@ -388,10 +454,19 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (void)updateRowHasValue:(id)columnValue atColumn:(NSString *)columnName inTable:(NSString *)tableName withDictionary:(NSDictionary *)newValue
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	[self updateRowHasValue:columnValue atColumn:columnName inTable:tableName withDictionary:newValue replacingValueAsNull:nil];
 }
 - (void)deleteAllRowsFromTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	
 	NSString*	cmdform	=	@"DELETE FROM [%@];";
@@ -401,6 +476,11 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (void)deleteRowsHasValue:(id)value atColumn:(NSString *)columnName fromTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	EXCEPT_IF_NAME_IS_INVALID(tableName);
 	EXCEPT_IF_NAME_IS_INVALID(columnName);
 
@@ -422,6 +502,10 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (void)deleteRowHasID:(EESQLiteRowID)rowID fromTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+
+	////
+	
 	return	[self deleteRowsHasValue:[NSNumber numberWithLongLong:rowID] atColumn:@"_ROWID_" fromTable:tableName];
 }
 
@@ -435,6 +519,10 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 
 - (void)performTransactionUsingBlock:(void (^)(void))block
 {
+	UNIVERSE_DEBUG_ASSERT(block != nil);
+	
+	////
+	
 	[self objecyByPerformingTransactionUsingBlock:^id
 	{
 		block();
@@ -443,6 +531,10 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 }
 - (id)objecyByPerformingTransactionUsingBlock:(id (^)(void))block
 {
+	UNIVERSE_DEBUG_ASSERT(block != nil);
+	
+	////
+	
 	BOOL	hasNoTransactionNow	=	[self isAutocommitMode];
 
 	if (!hasNoTransactionNow)

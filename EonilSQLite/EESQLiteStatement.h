@@ -120,7 +120,9 @@
 
 
 
-
+/*!
+ Basically you should pass correctly typed non-nil value when you use typed set method.
+ */
 @interface			EESQLiteStatement (Mutation)
 
 - (NSUInteger)		parameterCount;

@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				"EESQLiteRowIDList.h"
-
+#import	"EESQLiteRowIDList.h"
+#import "EESQLiteCommon.h"
 
 
 
@@ -71,3 +71,26 @@
 	[buffer appendBytes:(const void *)&rowID length:sizeof(EESQLiteRowID)];
 }
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

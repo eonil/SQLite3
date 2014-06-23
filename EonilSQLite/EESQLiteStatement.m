@@ -94,22 +94,46 @@
 
 - (long long)longLongValueForColumnIndex:(NSInteger)columnIndex
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
+	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex);
 	return	sqlite3_column_int64(stmt, (int)columnIndex);
 }
 - (NSInteger)integerValueForColumnIndex:(NSInteger)columnIndex
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
+	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex);
 	return	(NSInteger)sqlite3_column_int64(stmt, (int)columnIndex);
 }
 - (double)doubleValueForColumnIndex:(NSInteger)columnIndex
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
+	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex);
 	
 	return	sqlite3_column_double(stmt, (int)columnIndex);
 }
 - (NSString *)stringValueForColumnIndex:(NSInteger)columnIndex
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
+	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex);
 	
 	int				bc		=	sqlite3_column_bytes(stmt, (int)columnIndex);
@@ -120,6 +144,12 @@
 }
 - (NSData *)dataValueForColumnIndex:(NSInteger)columnIndex
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
+	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex);
 
 	int				bc		=	sqlite3_column_bytes(stmt, (int)columnIndex);
@@ -130,6 +160,12 @@
 }
 - (BOOL)isNullAtColumnIndex:(NSInteger)columnIndex
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
+	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_COLUMN_INDEX_VALUE(columnIndex);
 
 	//	http://stackoverflow.com/questions/8961457/how-to-check-a-value-in-a-sqlite-column-is-null-or-not-with-c-api/8961553#8961553
@@ -138,14 +174,26 @@
 }
 - (NSUInteger)dataCount
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	
+	////
+	
 	return	sqlite3_data_count(stmt);
 }
 - (NSDictionary *)dictionaryValue
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	
+	////
+	
 	return	[self dictionaryValueReplacingNullsWithValue:nil];
 }
 - (NSDictionary *)dictionaryValueReplacingNullsWithValue:(id)nullValue
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	
+	////
+	
 	int						cn		=	sqlite3_data_count(stmt);
 	NSMutableDictionary*	dict	=	[NSMutableDictionary dictionaryWithCapacity:cn];
 	
@@ -220,10 +268,21 @@
 
 - (NSString *)description
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	
+	////
+	
 	return	[NSString stringWithFormat:@"<%@: \"%@\">", NSStringFromClass([self class]), [self SQL]];
 }
 - (id)initWithDB:(sqlite3 *)newDb sql:(const char *)sql byte:(int)byte tail:(const char **)tail error:(NSError *__autoreleasing *)error
 {
+	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(newDb != NULL);
+	UNIVERSE_DEBUG_ASSERT(sql != NULL);
+	UNIVERSE_DEBUG_ASSERT(tail != NULL);
+	
+	////
+	
 	self	=	[super init];
 	
 	if (self)
@@ -259,6 +318,12 @@
 
 + (NSArray *)statementsWithSQLString:(NSString *)sqlString database:(EESQLiteDatabase *)database error:(NSError *__autoreleasing *)error
 {
+	UNIVERSE_DEBUG_ASSERT(sqlString != NULL);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(sqlString, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(database, EESQLiteDatabase);
+	
+	////
+	
 	NSUInteger		cmdlen		=	[sqlString lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
 
 #if	!EESQLiteOptimizeForSystemHaveEqualSizedIntAndNSInteger
@@ -375,6 +440,10 @@ EXCEPT_DATA_TOO_LONG()
 
 - (void)setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex
 {
+	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(value);
 
@@ -382,6 +451,10 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex
 {
+	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(value);
 	
@@ -389,12 +462,21 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex
 {
+	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	
 	EESQLiteExceptIfReturnCodeIsNotOK(sqlite3_bind_double(stmt, (int)parameterIndex, value), db);
 }
 - (void)setStringValue:(NSString *)value forParameterIndex:(NSInteger)parameterIndex 
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(value, NSString);
+	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	const char *	buffer	=	[value cStringUsingEncoding:NSUTF8StringEncoding];
 	NSUInteger		buflen	=	[value lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
@@ -413,7 +495,13 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setDataValue:(NSData *)value forParameterIndex:(NSInteger)parameterIndex 
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(value, NSData);
+	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
+	
 	const void *	buffer	=	[value bytes];
 	NSUInteger		buflen	=	[value length];
 	
@@ -431,12 +519,20 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setNullForParameterIndex:(NSInteger)parameterIndex
 {
+	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	
+	////
+	
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 
 	EESQLiteExceptIfReturnCodeIsNotOK(sqlite3_bind_null(stmt, (int)parameterIndex), db);
 }
 - (void)setValue:(id)value forParameterIndex:(NSInteger)parameterIndex 
 {
+	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	
+	////
+	
 	if (value == nil)
 	{
 		return	[self setNullForParameterIndex:parameterIndex];
@@ -472,6 +568,10 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setValue:(id)value forParameterName:(NSString *)parameterName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(parameterName, NSString);
+	
+	////
+	
 	int	paramidx	=	sqlite3_bind_parameter_index(stmt, [parameterName cStringUsingEncoding:NSUTF8StringEncoding]);
 	
 	[self setValue:value forParameterIndex:paramidx];

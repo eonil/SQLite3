@@ -36,6 +36,10 @@ EESQLiteDatabase (Schema)
 }
 - (NSArray *)allColumnNamesOfTable:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	NSArray*			list	=	[self tableInformationForName:tableName];
 	NSMutableArray*		names	=	[NSMutableArray arrayWithCapacity:[list count]];
 	
@@ -49,15 +53,30 @@ EESQLiteDatabase (Schema)
 }
 - (NSArray *)tableInformationForName:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	NSString*	cmd		=	[NSString stringWithFormat:@"PRAGMA table_info('%@');", tableName];
 	return	[self arrayOfRowsByExecutingSQL:cmd];
 }
 - (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSString);
+	
+	////
+	
 	[self addTableWithName:tableName withColumnNames:columnNames rowIDAliasColumnName:nil];
 }
 - (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames rowIDAliasColumnName:(NSString *)rowIDAliasColumnName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(rowIDAliasColumnName, NSString);
+	
+	////
+	
 	if (nil!=rowIDAliasColumnName && ![columnNames containsObject:rowIDAliasColumnName])
 	{
 		columnNames	=	[columnNames arrayByAddingObject:rowIDAliasColumnName];
@@ -82,6 +101,11 @@ EESQLiteDatabase (Schema)
 }
 - (void)addTableWithExpession:(NSString *)tableExpression withColumnExpressions:(NSArray *)columnExpressions isTemporary:(BOOL)temporary onlyWhenNotExist:(BOOL)ifNotExist
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableExpression, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnExpressions, NSString);
+
+	////
+
 	NSString*			tmpexp	=	temporary ? @"TEMP" : @"";
 	NSString*			extexp	=	ifNotExist ? @"IF NOT EXIST" : @"";
 	NSString*			colexps	=	[columnExpressions componentsJoinedByString:@","];
@@ -91,6 +115,10 @@ EESQLiteDatabase (Schema)
 }
 - (void)removeTableWithName:(NSString *)tableName
 {
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	
+	////
+	
 	NSString*	cmd		=	[NSString stringWithFormat:@"DROP TABLE '%@';", tableName];
 	[self executeSQL:cmd];
 }
