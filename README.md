@@ -1,6 +1,7 @@
 Eonil's SQLite3 wrapper library
 ===============================
 Hoon Hwangbo
+2014/06/24
 2012/12/21
 2012/10/04
 
