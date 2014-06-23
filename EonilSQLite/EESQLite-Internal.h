@@ -16,14 +16,10 @@
 
 
 
-sqlite3*
-EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* database);
+sqlite3* const	EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* database);
 
-
-
-
-
-
+void			EESQLiteExceptWithReturnCodeForDatabase(int returnCode, sqlite3* db) __attribute__((noreturn));			//!	This function will create error even for the successful return-code such as `SQLITE_OK`.
+void			EESQLiteExceptIfReturnCodeIsNotOK(int result, sqlite3* db);
 
 
 

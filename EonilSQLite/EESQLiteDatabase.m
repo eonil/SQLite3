@@ -53,8 +53,7 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 {	
 	sqlite3*		db;
 }
-
-sqlite3*
+sqlite3* const
 EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* self)
 {
 	return	self->db;

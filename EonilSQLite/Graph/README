@@ -1,0 +1,85 @@
+
+
+
+
+**PRELIMINARY DESIGN AND IMPLEMENTATION, DO NOT USE THIS NOW**
+
+
+
+EEGraph
+=======
+
+This is set of classes to manipulate graph.
+
+-	Mutability separation
+
+-	Multiple persistence forms.
+	-	In-memory
+	-	On-disk (SQLite3)
+	-	Transcode several persistence forms.
+	-	Can import/export as Objective-C object graph.
+		-	Via reflections. By ignoring access control.
+		-	You need to supply proper converion (declarative) rules.
+		-	Object grapj is treated as specialization of the graph.
+			-	Roudd-trip from object graph, but no inverse possible.
+
+-	Log based undo/redo support.
+	-	Logs can be stored separately.
+	
+-	Edit in object-oriented model.
+	-	Add/remove verex/edges.
+	-	Inject/extract subgraphs.
+		-	Not round-trip-able unless subgraph is fully detached.
+	-	Optimize by discarding duplicated data.
+		-	Search for duplicated vertex/edge.
+		-	Reform topology for optimization.
+		
+-	Specializations.
+	-	DAG
+	-	Tree
+	
+	
+	
+	
+	
+	
+	
+	
+Design Note
+-----------
+There're two way to describe graph state.
+
+-	Log oriented.
+-	Snapshot oriented.
+
+Log oriented notation offers full mutation informations. This is ideal but
+because it's only incremental, so we will get insufficient memory problem 
+eventually in finite memory machine.
+
+Snapshot oriented is a memory optimized version of timeline. It removes
+all the time based logs and just leaves latest state. But by definition,
+this cannot offer logs. So undo/redo support becomes impossible.
+
+So I use hybrid approach. Because fully log based model is practically impossible,
+we have to adapt snapshot based model. And support it with limited logs - called 
+timeline. Timeline cannot represent full state. It just keeps partial mutations from
+current state only for undo/redo support.
+
+By this pproach there are a few of rules.
+
+-	Sanpshot cannot be edited directly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

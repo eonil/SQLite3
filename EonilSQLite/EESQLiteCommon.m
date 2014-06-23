@@ -7,10 +7,10 @@
 //
 
 
-#import <sqlite3.h>
+
 #import "EESQLiteCommon.h"
 #import "EESQLiteDatabase.h"
-
+#import "EESQLite____internal_doctor.h"
 
 
 
@@ -44,38 +44,6 @@ EESQLiteExcept(NSString* reason)
 
 
 void
-EESQLiteExceptWithReturnCodeForDatabase(int returnCode, sqlite3* db)
-{
-	NSString*				prefix	=	[NSString stringWithFormat:@"return code = %@, ", @(returnCode)];
-	const char *			errmsg	=	sqlite3_errmsg(db);
-	NSString*				desc	=	[NSString stringWithCString:errmsg encoding:NSUTF8StringEncoding];
-	NSString*				reason	=	[prefix stringByAppendingString:desc];
-	
-	EESQLiteExcept(reason);	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-void
-EESQLiteExceptIfReturnCodeIsNotOK(int result, sqlite3* db)
-{
-	if (result != SQLITE_OK)
-	{
-		EESQLiteExceptWithReturnCodeForDatabase(result, db);
-	}
-}
-
-
-void
 EESQLiteExceptIfThereIsAnError(NSError* error)
 {
 	if (error != nil)
@@ -97,6 +65,79 @@ EESQLiteExceptIfIdentifierIsInvalid(NSString* identifier)
 		EESQLiteExcept([NSString stringWithFormat:@"The name %@ is invalid for SQLite3. Only alphanumeric and underscore letters are permitted. This is Objective-C wrapper level error.", identifier]);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#if EONIL_DEBUG_MODE
+
+void
+_universe_error_log(NSString* message)
+{
+	NSLog(@"[Universe/Error/Log] %@", message);
+}
+
+void
+UNIVERSE_DEBUG_ASSERT(BOOL cond)
+{
+	[EESQLite____internal_doctor panicIf:!cond withMessage:@"Debugging asertion failure!"];
+}
+void
+UNIVERSE_DEBUG_ASSERT_WITH_MESSAGE(BOOL cond, NSString* message)
+{
+	[EESQLite____internal_doctor panicIf:!cond withMessage:message];
+}
+
+void
+UNIVERSE_UNREACHABLE_CODE()
+{
+	[EESQLite____internal_doctor panicWithMessage:@"Unreacable code! (asserted for debugging)"];
+	__builtin_unreachable();
+}
+
+#endif
+
+
+
+
+
+
+
+
+
 
 
 

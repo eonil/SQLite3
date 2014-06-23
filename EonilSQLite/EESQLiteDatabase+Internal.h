@@ -10,10 +10,7 @@
 #import				<sqlite3.h>
 #import				"EESQLiteError.h"
 
-inline
-extern
-sqlite3*
-EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* self);
+
 
 
 

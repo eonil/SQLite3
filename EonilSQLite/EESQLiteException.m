@@ -8,3 +8,8 @@
 
 #import "EESQLiteException.h"
 
+
+
+
+@implementation EESQLiteException
+@end

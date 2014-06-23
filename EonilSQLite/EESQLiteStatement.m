@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				"EESQLiteError.h"
-#import				"EESQLiteStatement.h"
-#import				"EESQLiteStatement+Internal.h"
-
+#import "EESQLite-Internal.h"
+#import	"EESQLiteError.h"
+#import	"EESQLiteStatement.h"
+#import	"EESQLiteStatement+Internal.h"
 
 
 
