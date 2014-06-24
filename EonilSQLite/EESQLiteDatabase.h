@@ -155,7 +155,7 @@
 @end
 
 @interface			EESQLiteDatabase (Status)
-@property			(readonly,nonatomic)		BOOL			autocommitMode					EESQLiteDeprecatedMethod;			
+@property			(readonly,nonatomic)		BOOL			autocommitMode					EESQLITE3_DEPRECATED_METHOD;
 @property			(readonly,nonatomic)		BOOL			isAutocommitMode;
 @property			(readonly,nonatomic)		NSUInteger		usingMemorySizeCurrent;
 @property			(readonly,nonatomic)		NSUInteger		usingMemorySizeAtPeak;

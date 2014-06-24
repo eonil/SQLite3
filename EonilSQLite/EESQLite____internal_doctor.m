@@ -20,7 +20,7 @@
 static NSString* const		REASON_UNKNOWN	=	@"Reason unknown";
 
 
-//EESQLITE_NON_RETURNING_METHOD
+//EESQLITE3_NON_RETURNING_METHOD
 //static void
 //universe_except(NSString* message)
 //{
@@ -30,7 +30,7 @@ static NSString* const		REASON_UNKNOWN	=	@"Reason unknown";
 //	@throw	exc;
 //}
 
-EESQLITE_NON_RETURNING_METHOD
+EESQLITE3_NON_RETURNING_METHOD
 static void
 universe_panic(NSString* message)
 {

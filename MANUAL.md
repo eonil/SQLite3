@@ -92,7 +92,7 @@ have some policies for the limits.
 
 Build
 -----
-To build in debug mode, make sure that you set `EESQLITE_DEBUG=1` flag.
+To build in debug mode, make sure that you set `EESQLITE_DEBUG_MODE=1` flag.
 
 
 

@@ -21,8 +21,8 @@
 }
 - (void)setNumberOfParameterVariable:(NSInteger)numberOfParameterVariable
 {
-	UNIVERSE_DEBUG_ASSERT(numberOfParameterVariable >= 0);
-	UNIVERSE_DEBUG_ASSERT(numberOfParameterVariable <= INT_MAX);
+	EESQLITE3_DEBUG_ASSERT(numberOfParameterVariable >= 0);
+	EESQLITE3_DEBUG_ASSERT(numberOfParameterVariable <= INT_MAX);
 	
 	////
 	

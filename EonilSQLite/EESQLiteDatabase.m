@@ -7,7 +7,6 @@
 //
 
 #import "EESQLiteException.h"
-#import "EESQLite-Internal.h"
 #import "EESQLiteStatement.h"
 #import "EESQLiteStatement+Internal.h"
 
@@ -74,8 +73,8 @@ inline
 BOOL
 PrepareWithName(EESQLiteDatabase* self, NSString* name, NSError** error, BOOL allowCreation)
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(self, EESQLiteDatabase);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(name, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(self, EESQLiteDatabase);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(name, NSString);
 	
 	////
 	
@@ -113,7 +112,7 @@ inline
 BOOL
 CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(self, EESQLiteDatabase);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(self, EESQLiteDatabase);
 
 	
 	////
@@ -127,7 +126,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 #pragma mark	-	EESQLiteDatabase
 - (void)executeSQL:(NSString *)command
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(command, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(command, NSString);
 	
 	////
 	
@@ -147,7 +146,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (NSArray *)statementsByParsingSQL:(NSString *)sql
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(sql, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(sql, NSString);
 	
 	////
 	
@@ -155,7 +154,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (NSArray *)statementsByParsingSQL:(NSString *)sql error:(NSError *__autoreleasing *)error
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(sql, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(sql, NSString);
 	
 	////
 	
@@ -177,7 +176,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (void)markSavepointWithName:(NSString *)savepointName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
 	
 	////
 	
@@ -190,7 +189,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (void)releaseSavepointOfName:(NSString *)savepointName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
 	
 	////
 	
@@ -203,7 +202,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (void)rollbackToSavepointOfName:(NSString *)savepointName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(savepointName, NSString);
 	
 	////
 	
@@ -293,7 +292,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 
 - (id)initAsPersistentDatabaseOnDiskAtPath:(NSString *)pathToDatabase error:(NSError *__autoreleasing *)error createIfNotExist:(BOOL)createIfNotExist
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
 	
 	////
 	
@@ -319,7 +318,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 - (id)initAsPersistentDatabaseOnDiskAtPath:(NSString *)pathToDatabase error:(NSError *__autoreleasing *)error
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
 	
 	////
 	
@@ -359,7 +358,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 + (EESQLiteDatabase *)persistentDatabaseOnDiskAtPath:(NSString *)pathToDatabase
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(pathToDatabase, NSString);
 	
 	////
 	
@@ -367,7 +366,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 + (BOOL)createEmptyPersistentDatabaseOnDiskAtPath:(NSString *)path
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(path, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(path, NSString);
 	
 	////
 	
@@ -375,7 +374,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 + (BOOL)createEmptyPersistentDatabaseOnDiskAtPath:(NSString *)path error:(NSError *__autoreleasing *)error
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(path, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(path, NSString);
 	
 	////
 	
@@ -445,7 +444,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 @implementation		EESQLiteDatabase (Utility)
 + (BOOL)isValidIdentifierString:(NSString *)identifierString
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(identifierString, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(identifierString, NSString);
 	
 	////
 	
@@ -465,7 +464,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 }
 + (NSString *)stringWithEscapeForSQL:(NSString *)string
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(string, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(string, NSString);
 	
 	////
 	

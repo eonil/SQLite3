@@ -37,12 +37,12 @@
 
 
 @interface	EESQLite____internal_doctor : NSObject
-//+ (void)	except EESQLITE_NON_RETURNING_METHOD;
-//+ (void)	exceptWithMessage:(NSString*)message EESQLITE_NON_RETURNING_METHOD;
+//+ (void)	except EESQLITE3_NON_RETURNING_METHOD;
+//+ (void)	exceptWithMessage:(NSString*)message EESQLITE3_NON_RETURNING_METHOD;
 //+ (void)	exceptIf:(BOOL)condition;
 //+ (void)	exceptIf:(BOOL)condition withMessage:(NSString*)message;
-+ (void)	panic EESQLITE_NON_RETURNING_METHOD;
-+ (void)	panicWithMessage:(NSString*)message EESQLITE_NON_RETURNING_METHOD;
++ (void)	panic EESQLITE3_NON_RETURNING_METHOD;
++ (void)	panicWithMessage:(NSString*)message EESQLITE3_NON_RETURNING_METHOD;
 + (void)	panicIf:(BOOL)condition;
 + (void)	panicIf:(BOOL)condition withMessage:(NSString*)message;
 @end

@@ -8,7 +8,7 @@
 
 #import "EESQLiteDatabase+CommandExecution.h"
 #import "EESQLiteDatabase+Schema.h"
-
+#import "____internals____.h"
 
 
 
@@ -36,7 +36,7 @@ EESQLiteDatabase (Schema)
 }
 - (NSArray *)allColumnNamesOfTable:(NSString *)tableName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
 	
 	////
 	
@@ -53,7 +53,7 @@ EESQLiteDatabase (Schema)
 }
 - (NSArray *)tableInformationForName:(NSString *)tableName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
 	
 	////
 	
@@ -62,8 +62,8 @@ EESQLiteDatabase (Schema)
 }
 - (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSArray);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSArray);
 	
 	////
 	
@@ -71,9 +71,9 @@ EESQLiteDatabase (Schema)
 }
 - (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames rowIDAliasColumnName:(NSString *)rowIDAliasColumnName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSArray);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE_OR_NIL(rowIDAliasColumnName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSArray);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE_OR_NIL(rowIDAliasColumnName, NSString);
 	
 	////
 	
@@ -87,7 +87,7 @@ EESQLiteDatabase (Schema)
 	
 	for (NSString* colnm in columnNames)
 	{
-		UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(colnm, NSString);
+		EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(colnm, NSString);
 		
 		////
 		
@@ -105,13 +105,13 @@ EESQLiteDatabase (Schema)
 }
 - (void)addTableWithExpession:(NSString *)tableExpression withColumnExpressions:(NSArray *)columnExpressions isTemporary:(BOOL)temporary onlyWhenNotExist:(BOOL)ifNotExist
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableExpression, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnExpressions, NSArray);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(tableExpression, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(columnExpressions, NSArray);
 	if (EONIL_DEBUG_MODE)
 	{
 		for (id o1 in columnExpressions)
 		{
-			UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(o1, NSString);
+			EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(o1, NSString);
 		}
 	}
 
@@ -126,7 +126,7 @@ EESQLiteDatabase (Schema)
 }
 - (void)removeTableWithName:(NSString *)tableName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
 	
 	////
 	

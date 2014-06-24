@@ -19,11 +19,11 @@
 
 
 @interface	EESQLiteException : NSException
-+ (id)allocWithZone:(struct _NSZone *)zone EESQLITE_UNAVAILABLE_METHOD;
-+ (id)copyWithZone:(struct _NSZone *)zone EESQLITE_UNAVAILABLE_METHOD;
-- (id)initWithCoder:(NSCoder *)aDecoder EESQLITE_UNAVAILABLE_METHOD;
-+ (void)raise:(NSString *)name format:(NSString *)format, ... EESQLITE_UNAVAILABLE_METHOD;
-+ (void)raise:(NSString *)name format:(NSString *)format arguments:(va_list)argList EESQLITE_UNAVAILABLE_METHOD;
++ (id)allocWithZone:(struct _NSZone *)zone EESQLITE3_UNAVAILABLE_METHOD;
++ (id)copyWithZone:(struct _NSZone *)zone EESQLITE3_UNAVAILABLE_METHOD;
+- (id)initWithCoder:(NSCoder *)aDecoder EESQLITE3_UNAVAILABLE_METHOD;
++ (void)raise:(NSString *)name format:(NSString *)format, ... EESQLITE3_UNAVAILABLE_METHOD;
++ (void)raise:(NSString *)name format:(NSString *)format arguments:(va_list)argList EESQLITE3_UNAVAILABLE_METHOD;
 @end
 
 

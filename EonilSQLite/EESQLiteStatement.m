@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import "EESQLite-Internal.h"
 #import	"EESQLiteError.h"
 #import	"EESQLiteStatement.h"
 #import	"EESQLiteStatement+Internal.h"
@@ -17,7 +16,7 @@
 static uint64_t const
 uint64_power(uint64_t const num, uint64_t const exp)
 {
-	UNIVERSE_DEBUG_ASSERT(exp <= 64);
+	EESQLITE3_DEBUG_ASSERT(exp <= 64);
 	
 	if (exp == 0)
 	{
@@ -61,7 +60,7 @@ SINT64_MIN()
 sqlite3_stmt* const
 eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(stmt, EESQLiteStatement);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(stmt, EESQLiteStatement);
 	
 	////
 	
@@ -138,9 +137,9 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 
 - (long long)longLongValueForColumnIndex:(NSInteger)columnIndex
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
-	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
-	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(columnIndex >= 0);
+	EESQLITE3_DEBUG_ASSERT(columnIndex < [self dataCount]);
 	
 	////
 	
@@ -149,9 +148,9 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (NSInteger)integerValueForColumnIndex:(NSInteger)columnIndex
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
-	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
-	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(columnIndex >= 0);
+	EESQLITE3_DEBUG_ASSERT(columnIndex < [self dataCount]);
 	
 	////
 	
@@ -160,9 +159,9 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (double)doubleValueForColumnIndex:(NSInteger)columnIndex
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
-	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
-	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(columnIndex >= 0);
+	EESQLITE3_DEBUG_ASSERT(columnIndex < [self dataCount]);
 	
 	////
 	
@@ -172,9 +171,9 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (NSString *)stringValueForColumnIndex:(NSInteger)columnIndex
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
-	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
-	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(columnIndex >= 0);
+	EESQLITE3_DEBUG_ASSERT(columnIndex < [self dataCount]);
 	
 	////
 	
@@ -188,9 +187,9 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (NSData *)dataValueForColumnIndex:(NSInteger)columnIndex
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
-	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
-	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(columnIndex >= 0);
+	EESQLITE3_DEBUG_ASSERT(columnIndex < [self dataCount]);
 	
 	////
 	
@@ -204,9 +203,9 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (BOOL)isNullAtColumnIndex:(NSInteger)columnIndex
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
-	UNIVERSE_DEBUG_ASSERT(columnIndex >= 0);
-	UNIVERSE_DEBUG_ASSERT(columnIndex < [self dataCount]);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(columnIndex >= 0);
+	EESQLITE3_DEBUG_ASSERT(columnIndex < [self dataCount]);
 	
 	////
 	
@@ -218,7 +217,7 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (NSUInteger)dataCount
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
 	
 	////
 	
@@ -226,7 +225,7 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (NSDictionary *)dictionaryValue
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
 	
 	////
 	
@@ -234,7 +233,7 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (NSDictionary *)dictionaryValueReplacingNullsWithValue:(id)nullValue
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
 	
 	////
 	
@@ -312,7 +311,7 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 
 - (NSString *)description
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	EESQLITE3_DEBUG_ASSERT(stmt != NULL);
 	
 	////
 	
@@ -320,10 +319,10 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 }
 - (id)initWithDB:(sqlite3 *)newDb sql:(const char *)sql byte:(int)byte tail:(const char **)tail error:(NSError *__autoreleasing *)error
 {
-	UNIVERSE_DEBUG_ASSERT(stmt == NULL);
-	UNIVERSE_DEBUG_ASSERT(newDb != NULL);
-	UNIVERSE_DEBUG_ASSERT(sql != NULL);
-	UNIVERSE_DEBUG_ASSERT(tail != NULL);
+	EESQLITE3_DEBUG_ASSERT(stmt == NULL);
+	EESQLITE3_DEBUG_ASSERT(newDb != NULL);
+	EESQLITE3_DEBUG_ASSERT(sql != NULL);
+	EESQLITE3_DEBUG_ASSERT(tail != NULL);
 	
 	////
 	
@@ -362,9 +361,9 @@ eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
 
 + (NSArray *)statementsWithSQLString:(NSString *)sqlString database:(EESQLiteDatabase *)database error:(NSError *__autoreleasing *)error
 {
-	UNIVERSE_DEBUG_ASSERT(sqlString != NULL);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(sqlString, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(database, EESQLiteDatabase);
+	EESQLITE3_DEBUG_ASSERT(sqlString != NULL);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(sqlString, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(database, EESQLiteDatabase);
 	
 	////
 	
@@ -484,9 +483,9 @@ EXCEPT_DATA_TOO_LONG()
 
 - (void)setInt64Value:(int64_t)value forParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(value <= SINT64_MAX());
-	UNIVERSE_DEBUG_ASSERT(value >= SINT64_MIN());
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT(value <= SINT64_MAX());
+	EESQLITE3_DEBUG_ASSERT(value >= SINT64_MIN());
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -497,9 +496,9 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(value <= SINT64_MAX());
-	UNIVERSE_DEBUG_ASSERT(value >= SINT64_MIN());
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT(value <= SINT64_MAX());
+	EESQLITE3_DEBUG_ASSERT(value >= SINT64_MIN());
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 
@@ -510,9 +509,9 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(value <= SINT64_MAX());
-	UNIVERSE_DEBUG_ASSERT(value >= SINT64_MIN());
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT(value <= SINT64_MAX());
+	EESQLITE3_DEBUG_ASSERT(value >= SINT64_MIN());
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -523,7 +522,7 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -533,8 +532,8 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setStringValue:(NSString *)value forParameterIndex:(NSInteger)parameterIndex 
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(value, NSString);
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(value, NSString);
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -556,8 +555,8 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setDataValue:(NSData *)value forParameterIndex:(NSInteger)parameterIndex 
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(value, NSData);
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(value, NSData);
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -580,7 +579,7 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setNullForParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -590,7 +589,7 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setValue:(id)value forParameterIndex:(NSInteger)parameterIndex 
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	EESQLITE3_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -629,7 +628,7 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setValue:(id)value forParameterName:(NSString *)parameterName
 {
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(parameterName, NSString);
+	EESQLITE3_DEBUG_ASSERT_OBJECT_TYPE(parameterName, NSString);
 	
 	////
 	

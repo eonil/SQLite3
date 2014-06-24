@@ -10,8 +10,8 @@
 #import				"EESQLiteDatabase.h"
 
 @interface			EESQLiteDatabase (CommandExecution)
-- (NSArray*)		arrayOfValuesByExecutingSQL:(NSString*)command											EESQLiteDeprecatedMethod;	
-- (NSArray*)		arrayOfValuesByExecutingSQL:(NSString*)command replacingNullsWithValue:(id)nullValue	EESQLiteDeprecatedMethod;
+- (NSArray*)		arrayOfValuesByExecutingSQL:(NSString*)command											EESQLITE3_DEPRECATED_METHOD;	
+- (NSArray*)		arrayOfValuesByExecutingSQL:(NSString*)command replacingNullsWithValue:(id)nullValue	EESQLITE3_DEPRECATED_METHOD;
 - (NSArray*)		arrayOfRowsByExecutingSQL:(NSString*)command;															//	Array of `NSDictinary`. Replaces NULL column value as `nil`.
 - (NSArray*)		arrayOfRowsByExecutingSQL:(NSString*)command replacingNullsWithValue:(id)replacementForNullValues;		//	Array of `NSDictinary`. If replacing value is `nil`, the the column value will be removed from dictionary.
 - (void)			enumerateRowsByExecutingSQL:(NSString*)command block:(void(^)(NSDictionary* row, BOOL* stop))block;															//	Replaces NULL column value as `nil`.

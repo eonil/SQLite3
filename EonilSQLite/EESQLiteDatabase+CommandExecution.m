@@ -10,11 +10,11 @@
 #import "EESQLiteDatabase+CommandExecution.h"
 
 @implementation EESQLiteDatabase (CommandExecution)
-- (NSArray *)arrayOfValuesByExecutingSQL:(NSString *)command											EESQLiteDeprecatedMethod
+- (NSArray *)arrayOfValuesByExecutingSQL:(NSString *)command											EESQLITE3_DEPRECATED_METHOD
 {
 return	[self arrayOfRowsByExecutingSQL:command];
 }
-- (NSArray *)arrayOfValuesByExecutingSQL:(NSString *)command replacingNullsWithValue:(id)nullValue		EESQLiteDeprecatedMethod
+- (NSArray *)arrayOfValuesByExecutingSQL:(NSString *)command replacingNullsWithValue:(id)nullValue		EESQLITE3_DEPRECATED_METHOD
 {
 return	[self arrayOfRowsByExecutingSQL:command replacingNullsWithValue:nullValue];
 }
