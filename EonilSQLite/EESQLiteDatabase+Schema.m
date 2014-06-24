@@ -63,7 +63,7 @@ EESQLiteDatabase (Schema)
 - (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames
 {
 	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSArray);
 	
 	////
 	
@@ -72,8 +72,8 @@ EESQLiteDatabase (Schema)
 - (void)addTableWithName:(NSString *)tableName withColumnNames:(NSArray *)columnNames rowIDAliasColumnName:(NSString *)rowIDAliasColumnName
 {
 	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableName, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(rowIDAliasColumnName, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnNames, NSArray);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE_OR_NIL(rowIDAliasColumnName, NSString);
 	
 	////
 	
@@ -87,6 +87,10 @@ EESQLiteDatabase (Schema)
 	
 	for (NSString* colnm in columnNames)
 	{
+		UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(colnm, NSString);
+		
+		////
+		
 		NSString*	colexp	=	[[self class] stringWithEscapeForSQL:colnm];
 		
 		if ([colnm isEqualToString:rowIDAliasColumnName])
@@ -102,7 +106,14 @@ EESQLiteDatabase (Schema)
 - (void)addTableWithExpession:(NSString *)tableExpression withColumnExpressions:(NSArray *)columnExpressions isTemporary:(BOOL)temporary onlyWhenNotExist:(BOOL)ifNotExist
 {
 	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(tableExpression, NSString);
-	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnExpressions, NSString);
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(columnExpressions, NSArray);
+	if (EONIL_DEBUG_MODE)
+	{
+		for (id o1 in columnExpressions)
+		{
+			UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(o1, NSString);
+		}
+	}
 
 	////
 

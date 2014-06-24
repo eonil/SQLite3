@@ -127,6 +127,7 @@
 
 - (NSUInteger)		parameterCount;
 
+- (void)			setInt64Value:(int64_t)value forParameterIndex:(NSInteger)parameterIndex;
 - (void)			setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex;
 - (void)			setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex;		//	Size of `NSInteger` can be vary by the system.
 - (void)			setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex;

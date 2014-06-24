@@ -35,11 +35,11 @@ Getting Started
 
 First, make a new database. We will use in-memory database for easy start up.
 
-	EESQLiteDatabase*	DB	=	[EESQLiteDatabase temporaryDatabaseInMemory];
+	EESQLiteDatabase*	db1	=	[EESQLiteDatabase temporaryDatabaseInMemory];
 	
 Create tables.
 
-	[DB addTableWithName:@"Table1" withColumnNames:@[@"col1", @"col2", @"col3"]];
+	[db1 addTableWithName:@"Table1" withColumnNames:@[@"col1", @"col2", @"col3"]];
 	
 insert some rows.
 
@@ -48,23 +48,23 @@ insert some rows.
 		@"col1"				:	@(56),
 		@"col2"				:	@"pancake",
 	};
-	EESQLiteRowID	rowID	=	[DB insertDictionaryValue:row intoTable:@"Table1"];
+	EESQLiteRowID	rowID	=	[db1 insertDictionaryValue:row intoTable:@"Table1"];
 
 and, delete it.
 
-	[DB deleteRowHasID:rowID fromTable:@"Table1"];
+	[db1 deleteRowHasID:rowID fromTable:@"Table1"];
 
 Of course, you also can perform transaction.
 
-	[DB performTransactionUsingBlock:^
+	[db1 performTransactionUsingBlock:^
 	{
 		NSDictionary*		row	=	@
 		{
 			@"col1"				:	@(56),
 			@"col2"				:	@"pancake",
 		};
-		EESQLiteRowID	rowID	=	[DB insertDictionaryValue:row intoTable:@"Table1"];
-		[DB deleteRowHasID:rowID fromTable:@"Table1"];
+		EESQLiteRowID	rowID	=	[db1 insertDictionaryValue:row intoTable:@"Table1"];
+		[db1 deleteRowHasID:rowID fromTable:@"Table1"];
 
 		//	Will commit automatically after the block finised.
 		//	Any exception will cause rollback.
@@ -75,7 +75,7 @@ Of course, you also can perform transaction.
 
 
 
-See MANUAL file for more informations.
+See `MANUAL.md` file for more informations.
 	
 	
 	

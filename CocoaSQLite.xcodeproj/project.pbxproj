@@ -30,8 +30,6 @@
 		452740B015D6974500258461 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 452740AE15D6974500258461 /* InfoPlist.strings */; };
 		452740B215D6974500258461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740B115D6974500258461 /* main.m */; };
 		452740BB15D6975200258461 /* libCocoaSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite.a */; };
-		452740BE15D6976900258461 /* TTDocumentStoreHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */; };
-		452740BF15D6976900258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */; };
 		452740C015D6976900258461 /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
 		452740C115D6976900258461 /* TTHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8F15BB20A30091442D /* TTHappyCase.m */; };
 		452740C215D6976900258461 /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
@@ -48,8 +46,6 @@
 		452740E415D69DC900258461 /* CocoaSQLite.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */; };
 		452740E715D69DDC00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
 		452740E815D69DDC00258461 /* UnitTestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740C815D697F800258461 /* UnitTestContainer.m */; };
-		452740E915D69DDC00258461 /* TTDocumentStoreHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */; };
-		452740EA15D69DDC00258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */; };
 		452740EB15D69DDC00258461 /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
 		452740EC15D69DDC00258461 /* TTHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8F15BB20A30091442D /* TTHappyCase.m */; };
 		452740ED15D69DDC00258461 /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
@@ -65,13 +61,20 @@
 		453AB0D91958560E00484DE9 /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
 		453AB0DA1958560E00484DE9 /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
 		453AB0DB1958560E00484DE9 /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
+		453AB0DE1959040C00484DE9 /* EESQLiteDatabase+Limits.h in Headers */ = {isa = PBXBuildFile; fileRef = 453AB0DC1959040C00484DE9 /* EESQLiteDatabase+Limits.h */; };
+		453AB0DF1959040C00484DE9 /* EESQLiteDatabase+Limits.h in Headers */ = {isa = PBXBuildFile; fileRef = 453AB0DC1959040C00484DE9 /* EESQLiteDatabase+Limits.h */; };
+		453AB0E01959040C00484DE9 /* EESQLiteDatabase+Limits.h in Headers */ = {isa = PBXBuildFile; fileRef = 453AB0DC1959040C00484DE9 /* EESQLiteDatabase+Limits.h */; };
+		453AB0E11959040C00484DE9 /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		453AB0E21959040C00484DE9 /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		453AB0E31959040C00484DE9 /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		453AB0E7195904EB00484DE9 /* ____internals____.h in Headers */ = {isa = PBXBuildFile; fileRef = 453AB0E5195904EB00484DE9 /* ____internals____.h */; };
+		453AB0E8195904EB00484DE9 /* ____internals____.h in Headers */ = {isa = PBXBuildFile; fileRef = 453AB0E5195904EB00484DE9 /* ____internals____.h */; };
+		453AB0E9195904EB00484DE9 /* ____internals____.h in Headers */ = {isa = PBXBuildFile; fileRef = 453AB0E5195904EB00484DE9 /* ____internals____.h */; };
+		453AB0EA195904EB00484DE9 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
+		453AB0EB195904EB00484DE9 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
+		453AB0EC195904EB00484DE9 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
 		45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
-		456D46B514CC2100005F6D62 /* EEDocumentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 456D46B314CC2100005F6D62 /* EEDocumentStore.m */; };
 		4572DA6915BB1D3D0091442D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB651114CBF609004EF17F /* SenTestingKit.framework */; };
-		4572DA9615BB20A30091442D /* TTDocumentStoreHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */; };
-		4572DA9715BB20A30091442D /* TTDocumentStoreHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */; };
-		4572DA9815BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */; };
-		4572DA9915BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */; };
 		4572DA9A15BB20A30091442D /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
 		4572DA9B15BB20A30091442D /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
 		4572DA9C15BB20A30091442D /* TTHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8F15BB20A30091442D /* TTHappyCase.m */; };
@@ -84,14 +87,11 @@
 		4572DAB015BB22320091442D /* EESQLite-Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */; settings = {ATTRIBUTES = (); }; };
 		4572DAB115BB22320091442D /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DAB215BB22320091442D /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4572DAB315BB22320091442D /* EEDocumentStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 456D46B214CC2100005F6D62 /* EEDocumentStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DAB415BB22320091442D /* EESQLiteRowIDList.h in Headers */ = {isa = PBXBuildFile; fileRef = 45452C9614CC857000886D70 /* EESQLiteRowIDList.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4572DAB715BB224E0091442D /* EESQLiteDatabase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */; };
 		4572DAB815BB224E0091442D /* EESQLiteStatement+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446C14CBDE5800FF39ED /* EESQLiteStatement+Internal.h */; };
 		4572DAB915BB225A0091442D /* EESQLite-Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */; };
 		4572DABA15BB225A0091442D /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
 		4572DABB15BB225A0091442D /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
-		4572DABC15BB225A0091442D /* EEDocumentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 456D46B314CC2100005F6D62 /* EEDocumentStore.m */; };
 		4572DABD15BB225A0091442D /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
 		4572DABE15BB25B70091442D /* CocoaSQLite.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */; };
 		4572DAC815BB286D0091442D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DAC715BB286D0091442D /* libsqlite3.0.dylib */; };
@@ -112,17 +112,10 @@
 		45E68B481683347F00DAE96E /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
 		45E68B491683347F00DAE96E /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
 		45E68B4A1683347F00DAE96E /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
-		45E68B4B1683347F00DAE96E /* EEDocumentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 456D46B314CC2100005F6D62 /* EEDocumentStore.m */; };
 		45E68BAF16839EAA00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
 		45E68BB016839EAB00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
 		45E68BB116839EAC00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
 		45E68BB216839EAD00DAE96E /* TTRegressionTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */; };
-		45E796E0174FA43F00380A38 /* EESQLiteStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E796DE174FA43F00380A38 /* EESQLiteStorage.h */; };
-		45E796E1174FA43F00380A38 /* EESQLiteStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E796DE174FA43F00380A38 /* EESQLiteStorage.h */; };
-		45E796E2174FA43F00380A38 /* EESQLiteStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E796DE174FA43F00380A38 /* EESQLiteStorage.h */; };
-		45E796E3174FA43F00380A38 /* EESQLiteStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796DF174FA43F00380A38 /* EESQLiteStorage.m */; };
-		45E796E4174FA43F00380A38 /* EESQLiteStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796DF174FA43F00380A38 /* EESQLiteStorage.m */; };
-		45E796E5174FA43F00380A38 /* EESQLiteStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796DF174FA43F00380A38 /* EESQLiteStorage.m */; };
 		45E796E7174FAEC600380A38 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
 		45E796E8174FAEC600380A38 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
 		45E796E9174FAEC600380A38 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
@@ -130,21 +123,6 @@
 		45E796ED174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EE174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EF174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
-		45EE0165177D5EC800F03A58 /* EEGraphDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015A177D5EC800F03A58 /* EEGraphDatabase.h */; };
-		45EE0166177D5EC800F03A58 /* EEGraphDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015A177D5EC800F03A58 /* EEGraphDatabase.h */; };
-		45EE0167177D5EC800F03A58 /* EEGraphDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015A177D5EC800F03A58 /* EEGraphDatabase.h */; };
-		45EE016B177D5EC800F03A58 /* EEGraphEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015C177D5EC800F03A58 /* EEGraphEditor.h */; };
-		45EE016C177D5EC800F03A58 /* EEGraphEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015C177D5EC800F03A58 /* EEGraphEditor.h */; };
-		45EE016D177D5EC800F03A58 /* EEGraphEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015C177D5EC800F03A58 /* EEGraphEditor.h */; };
-		45EE0171177D5EC800F03A58 /* EEGraphSnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015E177D5EC800F03A58 /* EEGraphSnapshot.h */; };
-		45EE0172177D5EC800F03A58 /* EEGraphSnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015E177D5EC800F03A58 /* EEGraphSnapshot.h */; };
-		45EE0173177D5EC800F03A58 /* EEGraphSnapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE015E177D5EC800F03A58 /* EEGraphSnapshot.h */; };
-		45EE0177177D5EC800F03A58 /* EEGraphTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE0160177D5EC800F03A58 /* EEGraphTimeline.h */; };
-		45EE0178177D5EC800F03A58 /* EEGraphTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE0160177D5EC800F03A58 /* EEGraphTimeline.h */; };
-		45EE0179177D5EC800F03A58 /* EEGraphTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE0160177D5EC800F03A58 /* EEGraphTimeline.h */; };
-		45EE017D177D5EC800F03A58 /* EETreeEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE0162177D5EC800F03A58 /* EETreeEditor.h */; };
-		45EE017E177D5EC800F03A58 /* EETreeEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE0162177D5EC800F03A58 /* EETreeEditor.h */; };
-		45EE017F177D5EC800F03A58 /* EETreeEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 45EE0162177D5EC800F03A58 /* EETreeEditor.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -228,18 +206,16 @@
 		453AB0CD1958560E00484DE9 /* UniverseCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniverseCommon.m; sourceTree = "<group>"; };
 		453AB0CE1958560E00484DE9 /* EESQLite____internal_doctor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLite____internal_doctor.h"; sourceTree = "<group>"; };
 		453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLite____internal_doctor.m"; sourceTree = "<group>"; };
+		453AB0DC1959040C00484DE9 /* EESQLiteDatabase+Limits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+Limits.h"; sourceTree = "<group>"; };
+		453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLiteDatabase+Limits.m"; sourceTree = "<group>"; };
+		453AB0E5195904EB00484DE9 /* ____internals____.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "____internals____.h"; sourceTree = "<group>"; };
+		453AB0E6195904EB00484DE9 /* ____internals____.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "____internals____.m"; sourceTree = "<group>"; };
 		45452C9614CC857000886D70 /* EESQLiteRowIDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteRowIDList.h; sourceTree = "<group>"; };
 		45452C9714CC857000886D70 /* EESQLiteRowIDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteRowIDList.m; sourceTree = "<group>"; };
-		456D46B214CC2100005F6D62 /* EEDocumentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEDocumentStore.h; sourceTree = "<group>"; };
-		456D46B314CC2100005F6D62 /* EEDocumentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEDocumentStore.m; sourceTree = "<group>"; };
 		4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = CocoaSQLite.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4572DA6815BB1D3D0091442D /* Mac OS X Dynamic Library (Tests).octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mac OS X Dynamic Library (Tests).octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4572DA8615BB20A30091442D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4572DA8715BB20A30091442D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		4572DA8815BB20A30091442D /* TTDocumentStoreHappyCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDocumentStoreHappyCase.h; sourceTree = "<group>"; };
-		4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTDocumentStoreHappyCase.m; sourceTree = "<group>"; };
-		4572DA8A15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTDocumentStoreLoadAndStressTest.h; sourceTree = "<group>"; };
-		4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTDocumentStoreLoadAndStressTest.m; sourceTree = "<group>"; };
 		4572DA8C15BB20A30091442D /* TTEvilCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTEvilCase.h; sourceTree = "<group>"; };
 		4572DA8D15BB20A30091442D /* TTEvilCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTEvilCase.m; sourceTree = "<group>"; };
 		4572DA8E15BB20A30091442D /* TTHappyCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHappyCase.h; sourceTree = "<group>"; };
@@ -256,7 +232,6 @@
 		458F446C14CBDE5800FF39ED /* EESQLiteStatement+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EESQLiteStatement+Internal.h"; sourceTree = "<group>"; };
 		458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EESQLite-Internal.h"; sourceTree = "<group>"; };
 		458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLite-Internal.m"; sourceTree = "<group>"; };
-		458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EESQLiteDatabase+Internal.h"; sourceTree = "<group>"; };
 		45934D50168441D4009C3D30 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.md; sourceTree = "<group>"; };
 		45934D52168443A8009C3D30 /* MANUAL.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MANUAL.md; sourceTree = "<group>"; };
 		4595397F14CD8F5B00B6A0E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -274,22 +249,9 @@
 		45E68BA416839E8700DAE96E /* TTRegressionTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRegressionTestCases.h; sourceTree = "<group>"; };
 		45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRegressionTestCases.m; sourceTree = "<group>"; };
 		45E68BB316840B7000DAE96E /* ISSUES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISSUES.md; sourceTree = "<group>"; };
-		45E796DE174FA43F00380A38 /* EESQLiteStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteStorage.h; sourceTree = "<group>"; };
-		45E796DF174FA43F00380A38 /* EESQLiteStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteStorage.m; sourceTree = "<group>"; };
 		45E796E6174FAEC600380A38 /* EESQLiteCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteCommon.m; sourceTree = "<group>"; };
 		45E796EA174FC2F800380A38 /* TTHelperFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHelperFunctions.h; sourceTree = "<group>"; };
 		45E796EB174FC2F800380A38 /* TTHelperFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHelperFunctions.m; sourceTree = "<group>"; };
-		45EE015A177D5EC800F03A58 /* EEGraphDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEGraphDatabase.h; sourceTree = "<group>"; };
-		45EE015B177D5EC800F03A58 /* EEGraphDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEGraphDatabase.m; sourceTree = "<group>"; };
-		45EE015C177D5EC800F03A58 /* EEGraphEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEGraphEditor.h; sourceTree = "<group>"; };
-		45EE015D177D5EC800F03A58 /* EEGraphEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEGraphEditor.m; sourceTree = "<group>"; };
-		45EE015E177D5EC800F03A58 /* EEGraphSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEGraphSnapshot.h; sourceTree = "<group>"; };
-		45EE015F177D5EC800F03A58 /* EEGraphSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEGraphSnapshot.m; sourceTree = "<group>"; };
-		45EE0160177D5EC800F03A58 /* EEGraphTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEGraphTimeline.h; sourceTree = "<group>"; };
-		45EE0161177D5EC800F03A58 /* EEGraphTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EEGraphTimeline.m; sourceTree = "<group>"; };
-		45EE0162177D5EC800F03A58 /* EETreeEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EETreeEditor.h; sourceTree = "<group>"; };
-		45EE0163177D5EC800F03A58 /* EETreeEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EETreeEditor.m; sourceTree = "<group>"; };
-		45EE0164177D5EC800F03A58 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,19 +370,17 @@
 		4518C20214CBD0CE00EF0620 /* EonilSQLite */ = {
 			isa = PBXGroup;
 			children = (
-				453AB0CB195855E600484DE9 /* (internal-only embedded external sources) */,
 				4518C20514CBD0CE00EF0620 /* EonilSQLite.h */,
 				4525F1D515BCFBA800868258 /* EESQLiteCommon.h */,
 				45E796E6174FAEC600380A38 /* EESQLiteCommon.m */,
-				458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */,
-				458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */,
 				4503075A15D61CD800202ED3 /* EESQLiteException.h */,
 				4503075B15D61CD800202ED3 /* EESQLiteException.m */,
 				45AAB09415D6D5010094EA7A /* EESQLiteError.h */,
 				45AAB09515D6D5010094EA7A /* EESQLiteError.m */,
-				458F447214CBE04300FF39ED /* EESQLiteDatabase+Internal.h */,
 				4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */,
 				4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */,
+				453AB0DC1959040C00484DE9 /* EESQLiteDatabase+Limits.h */,
+				453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */,
 				4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */,
 				4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */,
 				4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */,
@@ -432,21 +392,10 @@
 				458F446914CBDE3200FF39ED /* EESQLiteStatement.m */,
 				45452C9614CC857000886D70 /* EESQLiteRowIDList.h */,
 				45452C9714CC857000886D70 /* EESQLiteRowIDList.m */,
-				4525F1D915BCFC6000868258 /* document store */,
-				45E796DE174FA43F00380A38 /* EESQLiteStorage.h */,
-				45E796DF174FA43F00380A38 /* EESQLiteStorage.m */,
-				45EE0159177D5EC800F03A58 /* Graph */,
+				453AB0CB195855E600484DE9 /* (internal-only embedded external sources) */,
+				453AB0E4195904D100484DE9 /* (internal-only internal object accessors) */,
 			);
 			path = EonilSQLite;
-			sourceTree = "<group>";
-		};
-		4525F1D915BCFC6000868258 /* document store */ = {
-			isa = PBXGroup;
-			children = (
-				456D46B214CC2100005F6D62 /* EEDocumentStore.h */,
-				456D46B314CC2100005F6D62 /* EEDocumentStore.m */,
-			);
-			name = "document store";
 			sourceTree = "<group>";
 		};
 		452740A415D6974500258461 /* Frameworks */ = {
@@ -509,6 +458,17 @@
 			name = "(internal-only embedded external sources)";
 			sourceTree = "<group>";
 		};
+		453AB0E4195904D100484DE9 /* (internal-only internal object accessors) */ = {
+			isa = PBXGroup;
+			children = (
+				458F446E14CBDF3700FF39ED /* EESQLite-Internal.h */,
+				458F446F14CBDF3700FF39ED /* EESQLite-Internal.m */,
+				453AB0E5195904EB00484DE9 /* ____internals____.h */,
+				453AB0E6195904EB00484DE9 /* ____internals____.m */,
+			);
+			name = "(internal-only internal object accessors)";
+			sourceTree = "<group>";
+		};
 		4572DA8315BB20A30091442D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,10 +480,6 @@
 				452740CE15D6980E00258461 /* TestContainer.m */,
 				452740C715D697F800258461 /* UnitTestContainer.h */,
 				452740C815D697F800258461 /* UnitTestContainer.m */,
-				4572DA8815BB20A30091442D /* TTDocumentStoreHappyCase.h */,
-				4572DA8915BB20A30091442D /* TTDocumentStoreHappyCase.m */,
-				4572DA8A15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.h */,
-				4572DA8B15BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m */,
 				4572DA8C15BB20A30091442D /* TTEvilCase.h */,
 				4572DA8D15BB20A30091442D /* TTEvilCase.m */,
 				4572DA8E15BB20A30091442D /* TTHappyCase.h */,
@@ -592,24 +548,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		45EE0159177D5EC800F03A58 /* Graph */ = {
-			isa = PBXGroup;
-			children = (
-				45EE0164177D5EC800F03A58 /* README */,
-				45EE015A177D5EC800F03A58 /* EEGraphDatabase.h */,
-				45EE015B177D5EC800F03A58 /* EEGraphDatabase.m */,
-				45EE015C177D5EC800F03A58 /* EEGraphEditor.h */,
-				45EE015D177D5EC800F03A58 /* EEGraphEditor.m */,
-				45EE015E177D5EC800F03A58 /* EEGraphSnapshot.h */,
-				45EE015F177D5EC800F03A58 /* EEGraphSnapshot.m */,
-				45EE0160177D5EC800F03A58 /* EEGraphTimeline.h */,
-				45EE0161177D5EC800F03A58 /* EEGraphTimeline.m */,
-				45EE0162177D5EC800F03A58 /* EETreeEditor.h */,
-				45EE0163177D5EC800F03A58 /* EETreeEditor.m */,
-			);
-			path = Graph;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -617,14 +555,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45EE0165177D5EC800F03A58 /* EEGraphDatabase.h in Headers */,
-				45E796E0174FA43F00380A38 /* EESQLiteStorage.h in Headers */,
+				453AB0E7195904EB00484DE9 /* ____internals____.h in Headers */,
 				453AB0D61958560E00484DE9 /* EESQLite____internal_doctor.h in Headers */,
-				45EE016B177D5EC800F03A58 /* EEGraphEditor.h in Headers */,
-				45EE017D177D5EC800F03A58 /* EETreeEditor.h in Headers */,
-				45EE0171177D5EC800F03A58 /* EEGraphSnapshot.h in Headers */,
+				453AB0DE1959040C00484DE9 /* EESQLiteDatabase+Limits.h in Headers */,
 				453AB0D01958560E00484DE9 /* UniverseCommon.h in Headers */,
-				45EE0177177D5EC800F03A58 /* EEGraphTimeline.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,28 +567,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				4572DAA815BB21390091442D /* Prefix.pch in Headers */,
+				453AB0E9195904EB00484DE9 /* ____internals____.h in Headers */,
 				4572DAAF15BB22240091442D /* EonilSQLite.h in Headers */,
 				4572DAB015BB22320091442D /* EESQLite-Internal.h in Headers */,
-				45EE017F177D5EC800F03A58 /* EETreeEditor.h in Headers */,
 				4572DAB115BB22320091442D /* EESQLiteDatabase.h in Headers */,
 				453AB0D81958560E00484DE9 /* EESQLite____internal_doctor.h in Headers */,
 				4572DAB215BB22320091442D /* EESQLiteStatement.h in Headers */,
 				453AB0D21958560E00484DE9 /* UniverseCommon.h in Headers */,
-				4572DAB315BB22320091442D /* EEDocumentStore.h in Headers */,
-				45EE0173177D5EC800F03A58 /* EEGraphSnapshot.h in Headers */,
 				4572DAB415BB22320091442D /* EESQLiteRowIDList.h in Headers */,
-				4572DAB715BB224E0091442D /* EESQLiteDatabase+Internal.h in Headers */,
 				4572DAB815BB224E0091442D /* EESQLiteStatement+Internal.h in Headers */,
+				453AB0E01959040C00484DE9 /* EESQLiteDatabase+Limits.h in Headers */,
 				4525F1C315BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h in Headers */,
 				4525F1C915BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h in Headers */,
 				4525F1CF15BCF86500868258 /* EESQLiteDatabase+Schema.h in Headers */,
 				4525F1D715BCFBA800868258 /* EESQLiteCommon.h in Headers */,
-				45EE0179177D5EC800F03A58 /* EEGraphTimeline.h in Headers */,
 				4503075D15D61CD800202ED3 /* EESQLiteException.h in Headers */,
-				45EE016D177D5EC800F03A58 /* EEGraphEditor.h in Headers */,
 				45AAB09715D6D5010094EA7A /* EESQLiteError.h in Headers */,
-				45EE0167177D5EC800F03A58 /* EEGraphDatabase.h in Headers */,
-				45E796E1174FA43F00380A38 /* EESQLiteStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,14 +590,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45EE0166177D5EC800F03A58 /* EEGraphDatabase.h in Headers */,
-				45E796E2174FA43F00380A38 /* EESQLiteStorage.h in Headers */,
+				453AB0E8195904EB00484DE9 /* ____internals____.h in Headers */,
 				453AB0D71958560E00484DE9 /* EESQLite____internal_doctor.h in Headers */,
-				45EE016C177D5EC800F03A58 /* EEGraphEditor.h in Headers */,
-				45EE017E177D5EC800F03A58 /* EETreeEditor.h in Headers */,
-				45EE0172177D5EC800F03A58 /* EEGraphSnapshot.h in Headers */,
+				453AB0DF1959040C00484DE9 /* EESQLiteDatabase+Limits.h in Headers */,
 				453AB0D11958560E00484DE9 /* UniverseCommon.h in Headers */,
-				45EE0178177D5EC800F03A58 /* EEGraphTimeline.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,16 +821,16 @@
 				4518C21214CBD11600EF0620 /* EESQLiteDatabase.m in Sources */,
 				458F446B14CBDE3200FF39ED /* EESQLiteStatement.m in Sources */,
 				458F447114CBDF3700FF39ED /* EESQLite-Internal.m in Sources */,
-				456D46B514CC2100005F6D62 /* EEDocumentStore.m in Sources */,
 				45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */,
 				4525F1C415BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				453AB0EA195904EB00484DE9 /* ____internals____.m in Sources */,
 				4525F1CA15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				453AB0E11959040C00484DE9 /* EESQLiteDatabase+Limits.m in Sources */,
 				4525F1D015BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 				453AB0D31958560E00484DE9 /* UniverseCommon.m in Sources */,
 				453AB0D91958560E00484DE9 /* EESQLite____internal_doctor.m in Sources */,
 				4503075E15D61CD800202ED3 /* EESQLiteException.m in Sources */,
 				45AAB09815D6D5010094EA7A /* EESQLiteError.m in Sources */,
-				45E796E3174FA43F00380A38 /* EESQLiteStorage.m in Sources */,
 				45E796E7174FAEC600380A38 /* EESQLiteCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -916,8 +840,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				452740B215D6974500258461 /* main.m in Sources */,
-				452740BE15D6976900258461 /* TTDocumentStoreHappyCase.m in Sources */,
-				452740BF15D6976900258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */,
 				452740C015D6976900258461 /* TTEvilCase.m in Sources */,
 				452740C115D6976900258461 /* TTHappyCase.m in Sources */,
 				452740C215D6976900258461 /* TTTestUtility.m in Sources */,
@@ -935,8 +857,6 @@
 				452740DC15D69DBE00258461 /* main.m in Sources */,
 				452740E715D69DDC00258461 /* TestContainer.m in Sources */,
 				452740E815D69DDC00258461 /* UnitTestContainer.m in Sources */,
-				452740E915D69DDC00258461 /* TTDocumentStoreHappyCase.m in Sources */,
-				452740EA15D69DDC00258461 /* TTDocumentStoreLoadAndStressTest.m in Sources */,
 				452740EB15D69DDC00258461 /* TTEvilCase.m in Sources */,
 				452740EC15D69DDC00258461 /* TTHappyCase.m in Sources */,
 				452740ED15D69DDC00258461 /* TTTestUtility.m in Sources */,
@@ -952,16 +872,16 @@
 				4572DAB915BB225A0091442D /* EESQLite-Internal.m in Sources */,
 				4572DABA15BB225A0091442D /* EESQLiteDatabase.m in Sources */,
 				4572DABB15BB225A0091442D /* EESQLiteStatement.m in Sources */,
-				4572DABC15BB225A0091442D /* EEDocumentStore.m in Sources */,
 				4572DABD15BB225A0091442D /* EESQLiteRowIDList.m in Sources */,
 				4525F1C515BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				453AB0EC195904EB00484DE9 /* ____internals____.m in Sources */,
 				4525F1CB15BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				453AB0E31959040C00484DE9 /* EESQLiteDatabase+Limits.m in Sources */,
 				4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */,
 				453AB0D51958560E00484DE9 /* UniverseCommon.m in Sources */,
 				453AB0DB1958560E00484DE9 /* EESQLite____internal_doctor.m in Sources */,
 				4503075F15D61CD800202ED3 /* EESQLiteException.m in Sources */,
 				45AAB09915D6D5010094EA7A /* EESQLiteError.m in Sources */,
-				45E796E4174FA43F00380A38 /* EESQLiteStorage.m in Sources */,
 				45E796E8174FAEC600380A38 /* EESQLiteCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -970,8 +890,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4572DA9715BB20A30091442D /* TTDocumentStoreHappyCase.m in Sources */,
-				4572DA9915BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m in Sources */,
 				4572DA9B15BB20A30091442D /* TTEvilCase.m in Sources */,
 				4572DA9D15BB20A30091442D /* TTHappyCase.m in Sources */,
 				4572DA9F15BB20A30091442D /* TTTestUtility.m in Sources */,
@@ -986,8 +904,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4572DA9615BB20A30091442D /* TTDocumentStoreHappyCase.m in Sources */,
-				4572DA9815BB20A30091442D /* TTDocumentStoreLoadAndStressTest.m in Sources */,
 				4572DA9A15BB20A30091442D /* TTEvilCase.m in Sources */,
 				4572DA9C15BB20A30091442D /* TTHappyCase.m in Sources */,
 				4572DA9E15BB20A30091442D /* TTTestUtility.m in Sources */,
@@ -1008,13 +924,13 @@
 				45E68B451683347F00DAE96E /* EESQLiteDatabase.m in Sources */,
 				45E68B461683347F00DAE96E /* EESQLiteDatabase+CommandExecution.m in Sources */,
 				45E68B471683347F00DAE96E /* EESQLiteDatabase+Schema.m in Sources */,
+				453AB0EB195904EB00484DE9 /* ____internals____.m in Sources */,
 				45E68B481683347F00DAE96E /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				453AB0E21959040C00484DE9 /* EESQLiteDatabase+Limits.m in Sources */,
 				45E68B491683347F00DAE96E /* EESQLiteStatement.m in Sources */,
 				453AB0D41958560E00484DE9 /* UniverseCommon.m in Sources */,
 				453AB0DA1958560E00484DE9 /* EESQLite____internal_doctor.m in Sources */,
 				45E68B4A1683347F00DAE96E /* EESQLiteRowIDList.m in Sources */,
-				45E68B4B1683347F00DAE96E /* EEDocumentStore.m in Sources */,
-				45E796E5174FA43F00380A38 /* EESQLiteStorage.m in Sources */,
 				45E796E9174FAEC600380A38 /* EESQLiteCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1082,7 +998,6 @@
 					"DEBUG=1",
 					"$(inherited)",
 					"EESQLITE_DEBUG=1",
-					"EONIL_DEBUG_MODE=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1120,7 +1035,7 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "EONIL_DEBUG_MODE=0";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

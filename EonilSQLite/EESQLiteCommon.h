@@ -26,7 +26,7 @@ void			EESQLiteExceptIfIdentifierIsInvalid(NSString* identifier);
 
 
 
-
+#define	EONIL_DEBUG_MODE			EESQLITE_DEBUG
 
 
 
@@ -49,8 +49,8 @@ static BOOL const	USE_DEBUGGING_ASSERTIONS	=	NO;
 void	_universe_error_log(NSString* message);
 void	UNIVERSE_DEBUG_ASSERT(BOOL cond);
 void	UNIVERSE_DEBUG_ASSERT_WITH_MESSAGE(BOOL cond, NSString* message);
-#define	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(obj,type)			UNIVERSE_DEBUG_ASSERT([obj isKindOfClass:[type class]])
-#define	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE_OR_NIL(obj,type)	UNIVERSE_DEBUG_ASSERT([obj isKindOfClass:[type class]] || obj == nil)
+#define	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(obj,type)				UNIVERSE_DEBUG_ASSERT([obj isKindOfClass:[type class]])
+#define	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE_OR_NIL(obj,type)		UNIVERSE_DEBUG_ASSERT([obj isKindOfClass:[type class]] || obj == nil)
 void	UNIVERSE_UNREACHABLE_CODE() EESQLITE_NON_RETURNING_METHOD;
 #else
 #define	_universe_error_log(message)

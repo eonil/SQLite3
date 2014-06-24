@@ -22,7 +22,7 @@
 - (void)testBadPathToDatabaseFile
 {
 	NSError*			err		=	nil;
-	EESQLiteDatabase*	db		=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:nil error:&err];
+	EESQLiteDatabase*	db		=	[[EESQLiteDatabase alloc] initAsPersistentDatabaseOnDiskAtPath:@"" error:&err];
 	NSLog(@"error = %@", err);
 	EETempTestMacroAssertNil(db, @"`db` must be nil when offer bad path.");
 }

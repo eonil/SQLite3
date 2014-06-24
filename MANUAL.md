@@ -59,19 +59,20 @@ types are not guaranteed within 8-byte. So actually SQLite allows
 passing-in values to be larger than 8-byte.
 
 BY Combining two facts, I could derive conclusion that exact behavior for
-numbers larger then 8-byte signed integer is *not defined*. So I just 
-decided to follow that rule. Result for any numbers larger than 8-byte 
-signed integer range is not defined in this library too. This library 
-won't check anything, and just passes the values as is to SQLite3 engine. 
-I don't know what will be happen too. Overflow, underflow, truncation, 
-exception or anything. So, make it sure that you will store only values 
-in valid range.
-	
-For example, this library offers accessing method typed as `long long`
-. This type *MAY* be 16-byte in some systems. In that case, users
-should make special care to keep thier values are within valid range.
+numbers larger then 8-byte signed integer is *not defined*. 
 
-Trivial systems for Objective-C such as Mac OS X or iOS are all use
+This library decided to limit value range strictly into 64-bit
+signed integer range. Anyway this check is enabled only in debug mode, then
+it is possible to overflow/underflow in release mode. If you want to ensure
+the integer numeric limit, then you need to check it yourself.
+
+For example, this library offers accessing method typed as `long long`
+. This type *MAY* be 16-byte in some systems. In that case, this library in
+debug mode will check 64-bit signed integer range, and will crash if the 
+value is out of range. But, in debug mode, this check will be removed, and
+you should make special care to keep thier values are within valid range.
+
+Typical systems for Objective-C such as Mac OS X or iOS are all use
 `long long` as 8-byte signed integer. So in that case, you don't need
 to care anything. Anyway you have to keep these facts in mind. Always 
 have some policies for the limits.

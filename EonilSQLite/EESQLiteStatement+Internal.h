@@ -8,7 +8,6 @@
 
 #import				<sqlite3.h>
 #import				"EESQLiteDatabase.h"
-#import				"EESQLiteDatabase+Internal.h"
 
 @interface			EESQLiteStatement (Internal)
 @property			(readonly,nonatomic)			NSString*			sourceCommand;

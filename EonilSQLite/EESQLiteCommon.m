@@ -113,7 +113,7 @@ _universe_error_log(NSString* message)
 void
 UNIVERSE_DEBUG_ASSERT(BOOL cond)
 {
-	[EESQLite____internal_doctor panicIf:!cond withMessage:@"Debugging asertion failure!"];
+	[EESQLite____internal_doctor panicIf:!cond withMessage:@"Debugging assertion failure!"];
 }
 void
 UNIVERSE_DEBUG_ASSERT_WITH_MESSAGE(BOOL cond, NSString* message)

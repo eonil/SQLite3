@@ -9,12 +9,11 @@
 #import "EESQLiteException.h"
 #import "EESQLite-Internal.h"
 #import "EESQLiteDatabase.h"
-#import "EESQLiteDatabase+Internal.h"
 #import "EESQLiteStatement.h"
 #import "EESQLiteDatabase+CommandExecution.h"
 #import "EESQLiteDatabase+Schema.h"
 #import "EESQLiteDatabase+SimpleQuery.h"
-
+#import "____internals____.h"
 
 
 
@@ -358,14 +357,14 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 				for (NSDictionary* dict in dictionaryValues)
 				{
 					[dict enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
-					 {
-						 NSString*	paramname	=	[NSString stringWithFormat:@"@%@", key];
-						 [stmt setValue:obj forParameterName:paramname];
-					 }];
+					{
+						NSString*	paramname	=	[NSString stringWithFormat:@"@%@", key];
+						[stmt setValue:obj forParameterName:paramname];
+					}];
 					
 					[stmt step];
 					[stmt reset];
-					[ridlist appendRowID:sqlite3_last_insert_rowid(EESQLiteDatabaseGetCorePointerToSQLite3(self))];
+					[ridlist appendRowID:sqlite3_last_insert_rowid(eesqlite3____get_raw_db_object_from(self))];
 					[stmt clearParametersValues];
 				}
 				

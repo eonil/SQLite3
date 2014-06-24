@@ -10,6 +10,41 @@
 #import	"EESQLiteError.h"
 #import	"EESQLiteStatement.h"
 #import	"EESQLiteStatement+Internal.h"
+#import "EESQLiteDatabase+Limits.h"
+#import "____internals____.h"
+
+
+static uint64_t const
+uint64_power(uint64_t const num, uint64_t const exp)
+{
+	UNIVERSE_DEBUG_ASSERT(exp <= 64);
+	
+	if (exp == 0)
+	{
+		return	1;
+	}
+	if (exp == 1)
+	{
+		return	num;
+	}
+	
+	return	num * uint64_power(num, exp-1);
+}
+static int64_t const
+SINT64_MAX()
+{
+	return	+(uint64_power(2ull, 63ull)) - 1ull;
+}
+static int64_t const
+SINT64_MIN()
+{
+	return	-(uint64_power(2ull, 63ull)) + 1ull;
+}
+
+
+
+
+
 
 
 
@@ -22,6 +57,15 @@
 {	
 	sqlite3*			db;
 	sqlite3_stmt*		stmt;
+}
+sqlite3_stmt* const
+eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* stmt)
+{
+	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(stmt, EESQLiteStatement);
+	
+	////
+	
+	return	stmt->stmt;
 }
 - (NSString *)SQL
 {
@@ -276,7 +320,7 @@
 }
 - (id)initWithDB:(sqlite3 *)newDb sql:(const char *)sql byte:(int)byte tail:(const char **)tail error:(NSError *__autoreleasing *)error
 {
-	UNIVERSE_DEBUG_ASSERT(stmt != NULL);
+	UNIVERSE_DEBUG_ASSERT(stmt == NULL);
 	UNIVERSE_DEBUG_ASSERT(newDb != NULL);
 	UNIVERSE_DEBUG_ASSERT(sql != NULL);
 	UNIVERSE_DEBUG_ASSERT(tail != NULL);
@@ -344,7 +388,7 @@
 		
 		do 
 		{
-			sqlite3*			coredb		=	EESQLiteDatabaseGetCorePointerToSQLite3(database);
+			sqlite3*			coredb		=	eesqlite3____get_raw_db_object_from(database);
 			
 			NSError*			internerr	=	nil;
 			EESQLiteStatement*	statement	=	[[self alloc] initWithDB:coredb sql:sql byte:byte tail:&tail error:&internerr];
@@ -438,12 +482,27 @@ EXCEPT_DATA_TOO_LONG()
 
 #define	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(parameterValue)		{ EESQLiteAssert(( ((unsigned long long)(parameterValue)) >= (0x8000000000000000ULL)) || ( ((unsigned long long)(parameterValue)) <= (0x7FFFFFFFFFFFFFFFULL)), @"Range of `parameterValue` must be in range of 64-bit signed integer. (This is Objective-C wrapper level assertion.)"); }
 
-- (void)setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex
+- (void)setInt64Value:(int64_t)value forParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	UNIVERSE_DEBUG_ASSERT(value <= SINT64_MAX());
+	UNIVERSE_DEBUG_ASSERT(value >= SINT64_MIN());
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
+	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
+	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(value);
+	
+	EESQLiteExceptIfReturnCodeIsNotOK(sqlite3_bind_int64(stmt, (int)parameterIndex, value), db);
+}
+- (void)setLongLongValue:(long long)value forParameterIndex:(NSInteger)parameterIndex
+{
+	UNIVERSE_DEBUG_ASSERT(value <= SINT64_MAX());
+	UNIVERSE_DEBUG_ASSERT(value >= SINT64_MIN());
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
+	
+	////
+
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_PARAMETER_INDEX_VALUE(parameterIndex);
 	CHECK_AND_ASSERT_OVERFLOW_OR_UNDERFLOW_INTEGER_PARAMETER_VALUE(value);
 
@@ -451,7 +510,9 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setIntegerValue:(NSInteger)value forParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	UNIVERSE_DEBUG_ASSERT(value <= SINT64_MAX());
+	UNIVERSE_DEBUG_ASSERT(value >= SINT64_MIN());
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -462,7 +523,7 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setDoubleValue:(double)value forParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -473,7 +534,7 @@ EXCEPT_DATA_TOO_LONG()
 - (void)setStringValue:(NSString *)value forParameterIndex:(NSInteger)parameterIndex 
 {
 	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(value, NSString);
-	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -496,7 +557,7 @@ EXCEPT_DATA_TOO_LONG()
 - (void)setDataValue:(NSData *)value forParameterIndex:(NSInteger)parameterIndex 
 {
 	UNIVERSE_DEBUG_ASSERT_OBJECT_TYPE(value, NSData);
-	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -519,7 +580,7 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setNullForParameterIndex:(NSInteger)parameterIndex
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	
@@ -529,7 +590,7 @@ EXCEPT_DATA_TOO_LONG()
 }
 - (void)setValue:(id)value forParameterIndex:(NSInteger)parameterIndex 
 {
-	UNIVERSE_DEBUG_ASSERT(parameterIndex < [self parameterCount]);
+	UNIVERSE_DEBUG_ASSERT(parameterIndex <= [self parameterCount]);		//	Parameter index is 1-based.
 	
 	////
 	

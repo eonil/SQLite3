@@ -20,6 +20,9 @@
  (except the method call the explicit transaction itself such as `beginTransactionWithError:`).
  
  You need to manage all transactions yourself.
+ 
+ @classdesign
+ This class is not intended to be subclassed. Do not subclass this class.
  */
 @interface			EESQLiteDatabase : NSObject
 

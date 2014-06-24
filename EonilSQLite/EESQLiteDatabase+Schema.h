@@ -46,6 +46,9 @@
  If you don't supply any column-definition, this method is no-op.
  */
 - (void)			addTableWithExpession:(NSString*)tableExpression withColumnExpressions:(NSArray*)columnExpressions isTemporary:(BOOL)temporary onlyWhenNotExist:(BOOL)ifNotExist;
+/*!
+ @param	rowIDAliasColumnName	Can be @c nil to use default oid column.
+ */
 - (void)			addTableWithName:(NSString*)tableName withColumnNames:(NSArray*)columnNames rowIDAliasColumnName:(NSString*)rowIDAliasColumnName;
 - (void)			addTableWithName:(NSString*)tableName withColumnNames:(NSArray*)columnNames;
 - (void)			removeTableWithName:(NSString*)tableName;

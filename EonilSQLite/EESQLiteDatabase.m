@@ -6,18 +6,20 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import				"EESQLiteException.h"
-#import				"EESQLite-Internal.h"
-#import				"EESQLiteStatement.h"
-#import				"EESQLiteStatement+Internal.h"
+#import "EESQLiteException.h"
+#import "EESQLite-Internal.h"
+#import "EESQLiteStatement.h"
+#import "EESQLiteStatement+Internal.h"
 
-#import				"EESQLiteDatabase.h"
-
+#import "EESQLiteDatabase.h"
+#import "EESQLiteDatabase+Limits.h"
+#import "____internals____.h"
 
 
 
 
 #define				IN_MEMORY_DATABASE_NAME	@":memory:"
+#define				TEMP_FILE_DATABASE_NAME	@""
 
 
 
@@ -53,7 +55,7 @@ EXCEPT_IF_NAME_IS_INVALID(NSString* name)
 	sqlite3*		db;
 }
 sqlite3* const
-EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* self)
+eesqlite3____get_raw_db_object_from(EESQLiteDatabase* self)
 {
 	return	self->db;
 }
@@ -61,6 +63,11 @@ EESQLiteDatabaseGetCorePointerToSQLite3(EESQLiteDatabase* self)
 /*!
  Returns YES if prepared succesfully.
  Otherwise, NO.
+ 
+ @param	name	
+ Set path to a database file.
+ Use empty string to specify temporary file-based database.
+ @c nil is not allowed.
  */
 static
 inline
@@ -277,7 +284,7 @@ CleanupWithError(EESQLiteDatabase* self, NSError** error)
 {
 	self	=	[super init];
 
-	if (self && PrepareWithName(self, nil, error, YES))
+	if (self && PrepareWithName(self, TEMP_FILE_DATABASE_NAME, error, YES))
 	{
 		return	self;
 	}	
