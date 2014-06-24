@@ -17,7 +17,10 @@
 
 
 
-
+/*!
+ Represents an unrecoverable error. (or debug mode dynamic assertion)
+ This means state is already corrupted, and program will crash immediately.
+ */
 @interface	EESQLiteException : NSException
 + (id)allocWithZone:(struct _NSZone *)zone EESQLITE3_UNAVAILABLE_METHOD;
 + (id)copyWithZone:(struct _NSZone *)zone EESQLITE3_UNAVAILABLE_METHOD;

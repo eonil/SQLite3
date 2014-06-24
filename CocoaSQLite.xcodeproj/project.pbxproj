@@ -77,7 +77,7 @@
 		4572DA9F15BB20A30091442D /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
 		4572DAA815BB21390091442D /* Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4572DAA615BB21390091442D /* Prefix.pch */; };
 		4572DAAD15BB21E70091442D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DAAC15BB21E70091442D /* Foundation.framework */; };
-		4572DAAF15BB22240091442D /* EonilSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* EonilSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4572DAAF15BB22240091442D /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DAB115BB22320091442D /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DAB215BB22320091442D /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DAB415BB22320091442D /* EESQLiteRowIDList.h in Headers */ = {isa = PBXBuildFile; fileRef = 45452C9614CC857000886D70 /* EESQLiteRowIDList.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -163,7 +163,7 @@
 		4503075A15D61CD800202ED3 /* EESQLiteException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteException.h; sourceTree = "<group>"; };
 		4503075B15D61CD800202ED3 /* EESQLiteException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteException.m; sourceTree = "<group>"; };
 		4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaSQLite.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4518C20514CBD0CE00EF0620 /* EonilSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EonilSQLite.h; sourceTree = "<group>"; };
+		4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaSQLite.h; sourceTree = "<group>"; };
 		4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteDatabase.h; sourceTree = "<group>"; };
 		4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteDatabase.m; sourceTree = "<group>"; };
@@ -356,7 +356,7 @@
 		4518C20214CBD0CE00EF0620 /* EonilSQLite */ = {
 			isa = PBXGroup;
 			children = (
-				4518C20514CBD0CE00EF0620 /* EonilSQLite.h */,
+				4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */,
 				4525F1D515BCFBA800868258 /* EESQLiteCommon.h */,
 				45E796E6174FAEC600380A38 /* EESQLiteCommon.m */,
 				4503075A15D61CD800202ED3 /* EESQLiteException.h */,
@@ -381,7 +381,8 @@
 				453AB0CB195855E600484DE9 /* (internal-only embedded external sources) */,
 				453AB0E4195904D100484DE9 /* (internal-only internal object accessors) */,
 			);
-			path = EonilSQLite;
+			name = EonilSQLite;
+			path = CocoaSQLite;
 			sourceTree = "<group>";
 		};
 		452740A415D6974500258461 /* Frameworks */ = {
@@ -549,7 +550,7 @@
 			files = (
 				4572DAA815BB21390091442D /* Prefix.pch in Headers */,
 				453AB0E9195904EB00484DE9 /* ____internals____.h in Headers */,
-				4572DAAF15BB22240091442D /* EonilSQLite.h in Headers */,
+				4572DAAF15BB22240091442D /* CocoaSQLite.h in Headers */,
 				4572DAB115BB22320091442D /* EESQLiteDatabase.h in Headers */,
 				453AB0D81958560E00484DE9 /* EESQLite____internal_doctor.h in Headers */,
 				4572DAB215BB22320091442D /* EESQLiteStatement.h in Headers */,

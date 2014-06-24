@@ -7,7 +7,7 @@
 //
 
 #import "TTEvilCase.h"
-#import "EonilSQLite.h"
+#import "CocoaSQLite.h"
 
 
 @implementation TTEvilCase
