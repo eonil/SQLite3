@@ -16,7 +16,7 @@ Hoon Hwangbo
 
 
 `EonilSQLite` is an Objective-C library which wraps C-level SQLite3 database engine library.
-This library offers these features.
+This library provides these features.
 
 -	Reducing complexity of using C level functions directly.
 -	Offers simple and object-oriented data handling. (handling data using `NSValue`, `NSDictionary` and `NSArray`)
@@ -66,7 +66,7 @@ Of course, you also can perform transaction.
 		EESQLiteRowID	rowID	=	[db1 insertDictionaryValue:row intoTable:@"Table1"];
 		[db1 deleteRowHasID:rowID fromTable:@"Table1"];
 
-		//	Will commit automatically after the block finised.
+		//	Will commit automatically after the block finished.
 		//	Any exception will cause rollback.
 	}];
 

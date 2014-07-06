@@ -14,7 +14,7 @@
 - (NSInteger)numberOfParameterVariable
 {
 	/*!
-	 @note	Negative value means *unchanged*.
+	 @note	Negative value means *no change*.
 	 @ref	http://www.sqlite.org/c3ref/limit.html
 	 */
 	return	sqlite3_limit(eesqlite3____get_raw_db_object_from(self), SQLITE_LIMIT_VARIABLE_NUMBER, -1);

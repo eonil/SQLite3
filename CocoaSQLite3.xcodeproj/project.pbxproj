@@ -29,7 +29,7 @@
 		452740AA15D6974500258461 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A915D6974500258461 /* CoreGraphics.framework */; };
 		452740B015D6974500258461 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 452740AE15D6974500258461 /* InfoPlist.strings */; };
 		452740B215D6974500258461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740B115D6974500258461 /* main.m */; };
-		452740BB15D6975200258461 /* libCocoaSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite.a */; };
+		452740BB15D6975200258461 /* libCocoaSQLite3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite3.a */; };
 		452740C015D6976900258461 /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
 		452740C115D6976900258461 /* TTHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8F15BB20A30091442D /* TTHappyCase.m */; };
 		452740C215D6976900258461 /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
@@ -43,7 +43,7 @@
 		452740D915D69DBE00258461 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A715D6974500258461 /* Foundation.framework */; };
 		452740DC15D69DBE00258461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740DB15D69DBE00258461 /* main.m */; };
 		452740E015D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 452740DF15D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 */; };
-		452740E415D69DC900258461 /* CocoaSQLite.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */; };
+		452740E415D69DC900258461 /* CocoaSQLite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* CocoaSQLite3.dylib */; };
 		452740E715D69DDC00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
 		452740E815D69DDC00258461 /* UnitTestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740C815D697F800258461 /* UnitTestContainer.m */; };
 		452740EB15D69DDC00258461 /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
@@ -85,7 +85,7 @@
 		4572DABA15BB225A0091442D /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
 		4572DABB15BB225A0091442D /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
 		4572DABD15BB225A0091442D /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
-		4572DABE15BB25B70091442D /* CocoaSQLite.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */; };
+		4572DABE15BB25B70091442D /* CocoaSQLite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* CocoaSQLite3.dylib */; };
 		4572DAC815BB286D0091442D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DAC715BB286D0091442D /* libsqlite3.0.dylib */; };
 		4572DADD15BB3E440091442D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DAC715BB286D0091442D /* libsqlite3.0.dylib */; };
 		458F446B14CBDE3200FF39ED /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
@@ -93,7 +93,7 @@
 		45AAB09815D6D5010094EA7A /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
 		45AAB09915D6D5010094EA7A /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
 		45CB651214CBF609004EF17F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB651114CBF609004EF17F /* SenTestingKit.framework */; };
-		45CB652614CBF61A004EF17F /* libCocoaSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite.a */; };
+		45CB652614CBF61A004EF17F /* libCocoaSQLite3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite3.a */; };
 		45E68B431683347F00DAE96E /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
 		45E68B441683347F00DAE96E /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
 		45E68B451683347F00DAE96E /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
@@ -113,6 +113,27 @@
 		45E796ED174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EE174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EF174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
+		45F13E8D1969D0F500F7B630 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F13E8B1969D0F500F7B630 /* InfoPlist.strings */; };
+		45F13EAB1969D16D00F7B630 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		45F13EAC1969D16D00F7B630 /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
+		45F13EAD1969D16D00F7B630 /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
+		45F13EAE1969D16D00F7B630 /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
+		45F13EAF1969D16D00F7B630 /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		45F13EB01969D16D00F7B630 /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
+		45F13EB11969D16D00F7B630 /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
+		45F13EB21969D16D00F7B630 /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
+		45F13EB31969D16D00F7B630 /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
+		45F13EB41969D16D00F7B630 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
+		45F13EB51969D16D00F7B630 /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
+		45F13EB61969D16D00F7B630 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
+		45F13EB71969D18400F7B630 /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45F13EB81969D18400F7B630 /* EESQLiteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45F13EB91969D18400F7B630 /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45F13EBA1969D18400F7B630 /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45F13EBB1969D18400F7B630 /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45F13EBC1969D18400F7B630 /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45F13EBD1969D18400F7B630 /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45F13EBE1969D1AA00F7B630 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,7 +183,7 @@
 /* Begin PBXFileReference section */
 		4503075A15D61CD800202ED3 /* EESQLiteException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteException.h; sourceTree = "<group>"; };
 		4503075B15D61CD800202ED3 /* EESQLiteException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteException.m; sourceTree = "<group>"; };
-		4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaSQLite.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaSQLite3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaSQLite.h; sourceTree = "<group>"; };
 		4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteDatabase.h; sourceTree = "<group>"; };
@@ -200,7 +221,7 @@
 		453AB0E6195904EB00484DE9 /* ____internals____.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "____internals____.m"; sourceTree = "<group>"; };
 		45452C9614CC857000886D70 /* EESQLiteRowIDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteRowIDList.h; sourceTree = "<group>"; };
 		45452C9714CC857000886D70 /* EESQLiteRowIDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteRowIDList.m; sourceTree = "<group>"; };
-		4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = CocoaSQLite.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		4572DA5615BB1D3D0091442D /* CocoaSQLite3.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = CocoaSQLite3.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4572DA6815BB1D3D0091442D /* Mac OS X Dynamic Library (Tests).octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mac OS X Dynamic Library (Tests).octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4572DA8615BB20A30091442D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4572DA8715BB20A30091442D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
@@ -226,7 +247,7 @@
 		45AAB09515D6D5010094EA7A /* EESQLiteError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteError.m; sourceTree = "<group>"; };
 		45CB651014CBF609004EF17F /* SQLite-Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLite-Test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CB651114CBF609004EF17F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		45E68B311683342700DAE96E /* libCocoaSQLite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaSQLite.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		45E68B311683342700DAE96E /* libCocoaSQLite3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaSQLite3.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E68B321683342700DAE96E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		45E68B351683342700DAE96E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		45E68B361683342700DAE96E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -238,6 +259,10 @@
 		45E796E6174FAEC600380A38 /* EESQLiteCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteCommon.m; sourceTree = "<group>"; };
 		45E796EA174FC2F800380A38 /* TTHelperFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHelperFunctions.h; sourceTree = "<group>"; };
 		45E796EB174FC2F800380A38 /* TTHelperFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHelperFunctions.m; sourceTree = "<group>"; };
+		45F13E861969D0F500F7B630 /* CocoaSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45F13E8A1969D0F500F7B630 /* CocoaSQLite33 - OSX Framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CocoaSQLite33 - OSX Framework-Info.plist"; sourceTree = "<group>"; };
+		45F13E8C1969D0F500F7B630 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45F13E971969D0F500F7B630 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,7 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				452740D215D69AA700258461 /* libsqlite3.0.dylib in Frameworks */,
-				452740BB15D6975200258461 /* libCocoaSQLite.a in Frameworks */,
+				452740BB15D6975200258461 /* libCocoaSQLite3.a in Frameworks */,
 				452740A615D6974500258461 /* UIKit.framework in Frameworks */,
 				452740A815D6974500258461 /* Foundation.framework in Frameworks */,
 				452740AA15D6974500258461 /* CoreGraphics.framework in Frameworks */,
@@ -264,7 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				452740E415D69DC900258461 /* CocoaSQLite.dylib in Frameworks */,
+				452740E415D69DC900258461 /* CocoaSQLite3.dylib in Frameworks */,
 				452740D915D69DBE00258461 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,7 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4525F1A615BC7F7100868258 /* Foundation.framework in Frameworks */,
-				4572DABE15BB25B70091442D /* CocoaSQLite.dylib in Frameworks */,
+				4572DABE15BB25B70091442D /* CocoaSQLite3.dylib in Frameworks */,
 				4572DA6915BB1D3D0091442D /* SenTestingKit.framework in Frameworks */,
 				4572DADD15BB3E440091442D /* libsqlite3.0.dylib in Frameworks */,
 			);
@@ -295,7 +320,7 @@
 			files = (
 				4525F1A315BC7F1E00868258 /* Foundation.framework in Frameworks */,
 				4522528B14CBF82100F05FF0 /* libsqlite3.0.dylib in Frameworks */,
-				45CB652614CBF61A004EF17F /* libCocoaSQLite.a in Frameworks */,
+				45CB652614CBF61A004EF17F /* libCocoaSQLite3.a in Frameworks */,
 				45CB651214CBF609004EF17F /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +329,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45F13E821969D0F500F7B630 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F13EBE1969D1AA00F7B630 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +358,7 @@
 				452740AB15D6974500258461 /* Manual Test */,
 				452740DA15D69DBE00258461 /* Manual Test for Mac OS X */,
 				45E68B381683342700DAE96E /* OS X Static Library */,
+				45F13E881969D0F500F7B630 /* CocoaSQLite3 - OSX Framework */,
 				452740A415D6974500258461 /* Frameworks */,
 				4518C1FE14CBD0CE00EF0620 /* Products */,
 				4572DA8315BB20A30091442D /* Tests */,
@@ -334,13 +368,14 @@
 		4518C1FE14CBD0CE00EF0620 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite.a */,
+				4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite3.a */,
 				45CB651014CBF609004EF17F /* SQLite-Test.octest */,
-				4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */,
+				4572DA5615BB1D3D0091442D /* CocoaSQLite3.dylib */,
 				4572DA6815BB1D3D0091442D /* Mac OS X Dynamic Library (Tests).octest */,
 				452740A215D6974500258461 /* Manual Test.app */,
 				452740D715D69DBE00258461 /* Manual Test for Mac OS X */,
-				45E68B311683342700DAE96E /* libCocoaSQLite.a */,
+				45E68B311683342700DAE96E /* libCocoaSQLite3.a */,
+				45F13E861969D0F500F7B630 /* CocoaSQLite3.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -392,6 +427,7 @@
 				452740A715D6974500258461 /* Foundation.framework */,
 				452740A915D6974500258461 /* CoreGraphics.framework */,
 				45E68B321683342700DAE96E /* Cocoa.framework */,
+				45F13E971969D0F500F7B630 /* XCTest.framework */,
 				45E68B341683342700DAE96E /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -531,6 +567,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		45F13E881969D0F500F7B630 /* CocoaSQLite3 - OSX Framework */ = {
+			isa = PBXGroup;
+			children = (
+				45F13E891969D0F500F7B630 /* Supporting Files */,
+			);
+			path = "CocoaSQLite3 - OSX Framework";
+			sourceTree = "<group>";
+		};
+		45F13E891969D0F500F7B630 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				45F13E8A1969D0F500F7B630 /* CocoaSQLite33 - OSX Framework-Info.plist */,
+				45F13E8B1969D0F500F7B630 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -576,12 +629,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45F13E831969D0F500F7B630 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F13EB71969D18400F7B630 /* CocoaSQLite.h in Headers */,
+				45F13EB81969D18400F7B630 /* EESQLiteCommon.h in Headers */,
+				45F13EB91969D18400F7B630 /* EESQLiteDatabase.h in Headers */,
+				45F13EBA1969D18400F7B630 /* EESQLiteDatabase+CommandExecution.h in Headers */,
+				45F13EBB1969D18400F7B630 /* EESQLiteDatabase+Schema.h in Headers */,
+				45F13EBC1969D18400F7B630 /* EESQLiteDatabase+SimpleQuery.h in Headers */,
+				45F13EBD1969D18400F7B630 /* EESQLiteStatement.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4518C1FC14CBD0CE00EF0620 /* CocoaSQLite - iOS Static Library */ = {
+		4518C1FC14CBD0CE00EF0620 /* CocoaSQLite3 - iOS Static Library */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4518C20A14CBD0CE00EF0620 /* Build configuration list for PBXNativeTarget "CocoaSQLite - iOS Static Library" */;
+			buildConfigurationList = 4518C20A14CBD0CE00EF0620 /* Build configuration list for PBXNativeTarget "CocoaSQLite3 - iOS Static Library" */;
 			buildPhases = (
 				4518C1F914CBD0CE00EF0620 /* Sources */,
 				4518C1FA14CBD0CE00EF0620 /* Frameworks */,
@@ -591,9 +658,9 @@
 			);
 			dependencies = (
 			);
-			name = "CocoaSQLite - iOS Static Library";
+			name = "CocoaSQLite3 - iOS Static Library";
 			productName = "EonilCocoaComplements-SQLite";
-			productReference = 4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite.a */;
+			productReference = 4518C1FD14CBD0CE00EF0620 /* libCocoaSQLite3.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		452740A115D6974500258461 /* Manual Test */ = {
@@ -646,7 +713,7 @@
 			);
 			name = "OSX Dynamic Library";
 			productName = "SQLite for Mac OS X";
-			productReference = 4572DA5615BB1D3D0091442D /* CocoaSQLite.dylib */;
+			productReference = 4572DA5615BB1D3D0091442D /* CocoaSQLite3.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		4572DA6715BB1D3D0091442D /* Mac OS X Dynamic Library (Tests) */ = {
@@ -701,8 +768,26 @@
 			);
 			name = "OSX Static Library";
 			productName = "OS X Static Library";
-			productReference = 45E68B311683342700DAE96E /* libCocoaSQLite.a */;
+			productReference = 45E68B311683342700DAE96E /* libCocoaSQLite3.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		45F13E851969D0F500F7B630 /* CocoaSQLite3 - OSX Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45F13EA91969D0F500F7B630 /* Build configuration list for PBXNativeTarget "CocoaSQLite3 - OSX Framework" */;
+			buildPhases = (
+				45F13E811969D0F500F7B630 /* Sources */,
+				45F13E821969D0F500F7B630 /* Frameworks */,
+				45F13E831969D0F500F7B630 /* Headers */,
+				45F13E841969D0F500F7B630 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CocoaSQLite3 - OSX Framework";
+			productName = "CocoaSQLite3 - OSX Framework";
+			productReference = 45F13E861969D0F500F7B630 /* CocoaSQLite3.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -715,7 +800,7 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Eonil Company";
 			};
-			buildConfigurationList = 4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "CocoaSQLite" */;
+			buildConfigurationList = 4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "CocoaSQLite3" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -727,7 +812,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4518C1FC14CBD0CE00EF0620 /* CocoaSQLite - iOS Static Library */,
+				4518C1FC14CBD0CE00EF0620 /* CocoaSQLite3 - iOS Static Library */,
+				45F13E851969D0F500F7B630 /* CocoaSQLite3 - OSX Framework */,
 				45E68B301683342700DAE96E /* OSX Static Library */,
 				4572DA5515BB1D3D0091442D /* OSX Dynamic Library */,
 				45CB650F14CBF609004EF17F /* iOS Static Library (Test) */,
@@ -758,6 +844,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45F13E841969D0F500F7B630 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F13E8D1969D0F500F7B630 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,12 +1002,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45F13E811969D0F500F7B630 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F13EAB1969D16D00F7B630 /* EESQLiteCommon.m in Sources */,
+				45F13EAC1969D16D00F7B630 /* EESQLiteException.m in Sources */,
+				45F13EAD1969D16D00F7B630 /* EESQLiteError.m in Sources */,
+				45F13EAE1969D16D00F7B630 /* EESQLiteDatabase.m in Sources */,
+				45F13EAF1969D16D00F7B630 /* EESQLiteDatabase+Limits.m in Sources */,
+				45F13EB01969D16D00F7B630 /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				45F13EB11969D16D00F7B630 /* EESQLiteDatabase+Schema.m in Sources */,
+				45F13EB21969D16D00F7B630 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				45F13EB31969D16D00F7B630 /* EESQLiteStatement.m in Sources */,
+				45F13EB41969D16D00F7B630 /* EESQLiteRowIDList.m in Sources */,
+				45F13EB51969D16D00F7B630 /* EESQLite____internal_doctor.m in Sources */,
+				45F13EB61969D16D00F7B630 /* ____internals____.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		452740BD15D6975D00258461 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4518C1FC14CBD0CE00EF0620 /* CocoaSQLite - iOS Static Library */;
+			target = 4518C1FC14CBD0CE00EF0620 /* CocoaSQLite3 - iOS Static Library */;
 			targetProxy = 452740BC15D6975D00258461 /* PBXContainerItemProxy */;
 		};
 		452740E615D69DCE00258461 /* PBXTargetDependency */ = {
@@ -928,7 +1041,7 @@
 		};
 		45CB652514CBF616004EF17F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4518C1FC14CBD0CE00EF0620 /* CocoaSQLite - iOS Static Library */;
+			target = 4518C1FC14CBD0CE00EF0620 /* CocoaSQLite3 - iOS Static Library */;
 			targetProxy = 45CB652414CBF616004EF17F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -938,6 +1051,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				452740AF15D6974500258461 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		45F13E8B1969D0F500F7B630 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45F13E8C1969D0F500F7B630 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1032,7 +1153,7 @@
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = CocoaSQLite;
+				PRODUCT_NAME = CocoaSQLite3;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1045,6 +1166,7 @@
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = CocoaSQLite3;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -1121,7 +1243,7 @@
 				GCC_PREFIX_HEADER = "Targets/Mac OS X/Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				MACH_O_TYPE = mh_dylib;
-				PRODUCT_NAME = CocoaSQLite;
+				PRODUCT_NAME = CocoaSQLite3;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = x86_64;
@@ -1137,7 +1259,7 @@
 				GCC_PREFIX_HEADER = "Targets/Mac OS X/Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				MACH_O_TYPE = mh_dylib;
-				PRODUCT_NAME = CocoaSQLite;
+				PRODUCT_NAME = CocoaSQLite3;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
 				VALID_ARCHS = x86_64;
@@ -1230,7 +1352,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				PRODUCT_NAME = CocoaSQLite;
+				PRODUCT_NAME = CocoaSQLite3;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1239,15 +1361,71 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				PRODUCT_NAME = CocoaSQLite;
+				PRODUCT_NAME = CocoaSQLite3;
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		45F13EA51969D0F500F7B630 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "CocoaSQLite3 - OSX Framework/CocoaSQLite33 - OSX Framework-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		45F13EA61969D0F500F7B630 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "CocoaSQLite3 - OSX Framework/CocoaSQLite33 - OSX Framework-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "CocoaSQLite" */ = {
+		4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "CocoaSQLite3" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4518C20814CBD0CE00EF0620 /* Debug */,
@@ -1256,7 +1434,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4518C20A14CBD0CE00EF0620 /* Build configuration list for PBXNativeTarget "CocoaSQLite - iOS Static Library" */ = {
+		4518C20A14CBD0CE00EF0620 /* Build configuration list for PBXNativeTarget "CocoaSQLite3 - iOS Static Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4518C20B14CBD0CE00EF0620 /* Debug */,
@@ -1318,6 +1496,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		45F13EA91969D0F500F7B630 /* Build configuration list for PBXNativeTarget "CocoaSQLite3 - OSX Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45F13EA51969D0F500F7B630 /* Debug */,
+				45F13EA61969D0F500F7B630 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
