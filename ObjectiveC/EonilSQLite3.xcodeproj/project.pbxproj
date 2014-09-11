@@ -93,6 +93,82 @@
 		4551EAF619C207EA0048FD31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAF419C207E30048FD31 /* Foundation.framework */; };
 		4551EAF819C208480048FD31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4525F1A215BC7F1E00868258 /* Foundation.framework */; };
 		4551EAFC19C208D60048FD31 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
+		4565C2C719C229BB007A956E /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		4565C2C819C229BB007A956E /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
+		4565C2C919C229BB007A956E /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
+		4565C2CA19C229BB007A956E /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
+		4565C2CB19C229BB007A956E /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		4565C2CC19C229BB007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
+		4565C2CD19C229BB007A956E /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
+		4565C2CE19C229BB007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
+		4565C2CF19C229BB007A956E /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
+		4565C2D019C229BB007A956E /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
+		4565C2D119C229BB007A956E /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
+		4565C2D219C229BB007A956E /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
+		4565C2D319C229BB007A956E /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		4565C2D419C229BB007A956E /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
+		4565C2D519C229BB007A956E /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
+		4565C2D619C229BB007A956E /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
+		4565C2D719C229BB007A956E /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		4565C2D819C229BB007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
+		4565C2D919C229BB007A956E /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
+		4565C2DA19C229BB007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
+		4565C2DB19C229BB007A956E /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
+		4565C2DC19C229BB007A956E /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
+		4565C2DD19C229BB007A956E /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
+		4565C2DE19C229BB007A956E /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
+		4565C2DF19C229BC007A956E /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		4565C2E019C229BC007A956E /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
+		4565C2E119C229BC007A956E /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
+		4565C2E219C229BC007A956E /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
+		4565C2E319C229BC007A956E /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		4565C2E419C229BC007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
+		4565C2E519C229BC007A956E /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
+		4565C2E619C229BC007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
+		4565C2E719C229BC007A956E /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
+		4565C2E819C229BC007A956E /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
+		4565C2E919C229BC007A956E /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
+		4565C2EA19C229BC007A956E /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
+		4565C2EB19C229BC007A956E /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
+		4565C2EC19C229BC007A956E /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
+		4565C2ED19C229BC007A956E /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
+		4565C2EE19C229BC007A956E /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
+		4565C2EF19C229BC007A956E /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
+		4565C2F019C229BC007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
+		4565C2F119C229BC007A956E /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
+		4565C2F219C229BC007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
+		4565C2F319C229BC007A956E /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
+		4565C2F419C229BC007A956E /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
+		4565C2F519C229BC007A956E /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
+		4565C2F619C229BC007A956E /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
+		4565C2F719C229C9007A956E /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2F819C229C9007A956E /* EESQLiteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2F919C229C9007A956E /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2FA19C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2FB19C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2FC19C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2FD19C229C9007A956E /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2FE19C229C9007A956E /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C2FF19C229C9007A956E /* EESQLiteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30019C229C9007A956E /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30119C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30219C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30319C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30419C229C9007A956E /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30519C229C9007A956E /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30619C229C9007A956E /* EESQLiteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30719C229C9007A956E /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30819C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30919C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30A19C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30B19C229C9007A956E /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30C19C229C9007A956E /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30D19C229C9007A956E /* EESQLiteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30E19C229C9007A956E /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C30F19C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C31019C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C31119C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4565C31219C229C9007A956E /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DA6915BB1D3D0091442D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB651114CBF609004EF17F /* SenTestingKit.framework */; };
 		4572DA9A15BB20A30091442D /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
 		4572DA9B15BB20A30091442D /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
@@ -134,26 +210,6 @@
 		45E796ED174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EE174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EF174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
-		45F13EAB1969D16D00F7B630 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
-		45F13EAC1969D16D00F7B630 /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
-		45F13EAD1969D16D00F7B630 /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
-		45F13EAE1969D16D00F7B630 /* EESQLiteDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4518C21014CBD11600EF0620 /* EESQLiteDatabase.m */; };
-		45F13EAF1969D16D00F7B630 /* EESQLiteDatabase+Limits.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0DD1959040C00484DE9 /* EESQLiteDatabase+Limits.m */; };
-		45F13EB01969D16D00F7B630 /* EESQLiteDatabase+CommandExecution.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C715BCF7F000868258 /* EESQLiteDatabase+CommandExecution.m */; };
-		45F13EB11969D16D00F7B630 /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
-		45F13EB21969D16D00F7B630 /* EESQLiteDatabase+SimpleQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1C115BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.m */; };
-		45F13EB31969D16D00F7B630 /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
-		45F13EB41969D16D00F7B630 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
-		45F13EB51969D16D00F7B630 /* EESQLite____internal_doctor.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0CF1958560E00484DE9 /* EESQLite____internal_doctor.m */; };
-		45F13EB61969D16D00F7B630 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
-		45F13EB71969D18400F7B630 /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45F13EB81969D18400F7B630 /* EESQLiteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45F13EB91969D18400F7B630 /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45F13EBA1969D18400F7B630 /* EESQLiteDatabase+CommandExecution.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C615BCF7F000868258 /* EESQLiteDatabase+CommandExecution.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45F13EBB1969D18400F7B630 /* EESQLiteDatabase+Schema.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1CC15BCF86500868258 /* EESQLiteDatabase+Schema.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45F13EBC1969D18400F7B630 /* EESQLiteDatabase+SimpleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1C015BCF33C00868258 /* EESQLiteDatabase+SimpleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45F13EBD1969D18400F7B630 /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45F13EBE1969D1AA00F7B630 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -372,7 +428,6 @@
 		45E796E6174FAEC600380A38 /* EESQLiteCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteCommon.m; sourceTree = "<group>"; };
 		45E796EA174FC2F800380A38 /* TTHelperFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHelperFunctions.h; sourceTree = "<group>"; };
 		45E796EB174FC2F800380A38 /* TTHelperFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHelperFunctions.m; sourceTree = "<group>"; };
-		45F13E861969D0F500F7B630 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F13E971969D0F500F7B630 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -472,14 +527,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45F13E821969D0F500F7B630 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45F13EBE1969D1AA00F7B630 /* libsqlite3.0.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -510,7 +557,6 @@
 				452740A215D6974500258461 /* Manual Test.app */,
 				452740D715D69DBE00258461 /* Manual Test for Mac OS X */,
 				45E68B311683342700DAE96E /* libEonilSQLite3.a */,
-				45F13E861969D0F500F7B630 /* EonilSQLite3.framework */,
 				4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */,
 				4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */,
 				4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */,
@@ -661,7 +707,6 @@
 		4551EAEC19C207650048FD31 /* OSX */ = {
 			isa = PBXGroup;
 			children = (
-				4551EAFA19C208A60048FD31 /* New Group */,
 				4551EAED19C207650048FD31 /* Framework */,
 			);
 			path = OSX;
@@ -697,13 +742,6 @@
 			children = (
 			);
 			name = "(dependencies)";
-			sourceTree = "<group>";
-		};
-		4551EAFA19C208A60048FD31 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		4572DA8315BB20A30091442D /* Tests */ = {
@@ -749,6 +787,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C2FD19C229C9007A956E /* EESQLiteStatement.h in Headers */,
+				4565C2FB19C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */,
+				4565C2FA19C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */,
+				4565C2FC19C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */,
+				4565C2F719C229C9007A956E /* CocoaSQLite.h in Headers */,
+				4565C2F919C229C9007A956E /* EESQLiteDatabase.h in Headers */,
+				4565C2F819C229C9007A956E /* EESQLiteCommon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +801,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C30B19C229C9007A956E /* EESQLiteStatement.h in Headers */,
+				4565C30919C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */,
+				4565C30819C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */,
+				4565C30A19C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */,
+				4565C30519C229C9007A956E /* CocoaSQLite.h in Headers */,
+				4565C30719C229C9007A956E /* EESQLiteDatabase.h in Headers */,
+				4565C30619C229C9007A956E /* EESQLiteCommon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -763,6 +815,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C30419C229C9007A956E /* EESQLiteStatement.h in Headers */,
+				4565C30219C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */,
+				4565C30119C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */,
+				4565C30319C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */,
+				4565C2FE19C229C9007A956E /* CocoaSQLite.h in Headers */,
+				4565C30019C229C9007A956E /* EESQLiteDatabase.h in Headers */,
+				4565C2FF19C229C9007A956E /* EESQLiteCommon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,6 +829,13 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C31219C229C9007A956E /* EESQLiteStatement.h in Headers */,
+				4565C31019C229C9007A956E /* EESQLiteDatabase+Schema.h in Headers */,
+				4565C30F19C229C9007A956E /* EESQLiteDatabase+CommandExecution.h in Headers */,
+				4565C31119C229C9007A956E /* EESQLiteDatabase+SimpleQuery.h in Headers */,
+				4565C30C19C229C9007A956E /* CocoaSQLite.h in Headers */,
+				4565C30E19C229C9007A956E /* EESQLiteDatabase.h in Headers */,
+				4565C30D19C229C9007A956E /* EESQLiteCommon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -801,20 +867,6 @@
 				453AB0E8195904EB00484DE9 /* ____internals____.h in Headers */,
 				453AB0D71958560E00484DE9 /* EESQLite____internal_doctor.h in Headers */,
 				453AB0DF1959040C00484DE9 /* EESQLiteDatabase+Limits.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		45F13E831969D0F500F7B630 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45F13EB71969D18400F7B630 /* CocoaSQLite.h in Headers */,
-				45F13EB81969D18400F7B630 /* EESQLiteCommon.h in Headers */,
-				45F13EB91969D18400F7B630 /* EESQLiteDatabase.h in Headers */,
-				45F13EBA1969D18400F7B630 /* EESQLiteDatabase+CommandExecution.h in Headers */,
-				45F13EBB1969D18400F7B630 /* EESQLiteDatabase+Schema.h in Headers */,
-				45F13EBC1969D18400F7B630 /* EESQLiteDatabase+SimpleQuery.h in Headers */,
-				45F13EBD1969D18400F7B630 /* EESQLiteStatement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,24 +1079,6 @@
 			productReference = 45E68B311683342700DAE96E /* libEonilSQLite3.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		45F13E851969D0F500F7B630 /* EonilSQLite3 - OSX Framework */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 45F13EA91969D0F500F7B630 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX Framework" */;
-			buildPhases = (
-				45F13E811969D0F500F7B630 /* Sources */,
-				45F13E821969D0F500F7B630 /* Frameworks */,
-				45F13E831969D0F500F7B630 /* Headers */,
-				45F13E841969D0F500F7B630 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "EonilSQLite3 - OSX Framework";
-			productName = "CocoaSQLite3 - OSX Framework";
-			productReference = 45F13E861969D0F500F7B630 /* EonilSQLite3.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1086,7 +1120,6 @@
 			projectRoot = "";
 			targets = (
 				4518C1FC14CBD0CE00EF0620 /* EonilSQLite3 - iOS Static Library */,
-				45F13E851969D0F500F7B630 /* EonilSQLite3 - OSX Framework */,
 				45E68B301683342700DAE96E /* OSX Static Library */,
 				4572DA5515BB1D3D0091442D /* OSX Dynamic Library */,
 				45CB650F14CBF609004EF17F /* iOS Static Library (Test) */,
@@ -1147,13 +1180,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		45CB650D14CBF609004EF17F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		45F13E841969D0F500F7B630 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1245,6 +1271,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C2C919C229BB007A956E /* EESQLiteError.m in Sources */,
+				4565C2D119C229BB007A956E /* EESQLite____internal_doctor.m in Sources */,
+				4565C2C719C229BB007A956E /* EESQLiteCommon.m in Sources */,
+				4565C2CB19C229BB007A956E /* EESQLiteDatabase+Limits.m in Sources */,
+				4565C2CC19C229BB007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				4565C2CA19C229BB007A956E /* EESQLiteDatabase.m in Sources */,
+				4565C2D219C229BB007A956E /* ____internals____.m in Sources */,
+				4565C2CE19C229BB007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				4565C2C819C229BB007A956E /* EESQLiteException.m in Sources */,
+				4565C2D019C229BB007A956E /* EESQLiteRowIDList.m in Sources */,
+				4565C2CF19C229BB007A956E /* EESQLiteStatement.m in Sources */,
+				4565C2CD19C229BB007A956E /* EESQLiteDatabase+Schema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1252,6 +1290,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C2E119C229BC007A956E /* EESQLiteError.m in Sources */,
+				4565C2E919C229BC007A956E /* EESQLite____internal_doctor.m in Sources */,
+				4565C2DF19C229BC007A956E /* EESQLiteCommon.m in Sources */,
+				4565C2E319C229BC007A956E /* EESQLiteDatabase+Limits.m in Sources */,
+				4565C2E419C229BC007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				4565C2E219C229BC007A956E /* EESQLiteDatabase.m in Sources */,
+				4565C2EA19C229BC007A956E /* ____internals____.m in Sources */,
+				4565C2E619C229BC007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				4565C2E019C229BC007A956E /* EESQLiteException.m in Sources */,
+				4565C2E819C229BC007A956E /* EESQLiteRowIDList.m in Sources */,
+				4565C2E719C229BC007A956E /* EESQLiteStatement.m in Sources */,
+				4565C2E519C229BC007A956E /* EESQLiteDatabase+Schema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1259,6 +1309,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C2D519C229BB007A956E /* EESQLiteError.m in Sources */,
+				4565C2DD19C229BB007A956E /* EESQLite____internal_doctor.m in Sources */,
+				4565C2D319C229BB007A956E /* EESQLiteCommon.m in Sources */,
+				4565C2D719C229BB007A956E /* EESQLiteDatabase+Limits.m in Sources */,
+				4565C2D819C229BB007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				4565C2D619C229BB007A956E /* EESQLiteDatabase.m in Sources */,
+				4565C2DE19C229BB007A956E /* ____internals____.m in Sources */,
+				4565C2DA19C229BB007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				4565C2D419C229BB007A956E /* EESQLiteException.m in Sources */,
+				4565C2DC19C229BB007A956E /* EESQLiteRowIDList.m in Sources */,
+				4565C2DB19C229BB007A956E /* EESQLiteStatement.m in Sources */,
+				4565C2D919C229BB007A956E /* EESQLiteDatabase+Schema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,6 +1328,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4565C2ED19C229BC007A956E /* EESQLiteError.m in Sources */,
+				4565C2F519C229BC007A956E /* EESQLite____internal_doctor.m in Sources */,
+				4565C2EB19C229BC007A956E /* EESQLiteCommon.m in Sources */,
+				4565C2EF19C229BC007A956E /* EESQLiteDatabase+Limits.m in Sources */,
+				4565C2F019C229BC007A956E /* EESQLiteDatabase+CommandExecution.m in Sources */,
+				4565C2EE19C229BC007A956E /* EESQLiteDatabase.m in Sources */,
+				4565C2F619C229BC007A956E /* ____internals____.m in Sources */,
+				4565C2F219C229BC007A956E /* EESQLiteDatabase+SimpleQuery.m in Sources */,
+				4565C2EC19C229BC007A956E /* EESQLiteException.m in Sources */,
+				4565C2F419C229BC007A956E /* EESQLiteRowIDList.m in Sources */,
+				4565C2F319C229BC007A956E /* EESQLiteStatement.m in Sources */,
+				4565C2F119C229BC007A956E /* EESQLiteDatabase+Schema.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1332,25 +1406,6 @@
 				453AB0DA1958560E00484DE9 /* EESQLite____internal_doctor.m in Sources */,
 				45E68B4A1683347F00DAE96E /* EESQLiteRowIDList.m in Sources */,
 				45E796E9174FAEC600380A38 /* EESQLiteCommon.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		45F13E811969D0F500F7B630 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45F13EAB1969D16D00F7B630 /* EESQLiteCommon.m in Sources */,
-				45F13EAC1969D16D00F7B630 /* EESQLiteException.m in Sources */,
-				45F13EAD1969D16D00F7B630 /* EESQLiteError.m in Sources */,
-				45F13EAE1969D16D00F7B630 /* EESQLiteDatabase.m in Sources */,
-				45F13EAF1969D16D00F7B630 /* EESQLiteDatabase+Limits.m in Sources */,
-				45F13EB01969D16D00F7B630 /* EESQLiteDatabase+CommandExecution.m in Sources */,
-				45F13EB11969D16D00F7B630 /* EESQLiteDatabase+Schema.m in Sources */,
-				45F13EB21969D16D00F7B630 /* EESQLiteDatabase+SimpleQuery.m in Sources */,
-				45F13EB31969D16D00F7B630 /* EESQLiteStatement.m in Sources */,
-				45F13EB41969D16D00F7B630 /* EESQLiteRowIDList.m in Sources */,
-				45F13EB51969D16D00F7B630 /* EESQLite____internal_doctor.m in Sources */,
-				45F13EB61969D16D00F7B630 /* ____internals____.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2031,64 +2086,6 @@
 			};
 			name = Release;
 		};
-		45F13EA51969D0F500F7B630 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "CocoaSQLite3 - OSX Framework/EonilSQLite33 - OSX Framework-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = EonilSQLite3;
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Debug;
-		};
-		45F13EA61969D0F500F7B630 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "CocoaSQLite3 - OSX Framework/EonilSQLite33 - OSX Framework-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = EonilSQLite3;
-				SDKROOT = macosx;
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2205,15 +2202,6 @@
 			buildConfigurations = (
 				45E68B3E1683342700DAE96E /* Debug */,
 				45E68B3F1683342700DAE96E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		45F13EA91969D0F500F7B630 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				45F13EA51969D0F500F7B630 /* Debug */,
-				45F13EA61969D0F500F7B630 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
