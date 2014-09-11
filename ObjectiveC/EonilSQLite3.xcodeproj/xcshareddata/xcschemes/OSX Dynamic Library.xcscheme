@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4572DA5515BB1D3D0091442D"
-               BuildableName = "CocoaSQLite3.dylib"
+               BuildableName = "EonilSQLite3.dylib"
                BlueprintName = "OSX Dynamic Library"
-               ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "4572DA6715BB1D3D0091442D"
                BuildableName = "Mac OS X Dynamic Library (Tests).octest"
                BlueprintName = "Mac OS X Dynamic Library (Tests)"
-               ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "4572DA6715BB1D3D0091442D"
                BuildableName = "Mac OS X Dynamic Library (Tests).octest"
                BlueprintName = "Mac OS X Dynamic Library (Tests)"
-               ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4572DA5515BB1D3D0091442D"
-            BuildableName = "CocoaSQLite3.dylib"
+            BuildableName = "EonilSQLite3.dylib"
             BlueprintName = "OSX Dynamic Library"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4572DA5515BB1D3D0091442D"
-            BuildableName = "CocoaSQLite3.dylib"
+            BuildableName = "EonilSQLite3.dylib"
             BlueprintName = "OSX Dynamic Library"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4572DA5515BB1D3D0091442D"
-            BuildableName = "CocoaSQLite3.dylib"
+            BuildableName = "EonilSQLite3.dylib"
             BlueprintName = "OSX Dynamic Library"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

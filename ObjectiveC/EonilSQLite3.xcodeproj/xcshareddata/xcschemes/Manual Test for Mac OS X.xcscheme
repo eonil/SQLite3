@@ -17,7 +17,7 @@
                BlueprintIdentifier = "452740D615D69DBE00258461"
                BuildableName = "Manual Test for Mac OS X"
                BlueprintName = "Manual Test for Mac OS X"
-               ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "452740D615D69DBE00258461"
             BuildableName = "Manual Test for Mac OS X"
             BlueprintName = "Manual Test for Mac OS X"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -54,7 +54,7 @@
             BlueprintIdentifier = "452740D615D69DBE00258461"
             BuildableName = "Manual Test for Mac OS X"
             BlueprintName = "Manual Test for Mac OS X"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "452740D615D69DBE00258461"
             BuildableName = "Manual Test for Mac OS X"
             BlueprintName = "Manual Test for Mac OS X"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

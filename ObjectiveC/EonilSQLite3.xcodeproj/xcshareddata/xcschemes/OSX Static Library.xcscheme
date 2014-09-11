@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "45E68B301683342700DAE96E"
-               BuildableName = "libCocoaSQLite3.a"
+               BuildableName = "libEonilSQLite3.a"
                BlueprintName = "OSX Static Library"
-               ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "45E68B301683342700DAE96E"
-            BuildableName = "libCocoaSQLite3.a"
+            BuildableName = "libEonilSQLite3.a"
             BlueprintName = "OSX Static Library"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "45E68B301683342700DAE96E"
-            BuildableName = "libCocoaSQLite3.a"
+            BuildableName = "libEonilSQLite3.a"
             BlueprintName = "OSX Static Library"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

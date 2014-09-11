@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "45F13E851969D0F500F7B630"
-               BuildableName = "CocoaSQLite3.framework"
-               BlueprintName = "CocoaSQLite3 - OSX Framework"
-               ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+               BuildableName = "EonilSQLite3.framework"
+               BlueprintName = "EonilSQLite3 - OSX Framework"
+               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "45F13E851969D0F500F7B630"
-            BuildableName = "CocoaSQLite3.framework"
-            BlueprintName = "CocoaSQLite3 - OSX Framework"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            BuildableName = "EonilSQLite3.framework"
+            BlueprintName = "EonilSQLite3 - OSX Framework"
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "45F13E851969D0F500F7B630"
-            BuildableName = "CocoaSQLite3.framework"
-            BlueprintName = "CocoaSQLite3 - OSX Framework"
-            ReferencedContainer = "container:CocoaSQLite3.xcodeproj">
+            BuildableName = "EonilSQLite3.framework"
+            BlueprintName = "EonilSQLite3 - OSX Framework"
+            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
