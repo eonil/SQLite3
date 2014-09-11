@@ -6,6 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4551EAFD19C20AA00048FD31 /* EonilSQLite3 - All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4551EAFE19C20AA00048FD31 /* Build configuration list for PBXAggregateTarget "EonilSQLite3 - All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				4551EB1319C20D160048FD31 /* PBXTargetDependency */,
+				4551EB1119C20D130048FD31 /* PBXTargetDependency */,
+				4551EB0F19C20D0F0048FD31 /* PBXTargetDependency */,
+				4551EB0D19C20D0C0048FD31 /* PBXTargetDependency */,
+			);
+			name = "EonilSQLite3 - All";
+			productName = "EonilSQLite3 - All";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		4503075D15D61CD800202ED3 /* EESQLiteException.h in Headers */ = {isa = PBXBuildFile; fileRef = 4503075A15D61CD800202ED3 /* EESQLiteException.h */; };
 		4503075E15D61CD800202ED3 /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
@@ -24,9 +41,6 @@
 		4525F1D015BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
 		4525F1D115BCF86500868258 /* EESQLiteDatabase+Schema.m in Sources */ = {isa = PBXBuildFile; fileRef = 4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */; };
 		4525F1D715BCFBA800868258 /* EESQLiteCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 4525F1D515BCFBA800868258 /* EESQLiteCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		452740A615D6974500258461 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A515D6974500258461 /* UIKit.framework */; };
-		452740A815D6974500258461 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A715D6974500258461 /* Foundation.framework */; };
-		452740AA15D6974500258461 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A915D6974500258461 /* CoreGraphics.framework */; };
 		452740B015D6974500258461 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 452740AE15D6974500258461 /* InfoPlist.strings */; };
 		452740B215D6974500258461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740B115D6974500258461 /* main.m */; };
 		452740BB15D6975200258461 /* libEonilSQLite3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C1FD14CBD0CE00EF0620 /* libEonilSQLite3.a */; };
@@ -40,7 +54,6 @@
 		452740D015D6980E00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
 		452740D115D6980E00258461 /* TestContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740CE15D6980E00258461 /* TestContainer.m */; };
 		452740D215D69AA700258461 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
-		452740D915D69DBE00258461 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452740A715D6974500258461 /* Foundation.framework */; };
 		452740DC15D69DBE00258461 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 452740DB15D69DBE00258461 /* main.m */; };
 		452740E015D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 452740DF15D69DBE00258461 /* Manual_Test_for_Mac_OS_X.1 */; };
 		452740E415D69DC900258461 /* EonilSQLite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* EonilSQLite3.dylib */; };
@@ -68,6 +81,18 @@
 		453AB0EB195904EB00484DE9 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
 		453AB0EC195904EB00484DE9 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
 		45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
+		4551EA6B19C2066F0048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */; };
+		4551EA6C19C2066F0048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EA8F19C206800048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */; };
+		4551EA9019C206800048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EAB219C206D90048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */; };
+		4551EAB319C206D90048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EAD519C207180048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAC119C207170048FD31 /* EonilSQLite3.framework */; };
+		4551EAD619C207180048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAC119C207170048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EAE119C2074D0048FD31 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
+		4551EAF619C207EA0048FD31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAF419C207E30048FD31 /* Foundation.framework */; };
+		4551EAF819C208480048FD31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4525F1A215BC7F1E00868258 /* Foundation.framework */; };
+		4551EAFC19C208D60048FD31 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
 		4572DA6915BB1D3D0091442D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB651114CBF609004EF17F /* SenTestingKit.framework */; };
 		4572DA9A15BB20A30091442D /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
 		4572DA9B15BB20A30091442D /* TTEvilCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8D15BB20A30091442D /* TTEvilCase.m */; };
@@ -75,8 +100,6 @@
 		4572DA9D15BB20A30091442D /* TTHappyCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA8F15BB20A30091442D /* TTHappyCase.m */; };
 		4572DA9E15BB20A30091442D /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
 		4572DA9F15BB20A30091442D /* TTTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572DA9115BB20A30091442D /* TTTestUtility.m */; };
-		4572DAA815BB21390091442D /* Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 4572DAA615BB21390091442D /* Prefix.pch */; };
-		4572DAAD15BB21E70091442D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DAAC15BB21E70091442D /* Foundation.framework */; };
 		4572DAAF15BB22240091442D /* CocoaSQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DAB115BB22320091442D /* EESQLiteDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 4518C20F14CBD11600EF0620 /* EESQLiteDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572DAB215BB22320091442D /* EESQLiteStatement.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F446814CBDE3200FF39ED /* EESQLiteStatement.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,8 +109,6 @@
 		4572DABB15BB225A0091442D /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
 		4572DABD15BB225A0091442D /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
 		4572DABE15BB25B70091442D /* EonilSQLite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DA5615BB1D3D0091442D /* EonilSQLite3.dylib */; };
-		4572DAC815BB286D0091442D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DAC715BB286D0091442D /* libsqlite3.0.dylib */; };
-		4572DADD15BB3E440091442D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4572DAC715BB286D0091442D /* libsqlite3.0.dylib */; };
 		458F446B14CBDE3200FF39ED /* EESQLiteStatement.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F446914CBDE3200FF39ED /* EESQLiteStatement.m */; };
 		45AAB09715D6D5010094EA7A /* EESQLiteError.h in Headers */ = {isa = PBXBuildFile; fileRef = 45AAB09415D6D5010094EA7A /* EESQLiteError.h */; };
 		45AAB09815D6D5010094EA7A /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
@@ -113,7 +134,6 @@
 		45E796ED174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EE174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
 		45E796EF174FC2F800380A38 /* TTHelperFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796EB174FC2F800380A38 /* TTHelperFunctions.m */; };
-		45F13E8D1969D0F500F7B630 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45F13E8B1969D0F500F7B630 /* InfoPlist.strings */; };
 		45F13EAB1969D16D00F7B630 /* EESQLiteCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E796E6174FAEC600380A38 /* EESQLiteCommon.m */; };
 		45F13EAC1969D16D00F7B630 /* EESQLiteException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4503075B15D61CD800202ED3 /* EESQLiteException.m */; };
 		45F13EAD1969D16D00F7B630 /* EESQLiteError.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AAB09515D6D5010094EA7A /* EESQLiteError.m */; };
@@ -151,6 +171,90 @@
 			remoteGlobalIDString = 4572DA5515BB1D3D0091442D;
 			remoteInfo = "Mac OS X Dynamic Library";
 		};
+		4551EA6919C2066F0048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA5619C2066F0048FD31;
+			remoteInfo = "EonilSQLite3 - iOS - Framework - Static";
+		};
+		4551EA6D19C2066F0048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA5619C2066F0048FD31;
+			remoteInfo = "EonilSQLite3 - iOS - Framework - Static";
+		};
+		4551EA8D19C206800048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA7A19C2067F0048FD31;
+			remoteInfo = "EonilSQLite3 - iOS - Framework - Dynamic";
+		};
+		4551EA9119C206800048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA7A19C2067F0048FD31;
+			remoteInfo = "EonilSQLite3 - iOS - Framework - Dynamic";
+		};
+		4551EAB019C206D90048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA9D19C206D90048FD31;
+			remoteInfo = "EonilSQLite3 - OSX - Framework - Static";
+		};
+		4551EAB419C206D90048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA9D19C206D90048FD31;
+			remoteInfo = "EonilSQLite3 - OSX - Framework - Static";
+		};
+		4551EAD319C207170048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EAC019C207170048FD31;
+			remoteInfo = "EonilSQLite3 - OSX - Framework - Dynamic";
+		};
+		4551EAD719C207180048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EAC019C207170048FD31;
+			remoteInfo = "EonilSQLite3 - OSX - Framework - Dynamic";
+		};
+		4551EB0C19C20D0C0048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA5619C2066F0048FD31;
+			remoteInfo = "EonilSQLite3 - iOS - Framework - Static";
+		};
+		4551EB0E19C20D0F0048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA9D19C206D90048FD31;
+			remoteInfo = "EonilSQLite3 - OSX - Framework - Static";
+		};
+		4551EB1019C20D130048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EA7A19C2067F0048FD31;
+			remoteInfo = "EonilSQLite3 - iOS - Framework - Dynamic";
+		};
+		4551EB1219C20D160048FD31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4551EAC019C207170048FD31;
+			remoteInfo = "EonilSQLite3 - OSX - Framework - Dynamic";
+		};
 		4572DA6B15BB1D3D0091442D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4518C1F414CBD0CE00EF0620 /* Project object */;
@@ -178,6 +282,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		4551EA7419C2066F0048FD31 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4551EA6C19C2066F0048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
+				4551EA9019C206800048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
+				4551EAD619C207180048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
+				4551EAB319C206D90048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -198,9 +316,6 @@
 		4525F1CD15BCF86500868258 /* EESQLiteDatabase+Schema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EESQLiteDatabase+Schema.m"; sourceTree = "<group>"; };
 		4525F1D515BCFBA800868258 /* EESQLiteCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteCommon.h; sourceTree = "<group>"; };
 		452740A215D6974500258461 /* Manual Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Manual Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		452740A515D6974500258461 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		452740A715D6974500258461 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		452740A915D6974500258461 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		452740AD15D6974500258461 /* Manual Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Manual Test-Info.plist"; sourceTree = "<group>"; };
 		452740AF15D6974500258461 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		452740B115D6974500258461 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -221,6 +336,15 @@
 		453AB0E6195904EB00484DE9 /* ____internals____.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "____internals____.m"; sourceTree = "<group>"; };
 		45452C9614CC857000886D70 /* EESQLiteRowIDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteRowIDList.h; sourceTree = "<group>"; };
 		45452C9714CC857000886D70 /* EESQLiteRowIDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteRowIDList.m; sourceTree = "<group>"; };
+		4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EAC119C207170048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EAE919C207650048FD31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4551EAEB19C207650048FD31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4551EAEF19C207650048FD31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4551EAF119C207650048FD31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4551EAF419C207E30048FD31 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		4572DA5615BB1D3D0091442D /* EonilSQLite3.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = EonilSQLite3.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		4572DA6815BB1D3D0091442D /* Mac OS X Dynamic Library (Tests).octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mac OS X Dynamic Library (Tests).octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4572DA8615BB20A30091442D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -231,11 +355,7 @@
 		4572DA8F15BB20A30091442D /* TTHappyCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHappyCase.m; sourceTree = "<group>"; };
 		4572DA9015BB20A30091442D /* TTTestUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTestUtility.h; sourceTree = "<group>"; };
 		4572DA9115BB20A30091442D /* TTTestUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTestUtility.m; sourceTree = "<group>"; };
-		4572DAA315BB212D0091442D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		4572DAA615BB21390091442D /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		4572DAA915BB21670091442D /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		4572DAAC15BB21E70091442D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		4572DAC715BB286D0091442D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
 		458F446814CBDE3200FF39ED /* EESQLiteStatement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteStatement.h; sourceTree = "<group>"; };
 		458F446914CBDE3200FF39ED /* EESQLiteStatement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteStatement.m; sourceTree = "<group>"; };
 		458F446C14CBDE5800FF39ED /* EESQLiteStatement+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EESQLiteStatement+Internal.h"; sourceTree = "<group>"; };
@@ -246,11 +366,6 @@
 		45CB651014CBF609004EF17F /* SQLite-Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SQLite-Test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CB651114CBF609004EF17F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		45E68B311683342700DAE96E /* libEonilSQLite3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEonilSQLite3.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		45E68B321683342700DAE96E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		45E68B351683342700DAE96E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		45E68B361683342700DAE96E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		45E68B371683342700DAE96E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		45E68B3A1683342700DAE96E /* OS X Static Library-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OS X Static Library-Prefix.pch"; sourceTree = "<group>"; };
 		45E68BA416839E8700DAE96E /* TTRegressionTestCases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRegressionTestCases.h; sourceTree = "<group>"; };
 		45E68BA516839E8700DAE96E /* TTRegressionTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRegressionTestCases.m; sourceTree = "<group>"; };
 		45E68BB316840B7000DAE96E /* ISSUES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISSUES.md; sourceTree = "<group>"; };
@@ -258,8 +373,6 @@
 		45E796EA174FC2F800380A38 /* TTHelperFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTHelperFunctions.h; sourceTree = "<group>"; };
 		45E796EB174FC2F800380A38 /* TTHelperFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTHelperFunctions.m; sourceTree = "<group>"; };
 		45F13E861969D0F500F7B630 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		45F13E8A1969D0F500F7B630 /* EonilSQLite33 - OSX Framework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EonilSQLite33 - OSX Framework-Info.plist"; sourceTree = "<group>"; };
-		45F13E8C1969D0F500F7B630 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45F13E971969D0F500F7B630 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -275,11 +388,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4551EAB219C206D90048FD31 /* EonilSQLite3.framework in Frameworks */,
+				4551EA8F19C206800048FD31 /* EonilSQLite3.framework in Frameworks */,
 				452740D215D69AA700258461 /* libsqlite3.0.dylib in Frameworks */,
+				4551EA6B19C2066F0048FD31 /* EonilSQLite3.framework in Frameworks */,
 				452740BB15D6975200258461 /* libEonilSQLite3.a in Frameworks */,
-				452740A615D6974500258461 /* UIKit.framework in Frameworks */,
-				452740A815D6974500258461 /* Foundation.framework in Frameworks */,
-				452740AA15D6974500258461 /* CoreGraphics.framework in Frameworks */,
+				4551EAD519C207180048FD31 /* EonilSQLite3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +402,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				452740E415D69DC900258461 /* EonilSQLite3.dylib in Frameworks */,
-				452740D915D69DBE00258461 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA5319C2066F0048FD31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA7719C2067F0048FD31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4551EAF619C207EA0048FD31 /* Foundation.framework in Frameworks */,
+				4551EAE119C2074D0048FD31 /* libsqlite3.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA9A19C206D90048FD31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EABD19C207170048FD31 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4551EAFC19C208D60048FD31 /* libsqlite3.0.dylib in Frameworks */,
+				4551EAF819C208480048FD31 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,8 +441,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4572DAAD15BB21E70091442D /* Foundation.framework in Frameworks */,
-				4572DAC815BB286D0091442D /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +451,6 @@
 				4525F1A615BC7F7100868258 /* Foundation.framework in Frameworks */,
 				4572DABE15BB25B70091442D /* EonilSQLite3.dylib in Frameworks */,
 				4572DA6915BB1D3D0091442D /* SenTestingKit.framework in Frameworks */,
-				4572DADD15BB3E440091442D /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,16 +490,13 @@
 				45934D52168443A8009C3D30 /* MANUAL.md */,
 				45E68BB316840B7000DAE96E /* ISSUES.md */,
 				4572DAA915BB21670091442D /* Prefix.pch */,
-				4518C20214CBD0CE00EF0620 /* EonilSQLite */,
-				4518C1FF14CBD0CE00EF0620 /* Frameworks and Libraries */,
-				4572DAA015BB21100091442D /* Targets */,
+				4518C20214CBD0CE00EF0620 /* Sources */,
+				4551EAE519C207650048FD31 /* Targets */,
+				4572DA8315BB20A30091442D /* Tests */,
 				452740AB15D6974500258461 /* Manual Test */,
 				452740DA15D69DBE00258461 /* Manual Test for Mac OS X */,
-				45E68B381683342700DAE96E /* OS X Static Library */,
-				45F13E881969D0F500F7B630 /* CocoaSQLite3 - OSX Framework */,
 				452740A415D6974500258461 /* Frameworks */,
 				4518C1FE14CBD0CE00EF0620 /* Products */,
-				4572DA8315BB20A30091442D /* Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -372,19 +511,15 @@
 				452740D715D69DBE00258461 /* Manual Test for Mac OS X */,
 				45E68B311683342700DAE96E /* libEonilSQLite3.a */,
 				45F13E861969D0F500F7B630 /* EonilSQLite3.framework */,
+				4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */,
+				4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */,
+				4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */,
+				4551EAC119C207170048FD31 /* EonilSQLite3.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4518C1FF14CBD0CE00EF0620 /* Frameworks and Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				4572DAAC15BB21E70091442D /* Foundation.framework */,
-			);
-			name = "Frameworks and Libraries";
-			sourceTree = "<group>";
-		};
-		4518C20214CBD0CE00EF0620 /* EonilSQLite */ = {
+		4518C20214CBD0CE00EF0620 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				4518C20514CBD0CE00EF0620 /* CocoaSQLite.h */,
@@ -412,19 +547,15 @@
 				453AB0CB195855E600484DE9 /* (internal-only embedded external sources) */,
 				453AB0E4195904D100484DE9 /* (internal-only internal object accessors) */,
 			);
-			name = EonilSQLite;
-			path = CocoaSQLite;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		452740A415D6974500258461 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				452740A515D6974500258461 /* UIKit.framework */,
-				452740A715D6974500258461 /* Foundation.framework */,
-				452740A915D6974500258461 /* CoreGraphics.framework */,
-				45E68B321683342700DAE96E /* Cocoa.framework */,
+				4551EAF419C207E30048FD31 /* Foundation.framework */,
+				4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */,
 				45F13E971969D0F500F7B630 /* XCTest.framework */,
-				45E68B341683342700DAE96E /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -484,6 +615,97 @@
 			name = "(internal-only internal object accessors)";
 			sourceTree = "<group>";
 		};
+		4551EAE519C207650048FD31 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAE619C207650048FD31 /* iOS */,
+				4551EAEC19C207650048FD31 /* OSX */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		4551EAE619C207650048FD31 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAF919C2089E0048FD31 /* (dependencies) */,
+				4551EAE719C207650048FD31 /* Framework */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		4551EAE719C207650048FD31 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAE819C207650048FD31 /* Dynamic */,
+				4551EAEA19C207650048FD31 /* Static */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		4551EAE819C207650048FD31 /* Dynamic */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAE919C207650048FD31 /* Info.plist */,
+			);
+			path = Dynamic;
+			sourceTree = "<group>";
+		};
+		4551EAEA19C207650048FD31 /* Static */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAEB19C207650048FD31 /* Info.plist */,
+			);
+			path = Static;
+			sourceTree = "<group>";
+		};
+		4551EAEC19C207650048FD31 /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAFA19C208A60048FD31 /* New Group */,
+				4551EAED19C207650048FD31 /* Framework */,
+			);
+			path = OSX;
+			sourceTree = "<group>";
+		};
+		4551EAED19C207650048FD31 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAEE19C207650048FD31 /* Dynamic */,
+				4551EAF019C207650048FD31 /* Static */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		4551EAEE19C207650048FD31 /* Dynamic */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAEF19C207650048FD31 /* Info.plist */,
+			);
+			path = Dynamic;
+			sourceTree = "<group>";
+		};
+		4551EAF019C207650048FD31 /* Static */ = {
+			isa = PBXGroup;
+			children = (
+				4551EAF119C207650048FD31 /* Info.plist */,
+			);
+			path = Static;
+			sourceTree = "<group>";
+		};
+		4551EAF919C2089E0048FD31 /* (dependencies) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "(dependencies)";
+			sourceTree = "<group>";
+		};
+		4551EAFA19C208A60048FD31 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
 		4572DA8315BB20A30091442D /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,76 +732,6 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		4572DAA015BB21100091442D /* Targets */ = {
-			isa = PBXGroup;
-			children = (
-				4572DAA115BB21100091442D /* iOS */,
-				4572DAA215BB21100091442D /* Mac OS X */,
-			);
-			path = Targets;
-			sourceTree = "<group>";
-		};
-		4572DAA115BB21100091442D /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */,
-				4572DAA315BB212D0091442D /* Prefix.pch */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		4572DAA215BB21100091442D /* Mac OS X */ = {
-			isa = PBXGroup;
-			children = (
-				4572DAC715BB286D0091442D /* libsqlite3.0.dylib */,
-				4572DAA615BB21390091442D /* Prefix.pch */,
-			);
-			path = "Mac OS X";
-			sourceTree = "<group>";
-		};
-		45E68B341683342700DAE96E /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				45E68B351683342700DAE96E /* AppKit.framework */,
-				45E68B361683342700DAE96E /* CoreData.framework */,
-				45E68B371683342700DAE96E /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		45E68B381683342700DAE96E /* OS X Static Library */ = {
-			isa = PBXGroup;
-			children = (
-				45E68B391683342700DAE96E /* Supporting Files */,
-			);
-			path = "OS X Static Library";
-			sourceTree = "<group>";
-		};
-		45E68B391683342700DAE96E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45E68B3A1683342700DAE96E /* OS X Static Library-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		45F13E881969D0F500F7B630 /* CocoaSQLite3 - OSX Framework */ = {
-			isa = PBXGroup;
-			children = (
-				45F13E891969D0F500F7B630 /* Supporting Files */,
-			);
-			path = "CocoaSQLite3 - OSX Framework";
-			sourceTree = "<group>";
-		};
-		45F13E891969D0F500F7B630 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45F13E8A1969D0F500F7B630 /* EonilSQLite33 - OSX Framework-Info.plist */,
-				45F13E8B1969D0F500F7B630 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -593,11 +745,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4551EA5419C2066F0048FD31 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA7819C2067F0048FD31 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA9B19C206D90048FD31 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EABE19C207170048FD31 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4572DA5415BB1D3D0091442D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4572DAA815BB21390091442D /* Prefix.pch in Headers */,
 				453AB0E9195904EB00484DE9 /* ____internals____.h in Headers */,
 				4572DAAF15BB22240091442D /* CocoaSQLite.h in Headers */,
 				4572DAB115BB22320091442D /* EESQLiteDatabase.h in Headers */,
@@ -666,11 +845,20 @@
 				4527409E15D6974500258461 /* Sources */,
 				4527409F15D6974500258461 /* Frameworks */,
 				452740A015D6974500258461 /* Resources */,
+				4551EA7419C2066F0048FD31 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				452740BD15D6975D00258461 /* PBXTargetDependency */,
+				4551EA6A19C2066F0048FD31 /* PBXTargetDependency */,
+				4551EA6E19C2066F0048FD31 /* PBXTargetDependency */,
+				4551EA8E19C206800048FD31 /* PBXTargetDependency */,
+				4551EA9219C206800048FD31 /* PBXTargetDependency */,
+				4551EAB119C206D90048FD31 /* PBXTargetDependency */,
+				4551EAB519C206D90048FD31 /* PBXTargetDependency */,
+				4551EAD419C207170048FD31 /* PBXTargetDependency */,
+				4551EAD819C207180048FD31 /* PBXTargetDependency */,
 			);
 			name = "Manual Test";
 			productName = "Manual Test";
@@ -694,6 +882,78 @@
 			productName = "Manual Test for Mac OS X";
 			productReference = 452740D715D69DBE00258461 /* Manual Test for Mac OS X */;
 			productType = "com.apple.product-type.tool";
+		};
+		4551EA5619C2066F0048FD31 /* EonilSQLite3 - iOS - Framework - Static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4551EA7319C2066F0048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Static" */;
+			buildPhases = (
+				4551EA5219C2066F0048FD31 /* Sources */,
+				4551EA5319C2066F0048FD31 /* Frameworks */,
+				4551EA5419C2066F0048FD31 /* Headers */,
+				4551EA5519C2066F0048FD31 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EonilSQLite3 - iOS - Framework - Static";
+			productName = "EonilSQLite3 - iOS - Framework - Static";
+			productReference = 4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4551EA7A19C2067F0048FD31 /* EonilSQLite3 - iOS - Framework - Dynamic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4551EA9319C206800048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Dynamic" */;
+			buildPhases = (
+				4551EA7619C2067F0048FD31 /* Sources */,
+				4551EA7719C2067F0048FD31 /* Frameworks */,
+				4551EA7819C2067F0048FD31 /* Headers */,
+				4551EA7919C2067F0048FD31 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EonilSQLite3 - iOS - Framework - Dynamic";
+			productName = "EonilSQLite3 - iOS - Framework - Dynamic";
+			productReference = 4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4551EA9D19C206D90048FD31 /* EonilSQLite3 - OSX - Framework - Static */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4551EAB619C206D90048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX - Framework - Static" */;
+			buildPhases = (
+				4551EA9919C206D90048FD31 /* Sources */,
+				4551EA9A19C206D90048FD31 /* Frameworks */,
+				4551EA9B19C206D90048FD31 /* Headers */,
+				4551EA9C19C206D90048FD31 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EonilSQLite3 - OSX - Framework - Static";
+			productName = "EonilSQLite3 - OSX - Framework - Static";
+			productReference = 4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4551EAC019C207170048FD31 /* EonilSQLite3 - OSX - Framework - Dynamic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4551EAD919C207180048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX - Framework - Dynamic" */;
+			buildPhases = (
+				4551EABC19C207170048FD31 /* Sources */,
+				4551EABD19C207170048FD31 /* Frameworks */,
+				4551EABE19C207170048FD31 /* Headers */,
+				4551EABF19C207170048FD31 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EonilSQLite3 - OSX - Framework - Dynamic";
+			productName = "EonilSQLite3 - OSX - Framework - Dynamic";
+			productReference = 4551EAC119C207170048FD31 /* EonilSQLite3.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		4572DA5515BB1D3D0091442D /* OSX Dynamic Library */ = {
 			isa = PBXNativeTarget;
@@ -795,6 +1055,23 @@
 				LastTestingUpgradeCheck = 0600;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Eonil Company";
+				TargetAttributes = {
+					4551EA5619C2066F0048FD31 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					4551EA7A19C2067F0048FD31 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					4551EA9D19C206D90048FD31 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					4551EAC019C207170048FD31 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					4551EAFD19C20AA00048FD31 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
 			};
 			buildConfigurationList = 4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "EonilSQLite3" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -816,6 +1093,11 @@
 				4572DA6715BB1D3D0091442D /* Mac OS X Dynamic Library (Tests) */,
 				452740A115D6974500258461 /* Manual Test */,
 				452740D615D69DBE00258461 /* Manual Test for Mac OS X */,
+				4551EA5619C2066F0048FD31 /* EonilSQLite3 - iOS - Framework - Static */,
+				4551EA9D19C206D90048FD31 /* EonilSQLite3 - OSX - Framework - Static */,
+				4551EA7A19C2067F0048FD31 /* EonilSQLite3 - iOS - Framework - Dynamic */,
+				4551EAC019C207170048FD31 /* EonilSQLite3 - OSX - Framework - Dynamic */,
+				4551EAFD19C20AA00048FD31 /* EonilSQLite3 - All */,
 			);
 		};
 /* End PBXProject section */
@@ -826,6 +1108,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				452740B015D6974500258461 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA5519C2066F0048FD31 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA7919C2067F0048FD31 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA9C19C206D90048FD31 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EABF19C207170048FD31 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,7 +1157,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45F13E8D1969D0F500F7B630 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,6 +1238,34 @@
 				452740ED15D69DDC00258461 /* TTTestUtility.m in Sources */,
 				45E68BB216839EAD00DAE96E /* TTRegressionTestCases.m in Sources */,
 				45E796EF174FC2F800380A38 /* TTHelperFunctions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA5219C2066F0048FD31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA7619C2067F0048FD31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EA9919C206D90048FD31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4551EABC19C207170048FD31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,6 +1367,66 @@
 			target = 4572DA5515BB1D3D0091442D /* OSX Dynamic Library */;
 			targetProxy = 452740E515D69DCE00258461 /* PBXContainerItemProxy */;
 		};
+		4551EA6A19C2066F0048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA5619C2066F0048FD31 /* EonilSQLite3 - iOS - Framework - Static */;
+			targetProxy = 4551EA6919C2066F0048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EA6E19C2066F0048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA5619C2066F0048FD31 /* EonilSQLite3 - iOS - Framework - Static */;
+			targetProxy = 4551EA6D19C2066F0048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EA8E19C206800048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA7A19C2067F0048FD31 /* EonilSQLite3 - iOS - Framework - Dynamic */;
+			targetProxy = 4551EA8D19C206800048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EA9219C206800048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA7A19C2067F0048FD31 /* EonilSQLite3 - iOS - Framework - Dynamic */;
+			targetProxy = 4551EA9119C206800048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EAB119C206D90048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA9D19C206D90048FD31 /* EonilSQLite3 - OSX - Framework - Static */;
+			targetProxy = 4551EAB019C206D90048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EAB519C206D90048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA9D19C206D90048FD31 /* EonilSQLite3 - OSX - Framework - Static */;
+			targetProxy = 4551EAB419C206D90048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EAD419C207170048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EAC019C207170048FD31 /* EonilSQLite3 - OSX - Framework - Dynamic */;
+			targetProxy = 4551EAD319C207170048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EAD819C207180048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EAC019C207170048FD31 /* EonilSQLite3 - OSX - Framework - Dynamic */;
+			targetProxy = 4551EAD719C207180048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EB0D19C20D0C0048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA5619C2066F0048FD31 /* EonilSQLite3 - iOS - Framework - Static */;
+			targetProxy = 4551EB0C19C20D0C0048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EB0F19C20D0F0048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA9D19C206D90048FD31 /* EonilSQLite3 - OSX - Framework - Static */;
+			targetProxy = 4551EB0E19C20D0F0048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EB1119C20D130048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EA7A19C2067F0048FD31 /* EonilSQLite3 - iOS - Framework - Dynamic */;
+			targetProxy = 4551EB1019C20D130048FD31 /* PBXContainerItemProxy */;
+		};
+		4551EB1319C20D160048FD31 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4551EAC019C207170048FD31 /* EonilSQLite3 - OSX - Framework - Dynamic */;
+			targetProxy = 4551EB1219C20D160048FD31 /* PBXContainerItemProxy */;
+		};
 		4572DA6C15BB1D3D0091442D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4572DA5515BB1D3D0091442D /* OSX Dynamic Library */;
@@ -1047,14 +1444,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				452740AF15D6974500258461 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		45F13E8B1969D0F500F7B630 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				45F13E8C1969D0F500F7B630 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1089,7 +1478,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"EESQLITE_DEBUG_MODE=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1129,7 +1517,6 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "EESQLITE_DEBUG_MODE=0";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1185,6 +1572,7 @@
 				GCC_PREFIX_HEADER = "Manual Test/Manual Test-Prefix.pch";
 				INFOPLIST_FILE = "Manual Test/Manual Test-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1203,6 +1591,7 @@
 				GCC_PREFIX_HEADER = "Manual Test/Manual Test-Prefix.pch";
 				INFOPLIST_FILE = "Manual Test/Manual Test-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1233,6 +1622,278 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4551EA6F19C2066F0048FD31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/iOS/Framework/Static/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4551EA7019C2066F0048FD31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/iOS/Framework/Static/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4551EA9419C206800048FD31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/iOS/Framework/Dynamic/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4551EA9519C206800048FD31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/iOS/Framework/Dynamic/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4551EAB719C206D90048FD31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/OSX/Framework/Dynamic/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4551EAB819C206D90048FD31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/OSX/Framework/Dynamic/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4551EADA19C207180048FD31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/OSX/Framework/Dynamic/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4551EADB19C207180048FD31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Targets/OSX/Framework/Dynamic/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4551EAFF19C20AA00048FD31 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4551EB0019C20AA00048FD31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1461,6 +2122,51 @@
 			buildConfigurations = (
 				452740E215D69DBE00258461 /* Debug */,
 				452740E315D69DBE00258461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4551EA7319C2066F0048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4551EA6F19C2066F0048FD31 /* Debug */,
+				4551EA7019C2066F0048FD31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4551EA9319C206800048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Dynamic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4551EA9419C206800048FD31 /* Debug */,
+				4551EA9519C206800048FD31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4551EAB619C206D90048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX - Framework - Static" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4551EAB719C206D90048FD31 /* Debug */,
+				4551EAB819C206D90048FD31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4551EAD919C207180048FD31 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX - Framework - Dynamic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4551EADA19C207180048FD31 /* Debug */,
+				4551EADB19C207180048FD31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4551EAFE19C20AA00048FD31 /* Build configuration list for PBXAggregateTarget "EonilSQLite3 - All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4551EAFF19C20AA00048FD31 /* Debug */,
+				4551EB0019C20AA00048FD31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

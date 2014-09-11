@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45F13E851969D0F500F7B630"
+               BlueprintIdentifier = "4551EAC019C207170048FD31"
                BuildableName = "EonilSQLite3.framework"
-               BlueprintName = "EonilSQLite3 - OSX Framework"
+               BlueprintName = "EonilSQLite3 - OSX - Framework - Dynamic"
                ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45F13E851969D0F500F7B630"
+            BlueprintIdentifier = "4551EAC019C207170048FD31"
             BuildableName = "EonilSQLite3.framework"
-            BlueprintName = "EonilSQLite3 - OSX Framework"
+            BlueprintName = "EonilSQLite3 - OSX - Framework - Dynamic"
             ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -60,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45F13E851969D0F500F7B630"
+            BlueprintIdentifier = "4551EAC019C207170048FD31"
             BuildableName = "EonilSQLite3.framework"
-            BlueprintName = "EonilSQLite3 - OSX Framework"
+            BlueprintName = "EonilSQLite3 - OSX - Framework - Dynamic"
             ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

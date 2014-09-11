@@ -70,6 +70,19 @@ sqlite3_stmt* const		eesqlite3____get_raw_stmt_object_from(EESQLiteStatement* st
 
 #pragma mark	-	Dynamic Assertion Utilities (Copied from Universe)
 
+/*!
+ Detect Xcode default macro for debugging.
+ */
+#if	DEBUG
+#define EESQLITE_DEBUG_MODE			1
+#else
+#define	EESQLITE_DEBUG_MODE			0
+#endif
+
+#ifndef EESQLITE_DEBUG_MODE		
+#error	"`EESQLITE_DEBUG_MODE` Macro symbol has not been detected. You must define it. See MANUAL for details."
+#endif
+
 #define	EONIL_DEBUG_MODE			EESQLITE_DEBUG_MODE
 
 
