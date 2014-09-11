@@ -733,7 +733,7 @@
 			name = "Mac OS X Dynamic Library (Tests)";
 			productName = "SQLite for Mac OS XTests";
 			productReference = 4572DA6815BB1D3D0091442D /* Mac OS X Dynamic Library (Tests).octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		45CB650F14CBF609004EF17F /* iOS Static Library (Test) */ = {
 			isa = PBXNativeTarget;
@@ -752,7 +752,7 @@
 			name = "iOS Static Library (Test)";
 			productName = "EonilCocoaComplements-SQLite-Test";
 			productReference = 45CB651014CBF609004EF17F /* SQLite-Test.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		45E68B301683342700DAE96E /* OSX Static Library */ = {
 			isa = PBXNativeTarget;
@@ -796,8 +796,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = EESQLite;
-				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0510;
+				LastTestingUpgradeCheck = 0600;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Eonil Company";
 			};
 			buildConfigurationList = 4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "CocoaSQLite3" */;
@@ -1078,11 +1078,13 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1120,11 +1122,13 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
