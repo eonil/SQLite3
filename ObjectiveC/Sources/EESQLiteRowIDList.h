@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 
 typedef				long long		EESQLiteRowID;
 
