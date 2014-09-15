@@ -14,4 +14,11 @@
          location = "group:EonilSQLite3.xcodeproj">
       </FileRef>
    </Group>
+   <Group
+      location = "group:Swift"
+      name = "Swift">
+      <FileRef
+         location = "group:EonilSQLite3/EonilSQLite3.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
