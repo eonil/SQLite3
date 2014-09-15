@@ -51,6 +51,13 @@ extension Core
 			assert(_rawptr == C.NULL)
 		}
 		
+		var null:Bool
+		{
+			get
+			{
+				return	_rawptr == C.NULL
+			}
+		}
 		
 		func sql() -> String?
 		{

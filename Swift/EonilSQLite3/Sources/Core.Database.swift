@@ -8,6 +8,14 @@
 
 import Foundation
 
+
+
+
+
+
+
+
+
 extension
 Core
 {
@@ -71,7 +79,14 @@ Core
 		
 		
 		
-		
+		///	Queries whether this is pointing something or nothing.
+		var null:Bool
+		{
+			get
+			{
+				return	_rawptr == C.NULL
+			}
+		}
 		
 		var currentErrorMessage:String
 		{

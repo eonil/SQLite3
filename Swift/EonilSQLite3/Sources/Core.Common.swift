@@ -12,12 +12,10 @@ extension Core
 {
 	struct Common
 	{
-		
 	}
 }
 
-extension
-Core.Common
+extension Core.Common
 {
 	@noreturn static func crash(message s:String = "")
 	{

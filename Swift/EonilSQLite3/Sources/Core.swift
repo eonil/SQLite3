@@ -24,5 +24,4 @@ struct Core
 
 extension Core
 {
-
 }

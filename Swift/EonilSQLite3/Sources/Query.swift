@@ -16,60 +16,6 @@ QueryExpressive
 	func express(uniqueParameterNameGenerator upng:Query.UniqueParameterNameGenerator) -> Query.Expression
 }
 
-func +(left:Query.Expression, right:Query.Expression) -> Query.Expression
-{
-	return	Query.Expression(code: left.code + right.code, parameters: left.parameters + right.parameters)
-}
-func +(left:Query.Expression, right:Query.Expression?) -> Query.Expression
-{
-	return	right == nil ? left : (left + right!)
-}
-func +(left:Query.Expression, right:String) -> Query.Expression
-{
-	return	left + Query.Expression(code: right, parameters: [])
-}
-func +(left:String, right:Query.Expression) -> Query.Expression
-{
-	return	Query.Expression(code: left, parameters: []) + right
-}
-
-
-func &(left:Query.FilterTree.Node, right:Query.FilterTree.Node) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Branch(combination: Query.FilterTree.Node.Combination.And, subnodes: [left, right])
-}
-func |(left:Query.FilterTree.Node, right:Query.FilterTree.Node) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Branch(combination: Query.FilterTree.Node.Combination.Or, subnodes: [left, right])
-}
-
-func ==(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: left, value: right)
-}
-func !=(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.NotEqual, column: left, value: right)
-}
-func <(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.LessThan, column: left, value: right)
-}
-func >(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.GreaterThan, column: left, value: right)
-}
-func <=(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.EqualOrLessThan, column: left, value: right)
-}
-func >=(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
-{
-	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.EqualOrGreaterThan, column: left, value: right)
-}
-
-
-
 struct Query
 {
 	
@@ -84,10 +30,12 @@ struct Query
 
 	///	Represents a fragment of a query.
 	struct
-	Expression
+	Expression : StringLiteralConvertible
 	{
 		let	code:String
 		let	parameters:ParameterNameValueMappings	=	[]
+		
+		
 		
 		static let	empty	=	Expression(code: "", parameters: [])
 		
@@ -103,6 +51,18 @@ struct Query
 		static func expressionize<T:QueryExpressive>(using upng:UniqueParameterNameGenerator)(elements:[T]) -> ExpressionList
 		{
 			return	ExpressionList(items: elements.map(expressionize(upng)))
+		}
+		
+		
+		
+		static func convertFromStringLiteral(value: String) -> Expression
+		{
+			return	Expression(code: value, parameters: [])
+		}
+		
+		static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Expression
+		{
+			return	Expression(code: value, parameters: [])
 		}
 	}
 	struct
@@ -261,8 +221,8 @@ struct Query
 				{
 					switch self
 					{
-						case .And:				return	Expression(code: "AND", parameters: [])
-						case .Or:				return	Expression(code: "OR", parameters: [])
+						case .And:	return	Expression(code: "AND", parameters: [])
+						case .Or:	return	Expression(code: "OR", parameters: [])
 					}
 				}
 			}
@@ -296,106 +256,7 @@ struct Query
 	
 	
 	
-	
-	
-	
-	
-	
-	///	Repesents SELECT statement.
-	///
-	///		SELECT * FROM "MyTable1"
-	///		SELECT "col1", "col2", "col3" FROM "YourTable2"
-	///
-	struct Select : QueryExpressive
-	{
-		static func all(of table:Identifier) -> QueryExpressive
-		{
-			return	Select(table: table, columns: Query.ColumnList.All, filter: nil)
-		}
 		
-		let	table:Identifier
-		let	columns:Query.ColumnList
-		let	filter:Query.FilterTree?
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
-			return	Expression(code: "SELECT ", parameters: [])
-			+		columns.express(uniqueParameterNameGenerator: upng)
-			+		Expression(code: " FROM ", parameters: [])
-			+		table.express(uniqueParameterNameGenerator: upng)
-			+		(filter == nil ? "" : " WHERE ")
-			+		filter?.express(uniqueParameterNameGenerator: upng)
-		}
-	}
-	
-	///	Represents INSERT statement.
-	///
-	///		INSERT INTO "MyTable1" ("col1", "col2", "col3") VALUES (@param1, @param2, @param3)
-	///
-	struct Insert : QueryExpressive
-	{
-		let	table:Identifier
-		let	bindings:[Query.Binding]
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
-			let	ns	=	bindings.map({ (n:Query.Binding) -> Expression in return n.column.express(uniqueParameterNameGenerator: upng) })
-			let	ps	=	bindings.map({ (n:Query.Binding) -> AnyObject in return n.value })
-			
-			let	nl	=	ExpressionList(items: ns).concatenationWith(separator: ", ")						///<	`col1, col2, col3, ...`
-			let	pl	=	Expression.byGeneratingUniqueParameterNames(using: upng, with: ps)					///<	`@p1, @p2, @p3, ...`
-			
-			return	"INSERT INTO "
-			+		table.express(uniqueParameterNameGenerator: upng)
-			+		"("
-			+		nl
-			+		")"
-			+		" VALUES "
-			+		"("
-			+		pl
-			+		")"
-		}
-	}
-	
-	///	Represents UPDATE statement.
-	///
-	///		UPDATE "MyTable1" SET "col1"=@param1, "col2"=@param2, "col3"=@param3 WHERE "col4"=@param4
-	///
-	struct Update : QueryExpressive
-	{
-		let	table:Identifier
-		let	bindings:Query.BindingList
-		let	filter:Query.FilterTree?
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
-			return	"UPDATE "
-			+		table.express(uniqueParameterNameGenerator: upng)
-			+		" SET "
-			+		bindings.express(uniqueParameterNameGenerator: upng)
-			+		" WHERE "
-			+		filter?.express(uniqueParameterNameGenerator: upng)
-		}
-	}
-	
-	///	Represents DELETE statement.
-	///	
-	///		DELETE FROM "MyTable1" WHERE "col1"=@param1
-	///
-	struct Delete : QueryExpressive
-	{
-		let	table:Identifier
-		let	filter:Query.FilterTree
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
-			return	"DELETE FROM "
-			+	table.express(uniqueParameterNameGenerator: upng)
-			+	" WHERE "
-			+	filter.express(uniqueParameterNameGenerator: upng)
-		}
-	}
-	
 }
 
 
