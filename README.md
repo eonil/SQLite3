@@ -1,27 +1,11 @@
-Eonil's SQLite3 wrapper library
-===============================
-Hoon H., 2014/09/12 2014/06/24 2012/12/21 2012/10/04
+EonilSQLite3
+============
+Hoon H., 2014/09/16
 
 
 
 
-
-
-
-
-
-
-
-`EonilSQLite` is an Objective-C library which wraps C-level SQLite3 database engine library.
-This library provides these features.
-
--	Reducing complexity of using C level functions directly.
--	Offers simple and object-oriented data handling. (handling data using `NSValue`, `NSDictionary` and `NSArray`)
-
-
-
-
-
+This provides SQLite3 database access API on Swift.
 
 
 
@@ -29,62 +13,19 @@ This library provides these features.
 
 Getting Started
 ---------------
-
-First, make a new database. We will use in-memory database for easy start up.
-
-	EESQLiteDatabase*	db1	=	[EESQLiteDatabase temporaryDatabaseInMemory];
-	
-Create tables.
-
-	[db1 addTableWithName:@"Table1" withColumnNames:@[@"col1", @"col2", @"col3"]];
-	
-insert some rows.
-
-	NSDictionary*		row	=	@
-	{
-		@"col1"				:	@(56),
-		@"col2"				:	@"pancake",
-	};
-	EESQLiteRowID	rowID	=	[db1 insertDictionaryValue:row intoTable:@"Table1"];
-
-and, delete it.
-
-	[db1 deleteRowHasID:rowID fromTable:@"Table1"];
-
-Of course, you also can perform transaction.
-
-	[db1 performTransactionUsingBlock:^
-	{
-		NSDictionary*		row	=	@
-		{
-			@"col1"				:	@(56),
-			@"col2"				:	@"pancake",
-		};
-		EESQLiteRowID	rowID	=	[db1 insertDictionaryValue:row intoTable:@"Table1"];
-		[db1 deleteRowHasID:rowID fromTable:@"Table1"];
-
-		//	Will commit automatically after the block finished.
-		//	Any exception will cause rollback.
-	}];
+Embed the project as a subproject of your project, and link iOS dynamic
+framewor target. If you need to target iOS 7-, then you have to copy the
+source files manually into your project. Because Swift is not currently
+supporting static library target.
 
 
 
 
 
 
-See `MANUAL.md` file for more informations.
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
+How to Use
+----------
 
 
 
@@ -100,3 +41,21 @@ See `MANUAL.md` file for more informations.
 
 
 
+
+
+
+
+Objective-C
+-----------
+Good old Objective-C version library still exists in `ObjectiveC` folder.
+Anyway, it's completely separated version, and nothing related to Swift 
+version. Swift version is pure Swift based, and interfaces to SQLite3 C 
+API directly.
+
+
+
+
+
+License
+-------
+MIT license.
