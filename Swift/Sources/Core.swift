@@ -11,7 +11,7 @@ import Foundation
 ///
 ///	`Core` layer manages these stuffs in proper Swift semantics.
 ///	-	type conversion into Swift semantics. 
-///	-	error handling (to crash)
+///	-	error handling (currently, all errors just crashes)
 ///	-	input/output validation
 ///	No extra abstractions or lifecycle management. You still need
 ///	to manage lifecycle yourself manually.
@@ -24,4 +24,11 @@ struct Core
 
 extension Core
 {
+	struct Debug
+	{
+		static func log(message m:String)
+		{
+			println(m)
+		}
+	}
 }

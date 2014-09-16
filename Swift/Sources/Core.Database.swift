@@ -14,7 +14,10 @@ import Foundation
 
 
 
-
+func |(left:Core.Database.OpenFlag, right:Core.Database.OpenFlag) -> Core.Database.OpenFlag
+{
+	return	Core.Database.OpenFlag(value: left.value | right.value)
+}
 
 extension
 Core
@@ -26,7 +29,6 @@ Core
 		
 		struct OpenFlag
 		{
-			static let	None		=	OpenFlag(value: 0)
 			static let	Readonly	=	OpenFlag(value: SQLITE_OPEN_READONLY)
 			static let	ReadWrite	=	OpenFlag(value: SQLITE_OPEN_READWRITE)
 			static let	Create		=	OpenFlag(value: SQLITE_OPEN_CREATE)
@@ -42,12 +44,12 @@ Core
 				{
 					let	opts	=
 					[
-						OpenFlag.Readonly,
-						OpenFlag.ReadWrite,
-						OpenFlag.Create,
+						SQLITE_OPEN_READONLY,
+						SQLITE_OPEN_READWRITE,
+						SQLITE_OPEN_CREATE,
 					]
 					
-					let		has_any	=	opts.filter({ a in return a.value & value > 0 }).count > 0
+					let		has_any	=	opts.filter({ a in return a & value > 0 }).count > 0
 					return	has_any
 				}
 				assert(validate(value))
@@ -124,10 +126,21 @@ Core
 		
 		func checkNoErrorWith(resultCode code:Int32)
 		{
-			assert(code == sqlite3_errcode(_rawptr))
-			assert(code == SQLITE_OK)
-			println("[ERROR] \(currentErrorMessage)")
-			Common.crash()
+			if code == SQLITE_OK
+			{
+				///	OK status must be processed first to prevent
+				///	querying on closed connection to database object.
+				///	This function can be called even on closed 
+				///	database object.
+				return
+			}
+			else
+			{
+				println("[ERROR] \(currentErrorMessage)")
+				assert(code == sqlite3_errcode(_rawptr))
+				Common.crash()
+			}
+			
 		}
 		
 		///	If `reset` is `true`, then the peak value will be reset after return.
@@ -136,16 +149,8 @@ Core
 			var	c	=	Int32(0)
 			var	p	=	Int32(0)
 			
-			let	pc	=	UnsafeMutablePointer<Int32>.null()
-			let	pp	=	UnsafeMutablePointer<Int32>.null()
-			pc.initialize(c)
-			pp.initialize(p)
-			
-			let	r	=	sqlite3_status(op.value, pc, pp, C.TRUE)
+			let	r	=	sqlite3_status(op.value, &c, &p, C.TRUE)
 			checkNoErrorWith(resultCode: r)
-			
-			pp.destroy()
-			pc.destroy()
 			
 			return	(c, p)
 		}
@@ -155,13 +160,9 @@ Core
 			assert(_rawptr == C.NULL)
 			
 			let	name2	=	filename.cStringUsingEncoding(NSUTF8StringEncoding)!
-			var ptr		=	UnsafeMutablePointer<COpaquePointer>()
-			ptr.initialize(_rawptr)
 			
-			let	r	=	sqlite3_open_v2(name2, ptr, flags.value, UnsafePointer<Int8>.null())
+			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, UnsafePointer<Int8>.null())
 			checkNoErrorWith(resultCode: r)
-			
-			ptr.destroy()
 		}
 		
 		func close()
@@ -173,30 +174,23 @@ Core
 			//	error -- a bug, and crashes the execution.
 			let	r	=	sqlite3_close(_rawptr)
 			checkNoErrorWith(resultCode: r)
-			_rawptr	=	COpaquePointer.null()
+			_rawptr	=	C.NULL
 		}
 		
 		///	Returns `nil` for `tail` if the SQL fully consumed.
-		func prepare(SQL:String) -> (statements:[Core.Statement], tail:String?)
+		func prepare(SQL:String) -> (statements:[Core.Statement], tail:String)
 		{
+			assert(_rawptr != C.NULL)
+			
 			///	This does not use input zSql after it has been used.
-			func once(zSql:UnsafePointer<Int8>, inout zTail:UnsafePointer<Int8>) -> Core.Statement?
+			func once(zSql:UnsafePointer<Int8>, len:Int32, inout zTail:UnsafePointer<Int8>) -> Core.Statement?
 			{
-				precondition(zSql != zTail)
+				Core.Debug.log(message: "SQL command = \(String.fromCString(zSql)!)")
 				
-				let	pStmt	=	COpaquePointer.null()
-				let	ppStmt	=	UnsafeMutablePointer<COpaquePointer>.null()
-				
-				let	pzTail	=	UnsafeMutablePointer<UnsafePointer<Int8>>.null()
-				
-				ppStmt.initialize(pStmt)
-				pzTail.initialize(zTail)
-				
-				let	r		=	sqlite3_prepare_v2(_rawptr, zSql, -1, ppStmt, pzTail)
+				var	pStmt	=	C.NULL
+				let	r		=	sqlite3_prepare_v2(_rawptr, zSql, len, &pStmt, &zTail)
 				checkNoErrorWith(resultCode: r)
-				
-				pzTail.destroy()
-				ppStmt.destroy()
+//				Core.Debug.log(message: "`sqlite3_prepare_v2(\(_rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called")
 				
 				if pStmt == C.NULL
 				{
@@ -207,17 +201,38 @@ Core
 			
 			var	stmts:[Core.Statement]	=	[]
 			
+			///	Don't know why, but `String` class doesn't seem to keep memory for
+			///	C-string representation over function borders, and it becomes freed
+			///	and shows corrupted memory. Maybe it's because it's value-semantic.
+			///	Anyway still, the behavior is inunderstandable, and I have to rely
+			///	on `NSString` for stability to avoid this buggy(?) behavior.
+			///	Or it should be my fault...
+			let	sql2	=	SQL as NSString
+			var	zSql	=	UnsafePointer<Int8>(sql2.UTF8String)
+			
 			///	`zTail` is NULL if the SQL string fully consumed. otheriwse, there's some content and `fromCString` shouldn't be nil.
-			var	zSql	=	UnsafePointer<Int8>(SQL.cStringUsingEncoding(NSUTF8StringEncoding)!)
 			var	zTail	=	UnsafePointer<Int8>.null()
 			
-			while let one = once(zSql, &zTail)
+			var	len1	=	sql2.lengthOfBytesUsingEncoding(NSUTF8StringEncoding);
+			
+			///	If the caller knows that the supplied string is nul-terminated,
+			///	then there is a small performance advantage to be gained by passing
+			///	an nByte parameter that is equal to the number of bytes in the input
+			///	string including the nul-terminator bytes as this saves SQLite from
+			///	having to make a copy of the input string.
+			precondition(len1.toIntMax() < Int32.max.toIntMax())
+			var	maxlen2	=	Int32(len1)+1
+			
+			while let one = once(zSql, maxlen2, &zTail)
 			{
 				stmts.append(one)
 				zSql	=	zTail
 			}
 			
-			return	(stmts, zTail == UnsafePointer<Int8>.null() ? nil : String.fromCString(zTail)!)
+			let	rest1	=	String.fromCString(zTail)
+			let	rest2	=	rest1 == nil ? "" : rest1!
+			
+			return	(stmts, rest2)
 		}
 		
 		

@@ -10,27 +10,45 @@ import Foundation
 
 
 
-protocol
-QueryExpressive
+
+
+
+
+///	A marker protocol to mark a qeury object runnable.
+public protocol QueryRunnable
+{
+}
+
+///	Abstracts single query statement.
+protocol QueryExpressive
 {
 	func express(uniqueParameterNameGenerator upng:Query.UniqueParameterNameGenerator) -> Query.Expression
 }
 
-struct Query
+
+
+
+
+
+
+///	Safely and easily generate SQL queries.
+///
+///	
+///
+public struct Query
 {
 	
-	typealias	UniqueParameterNameGenerator	=	() -> String
-	typealias	ParameterNameValueMapping		=	(name:String, value:AnyObject)
-	typealias	ParameterNameValueMappings		=	[ParameterNameValueMapping]
-	typealias	Expressive						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator) -> Expression
+	public typealias	UniqueParameterNameGenerator	=	() -> String
+	public typealias	ParameterNameValueMapping		=	(name:String, value:AnyObject)
+	public typealias	ParameterNameValueMappings		=	[ParameterNameValueMapping]
+	public typealias	Expressive						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator) -> Expression
 	
 	
 	
 	
 
 	///	Represents a fragment of a query.
-	struct
-	Expression : StringLiteralConvertible
+	public struct Expression : StringLiteralConvertible
 	{
 		let	code:String
 		let	parameters:ParameterNameValueMappings	=	[]
@@ -42,7 +60,9 @@ struct Query
 		static func byGeneratingUniqueParameterNames(using upng:UniqueParameterNameGenerator, with values:[AnyObject]) -> Expression		///<	Returned expression's `code` will be zero length string.
 		{
 			let	a1	=	values.map({ (n:AnyObject) -> ParameterNameValueMapping in return (name: upng(), value: n) })
-			return	Expression(code: "", parameters: a1)
+			let	a2	=	a1.map({ n in return n.name }) as [String]
+			let	s3	=	join(", ", a2) as String
+			return	Expression(code: s3, parameters: a1)
 		}
 		static func expressionize<T:QueryExpressive>(using upng:UniqueParameterNameGenerator)(element:T) -> Expression
 		{
@@ -55,18 +75,17 @@ struct Query
 		
 		
 		
-		static func convertFromStringLiteral(value: String) -> Expression
+		public static func convertFromStringLiteral(value: String) -> Expression
 		{
 			return	Expression(code: value, parameters: [])
 		}
 		
-		static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Expression
+		public static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Expression
 		{
 			return	Expression(code: value, parameters: [])
 		}
 	}
-	struct
-	ExpressionList
+	struct ExpressionList
 	{
 		let	items:[Expression]
 		
@@ -84,7 +103,12 @@ struct Query
 			{
 				return	left + separator + right
 			}
-			return	items.reduce(Expression.empty, combine: add_with_sep)
+			
+			switch items.count {
+				case 0:		return	Expression.empty
+				case 1:		return	items.first!
+				default:	return	items[1..<items.count].reduce(items.first!, combine: add_with_sep)
+			}
 		}
 	}
 	
@@ -103,11 +127,11 @@ struct Query
 	
 	
 	///	Represents names such as table or column.
-	struct Identifier : QueryExpressive, StringLiteralConvertible
+	public struct Identifier : QueryExpressive, StringLiteralConvertible
 	{
-		let	name:String
+		public let	name:String
 		
-		init(name:String)
+		public init(name:String)
 		{
 			precondition(find(name, "\"") == nil, "Identifier containing double-quote(\") is not currently supported by Swift layer.")
 			
@@ -120,19 +144,18 @@ struct Query
 			return	Expression(code: x1, parameters: [])
 		}
 
-		static func convertFromStringLiteral(value: String) -> Identifier
+		public static func convertFromStringLiteral(value: String) -> Identifier
 		{
 			return	Identifier(name: value)
 		}
 		
-		static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Identifier
+		public static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Identifier
 		{
 			return	Identifier(name: value)
 		}
 	}
 	
-	enum
-	ColumnList : QueryExpressive
+	public enum ColumnList : QueryExpressive
 	{
 		case All
 		case Items(names:[Identifier])
@@ -151,10 +174,10 @@ struct Query
 	}
 	
 	///	Only for value setting expression.
-	struct Binding : QueryExpressive
+	public struct Binding : QueryExpressive
 	{
-		let	column:Identifier
-		let	value:AnyObject
+		public let	column:Identifier
+		public let	value:AnyObject
 		
 		///	Makes `col1 = @param1` style expression.
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
@@ -164,9 +187,9 @@ struct Query
 				+	Expression(code: "", parameters: [ParameterNameValueMapping(name: upng(), value: value)])
 		}
 	}
-	struct BindingList : QueryExpressive
+	public struct BindingList : QueryExpressive
 	{
-		let	items:[Binding]
+		public let	items:[Binding]
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
@@ -174,19 +197,18 @@ struct Query
 		}
 	}
 	
-	struct
-	FilterTree : QueryExpressive
+	public struct FilterTree : QueryExpressive
 	{
-		let	root:Node
+		public let	root:Node
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
 			return	root.express(uniqueParameterNameGenerator: upng)
 		}
 		
-		enum Node : QueryExpressive
+		public enum Node : QueryExpressive
 		{
-			enum Operation : QueryExpressive
+			public enum Operation : QueryExpressive
 			{
 				case Equal
 				case NotEqual
@@ -212,7 +234,7 @@ struct Query
 				}
 			}
 
-			enum Combination : QueryExpressive
+			public enum Combination : QueryExpressive
 			{
 				case And
 				case Or
@@ -248,7 +270,6 @@ struct Query
 		}
 		
 	}
-	
 	
 	
 	

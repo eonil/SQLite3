@@ -87,19 +87,103 @@ public struct Test1
 			
 			}
 		
-		
 
-//		func t2()
-//		{
-//			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: "VAL1")
+		run	{
+			
+				let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+				func iter1(row:Row)
+				{
+					println(row.numberOfFields)
+					println(row.nameOfColumn(atIndex: 0))
+				}
+				func run(tx:Database.Operation)
+				{					
+					let	t1	=	Query.Schema.Table(name: "MyTable1", key: ["col1"], columns: [Query.Schema.Column(name: "col1", nullable: false, ordering: Query.Schema.Column.Ordering.Ascending, type: Query.Schema.Column.TypeCode.Text, unique: false)])
+					
+					tx.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				}
+			
+				db1.apply(run)
+			
+			}
+
+//		run	{
 //			
-//			var	c	=	0
-//			let	q	=	Query.Select(table: $("MyTable2"), columns: CL.Items(names: [$("col1"), $("col2")]), filter: Query.FilterTree(root: f1))
-//			let	s	=	q.express { () -> String in return "\(c++)" }.code
-//			println(s)
-//		}
-//		t2()
-
+//				let	db1	=	Database(location: Database.Location.Memory)
+//				func iter1(row:Row)
+//				{
+//					println(row.numberOfFields)
+//					println(row.nameOfColumn(atIndex: 0))
+//				}
+//				db1.apply({ x in
+//					x.run(code: "SELECT * FROM MyTable;")
+//					return
+//				})
+//			
+//			}
+		
+		
+		run{
+			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+			func iter1(row:Row)
+			{
+				println(row.numberOfFields)
+				println(row.nameOfColumn(atIndex: 0))
+			}
+		
+			func run(tx:Database.Operation)
+			{
+				let	t1	=	Query.Schema.Table(name: "MyTable1", key: ["col1"], columns: [Query.Schema.Column(name: "col1", nullable: false, ordering: Query.Schema.Column.Ordering.Ascending, type: Query.Schema.Column.TypeCode.Text, unique: false)])
+				tx.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				
+				let	q1	=	Query.Select(table: "MyTable1", columns: Query.ColumnList.All, filter: nil)
+				tx.run(query: q1)
+			}
+		
+			db1.apply(run)
+		}
+		
+		
+		run{
+			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+			func iter1(row:Row)
+			{
+				println(row.numberOfFields)
+				println(row.nameOfColumn(atIndex: 0))
+			}
+		
+			func run(tx:Database.Operation)
+			{
+				let	t1	=	Query.Schema.Table(name: "T1", key: ["C1"], columns: [Query.Schema.Column(name: "C1", nullable: false, ordering: Query.Schema.Column.Ordering.Ascending, type: Query.Schema.Column.TypeCode.Text, unique: false)])
+				tx.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				
+				let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: "text1!")])
+				tx.run(query: q1)
+				
+				let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
+				tx.run(query: q2, success: { (data:GeneratorOf<Row>) -> () in
+					for r:Row in data
+					{
+						println(r[0])
+					}
+				}, failure: { (message) -> () in
+					
+				})
+			}
+		
+			db1.apply(run)
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 }

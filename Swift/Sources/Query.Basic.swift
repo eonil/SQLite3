@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Query
+public extension Query
 {
 	
 	
@@ -20,36 +20,52 @@ extension Query
 	///		SELECT * FROM "MyTable1"
 	///		SELECT "col1", "col2", "col3" FROM "YourTable2"
 	///
-	struct Select : QueryExpressive
+	public struct Select : QueryExpressive
 	{
 		static func all(of table:Identifier) -> QueryExpressive
 		{
 			return	Select(table: table, columns: Query.ColumnList.All, filter: nil)
 		}
 		
-		let	table:Identifier
-		let	columns:Query.ColumnList
-		let	filter:Query.FilterTree?
+		public let	table:Identifier
+		public let	columns:Query.ColumnList
+		public let	filter:Query.FilterTree?
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
-			return	"SELECT "
+//			let	a1	=
+//			[
+//				"SELECT",
+//				columns.express(uniqueParameterNameGenerator: upng),
+//				"FROM",
+//				table.express(uniqueParameterNameGenerator: upng),
+//				(filter == nil ? "" : " WHERE ") as String,
+//				(filter == nil ? "" : filter!.express(uniqueParameterNameGenerator: upng)) as String,
+//			]
+			
+			let	x1	=	(filter == nil ? Expression.empty : filter!.express(uniqueParameterNameGenerator: upng)) as Expression
+			return	"SELECT " as Expression
 			+		columns.express(uniqueParameterNameGenerator: upng)
-			+		" FROM "
+			+		" " as Expression
+			+		"FROM " as Expression
 			+		table.express(uniqueParameterNameGenerator: upng)
-			+		(filter == nil ? "" : " WHERE ")
-			+		filter?.express(uniqueParameterNameGenerator: upng)
+			+		" " as Expression
+			+		Expression(code: (filter == nil ? "" : "WHERE "), parameters: [])
+			+		x1 as Expression
 		}
 	}
+	
+	
+	
 	
 	///	Represents INSERT statement.
 	///
 	///		INSERT INTO "MyTable1" ("col1", "col2", "col3") VALUES (@param1, @param2, @param3)
 	///
-	struct Insert : QueryExpressive
+	public struct Insert : QueryExpressive
 	{
-		let	table:Identifier
-		let	bindings:[Query.Binding]
+		public let	table:Identifier
+		public let	bindings:[Query.Binding]
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
@@ -75,11 +91,11 @@ extension Query
 	///
 	///		UPDATE "MyTable1" SET "col1"=@param1, "col2"=@param2, "col3"=@param3 WHERE "col4"=@param4
 	///
-	struct Update : QueryExpressive
+	public struct Update : QueryExpressive
 	{
-		let	table:Identifier
-		let	bindings:Query.BindingList
-		let	filter:Query.FilterTree?
+		public let	table:Identifier
+		public let	bindings:Query.BindingList
+		public let	filter:Query.FilterTree?
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
@@ -96,10 +112,10 @@ extension Query
 	///	
 	///		DELETE FROM "MyTable1" WHERE "col1"=@param1
 	///
-	struct Delete : QueryExpressive
+	public struct Delete : QueryExpressive
 	{
-		let	table:Identifier
-		let	filter:Query.FilterTree
+		public let	table:Identifier
+		public let	filter:Query.FilterTree
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{

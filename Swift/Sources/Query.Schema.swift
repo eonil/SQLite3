@@ -8,35 +8,141 @@
 
 import Foundation
 
-extension Query
+public extension Query
 {
-	
-	struct Table
+	public struct Master
 	{
-		let	name:Identifier
-	}
-	struct Colume
-	{
-		let	name:Identifier
-		let	primaryKey:Bool
 	}
 	
-	
-	
-	
-	
-	
-	
-	struct CreateTable
+	public struct Schema
 	{
-		let	name:Identifier
-		let	columns:[Identifier]
+		public let	tables:[Table]
+		
+		public struct Table
+		{
+			public let	name:Identifier
+			public let	key:[Identifier]			///<	Primary key column names.
+			public let	columns:[Column]
+		}
+		public struct Column
+		{
+			public let	name:Identifier
+			public let	nullable:Bool
+			public let	ordering:Ordering
+			public let	type:TypeCode
+			public let	unique:Bool				///<	Has unique key constraint.
+			
+			public enum TypeCode : String
+			{
+				case Integer		=	"INTEGER"
+				case Float			=	"FLOAT"
+				case Text			=	"TEXT"
+				case Blob			=	"BLOB"
+			}
+			public enum Ordering : String
+			{
+				case Ascending		=	"ASC"
+				case Descending		=	"DESC"
+			}
+		}
 	}
-	
-	struct DropTable
-	{
-		let	name:Identifier
-	}
-	
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public extension Query.Master
+{
+//	///	Queries all schematic informations from the database.
+//	public static func schema() -> Query.Schema
+//	{
+//	}
+}
+
+public extension Query.Schema.Table
+{
+	public struct Create : QueryExpressive
+	{
+		public let	temporary:Bool
+		public let	definition:Query.Schema.Table
+		
+		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+		{
+			typealias	Column	=	Query.Schema.Column
+			
+			func resolveColumnCode(c:Column) -> String
+			{
+				typealias	CDEF	=	Query.Language.Syntax.ColumnDef
+				typealias	CC		=	Query.Language.Syntax.ColumnConstraint
+				typealias	CCOPT	=	Query.Language.Syntax.ColumnConstraint.Option
+				typealias	FX		=	Query.Language.Syntax.ConflictClause
+				typealias	FXX		=	Query.Language.Syntax.ConflictClause.Reaction
+				
+				func resolveColumnDef(c:Column) -> CDEF
+				{
+					func resolveConstraints(c:Column) -> [CC]
+					{
+						var	constraints:[CC]	=	[]
+						if c.nullable == false
+						{
+							constraints	+=	[CC(name: nil, option: CCOPT.NotNull(conflict: FX(reaction: nil)))]
+						}
+						if c.unique == true
+						{
+							constraints	+=	[CC(name: nil, option: CCOPT.Unique(conflict: FX(reaction: nil)))]
+						}
+						return	constraints
+					}
+					
+					let	s1	=	c.name.express(uniqueParameterNameGenerator: upng).code
+					return	CDEF(name: s1, type: c.type, constraints: resolveConstraints(c))
+				}
+				
+				return	resolveColumnDef(c).description
+			}
+			
+			let	ss	=	definition.columns.map(resolveColumnCode).reduce("", combine: { u, n in return u + n })
+			
+			return	"CREATE "
+				+		(temporary ? "TEMPORARY " : "")
+				+		"TABLE "
+				+		definition.name.express(uniqueParameterNameGenerator: upng)
+				+		"(\(ss))"
+		}
+	}
+
+	public struct Drop : QueryExpressive
+	{
+		public let	name:Query.Identifier
+		public let	ifExists:Bool
+		
+		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+		{
+			return	"DROP TABLE " + (ifExists ? " IF EXISTS " : " ") + name.express(uniqueParameterNameGenerator: upng)
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

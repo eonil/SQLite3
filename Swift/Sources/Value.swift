@@ -8,30 +8,29 @@
 
 import Foundation
 
-//enum
-//Value
-//{
-//	case None
-//	case Int(value:Int64)
-//	case Float(value:Double)
-//	case Text(value:String)
-//	case Blob(value:Binary)
-//}
-//
-//typealias	Binary	=	Blob
-
-
-
-
-
-
-typealias	Row		=	[AnyObject]			///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
-
-
-struct
-RowList
+enum
+Value
 {
-	
+	case Integer(value:Int64)
+	case Float(value:Double)
+	case Text(value:String)
+	case Blob(value:Binary)
+}
+
+typealias	Binary	=	Blob
+
+
+
+
+
+
+public typealias	FieldList	=	[Any]				///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
+public typealias	Record		=	[String:AnyObject]
+
+struct RowList
+{
+	let	columns:[String]
+	let	items:[FieldList]
 }
 
 

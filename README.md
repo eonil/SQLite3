@@ -4,6 +4,9 @@ Hoon H., 2014/09/16
 
 
 
+**CURRENTLY UNDER DEVELOPMENT**
+
+
 
 This provides SQLite3 database access API on Swift.
 
@@ -27,7 +30,7 @@ supporting static library target.
 How to Use
 ----------
 
-
+(placeholder)
 
 
 

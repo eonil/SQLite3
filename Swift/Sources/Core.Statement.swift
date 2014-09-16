@@ -18,7 +18,7 @@ extension Core
 {
 	///	http://www.sqlite.org/c3ref/c_blob.html
 	struct
-	ColumnTypeCode
+	ColumnTypeCode 
 	{
 		static let	integer	=	ColumnTypeCode(value: SQLITE_INTEGER)
 		static let	float	=	ColumnTypeCode(value: SQLITE_FLOAT)
@@ -33,11 +33,12 @@ extension Core
 		private let	value:Int32
 	}
 	
+	
 	class Statement
 	{
-		let	database:Database
+		let	database:Core.Database
 		
-		init(database:Database, pointerToRawCStatementObject:COpaquePointer)
+		init(database:Core.Database, pointerToRawCStatementObject:COpaquePointer)
 		{
 			self.database	=	database
 			
@@ -78,6 +79,8 @@ extension Core
 			///	`SQLITE_OK` has not role here, and will be treated as an unknown error status.
 			///	`SQLITE_BUSY` and `SQLITE_MISUSE` is treated as a programmer error -- a bug.
 			let	rc1	=	sqlite3_step(_rawptr)
+			Core.Debug.log(message: "`sqlite3_step(\(_rawptr))` called.")
+			
 			switch rc1
 			{
 				case SQLITE_OK:
@@ -109,9 +112,20 @@ extension Core
 			
 			let	r	=	sqlite3_finalize(_rawptr)
 			database.checkNoErrorWith(resultCode: r)
+//			Core.Debug.log(message: "`sqlite3_finalize(\(_rawptr))` called")
 			
 			_rawptr	=	C.NULL
 		}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		func dataCount() -> Int32
 		{
@@ -120,6 +134,16 @@ extension Core
 			let	c	=	sqlite3_data_count(_rawptr)
 			precondition(c.toIntMax() < Int.max.toIntMax())
 			return	c
+		}
+		
+		func columnName(index:Int32) -> String
+		{
+			precondition(index < dataCount())
+			let	cs	=	sqlite3_column_name(_rawptr, index)
+			
+			precondition(cs != UnsafePointer<Int8>.null())
+			let	s1	=	String.fromCString(cs)!
+			return	s1
 		}
 		
 		func columnType(index:Int32) -> ColumnTypeCode
@@ -135,7 +159,7 @@ extension Core
 			assert(index < dataCount())
 			assert(_rawptr != C.NULL)
 			assert(columnType(index) == ColumnTypeCode.integer)
-			assert(columnType(index) == ColumnTypeCode.null)
+//			assert(columnType(index) == ColumnTypeCode.null)
 
 			return	sqlite3_column_int64(_rawptr, Int32(index))
 		}
@@ -145,17 +169,17 @@ extension Core
 			assert(index < dataCount())
 			assert(_rawptr != C.NULL)
 			assert(columnType(index) == ColumnTypeCode.float)
-			assert(columnType(index) == ColumnTypeCode.null)
+//			assert(columnType(index) == ColumnTypeCode.null)
 			
 			return	sqlite3_column_double(_rawptr, Int32(index))
 		}
 		
-		func columnString(at index:Int32) -> String
+		func columnText(at index:Int32) -> String
 		{
 			assert(index < dataCount())
 			assert(_rawptr != C.NULL)
 			assert(columnType(index) == ColumnTypeCode.text)
-			assert(columnType(index) == ColumnTypeCode.null)
+//			assert(columnType(index) == ColumnTypeCode.null)
 			
 			///	>	Strings returned by sqlite3_column_text() and sqlite3_column_text16(), 
 			///	>	even empty strings, are always zero-terminated. The return value from 
@@ -182,7 +206,7 @@ extension Core
 			assert(index < dataCount())
 			assert(_rawptr != C.NULL)
 			assert(columnType(index) == ColumnTypeCode.blob)
-			assert(columnType(index) == ColumnTypeCode.null)
+//			assert(columnType(index) == ColumnTypeCode.null)
 			
 			let	bc	=	sqlite3_column_bytes(_rawptr, Int32(index))
 			let	cs	=	sqlite3_column_blob(_rawptr, Int32(index))
@@ -199,7 +223,7 @@ extension Core
 		
 		func bindInt64(value:Int64, at index:Int32)
 		{
-			assert(index < dataCount())
+//			assert(index <= dataCount())
 			assert(_rawptr != C.NULL)
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
@@ -209,7 +233,7 @@ extension Core
 		
 		func bindDouble(value:Double, at index:Int32)
 		{
-			assert(index < dataCount())
+//			assert(index <= dataCount())
 			assert(_rawptr != C.NULL)
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
@@ -219,7 +243,7 @@ extension Core
 		
 		func bindText(value:String, at index:Int32)
 		{
-			assert(index < dataCount())
+//			assert(index <= dataCount())
 			assert(_rawptr != C.NULL)
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
@@ -233,7 +257,7 @@ extension Core
 		
 		func bindBytes(value:Blob, at index:Int32)
 		{
-			assert(index < dataCount())
+//			assert(index <= dataCount())
 			assert(_rawptr != C.NULL)
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
@@ -247,7 +271,7 @@ extension Core
 		
 		func bindNull(at index:Int32)
 		{
-			assert(index < dataCount())
+//			assert(index <= dataCount())
 			assert(_rawptr != C.NULL)
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
@@ -255,6 +279,9 @@ extension Core
 			database.checkNoErrorWith(resultCode: r)
 		}
 		
+		///	Return the index of an SQL parameter given its name. The index value returned is suitable for use as the second parameter to sqlite3_bind(). A zero is returned if no matching parameter is found. The parameter name must be given in UTF-8 even if the original statement was prepared from UTF-16 text using sqlite3_prepare16_v2().
+		///	See also: sqlite3_bind(), sqlite3_bind_parameter_count(), and sqlite3_bind_parameter_index().
+		///	See also lists of Objects, Constants, and Functions.
 		///	http://www.sqlite.org/c3ref/bind_parameter_index.html
 		func bindParameterIndex(by name:String) -> Int32
 		{
@@ -262,10 +289,11 @@ extension Core
 			assert(name.startIndex != name.endIndex, "Empty name is not allowed.")
 			
 			let	i1	=	sqlite3_bind_parameter_index(_rawptr, name.cStringUsingEncoding(NSUTF8StringEncoding)!)
-			if i1 == 0
-			{
-				Common.crash(message: "Cannot find a parameter for the name `\(name)`.")
-			}
+//			if i1 == 0
+//			{
+//				return	nil
+////				Common.crash(message: "Cannot find a parameter for the name `\(name)`.")
+//			}
 			return	i1
 		}
 		
