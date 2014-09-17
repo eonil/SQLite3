@@ -143,6 +143,7 @@ public struct Test1
 			db1.apply(run)
 		}
 		
+		Core.Debug.LeakDetector.theDetector.countAllInstances() == 0
 		
 		run{
 			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
@@ -167,13 +168,14 @@ public struct Test1
 						println(r[0])
 					}
 				}, failure: { (message) -> () in
-					
 				})
 			}
 		
 			db1.apply(run)
+			assert(Core.Debug.LeakDetector.theDetector.countAllInstances() == 1)
 		}
 		
+		assert(Core.Debug.LeakDetector.theDetector.countAllInstances() == 0)
 		
 		
 		

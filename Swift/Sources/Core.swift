@@ -22,13 +22,8 @@ struct Core
 {
 }
 
-extension Core
-{
-	struct Debug
-	{
-		static func log(message m:String)
-		{
-			println(m)
-		}
-	}
-}
+
+
+
+
+

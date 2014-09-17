@@ -163,6 +163,7 @@ Core
 			
 			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, UnsafePointer<Int8>.null())
 			checkNoErrorWith(resultCode: r)
+			Core.Debug.LeakDetector.theDetector.registerInstance(_rawptr, of: Core.Debug.LeakDetector.TargetObjectType.db)
 		}
 		
 		func close()
@@ -174,6 +175,7 @@ Core
 			//	error -- a bug, and crashes the execution.
 			let	r	=	sqlite3_close(_rawptr)
 			checkNoErrorWith(resultCode: r)
+			Core.Debug.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.Debug.LeakDetector.TargetObjectType.db)
 			_rawptr	=	C.NULL
 		}
 		
@@ -196,6 +198,7 @@ Core
 				{
 					return	nil
 				}
+				Core.Debug.LeakDetector.theDetector.registerInstance(pStmt, of: Core.Debug.LeakDetector.TargetObjectType.stmt)
 				return	Core.Statement(database: self, pointerToRawCStatementObject: pStmt)
 			}
 			

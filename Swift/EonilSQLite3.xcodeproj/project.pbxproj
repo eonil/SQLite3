@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45509D2919C93F7A003427FD /* Core.Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45509D2819C93F7A003427FD /* Core.Debug.swift */; };
 		4552BA4E19C6E356008FFF3F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4552BA4D19C6E356008FFF3F /* main.swift */; };
 		4583D3AB19C85DEB00861520 /* Core.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583D3AA19C85DEB00861520 /* Core.Result.swift */; };
 		4583D3AD19C8719A00861520 /* Query.Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583D3AC19C8719A00861520 /* Query.Language.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45509D2819C93F7A003427FD /* Core.Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Debug.swift; sourceTree = "<group>"; };
 		4552BA4D19C6E356008FFF3F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4583D3AA19C85DEB00861520 /* Core.Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Result.swift; sourceTree = "<group>"; };
 		4583D3AC19C8719A00861520 /* Query.Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Language.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				458D62E219C6DE2F001E450D /* Core.swift */,
+				45509D2819C93F7A003427FD /* Core.Debug.swift */,
 				4583D3AA19C85DEB00861520 /* Core.Result.swift */,
 				459B517019C6F1A40029EA46 /* Core.Common.swift */,
 				458D62E019C6DE2A001E450D /* Core.Database.swift */,
@@ -467,6 +470,7 @@
 				459B517B19C7309E0029EA46 /* Query.swift in Sources */,
 				4583D3AB19C85DEB00861520 /* Core.Result.swift in Sources */,
 				458D62DF19C6DE21001E450D /* Core.Statement.swift in Sources */,
+				45509D2919C93F7A003427FD /* Core.Debug.swift in Sources */,
 				459B518719C773630029EA46 /* Query.Schema.swift in Sources */,
 				459B517119C6F1A40029EA46 /* Core.Common.swift in Sources */,
 				459B517919C72BBC0029EA46 /* Value.swift in Sources */,

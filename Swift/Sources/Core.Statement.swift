@@ -113,6 +113,7 @@ extension Core
 			let	r	=	sqlite3_finalize(_rawptr)
 			database.checkNoErrorWith(resultCode: r)
 //			Core.Debug.log(message: "`sqlite3_finalize(\(_rawptr))` called")
+			Core.Debug.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.Debug.LeakDetector.TargetObjectType.stmt)
 			
 			_rawptr	=	C.NULL
 		}
