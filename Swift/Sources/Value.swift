@@ -8,38 +8,91 @@
 
 import Foundation
 
-enum
-Value
+//enum
+//Value
+//{
+//	case Null
+//	case Integer(value:Int64)
+//	case Float(value:Double)
+//	case Text(value:String)
+//	case Blob(value:Binary)
+//}
+//
+//typealias	Binary	=	Blob
+
+
+
+
+
+//
+//public typealias	FieldList	=	[Any]				///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
+//public typealias	Record		=	[String:AnyObject]
+//
+//struct RowList
+//{
+//	let	columns:[String]
+//	let	items:[FieldList]
+//}
+
+
+
+
+
+
+///	64-bit integer.
+///	Defined to provide conversion to AnyObject.
+///	(Swift included in Xcode 6.0.1 does not support this conversion...)
+public class Integer : Printable//, SignedIntegerType, SignedNumberType
 {
-	case Null
-	case Integer(value:Int64)
-	case Float(value:Double)
-	case Text(value:String)
-	case Blob(value:Binary)
+	public init(_ number:Int64)
+	{
+		self.number	=	number
+	}
+	
+	
+	public var description:String
+	{
+		get
+		{
+			return	number.description
+		}
+	}
+	
+	public var hashValue:Int
+	{
+		get
+		{
+			return	number.hashValue
+		}
+	}
+	
+	public var arrayBoundValue:Int64.ArrayBound
+	{
+		get
+		{
+			return	number.arrayBoundValue
+		}
+	}
+	public func toIntMax() -> IntMax
+	{
+		return	number.toIntMax()
+	}
+	
+	public class func from(x: IntMax) -> Integer
+	{
+		return	Integer(Int64.from(x))
+	}
+	
+	private let	number:Int64
 }
 
-typealias	Binary	=	Blob
-
-
-
-
-
-
-public typealias	FieldList	=	[Any]				///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
-public typealias	Record		=	[String:AnyObject]
-
-struct RowList
+extension Int64
 {
-	let	columns:[String]
-	let	items:[FieldList]
+	init(_ integer:Integer)
+	{
+		self.init(integer.number)
+	}
 }
-
-
-
-
-
-
-
 
 
 

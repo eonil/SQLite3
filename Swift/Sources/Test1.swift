@@ -154,7 +154,8 @@ public struct Test1
 			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
 			db1.schema().create(table: "T1", column: ["c1"])
 		
-//			log(db1.schema().allRowsOfRawMasterTable())
+			let	k	=	db1.schema().allRowsOfRawMasterTable()
+			log(k)
 		}
 		
 		

@@ -103,7 +103,7 @@ public class Statement : GeneratorType
 			}
 			else
 			{
-//				if v is Int64 { _core.bindInt64(v as Int64, at: n1) }					///<	:todo:	Currently no support for Int64 <-> AnyObject conversion in Xcode 6.0 (GM). support this when ready.
+				if v is Integer { _core.bindInt64(v as Integer, at: n1) }
 				if v is Double { _core.bindDouble(v as Double, at: n1) }
 				if v is String { _core.bindText(v as String, at: n1) }
 				if v is Blob { _core.bindBytes(v as Blob, at: n1) }
@@ -145,7 +145,7 @@ public class Statement : GeneratorType
 				let	t2		=	host._core.columnType(idx2)
 				
 //				if t2 == Core.ColumnTypeCode.null		{ return nil }
-//				if t2 == Core.ColumnTypeCode.integer	{ return host._core.columnInt64(at: idx2) }		///<	:todo:	Currently no support for Int64 <-> AnyObject conversion in Xcode 6.0 (GM). support this when ready.
+				if t2 == Core.ColumnTypeCode.integer	{ return host._core.columnInt64(at: idx2) }
 				if t2 == Core.ColumnTypeCode.float		{ return host._core.columnDouble(at: idx2) }
 				if t2 == Core.ColumnTypeCode.text		{ return host._core.columnText(at: idx2) }
 				if t2 == Core.ColumnTypeCode.blob		{ return host._core.columnBlob(at: idx2) }
