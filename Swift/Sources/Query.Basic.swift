@@ -14,15 +14,14 @@ public extension Query
 	
 	
 	
-	
 	///	Repesents SELECT statement.
 	///
 	///		SELECT * FROM "MyTable1"
 	///		SELECT "col1", "col2", "col3" FROM "YourTable2"
 	///
-	public struct Select : QueryExpressive
+	public struct Select : QueryExpressive, SubqueryExpressive
 	{
-		static func all(of table:Identifier) -> QueryExpressive
+		static func all(of table:Identifier) -> Select
 		{
 			return	Select(table: table, columns: Query.ColumnList.All, filter: nil)
 		}
@@ -31,18 +30,15 @@ public extension Query
 		public let	columns:Query.ColumnList
 		public let	filter:Query.FilterTree?
 		
+		public func express() -> Query.Expression
+		{
+			return	Query.express(self)
+		}
+		
+		
+		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
-//			let	a1	=
-//			[
-//				"SELECT",
-//				columns.express(uniqueParameterNameGenerator: upng),
-//				"FROM",
-//				table.express(uniqueParameterNameGenerator: upng),
-//				(filter == nil ? "" : " WHERE ") as String,
-//				(filter == nil ? "" : filter!.express(uniqueParameterNameGenerator: upng)) as String,
-//			]
-			
 			let	x1	=	(filter == nil ? Expression.empty : filter!.express(uniqueParameterNameGenerator: upng)) as Expression
 			return	"SELECT " as Expression
 			+		columns.express(uniqueParameterNameGenerator: upng)
@@ -62,10 +58,18 @@ public extension Query
 	///
 	///		INSERT INTO "MyTable1" ("col1", "col2", "col3") VALUES (@param1, @param2, @param3)
 	///
-	public struct Insert : QueryExpressive
+	///	http://www.sqlite.org/lang_insert.html
+	public struct Insert : QueryExpressive, SubqueryExpressive
 	{
 		public let	table:Identifier
 		public let	bindings:[Query.Binding]
+		
+		public func express() -> Query.Expression
+		{
+			return	Query.express(self)
+		}
+		
+		
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
@@ -91,18 +95,32 @@ public extension Query
 	///
 	///		UPDATE "MyTable1" SET "col1"=@param1, "col2"=@param2, "col3"=@param3 WHERE "col4"=@param4
 	///
-	public struct Update : QueryExpressive
+	///	http://www.sqlite.org/lang_update.html
+	public struct Update : QueryExpressive, SubqueryExpressive
 	{
 		public let	table:Identifier
-		public let	bindings:Query.BindingList
+		public let	bindings:[Query.Binding]
 		public let	filter:Query.FilterTree?
+		
+		public func express() -> Query.Expression
+		{
+			return	Query.express(self)
+		}
+		
+		
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
+			let	bs2	=	bindings.map({ u in return u.express(uniqueParameterNameGenerator: upng) }) as [Query.Expression]
+			let	bs3	=	ExpressionList(items: bs2).concatenationWith(separator: ", ")
+			Debug.log(upng())
+			Debug.log(bs2[0].code)
+			Debug.log(bs2[0].parameters)
+			Debug.log(bs3.code)
 			return	"UPDATE "
 			+		table.express(uniqueParameterNameGenerator: upng)
 			+		" SET "
-			+		bindings.express(uniqueParameterNameGenerator: upng)
+			+		bs3
 			+		" WHERE "
 			+		filter?.express(uniqueParameterNameGenerator: upng)
 		}
@@ -112,10 +130,17 @@ public extension Query
 	///	
 	///		DELETE FROM "MyTable1" WHERE "col1"=@param1
 	///
-	public struct Delete : QueryExpressive
+	public struct Delete : QueryExpressive, SubqueryExpressive
 	{
 		public let	table:Identifier
 		public let	filter:Query.FilterTree
+		
+		public func express() -> Query.Expression
+		{
+			return	Query.express(self)
+		}
+		
+		
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{

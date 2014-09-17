@@ -136,7 +136,7 @@ Core
 			}
 			else
 			{
-				println("[ERROR] \(currentErrorMessage)")
+				Core.log("[ERROR] \(currentErrorMessage)")
 				assert(code == sqlite3_errcode(_rawptr))
 				Common.crash()
 			}
@@ -163,7 +163,7 @@ Core
 			
 			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, UnsafePointer<Int8>.null())
 			checkNoErrorWith(resultCode: r)
-			Core.Debug.LeakDetector.theDetector.registerInstance(_rawptr, of: Core.Debug.LeakDetector.TargetObjectType.db)
+			Core.LeakDetector.theDetector.registerInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 		}
 		
 		func close()
@@ -175,7 +175,7 @@ Core
 			//	error -- a bug, and crashes the execution.
 			let	r	=	sqlite3_close(_rawptr)
 			checkNoErrorWith(resultCode: r)
-			Core.Debug.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.Debug.LeakDetector.TargetObjectType.db)
+			Core.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 			_rawptr	=	C.NULL
 		}
 		
@@ -187,18 +187,18 @@ Core
 			///	This does not use input zSql after it has been used.
 			func once(zSql:UnsafePointer<Int8>, len:Int32, inout zTail:UnsafePointer<Int8>) -> Core.Statement?
 			{
-				Core.Debug.log(message: "SQL command = \(String.fromCString(zSql)!)")
+				Core.log("SQL command = \(String.fromCString(zSql)!)")
 				
 				var	pStmt	=	C.NULL
 				let	r		=	sqlite3_prepare_v2(_rawptr, zSql, len, &pStmt, &zTail)
 				checkNoErrorWith(resultCode: r)
-//				Core.Debug.log(message: "`sqlite3_prepare_v2(\(_rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called")
+				Core.log("`sqlite3_prepare_v2(\(_rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called")
 				
 				if pStmt == C.NULL
 				{
 					return	nil
 				}
-				Core.Debug.LeakDetector.theDetector.registerInstance(pStmt, of: Core.Debug.LeakDetector.TargetObjectType.stmt)
+				Core.LeakDetector.theDetector.registerInstance(pStmt, of: Core.LeakDetector.TargetObjectType.stmt)
 				return	Core.Statement(database: self, pointerToRawCStatementObject: pStmt)
 			}
 			

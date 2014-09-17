@@ -8,11 +8,17 @@
 
 import Foundation
 
+///	`execute` executes a query as is.
+///	`run` executes a query with transaction wrapping.
+///
+///
 public class Database
 {
 	public typealias	ParameterList	=	[String:AnyObject]
 	public typealias	RowIterator		=	(row:Row)->()
-	public typealias	ErrorHandler	=	(message:String)->()
+	
+//	public typealias	DataHandler		=	(data:GeneratorOf<Row>)->()
+//	public typealias	ErrorHandler	=	(message:String)->()
 	
 	public typealias	SuccessHandler	=	(data:GeneratorOf<Row>)->()
 	public typealias	FailureHandler	=	(message:String)->()
@@ -82,7 +88,9 @@ public class Database
 	
 	///	`run` method with optional ROLLBACK support.
 	///	If you return false, everything will be ROLLBACK.
-	public func applyOptionally(transaction:(operation:Operation) -> Bool)
+	///	Returns what the transaction closure returns.
+	/// (true for commit, false for rollback)
+	public func applyOptionally(transaction:(operation:Operation) -> Bool) -> Bool
 	{
 		precondition(_core.null == false)
 		
@@ -91,16 +99,42 @@ public class Database
 		if transaction(operation: Operation(database: self, version: _dbg.transactionVersion))
 		{
 			execute(code: "COMMIT TRANSACTION;")
+			return	true
 		}
 		else
 		{
 			execute(code: "ROLLBACK TRANSACTION;")
+			return	false
 		}
 	}
 	
+	///	Executes a query with transaction wrapping.
+	///	In other words, this `apply` with `execute`.
+	public func run(query q:QueryExpressive, success s:SuccessHandler, failure f:FailureHandler)
+	{
+		run(query: q.express(), success: s, failure: f)
+	}
+	public func run(query c:String, success s:SuccessHandler, failure f:FailureHandler)
+	{
+		run(query: Query.Expression(code: c, parameters: []), success: s, failure: f)
+	}
+	public func run(query x:Query.Expression, success s:SuccessHandler, failure f:FailureHandler)
+	{
+		func transact(op:Operation)
+		{
+			op.execute(query: x, success: s, failure: f)
+		}
+		apply(transact)
+	}
 	
-	
-	
+	public func schema() -> Database.Schema
+	{
+		return	Schema(database: self, defaultErrorHandler: Default.Handler.failure)
+	}
+	public func table(name n:String) -> Database.Table
+	{
+		return	Table(database: self, name: n, defaultErrorHandler: Default.Handler.failure)
+	}
 	
 	
 	
@@ -117,9 +151,11 @@ public class Database
 	{
 		///	Default row iterator.
 		///	Just does nothing.
-		static func null(row:Row)
-		{
-		}
+//		static func null(row:Row)
+//		{
+//		}
+		
+		///	Just does nothing.
 		static func null(rows:GeneratorOf<Row>)
 		{
 		}
@@ -130,29 +166,75 @@ public class Database
 		{
 			Core.Common.crash(message: m)
 		}
+		
+		struct
+		Handler
+		{
+			static let	success	=	Default.null
+			static let	failure	=	Default.crash
+		}
 	}
 	
-	func execute(query q:QueryExpressive, success s:SuccessHandler=Default.null, failure f:ErrorHandler=Default.crash)
-	{		
-		var	pc	=	0
-		func upng() -> String
+	
+	///	Execute the query and captures snapshot of all values of resulting rows.
+	func snapshot(query x:Query.Expression, error handler:FailureHandler) -> [[String:AnyObject]]
+	{
+		func collect(rows:GeneratorOf<Row>) -> [[String:AnyObject]]
 		{
-			pc++
-			return	"@param\(pc)"
+			var	vs	=	[[String:AnyObject]]()
+			for row in rows
+			{
+				var	m	=	[String:AnyObject]()
+				let	c	=	row.numberOfFields
+				for i in 0..<c
+				{
+					if	row.isNullField(atIndex: i) == false
+					{
+						let	n:String	=	row.columnNameOfField(atIndex: i)
+						let	v:AnyObject	=	row[i]
+						
+						m[n]	=	v
+					}
+				}
+				vs	+=	[m]
+			}
+			return	vs
 		}
-		let	x	=	q.express(uniqueParameterNameGenerator: upng)
 		
+		var	m:[[String:AnyObject]]	=	[]
+		func tx(op:Database.Operation) -> Bool
+		{
+			var	ok	=	false
+			func s(data:GeneratorOf<Row>)
+			{
+				ok	=	true
+				m	=	collect(data)
+			}
+			func f(message:String)
+			{
+				handler(message: message)
+			}
+			
+			op.execute(query: x, success: s, failure: f)
+			return	ok
+		}
+		
+		applyOptionally(tx)
+		return	m
+	}
+	func execute(query x:Query.Expression, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
+	{
 		var	m	=	[String:AnyObject]()
 		for mapping in x.parameters
 		{
 			m[mapping.name]	=	mapping.value
 		}
 		
-		Core.Debug.log(message: x.code)
-		Core.Debug.log(message: m.description)
+		Debug.log(x.code)
+		Debug.log(m)
 		execute(code: x.code, parameters: m, success: s, failure: f)
 	}
-	func execute(code c:String, parameters p:ParameterList=ParameterList(), success s:SuccessHandler=Default.null, failure f:ErrorHandler=Default.crash)
+	func execute(code c:String, parameters p:ParameterList=ParameterList(), success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 	{
 		let	ss1	=	cache(code: c) as [Statement]
 		for s1 in ss1

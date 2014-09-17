@@ -12,10 +12,9 @@ extension Database
 {
 	public struct Operation
 	{
-		public typealias	RowIterator		=	Database.RowIterator
-		public typealias	ErrorHandler	=	Database.ErrorHandler
+//		public typealias	RowIterator		=	Database.RowIterator
 		
-		public func run(code c:String, parameters ps:ParameterList=ParameterList(), success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
+		public func execute(code c:String, parameters ps:ParameterList=ParameterList(), success s:SuccessHandler=Database.Default.Handler.success, failure f:FailureHandler=Database.Default.Handler.failure)
 		{
 			assert(version.number == database._dbg.transactionVersion.number)
 			precondition(database._core.null == false)
@@ -23,31 +22,8 @@ extension Database
 			
 			database.execute(code: c, parameters: ps, success: s, failure: f)
 		}
-		public func run(query q:Query.Select, success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
-		{
-			execute(query: q, success: s, failure: f)
-		}
-		public func run(query q:Query.Insert, success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
-		{
-			execute(query: q, success: s, failure: f)
-		}
-		public func run(query q:Query.Update, success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
-		{
-			execute(query: q, success: s, failure: f)
-		}
-		public func run(query q:Query.Delete, success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
-		{
-			execute(query: q, success: s, failure: f)
-		}
-		public func run(query q:Query.Schema.Table.Create, success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
-		{
-			execute(query: q, success: s, failure: f)
-		}
-		public func run(query q:Query.Schema.Table.Drop, success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
-		{
-			execute(query: q, success: s, failure: f)
-		}
 
+		
 		
 		
 		
@@ -55,13 +31,17 @@ extension Database
 		let	database:Database
 		let	version:Database.DebuggingSupport.TransactionVersion
 		
-		func execute<T:QueryExpressive>(query q:T, success s:SuccessHandler=Database.Default.null, failure f:ErrorHandler=Database.Default.crash)
+		func execute(query x:Query.Expression, success s:SuccessHandler=Database.Default.Handler.success, failure f:FailureHandler=Database.Default.Handler.failure)
 		{
 			assert(version.number == database._dbg.transactionVersion.number)
 			precondition(database._core.null == false)
 			precondition(database._core.autocommit == false)
 			
-			database.execute(query: q, success: s, failure: f)
+			database.execute(query: x, success: s, failure: f)
+		}
+		func execute<T:QueryExpressive>(query q:T, success s:SuccessHandler=Database.Default.Handler.success, failure f:FailureHandler=Database.Default.Handler.failure)
+		{
+			execute(query: q.express(), success: s, failure: f)
 		}
 		
 		///	Default error handler.
@@ -73,3 +53,11 @@ extension Database
 	}
 
 }
+
+
+
+
+
+
+
+

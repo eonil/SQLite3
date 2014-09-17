@@ -11,6 +11,7 @@ import Foundation
 enum
 Value
 {
+	case Null
 	case Integer(value:Int64)
 	case Float(value:Double)
 	case Text(value:String)

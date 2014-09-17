@@ -1,5 +1,5 @@
 //
-//  Core.Debug.swift
+//  Core.swift
 //  EonilSQLite3
 //
 //  Created by Hoon H. on 9/17/14.
@@ -10,18 +10,14 @@ import Foundation
 
 extension Core
 {
-	struct Debug
+	static func log(object:@autoclosure()->Any)
 	{
-		static func log(message m:String)
+		if Debug.mode
 		{
-			println(m)
+			println(object())
 		}
 	}
-}
 
-//#if	DEBUG
-extension Core.Debug
-{
 	struct LeakDetector
 	{
 		enum TargetObjectType
@@ -34,17 +30,23 @@ extension Core.Debug
 		
 		mutating func registerInstance(inst:COpaquePointer, of type:TargetObjectType)
 		{
-			precondition(inst != COpaquePointer.null())
-			precondition(find(instanceListForType[type]!, inst) == nil)
-			instanceListForType[type]!.append(inst)
+			if Debug.mode
+			{
+				precondition(inst != COpaquePointer.null())
+				precondition(find(instanceListForType[type]!, inst) == nil)
+				instanceListForType[type]!.append(inst)
+			}
 		}
 		mutating func unregisterInstance(inst:COpaquePointer, of type:TargetObjectType)
 		{
-			precondition(inst != COpaquePointer.null())
-			let	idx	=	find(instanceListForType[type]!, inst)
-			
-			precondition(idx != nil)
-			instanceListForType[type]!.removeAtIndex(idx!)
+			if Debug.mode
+			{
+				precondition(inst != COpaquePointer.null())
+				let	idx	=	find(instanceListForType[type]!, inst)
+				
+				precondition(idx != nil)
+				instanceListForType[type]!.removeAtIndex(idx!)
+			}
 		}
 		var allInstancesByTypes:Dictionary<TargetObjectType,[COpaquePointer]>
 		{
@@ -55,9 +57,16 @@ extension Core.Debug
 		}
 		func countAllInstances() -> Int
 		{
-			let	a1	=	map(instanceListForType.values, { (v:[COpaquePointer]) -> (Int) in return v.count })
-			let	a2	=	reduce(a1, 0, +)
-			return	a2
+			if Debug.mode
+			{
+				let	a1	=	map(instanceListForType.values, { (v:[COpaquePointer]) -> (Int) in return v.count })
+				let	a2	=	reduce(a1, 0, +)
+				return	a2
+			}
+			else
+			{
+				Core.Common.crash(message: "Unsupported feature on RELEASE build.")
+			}
 		}
 		
 		private var instanceListForType	=
@@ -67,7 +76,6 @@ extension Core.Debug
 		]
 	}
 }
-//#endif
 
 
 

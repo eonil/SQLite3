@@ -160,4 +160,57 @@ extension Query.Language.Syntax
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	///	http://www.sqlite.org/pragma.html
+	struct Pragma : Printable
+	{
+		let	database:String?
+		let	name:String
+		let	argument:Argument
+		
+		enum Argument : Printable
+		{
+			case Set(value:String)		///<	Value assignment style pragma. `PRAGMA name1=value`.
+			case Call(value:String)		///<	Function call style pragma. `PRAGMA name1(value)`.
+			
+			var description:String
+			{
+				get
+				{
+					switch self
+					{
+						case let .Set(value):
+							return	"=\(value.value)"
+						
+						case let .Call(value):
+							return	"(\(value.value))"
+					}
+				}
+			}
+		}
+		
+		var description:String
+		{
+			get
+			{
+				let	db	=	database == nil ? "" : (database! + ".")
+				return	"PRAGMA \(db)\(name)\(argument)"
+			}
+		}
+	}
+	
+	
 }

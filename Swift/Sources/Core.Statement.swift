@@ -79,7 +79,7 @@ extension Core
 			///	`SQLITE_OK` has not role here, and will be treated as an unknown error status.
 			///	`SQLITE_BUSY` and `SQLITE_MISUSE` is treated as a programmer error -- a bug.
 			let	rc1	=	sqlite3_step(_rawptr)
-			Core.Debug.log(message: "`sqlite3_step(\(_rawptr))` called.")
+			Core.log("`sqlite3_step(\(_rawptr))` called.")
 			
 			switch rc1
 			{
@@ -112,8 +112,8 @@ extension Core
 			
 			let	r	=	sqlite3_finalize(_rawptr)
 			database.checkNoErrorWith(resultCode: r)
-//			Core.Debug.log(message: "`sqlite3_finalize(\(_rawptr))` called")
-			Core.Debug.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.Debug.LeakDetector.TargetObjectType.stmt)
+//			Core.log(message: "`sqlite3_finalize(\(_rawptr))` called")
+			Core.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.stmt)
 			
 			_rawptr	=	C.NULL
 		}

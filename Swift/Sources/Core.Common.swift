@@ -19,7 +19,7 @@ extension Core.Common
 {
 	@noreturn static func crash(message s:String = "")
 	{
-		println("CRASH requested by PROGRAMMER" + (s == "" ? "." : (": " + s)))
+		Core.log("CRASH requested by PROGRAMMER" + (s == "" ? "." : (": " + s)))
 		abort()
 	}
 	

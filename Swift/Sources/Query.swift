@@ -11,16 +11,13 @@ import Foundation
 
 
 
-
-
-
-///	A marker protocol to mark a qeury object runnable.
-public protocol QueryRunnable
+public protocol QueryExpressive
 {
+	func express() -> Query.Expression
 }
 
 ///	Abstracts single query statement.
-protocol QueryExpressive
+protocol SubqueryExpressive
 {
 	func express(uniqueParameterNameGenerator upng:Query.UniqueParameterNameGenerator) -> Query.Expression
 }
@@ -38,7 +35,7 @@ protocol QueryExpressive
 public struct Query
 {
 	
-	public typealias	UniqueParameterNameGenerator	=	() -> String
+	public typealias	UniqueParameterNameGenerator	=	() -> String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
 	public typealias	ParameterNameValueMapping		=	(name:String, value:AnyObject)
 	public typealias	ParameterNameValueMappings		=	[ParameterNameValueMapping]
 	public typealias	Expressive						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator) -> Expression
@@ -64,11 +61,11 @@ public struct Query
 			let	s3	=	join(", ", a2) as String
 			return	Expression(code: s3, parameters: a1)
 		}
-		static func expressionize<T:QueryExpressive>(using upng:UniqueParameterNameGenerator)(element:T) -> Expression
+		static func expressionize<T:SubqueryExpressive>(using upng:UniqueParameterNameGenerator)(element:T) -> Expression
 		{
 			return	element.express(uniqueParameterNameGenerator: upng)
 		}
-		static func expressionize<T:QueryExpressive>(using upng:UniqueParameterNameGenerator)(elements:[T]) -> ExpressionList
+		static func expressionize<T:SubqueryExpressive>(using upng:UniqueParameterNameGenerator)(elements:[T]) -> ExpressionList
 		{
 			return	ExpressionList(items: elements.map(expressionize(upng)))
 		}
@@ -85,6 +82,11 @@ public struct Query
 			return	Expression(code: value, parameters: [])
 		}
 	}
+	
+	
+	
+	
+	
 	struct ExpressionList
 	{
 		let	items:[Expression]
@@ -112,6 +114,20 @@ public struct Query
 		}
 	}
 	
+	///	Beware that the number of parameters cannot exceed `Int.max`.
+	///	This is Swift layer limitation.
+	///	SQLite3 may have extra limit which will be applied separately.
+	static func express(subquery:SubqueryExpressive) -> Expression
+	{
+		var	pc	=	0
+		func upng() -> String
+		{
+			pc++
+			return	"@param\(pc)"
+		}
+		
+		return	subquery.express(uniqueParameterNameGenerator: upng)
+	}
 	
 	
 	
@@ -127,7 +143,7 @@ public struct Query
 	
 	
 	///	Represents names such as table or column.
-	public struct Identifier : QueryExpressive, StringLiteralConvertible
+	public struct Identifier : SubqueryExpressive, StringLiteralConvertible
 	{
 		public let	name:String
 		
@@ -155,7 +171,7 @@ public struct Query
 		}
 	}
 	
-	public enum ColumnList : QueryExpressive
+	public enum ColumnList : SubqueryExpressive
 	{
 		case All
 		case Items(names:[Identifier])
@@ -174,7 +190,7 @@ public struct Query
 	}
 	
 	///	Only for value setting expression.
-	public struct Binding : QueryExpressive
+	public struct Binding : SubqueryExpressive
 	{
 		public let	column:Identifier
 		public let	value:AnyObject
@@ -182,22 +198,23 @@ public struct Query
 		///	Makes `col1 = @param1` style expression.
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
+			let	n1	=	upng()
 			return	column.express(uniqueParameterNameGenerator: upng)
 				+	"="
-				+	Expression(code: "", parameters: [ParameterNameValueMapping(name: upng(), value: value)])
+				+	Expression(code: n1, parameters: [ParameterNameValueMapping(name: n1, value: value)])
 		}
 	}
-	public struct BindingList : QueryExpressive
-	{
-		public let	items:[Binding]
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
-			return	Expression.expressionize(using: upng)(elements: items).concatenation()
-		}
-	}
+//	public struct BindingList : SubqueryExpressive
+//	{
+//		public let	items:[Binding]
+//		
+//		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+//		{
+//			return	Expression.expressionize(using: upng)(elements: items).concatenation()
+//		}
+//	}
 	
-	public struct FilterTree : QueryExpressive
+	public struct FilterTree : SubqueryExpressive
 	{
 		public let	root:Node
 		
@@ -206,9 +223,9 @@ public struct Query
 			return	root.express(uniqueParameterNameGenerator: upng)
 		}
 		
-		public enum Node : QueryExpressive
+		public enum Node : SubqueryExpressive
 		{
-			public enum Operation : QueryExpressive
+			public enum Operation : SubqueryExpressive
 			{
 				case Equal
 				case NotEqual
@@ -234,7 +251,7 @@ public struct Query
 				}
 			}
 
-			public enum Combination : QueryExpressive
+			public enum Combination : SubqueryExpressive
 			{
 				case And
 				case Or
