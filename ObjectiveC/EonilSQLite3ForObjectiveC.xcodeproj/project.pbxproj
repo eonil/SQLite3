@@ -85,14 +85,14 @@
 		453AB0EB195904EB00484DE9 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
 		453AB0EC195904EB00484DE9 /* ____internals____.m in Sources */ = {isa = PBXBuildFile; fileRef = 453AB0E6195904EB00484DE9 /* ____internals____.m */; };
 		45452C9914CC857000886D70 /* EESQLiteRowIDList.m in Sources */ = {isa = PBXBuildFile; fileRef = 45452C9714CC857000886D70 /* EESQLiteRowIDList.m */; };
-		4551EA6B19C2066F0048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */; };
-		4551EA6C19C2066F0048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4551EA8F19C206800048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */; };
-		4551EA9019C206800048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4551EAB219C206D90048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */; };
-		4551EAB319C206D90048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4551EAD519C207180048FD31 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAC119C207170048FD31 /* EonilSQLite3.framework */; };
-		4551EAD619C207180048FD31 /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAC119C207170048FD31 /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EA6B19C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA5719C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework */; };
+		4551EA6C19C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA5719C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EA8F19C206800048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA7B19C2067F0048FD31 /* EonilSQLite3ForObjectiveC.framework */; };
+		4551EA9019C206800048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA7B19C2067F0048FD31 /* EonilSQLite3ForObjectiveC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EAB219C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA9E19C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework */; };
+		4551EAB319C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EA9E19C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4551EAD519C207180048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAC119C207170048FD31 /* EonilSQLite3ForObjectiveC.framework */; };
+		4551EAD619C207180048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAC119C207170048FD31 /* EonilSQLite3ForObjectiveC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4551EAE119C2074D0048FD31 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4518C20D14CBD10100EF0620 /* libsqlite3.0.dylib */; };
 		4551EAF619C207EA0048FD31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4551EAF419C207E30048FD31 /* Foundation.framework */; };
 		4551EAF819C208480048FD31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4525F1A215BC7F1E00868258 /* Foundation.framework */; };
@@ -348,10 +348,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4551EA6C19C2066F0048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
-				4551EA9019C206800048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
-				4551EAD619C207180048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
-				4551EAB319C206D90048FD31 /* EonilSQLite3.framework in Embed Frameworks */,
+				4551EA6C19C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */,
+				4551EA9019C206800048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */,
+				4551EAD619C207180048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */,
+				4551EAB319C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -396,10 +396,10 @@
 		453AB0E6195904EB00484DE9 /* ____internals____.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "____internals____.m"; sourceTree = "<group>"; };
 		45452C9614CC857000886D70 /* EESQLiteRowIDList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EESQLiteRowIDList.h; sourceTree = "<group>"; };
 		45452C9714CC857000886D70 /* EESQLiteRowIDList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EESQLiteRowIDList.m; sourceTree = "<group>"; };
-		4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4551EAC119C207170048FD31 /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EA5719C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3ForObjectiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EA7B19C2067F0048FD31 /* EonilSQLite3ForObjectiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3ForObjectiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EA9E19C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3ForObjectiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4551EAC119C207170048FD31 /* EonilSQLite3ForObjectiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3ForObjectiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4551EAE919C207650048FD31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4551EAEB19C207650048FD31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4551EAEF19C207650048FD31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -447,12 +447,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4551EAB219C206D90048FD31 /* EonilSQLite3.framework in Frameworks */,
-				4551EA8F19C206800048FD31 /* EonilSQLite3.framework in Frameworks */,
+				4551EAB219C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */,
+				4551EA8F19C206800048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */,
 				452740D215D69AA700258461 /* libsqlite3.0.dylib in Frameworks */,
-				4551EA6B19C2066F0048FD31 /* EonilSQLite3.framework in Frameworks */,
+				4551EA6B19C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */,
 				452740BB15D6975200258461 /* libEonilSQLite3.a in Frameworks */,
-				4551EAD519C207180048FD31 /* EonilSQLite3.framework in Frameworks */,
+				4551EAD519C207180048FD31 /* EonilSQLite3ForObjectiveC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,10 +561,10 @@
 				452740A215D6974500258461 /* Manual Test.app */,
 				452740D715D69DBE00258461 /* Manual Test for Mac OS X */,
 				45E68B311683342700DAE96E /* libEonilSQLite3.a */,
-				4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */,
-				4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */,
-				4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */,
-				4551EAC119C207170048FD31 /* EonilSQLite3.framework */,
+				4551EA5719C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework */,
+				4551EA7B19C2067F0048FD31 /* EonilSQLite3ForObjectiveC.framework */,
+				4551EA9E19C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework */,
+				4551EAC119C207170048FD31 /* EonilSQLite3ForObjectiveC.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -958,7 +958,7 @@
 			);
 			name = "EonilSQLite3 - iOS - Framework - Static";
 			productName = "EonilSQLite3 - iOS - Framework - Static";
-			productReference = 4551EA5719C2066F0048FD31 /* EonilSQLite3.framework */;
+			productReference = 4551EA5719C2066F0048FD31 /* EonilSQLite3ForObjectiveC.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4551EA7A19C2067F0048FD31 /* EonilSQLite3 - iOS - Framework - Dynamic */ = {
@@ -976,7 +976,7 @@
 			);
 			name = "EonilSQLite3 - iOS - Framework - Dynamic";
 			productName = "EonilSQLite3 - iOS - Framework - Dynamic";
-			productReference = 4551EA7B19C2067F0048FD31 /* EonilSQLite3.framework */;
+			productReference = 4551EA7B19C2067F0048FD31 /* EonilSQLite3ForObjectiveC.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4551EA9D19C206D90048FD31 /* EonilSQLite3 - OSX - Framework - Static */ = {
@@ -994,7 +994,7 @@
 			);
 			name = "EonilSQLite3 - OSX - Framework - Static";
 			productName = "EonilSQLite3 - OSX - Framework - Static";
-			productReference = 4551EA9E19C206D90048FD31 /* EonilSQLite3.framework */;
+			productReference = 4551EA9E19C206D90048FD31 /* EonilSQLite3ForObjectiveC.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4551EAC019C207170048FD31 /* EonilSQLite3 - OSX - Framework - Dynamic */ = {
@@ -1012,7 +1012,7 @@
 			);
 			name = "EonilSQLite3 - OSX - Framework - Dynamic";
 			productName = "EonilSQLite3 - OSX - Framework - Dynamic";
-			productReference = 4551EAC119C207170048FD31 /* EonilSQLite3.framework */;
+			productReference = 4551EAC119C207170048FD31 /* EonilSQLite3ForObjectiveC.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4572DA5515BB1D3D0091442D /* OSX Dynamic Library */ = {
@@ -1115,7 +1115,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "EonilSQLite3" */;
+			buildConfigurationList = 4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "EonilSQLite3ForObjectiveC" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2097,7 +2097,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "EonilSQLite3" */ = {
+		4518C1F714CBD0CE00EF0620 /* Build configuration list for PBXProject "EonilSQLite3ForObjectiveC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4518C20814CBD0CE00EF0620 /* Debug */,

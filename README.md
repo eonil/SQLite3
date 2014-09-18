@@ -17,7 +17,7 @@ This provides SQLite3 database access API on Swift.
 Getting Started
 ---------------
 Embed the project as a subproject of your project, and link iOS dynamic
-framewor target. If you need to target iOS 7-, then you have to copy the
+framewor target. If you need to target iOS 7, then you have to copy the
 source files manually into your project. Because Swift is not currently
 supporting static library target.
 

@@ -50,8 +50,6 @@
 		458D62E819C6DEB0001E450D /* TestTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		458D62EB19C6DEB0001E450D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		458D62EC19C6DEB0001E450D /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
-		458D630119C6DEB1001E450D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		458D630219C6DEB1001E450D /* TestToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestToolTests.swift; sourceTree = "<group>"; };
 		458D630C19C6E160001E450D /* EonilSQLite3-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EonilSQLite3-Bridging-Header.h"; sourceTree = "<group>"; };
 		458D631019C6E190001E450D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
 		458D631219C6E1BB001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EonilSQLite3.framework; path = "../../../../../../Temp/Xcode/Derivations/EonilSQLite-bsrcfcbdgoxesyeqrdmfaubpdiym/Build/Products/Debug/EonilSQLite3.framework"; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				458D62C819C6DD8C001E450D /* Sources */,
 				458D62C919C6DD8C001E450D /* Targets */,
 				458D62E919C6DEB0001E450D /* TestTool */,
-				458D62FF19C6DEB1001E450D /* TestToolTests */,
 				458D62B219C6DD34001E450D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -278,23 +275,6 @@
 				4552BA4D19C6E356008FFF3F /* main.swift */,
 			);
 			name = "(supporting files)";
-			sourceTree = "<group>";
-		};
-		458D62FF19C6DEB1001E450D /* TestToolTests */ = {
-			isa = PBXGroup;
-			children = (
-				458D630219C6DEB1001E450D /* TestToolTests.swift */,
-				458D630019C6DEB1001E450D /* Supporting Files */,
-			);
-			path = TestToolTests;
-			sourceTree = "<group>";
-		};
-		458D630019C6DEB1001E450D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				458D630119C6DEB1001E450D /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		458D631419C6E1D6001E450D /* (dependencies) */ = {

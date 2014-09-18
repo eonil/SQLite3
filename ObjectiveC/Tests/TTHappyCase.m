@@ -8,7 +8,7 @@
 
 #import "TTHelperFunctions.h"
 #import "TTHappyCase.h"
-#import "CocoaSQLite.h"
+#import "EonilSQLite3.h"
 
 
 

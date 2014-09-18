@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4551EA5619C2066F0048FD31"
-               BuildableName = "EonilSQLite3.framework"
-               BlueprintName = "EonilSQLite3 - iOS - Framework - Static"
-               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
+               BlueprintIdentifier = "4551EAFD19C20AA00048FD31"
+               BuildableName = "EonilSQLite3 - All"
+               BlueprintName = "EonilSQLite3 - All"
+               ReferencedContainer = "container:EonilSQLite3ForObjective.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +42,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4551EA5619C2066F0048FD31"
-            BuildableName = "EonilSQLite3.framework"
-            BlueprintName = "EonilSQLite3 - iOS - Framework - Static"
-            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
+            BlueprintIdentifier = "4551EAFD19C20AA00048FD31"
+            BuildableName = "EonilSQLite3 - All"
+            BlueprintName = "EonilSQLite3 - All"
+            ReferencedContainer = "container:EonilSQLite3ForObjective.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -60,10 +60,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4551EA5619C2066F0048FD31"
-            BuildableName = "EonilSQLite3.framework"
-            BlueprintName = "EonilSQLite3 - iOS - Framework - Static"
-            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
+            BlueprintIdentifier = "4551EAFD19C20AA00048FD31"
+            BuildableName = "EonilSQLite3 - All"
+            BlueprintName = "EonilSQLite3 - All"
+            ReferencedContainer = "container:EonilSQLite3ForObjective.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

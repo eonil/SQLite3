@@ -14,7 +14,7 @@
          location = "group:README.md">
       </FileRef>
       <FileRef
-         location = "group:EonilSQLite3.xcodeproj">
+         location = "group:EonilSQLite3ForObjectiveC.xcodeproj">
       </FileRef>
    </Group>
    <Group

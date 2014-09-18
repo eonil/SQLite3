@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4551EA7A19C2067F0048FD31"
+               BlueprintIdentifier = "458D62B019C6DD34001E450D"
                BuildableName = "EonilSQLite3.framework"
                BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic"
                ReferencedContainer = "container:EonilSQLite3.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4551EA7A19C2067F0048FD31"
+            BlueprintIdentifier = "458D62B019C6DD34001E450D"
             BuildableName = "EonilSQLite3.framework"
             BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic"
             ReferencedContainer = "container:EonilSQLite3.xcodeproj">
@@ -60,7 +60,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4551EA7A19C2067F0048FD31"
+            BlueprintIdentifier = "458D62B019C6DD34001E450D"
             BuildableName = "EonilSQLite3.framework"
             BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic"
             ReferencedContainer = "container:EonilSQLite3.xcodeproj">

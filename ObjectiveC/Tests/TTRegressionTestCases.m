@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Eonil Company. All rights reserved.
 //
 
-#import "CocoaSQLite.h"
+#import "EonilSQLite3.h"
 #import "TTRegressionTestCases.h"
 
 
