@@ -36,7 +36,7 @@ public struct Query
 {
 	
 	public typealias	UniqueParameterNameGenerator	=	() -> String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
-	public typealias	ParameterNameValueMapping		=	(name:String, value:AnyObject)
+	public typealias	ParameterNameValueMapping		=	(name:String, value:Value)
 	public typealias	ParameterNameValueMappings		=	[ParameterNameValueMapping]
 	public typealias	Expressive						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator) -> Expression
 	
@@ -54,9 +54,9 @@ public struct Query
 		
 		static let	empty	=	Expression(code: "", parameters: [])
 		
-		static func byGeneratingUniqueParameterNames(using upng:UniqueParameterNameGenerator, with values:[AnyObject]) -> Expression		///<	Returned expression's `code` will be zero length string.
+		static func byGeneratingUniqueParameterNames(using upng:UniqueParameterNameGenerator, with values:[Value]) -> Expression		///<	Returned expression's `code` will be zero length string.
 		{
-			let	a1	=	values.map({ (n:AnyObject) -> ParameterNameValueMapping in return (name: upng(), value: n) })
+			let	a1	=	values.map({ (n:Value) -> ParameterNameValueMapping in return (name: upng(), value: n) })
 			let	a2	=	a1.map({ n in return n.name }) as [String]
 			let	s3	=	join(", ", a2) as String
 			return	Expression(code: s3, parameters: a1)
@@ -193,7 +193,7 @@ public struct Query
 	public struct Binding : SubqueryExpressive
 	{
 		public let	column:Identifier
-		public let	value:AnyObject
+		public let	value:Value
 		
 		///	Makes `col1 = @param1` style expression.
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
@@ -266,7 +266,7 @@ public struct Query
 				}
 			}
 			
-			case Leaf(operation:Operation, column:Identifier, value:AnyObject)
+			case Leaf(operation:Operation, column:Identifier, value:Value)
 			case Branch(combination:Combination, subnodes:[Node])
 			
 			func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression

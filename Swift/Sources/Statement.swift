@@ -15,7 +15,7 @@ import Foundation
 public protocol Row
 {
 	var numberOfFields:Int { get }
-	subscript(index:Int) -> AnyObject { get }				///<	Program crashes if the field value is `NULL`. Use `isNull` method to test nullity.
+	subscript(index:Int) -> Value { get }				///<	Program crashes if the field value is `NULL`. Use `isNull` method to test nullity.
 //	subscript(column:String) -> AnyObject? { get }
 	func columnNameOfField(atIndex index:Int) -> String
 	func isNullField(atIndex index:Int) -> Bool
@@ -92,7 +92,7 @@ public class Statement : GeneratorType
 	private var	_exec:Bool				///<	Has been executed at least once.
 	private var	_rowidx:Int				///<	Counted for validation.
 	
-	private func _setparams(ps:[String:AnyObject])
+	private func _setparams(ps:[String:Value])
 	{
 		for (k, v) in ps
 		{
@@ -133,7 +133,7 @@ public class Statement : GeneratorType
 				return	Int(host._core.dataCount())
 			}
 		}
-		subscript(index:Int) -> AnyObject
+		subscript(index:Int) -> Value
 		{
 			get
 			{
@@ -153,7 +153,7 @@ public class Statement : GeneratorType
 				Core.Common.crash(message: "Unknown column type code discovered; \(t2)")
 			}
 		}
-//		subscript(column:String) -> AnyObject?
+//		subscript(column:String) -> Value?
 //		{
 //			get
 //			{

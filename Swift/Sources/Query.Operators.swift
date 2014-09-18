@@ -36,27 +36,27 @@ public func |(left:Query.FilterTree.Node, right:Query.FilterTree.Node) -> Query.
 	return	Query.FilterTree.Node.Branch(combination: Query.FilterTree.Node.Combination.Or, subnodes: [left, right])
 }
 
-public func ==(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
+public func ==(left:Query.Identifier, right:Value) -> Query.FilterTree.Node
 {
 	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: left, value: right)
 }
-public func !=(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
+public func !=(left:Query.Identifier, right:Value) -> Query.FilterTree.Node
 {
 	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.NotEqual, column: left, value: right)
 }
-public func <(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
+public func <(left:Query.Identifier, right:Value) -> Query.FilterTree.Node
 {
 	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.LessThan, column: left, value: right)
 }
-public func >(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
+public func >(left:Query.Identifier, right:Value) -> Query.FilterTree.Node
 {
 	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.GreaterThan, column: left, value: right)
 }
-public func <=(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
+public func <=(left:Query.Identifier, right:Value) -> Query.FilterTree.Node
 {
 	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.EqualOrLessThan, column: left, value: right)
 }
-public func >=(left:Query.Identifier, right:AnyObject) -> Query.FilterTree.Node
+public func >=(left:Query.Identifier, right:Value) -> Query.FilterTree.Node
 {
 	return	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.EqualOrGreaterThan, column: left, value: right)
 }

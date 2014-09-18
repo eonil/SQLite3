@@ -27,7 +27,7 @@ public extension Database.Schema
 {
 	public typealias	ErrorHandler	=	Database.FailureHandler
 	
-	func allRowsOfRawMasterTable() -> [[String:AnyObject]]
+	func allRowsOfRawMasterTable() -> [[String:Value]]
 	{
 		return	database.snapshot(query: "SELECT * FROM sqlite_master", error: defaultErrorHandler)
 	}
@@ -35,7 +35,7 @@ public extension Database.Schema
 	public func namesOfAllTables(error handler:ErrorHandler) -> [String]
 	{
 		let	d	=	database.snapshot(query: "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;", error: handler)
-		func getName(r:[String:AnyObject]) -> String
+		func getName(r:[String:Value]) -> String
 		{
 			return	r["name"]! as String
 		}

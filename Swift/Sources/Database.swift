@@ -14,7 +14,7 @@ import Foundation
 ///
 public class Database
 {
-	public typealias	ParameterList	=	[String:AnyObject]
+	public typealias	ParameterList	=	[String:Value]
 	public typealias	RowIterator		=	(row:Row)->()
 	
 //	public typealias	DataHandler		=	(data:GeneratorOf<Row>)->()
@@ -177,21 +177,21 @@ public class Database
 	
 	
 	///	Execute the query and captures snapshot of all values of resulting rows.
-	func snapshot(query x:Query.Expression, error handler:FailureHandler) -> [[String:AnyObject]]
+	func snapshot(query x:Query.Expression, error handler:FailureHandler) -> [[String:Value]]
 	{
-		func collect(rows:GeneratorOf<Row>) -> [[String:AnyObject]]
+		func collect(rows:GeneratorOf<Row>) -> [[String:Value]]
 		{
-			var	vs	=	[[String:AnyObject]]()
+			var	vs	=	[[String:Value]]()
 			for row in rows
 			{
-				var	m	=	[String:AnyObject]()
+				var	m	=	[String:Value]()
 				let	c	=	row.numberOfFields
 				for i in 0..<c
 				{
 					if	row.isNullField(atIndex: i) == false
 					{
 						let	n:String	=	row.columnNameOfField(atIndex: i)
-						let	v:AnyObject	=	row[i]
+						let	v:Value		=	row[i]
 						
 						m[n]	=	v
 					}
@@ -201,7 +201,7 @@ public class Database
 			return	vs
 		}
 		
-		var	m:[[String:AnyObject]]	=	[]
+		var	m:[[String:Value]]	=	[]
 		func tx(op:Database.Operation) -> Bool
 		{
 			var	ok	=	false
@@ -224,7 +224,7 @@ public class Database
 	}
 	func execute(query x:Query.Expression, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 	{
-		var	m	=	[String:AnyObject]()
+		var	m	=	[String:Value]()
 		for mapping in x.parameters
 		{
 			m[mapping.name]	=	mapping.value

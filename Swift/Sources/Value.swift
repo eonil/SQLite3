@@ -19,14 +19,14 @@ import Foundation
 //}
 //
 //typealias	Binary	=	Blob
-
+public typealias	Value	=	AnyObject
 
 
 
 
 //
-//public typealias	FieldList	=	[Any]				///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
-//public typealias	Record		=	[String:AnyObject]
+//public typealias	FieldList	=	[Value]				///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
+//public typealias	Record		=	[String:Value]
 //
 //struct RowList
 //{
@@ -38,6 +38,7 @@ import Foundation
 
 
 
+//typealias	Integer	=	Int64
 
 ///	64-bit integer.
 ///	Defined to provide conversion to AnyObject.
@@ -58,32 +59,32 @@ public class Integer : Printable//, SignedIntegerType, SignedNumberType
 		}
 	}
 	
-	public var hashValue:Int
-	{
-		get
-		{
-			return	number.hashValue
-		}
-	}
-	
-	public var arrayBoundValue:Int64.ArrayBound
-	{
-		get
-		{
-			return	number.arrayBoundValue
-		}
-	}
-	public func toIntMax() -> IntMax
-	{
-		return	number.toIntMax()
-	}
-	
-	public class func from(x: IntMax) -> Integer
-	{
-		return	Integer(Int64.from(x))
-	}
-	
-	private let	number:Int64
+//	public var hashValue:Int
+//	{
+//		get
+//		{
+//			return	number.hashValue
+//		}
+//	}
+//	
+//	public var arrayBoundValue:Int64.ArrayBound
+//	{
+//		get
+//		{
+//			return	number.arrayBoundValue
+//		}
+//	}
+//	public func toIntMax() -> IntMax
+//	{
+//		return	number.toIntMax()
+//	}
+//	
+//	public class func from(x: IntMax) -> Integer
+//	{
+//		return	Integer(Int64.from(x))
+//	}
+
+	let	number:Int64
 }
 
 extension Int64

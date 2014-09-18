@@ -12,7 +12,7 @@ public struct Test1
 {
 	public static func test1()
 	{
-		func log(object:@autoclosure()->AnyObject)
+		func log<T>(object:@autoclosure()->T)
 		{
 			println(object())
 		}
@@ -149,13 +149,12 @@ public struct Test1
 		
 		
 		
-		
-		run{
+		run	{
 			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
 			db1.schema().create(table: "T1", column: ["c1"])
 		
 			let	k	=	db1.schema().allRowsOfRawMasterTable()
-			log(k)
+			println(k)
 		}
 		
 		

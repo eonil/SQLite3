@@ -16,16 +16,16 @@ struct Debug
 	static let	mode:Bool	=	false
 	#endif
 	
-	static func log(object:@autoclosure()->Any)
+	static func log<T>(object:@autoclosure()->T)
 	{
 		_log(object())
 	}
 	
-	private static func _log(object:@autoclosure()->Any)
+	private static func _log<T>(object:@autoclosure()->T)
 	{
 		if mode
 		{
-			println(object())
+//			println(object())
 		}
 	}
 }

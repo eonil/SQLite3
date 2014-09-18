@@ -39,6 +39,7 @@ public extension Query
 		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
+//			println(filter is FilterTree)
 			let	x1	=	(filter == nil ? Expression.empty : filter!.express(uniqueParameterNameGenerator: upng)) as Expression
 			return	"SELECT " as Expression
 			+		columns.express(uniqueParameterNameGenerator: upng)
@@ -74,7 +75,7 @@ public extension Query
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
 			let	ns		=	bindings.map({ (n:Query.Binding) -> Expression in return n.column.express(uniqueParameterNameGenerator: upng) })
-			let	ps		=	bindings.map({ (n:Query.Binding) -> AnyObject in return n.value })
+			let	ps		=	bindings.map({ (n:Query.Binding) -> Value in return n.value })
 			
 			let	cols	=	ExpressionList(items: ns).concatenationWith(separator: ", ")						///<	`col1, col2, col3, ...`
 			let	params	=	Expression.byGeneratingUniqueParameterNames(using: upng, with: ps)					///<	`@p1, @p2, @p3, ...`

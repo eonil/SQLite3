@@ -10,11 +10,11 @@ import Foundation
 
 extension Core
 {
-	static func log(object:@autoclosure()->Any)
+	static func log<T>(object:@autoclosure()->T)
 	{
 		if Debug.mode
 		{
-			println(object())
+//			println(object())
 		}
 	}
 
