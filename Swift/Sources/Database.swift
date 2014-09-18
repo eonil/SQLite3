@@ -30,7 +30,6 @@ public class Database
 		case PersistentFile(path:String)
 	}
 	
-	
 	public init(location:Location, mutable:Bool = false)
 	{
 		assert(_core.null == true)

@@ -179,9 +179,8 @@ public struct Test1
 				println(row.columnNameOfField(atIndex: 0))
 			}
 			func run(tx:Database.Operation)
-			{					
-				let	t1	=	Query.Schema.Table(name: "MyTable1", key: ["col1"], columns: [Query.Schema.Column(name: "col1", nullable: false, type: Query.Schema.Column.TypeCode.Text, unique: false)])
-				
+			{
+				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
 				tx.execute(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 			}
 
@@ -200,10 +199,10 @@ public struct Test1
 		
 			func run(tx:Database.Operation)
 			{
-				let	t1	=	Query.Schema.Table(name: "MyTable1", key: ["col1"], columns: [Query.Schema.Column(name: "col1", nullable: false, type: Query.Schema.Column.TypeCode.Text, unique: false)])
+				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
 				tx.execute(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 				
-				let	q1	=	Query.Select(table: "MyTable1", columns: Query.ColumnList.All, filter: nil)
+				let	q1	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
 				tx.execute(query: q1)
 			}
 		
@@ -222,7 +221,7 @@ public struct Test1
 		
 			func run(tx:Database.Operation)
 			{
-				let	t1	=	Query.Schema.Table(name: "T1", key: ["C1"], columns: [Query.Schema.Column(name: "C1", nullable: false, type: Query.Schema.Column.TypeCode.Text, unique: false)])
+				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
 				tx.execute(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 				
 				let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: "text1!")])

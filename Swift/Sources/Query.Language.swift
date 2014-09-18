@@ -24,7 +24,7 @@ extension Query.Language.Syntax
 {
 	typealias	Name			=	String
 	typealias	CollateName		=	String
-	typealias	TypeName		=	Query.Schema.Column.TypeCode
+	typealias	TypeName		=	Schema.Column.TypeCode
 	
 //	struct Expression
 //	{

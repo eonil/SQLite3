@@ -16,67 +16,75 @@ public extension Query
 	
 	public struct Schema
 	{
-		public let	tables:[Table]
-		
 		public struct Table
 		{
-			public let	name:Identifier
-			public let	key:[Identifier]			///<	Primary key column names.
-			public let	columns:[Column]
-		}
-		public struct Column
-		{
-			public let	name:Identifier
-			public let	nullable:Bool
-//			public let	ordering:Ordering		///<	This is related to indexing or PK...
-			public let	type:TypeCode
-			public let	unique:Bool				///<	Has unique key constraint.
 			
-			public enum TypeCode : String
-			{
-				case None			=	""				
-				case Integer		=	"INTEGER"
-				case Float			=	"FLOAT"
-				case Text			=	"TEXT"
-				case Blob			=	"BLOB"
-			}
-			public enum Ordering : String
-			{
-				case Ascending		=	"ASC"
-				case Descending		=	"DESC"
-			}
 		}
 	}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-public extension Query.Master
-{
-//	///	Queries all schematic informations from the database.
-//	public static func schema() -> Query.Schema
+	
+//	public struct Schema
 //	{
+//		public let	tables:[Table]
+//		
+//		public struct Table
+//		{
+//			public let	name:Identifier
+//			public let	key:[Identifier]			///<	Primary key column names.
+//			public let	columns:[Column]
+//		}
+//		public struct Column
+//		{
+//			public let	name:Identifier
+//			public let	nullable:Bool
+////			public let	ordering:Ordering		///<	This is related to indexing or PK...
+//			public let	type:TypeCode
+//			public let	unique:Bool				///<	Has unique key constraint.
+//			
+//			public enum TypeCode : String
+//			{
+//				case None			=	""				
+//				case Integer		=	"INTEGER"
+//				case Float			=	"FLOAT"
+//				case Text			=	"TEXT"
+//				case Blob			=	"BLOB"
+//			}
+//			public enum Ordering : String
+//			{
+//				case Ascending		=	"ASC"
+//				case Descending		=	"DESC"
+//			}
+//		}
 //	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//public extension Query.Master
+//{
+////	///	Queries all schematic informations from the database.
+////	public static func schema() -> Query.Schema
+////	{
+////	}
+//}
 
 public extension Query.Schema.Table
 {
 	public struct Create : QueryExpressive, SubqueryExpressive
 	{
 		public let	temporary:Bool
-		public let	definition:Query.Schema.Table
+		public let	definition:Schema.Table
 		
 		public func express() -> Query.Expression
 		{
@@ -86,9 +94,10 @@ public extension Query.Schema.Table
 		
 		
 		
+		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
-			typealias	Column	=	Query.Schema.Column
+			typealias	Column	=	Schema.Column
 			
 			func resolveColumnCode(c:Column) -> String
 			{
@@ -114,7 +123,7 @@ public extension Query.Schema.Table
 						return	constraints
 					}
 					
-					let	s1	=	c.name.express(uniqueParameterNameGenerator: upng).code
+					let	s1	=	c.name
 					return	CDEF(name: s1, type: c.type, constraints: resolveConstraints(c))
 				}
 				
@@ -126,7 +135,7 @@ public extension Query.Schema.Table
 			return	"CREATE "
 				+		(temporary ? "TEMPORARY " : "")
 				+		"TABLE "
-				+		definition.name.express(uniqueParameterNameGenerator: upng)
+				+		Query.Expression(code: definition.name, parameters: [])
 				+		"(\(ss))"
 		}
 	}

@@ -42,7 +42,7 @@ public extension Database.Schema
 		return	d.map(getName)
 	}
 	
-	public func table(of name:String, error handler:ErrorHandler) -> Query.Schema.Table
+	public func table(of name:String, error handler:ErrorHandler) -> Schema.Table
 	{
 		let	p	=	Query.Language.Syntax.Pragma(database: nil, name: "table_info", argument: Query.Language.Syntax.Pragma.Argument.Call(value: name))
 		let	c	=	p.description
@@ -50,7 +50,7 @@ public extension Database.Schema
 		
 		Debug.log(d)
 		
-		return	Query.Schema.Table(name: "?", key: [], columns: [])
+		return	Schema.Table(name: "?", key: [], columns: [])
 	}
 	
 	
@@ -62,12 +62,12 @@ public extension Database.Schema
 	}
 	public func create(table tname:String, column cnames:[String], error handler:ErrorHandler)
 	{
-		func columnize(name:String) -> Query.Schema.Column
+		func columnize(name:String) -> Schema.Column
 		{
-			return	Query.Schema.Column(name: Query.Identifier(name: name), nullable: true, type: Query.Schema.Column.TypeCode.None, unique: false)
+			return	Schema.Column(name: name, nullable: true, type: Schema.Column.TypeCode.None, unique: false)
 		}
 		let	cs	=	cnames.map(columnize)
-		let	def	=	Query.Schema.Table(name: Query.Identifier(name: tname), key: [], columns: cs)
+		let	def	=	Schema.Table(name: tname, key: [], columns: cs)
 		let	cmd	=	Query.Schema.Table.Create(temporary: false, definition: def)
 		create(table: cmd, error: handler)
 	}
