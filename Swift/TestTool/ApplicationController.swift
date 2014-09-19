@@ -41,6 +41,7 @@ class ApplicationController: UIResponder, UIApplicationDelegate
 		core	=	Core()
 		
 		Test1.test1()
+		test2()
 		
 		return true
 	}

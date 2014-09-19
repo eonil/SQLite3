@@ -27,11 +27,6 @@ public extension Database.Schema
 {
 	public typealias	ErrorHandler	=	Database.FailureHandler
 	
-	func allRowsOfRawMasterTable() -> [[String:Value]]
-	{
-		return	database.snapshot(query: "SELECT * FROM sqlite_master", error: defaultErrorHandler)
-	}
-	
 	public func namesOfAllTables(error handler:ErrorHandler) -> [String]
 	{
 		let	d	=	database.snapshot(query: "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;", error: handler)
@@ -96,5 +91,18 @@ public extension Database.Schema
 		drop(table: tname, error: defaultErrorHandler)
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	func allRowsOfRawMasterTable() -> [[String:Value]]
+	{
+		return	database.snapshot(query: "SELECT * FROM sqlite_master", error: defaultErrorHandler)
+	}
+	
 	
 }

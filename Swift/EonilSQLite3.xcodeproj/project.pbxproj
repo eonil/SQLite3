@@ -30,6 +30,7 @@
 		459B518119C7722B0029EA46 /* Query.Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B518019C7722B0029EA46 /* Query.Operators.swift */; };
 		459B518519C772470029EA46 /* Query.Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B518419C772470029EA46 /* Query.Basic.swift */; };
 		459B518719C773630029EA46 /* Query.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B518619C773630029EA46 /* Query.Schema.swift */; };
+		45B78BCB19CCC44B008D98CA /* ExternalTest1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B78BCA19CCC44B008D98CA /* ExternalTest1.swift */; };
 		45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
 		45CC02C819C9DA9D00AEABCC /* Database.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C719C9DA9D00AEABCC /* Database.Table.swift */; };
 		45CC02CA19C9DFF900AEABCC /* Database.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C919C9DFF900AEABCC /* Database.Schema.swift */; };
@@ -67,6 +68,7 @@
 		459B518019C7722B0029EA46 /* Query.Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Operators.swift; sourceTree = "<group>"; };
 		459B518419C772470029EA46 /* Query.Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Basic.swift; sourceTree = "<group>"; };
 		459B518619C773630029EA46 /* Query.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Schema.swift; sourceTree = "<group>"; };
+		45B78BCA19CCC44B008D98CA /* ExternalTest1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalTest1.swift; sourceTree = "<group>"; };
 		45CC02B619C9C2ED00AEABCC /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		45CC02C719C9DA9D00AEABCC /* Database.Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Table.swift; sourceTree = "<group>"; };
 		45CC02C919C9DFF900AEABCC /* Database.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Schema.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				458D62EC19C6DEB0001E450D /* ApplicationController.swift */,
+				45B78BCA19CCC44B008D98CA /* ExternalTest1.swift */,
 				458D62EA19C6DEB0001E450D /* (supporting files) */,
 				458D631A19C6E2C1001E450D /* TestTool-Bridging-Header.h */,
 			);
@@ -494,6 +497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B78BCB19CCC44B008D98CA /* ExternalTest1.swift in Sources */,
 				458D62ED19C6DEB0001E450D /* ApplicationController.swift in Sources */,
 				4552BA4E19C6E356008FFF3F /* main.swift in Sources */,
 			);

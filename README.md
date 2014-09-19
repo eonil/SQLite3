@@ -4,7 +4,7 @@ Hoon H., 2014/09/16
 
 
 
-**CURRENTLY UNDER DEVELOPMENT. API IS SUBJECT TO CHANGE**
+**CURRENTLY UNDER DESIGN & DEVELOPMENT. API IS SUBJECT TO CHANGE**
 
 
 
@@ -72,10 +72,25 @@ Schematic illustration.
 What about multi-table operations?
 ----------------------------------
 Seriously looking for JOIN stuffs on SQLite?
-Well, those stuffs are not provided as formalized method, and
-you need to execute your own custom query.
+Well, those stuffs are not provided as formalized method, 
+but you do them by executing your own custom SQL query.
 
-
+	let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+	db1.schema().create(table: "T1", column: ["c1"])
+	
+	let	t1	=	db1.table(name: "T1")
+	t1.insert(rowWith: ["c1":"V1"])
+	
+	db1.apply { (operation) -> () in
+		operation.execute(code: "SELECT * FROM T1", parameters: Database.ParameterList(), success: { (data) -> () in
+			for row in data
+			{
+				assert(row[0] as String == "V1")
+			}
+		}, failure: { (message) -> () in
+			
+		})
+	}
 
 
 
