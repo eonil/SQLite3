@@ -19,7 +19,7 @@ import Foundation
 //}
 //
 //typealias	Binary	=	Blob
-public typealias	Value	=	AnyObject
+public typealias	Value	=	AnyObject				///<	Don't use `Any`. Currently, it causes many subtle unknown problems.
 
 
 
@@ -40,7 +40,7 @@ public typealias	Value	=	AnyObject
 
 //typealias	Integer	=	Int64
 
-///	64-bit integer.
+///	64-bit signed integer class type.
 ///	Defined to provide conversion to AnyObject.
 ///	(Swift included in Xcode 6.0.1 does not support this conversion...)
 public class Integer : Printable//, SignedIntegerType, SignedNumberType

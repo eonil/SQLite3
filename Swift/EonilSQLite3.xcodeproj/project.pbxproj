@@ -12,6 +12,7 @@
 		45652A8D19CAEFA60064EB45 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652A8C19CAEFA60064EB45 /* Schema.swift */; };
 		4583D3AB19C85DEB00861520 /* Core.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583D3AA19C85DEB00861520 /* Core.Result.swift */; };
 		4583D3AD19C8719A00861520 /* Query.Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583D3AC19C8719A00861520 /* Query.Language.swift */; };
+		4587124C19CB8AC7006F9BDC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4587124B19CB8AC7006F9BDC /* Config.swift */; };
 		458D62DF19C6DE21001E450D /* Core.Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62DE19C6DE21001E450D /* Core.Statement.swift */; };
 		458D62E119C6DE2A001E450D /* Core.Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62E019C6DE2A001E450D /* Core.Database.swift */; };
 		458D62E319C6DE2F001E450D /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62E219C6DE2F001E450D /* Core.swift */; };
@@ -41,6 +42,7 @@
 		45652A8C19CAEFA60064EB45 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		4583D3AA19C85DEB00861520 /* Core.Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Result.swift; sourceTree = "<group>"; };
 		4583D3AC19C8719A00861520 /* Query.Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Language.swift; sourceTree = "<group>"; };
+		4587124B19CB8AC7006F9BDC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		458D62B119C6DD34001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		458D62BC19C6DD35001E450D /* EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458D62D819C6DD9F001E450D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		458D62C819C6DD8C001E450D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4587124B19CB8AC7006F9BDC /* Config.swift */,
 				45CC02B619C9C2ED00AEABCC /* Debug.swift */,
 				459B517819C72BBC0029EA46 /* Value.swift */,
 				459B517219C6FC3D0029EA46 /* Database.swift */,
@@ -473,6 +476,7 @@
 				459B517F19C75EDC0029EA46 /* Test1.swift in Sources */,
 				459B518519C772470029EA46 /* Query.Basic.swift in Sources */,
 				4583D3AD19C8719A00861520 /* Query.Language.swift in Sources */,
+				4587124C19CB8AC7006F9BDC /* Config.swift in Sources */,
 				459B517319C6FC3D0029EA46 /* Database.swift in Sources */,
 				45F16E7D19C8AF5A007B4DE2 /* Database.Operation.swift in Sources */,
 				458D62E319C6DE2F001E450D /* Core.swift in Sources */,
