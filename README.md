@@ -4,7 +4,7 @@ Hoon H., 2014/09/16
 
 
 
-**CURRENTLY UNDER DESIGN & DEVELOPMENT. API IS SUBJECT TO CHANGE**
+**CURRENTLY UNDER DESIGN & DEVELOPMENT, API IS SUBJECT TO CHANGE.**
 
 
 
@@ -72,7 +72,7 @@ Schematic illustration.
 What about multi-table operations?
 ----------------------------------
 Seriously looking for JOIN stuffs on SQLite?
-Well, those stuffs are not provided as formalized method, 
+Well, those stuffs are not provided as formalized methods, 
 but you do them by executing your own custom SQL query.
 
 	let	db1	=	Database(location: Database.Location.Memory, mutable: true)
@@ -104,8 +104,10 @@ Objective-C
 -----------
 Good old Objective-C version library still exists in `ObjectiveC` folder.
 Anyway, it's completely separated version, and nothing related to Swift 
-version. Swift version is pure Swift based, and interfaces to SQLite3 C 
+version. Swift version is purely Swift based, and interfaces to SQLite3 C 
 API directly.
+
+
 
 
 
