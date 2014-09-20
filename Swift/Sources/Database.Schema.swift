@@ -51,9 +51,11 @@ public extension Database.Schema
 	
 	public func create(table q:Query.Schema.Table.Create, error handler:ErrorHandler)
 	{
-		database.apply { (operation) -> () in
-			operation.execute(query: q, success: Database.Default.Handler.success, failure: handler)
+		func tx()
+		{
+			database.run(query: q.express(), success: Database.Default.Handler.success, failure: handler)
 		}
+		database.apply (tx)
 	}
 	public func create(table tname:String, column cnames:[String], error handler:ErrorHandler)
 	{
@@ -78,9 +80,11 @@ public extension Database.Schema
 	
 	public func drop(table q:Query.Schema.Table.Drop, error handler:ErrorHandler)
 	{
-		database.apply { (operation) -> () in
-			operation.execute(query: q, success: Database.Default.Handler.success, failure: handler)
+		func tx()
+		{
+			database.run(query: q.express(), success: Database.Default.Handler.success, failure: handler)
 		}
+		database.apply(tx)
 	}
 	public func drop(table tname:String, error handler:ErrorHandler)
 	{

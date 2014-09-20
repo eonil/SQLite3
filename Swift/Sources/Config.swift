@@ -12,13 +12,14 @@ struct Config
 {
 	struct Build
 	{
-		enum LogLeverl
+		enum LogLevel
 		{
 			case None
 			case Some				///<	Only convenient level wrappers.
 			case All				///<	Convenient level and core level wrappers.
 		}
 		
-		static let	logLevel	=	LogLeverl.None
+//		static let	logLevel	=	LogLevel.None
+		static let	logLevel	=	LogLevel.All
 	}
 }

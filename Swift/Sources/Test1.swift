@@ -180,10 +180,10 @@ public struct Test1
 				println(row.numberOfFields)
 				println(row.columnNameOfField(atIndex: 0))
 			}
-			func run(tx:Database.Operation)
+			func run()
 			{
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
-				tx.execute(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 			}
 
 			db1.apply(run)
@@ -199,13 +199,13 @@ public struct Test1
 				println(row.columnNameOfField(atIndex: 0))
 			}
 		
-			func run(tx:Database.Operation)
+			func run()
 			{
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
-				tx.execute(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 				
 				let	q1	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
-				tx.execute(query: q1)
+				db1.run(query: q1)
 			}
 		
 			db1.apply(run)
@@ -221,16 +221,16 @@ public struct Test1
 				println(row.columnNameOfField(atIndex: 0))
 			}
 		
-			func run(tx:Database.Operation)
+			func run()
 			{
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
-				tx.execute(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 				
 				let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: "text1!")])
-				tx.execute(query: q1)
+				db1.run(query: q1)
 				
 				let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
-				tx.execute(query: q2, success: { (data:GeneratorOf<Row>) -> () in
+				db1.run(query: q2, success: { (data:GeneratorOf<Row>) -> () in
 					for r:Row in data
 					{
 						println(r[0])

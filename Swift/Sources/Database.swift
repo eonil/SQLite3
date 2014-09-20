@@ -26,7 +26,7 @@ public class Database
 	public enum Location
 	{
 		case Memory
-		case TempFile
+		case TemporaryFile
 		case PersistentFile(path:String)
 	}
 	
@@ -36,11 +36,18 @@ public class Database
 		
 		func resolve_name() -> String
 		{
+			func passAssertingValidPersistentFilePath(path:String) -> String
+			{
+				assert(path != "")
+				assert(path != ":memory:")
+				return	path
+			}
+			
 			switch location
 			{
 			case let Location.Memory:						return	":memory:"
-			case let Location.TempFile:						return	""
-			case let Location.PersistentFile(path: path):	return	path
+			case let Location.TemporaryFile:				return	""
+			case let Location.PersistentFile(path: path):	return	passAssertingValidPersistentFilePath(path)
 			}
 		}
 		func resolve_flag() -> Core.Database.OpenFlag
@@ -75,55 +82,69 @@ public class Database
 	///	method multiple times to make nested transactions.
 	///	Anyway in that situation, out-most transaction 
 	///	rules them all.
-	public func apply(transaction:(operation:Operation) -> ())
+	public func apply(transaction:() -> ())
 	{
 		precondition(_core.null == false)
 		
-		execute(code: "BEGIN TRANSACTION;")
+		let	nested	=	_core.autocommit == false
+		if nested == false { execute(code: "BEGIN TRANSACTION;") }
 		assert(_core.autocommit == false)
-		transaction(operation: Operation(database: self, version: _dbg.transactionVersion))
-		execute(code: "COMMIT TRANSACTION;")
+		transaction()
+		if nested == false { execute(code: "COMMIT TRANSACTION;") }
 	}
 	
 	///	`run` method with optional ROLLBACK support.
 	///	If you return false, everything will be ROLLBACK.
 	///	Returns what the transaction closure returns.
 	/// (true for commit, false for rollback)
-	public func applyOptionally(transaction:(operation:Operation) -> Bool) -> Bool
+	///	Rollback of inner transaction does not affect outer
+	///	transaction. It can be commit separately.
+	public func applyOptionally(transaction:() -> Bool) -> Bool
 	{
 		precondition(_core.null == false)
 		
-		execute(code: "BEGIN TRANSACTION;")
+		let	nested	=	_core.autocommit == false
+		if nested == false { execute(code: "BEGIN TRANSACTION;") }
 		assert(_core.autocommit == false)
-		if transaction(operation: Operation(database: self, version: _dbg.transactionVersion))
+		if transaction()
 		{
-			execute(code: "COMMIT TRANSACTION;")
+			if nested == false { execute(code: "COMMIT TRANSACTION;") }
 			return	true
 		}
 		else
 		{
-			execute(code: "ROLLBACK TRANSACTION;")
+			if nested == false { execute(code: "ROLLBACK TRANSACTION;") }
 			return	false
 		}
 	}
 	
-	///	Executes a query with transaction wrapping.
-	///	In other words, this `apply` with `execute`.
-	public func run(query q:QueryExpressive, success s:SuccessHandler, failure f:FailureHandler)
+	
+	
+	
+	///	Executes a single query within a transaction.
+	///	You always need a valid transaction context to call this method.
+	public func run(query q:QueryExpressive, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 	{
 		run(query: q.express(), success: s, failure: f)
 	}
-	public func run(query c:String, success s:SuccessHandler, failure f:FailureHandler)
+	public func run(query c:String, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 	{
 		run(query: Query.Expression(code: c, parameters: []), success: s, failure: f)
 	}
-	public func run(query x:Query.Expression, success s:SuccessHandler, failure f:FailureHandler)
+	public func run(query x:Query.Expression, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 	{
-		func transact(op:Operation)
+		assert(_core.autocommit == false)
+		
+		var	m	=	[String:Value]()
+		for mapping in x.parameters
 		{
-			op.execute(query: x, success: s, failure: f)
+			m[mapping.name]	=	mapping.value
 		}
-		apply(transact)
+		
+		Debug.log(x.code)
+		Debug.log(m)
+		
+		execute(code: x.code, parameters: m, success: s, failure: f)
 	}
 	
 	public func schema() -> Database.Schema
@@ -148,12 +169,6 @@ public class Database
 	
 	struct Default
 	{
-		///	Default row iterator.
-		///	Just does nothing.
-//		static func null(row:Row)
-//		{
-//		}
-		
 		///	Just does nothing.
 		static func null(rows:GeneratorOf<Row>)
 		{
@@ -201,7 +216,7 @@ public class Database
 		}
 		
 		var	m:[[String:Value]]	=	[]
-		func tx(op:Database.Operation) -> Bool
+		func tx() -> Bool
 		{
 			var	ok	=	false
 			func s(data:GeneratorOf<Row>)
@@ -214,26 +229,39 @@ public class Database
 				handler(message: message)
 			}
 			
-			op.execute(query: x, success: s, failure: f)
+			run(query: x, success: s, failure: f)
 			return	ok
 		}
 		
 		applyOptionally(tx)
 		return	m
 	}
-	func execute(query x:Query.Expression, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
-	{
-		var	m	=	[String:Value]()
-		for mapping in x.parameters
-		{
-			m[mapping.name]	=	mapping.value
-		}
-		
-		Debug.log(x.code)
-		Debug.log(m)
-		execute(code: x.code, parameters: m, success: s, failure: f)
-	}
-	func execute(code c:String, parameters p:ParameterList=ParameterList(), success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	private func execute(query x:QueryExpressive, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
+//	{
+//		execute(query: x.express(), success: s, failure: f)
+//	}
+//	private func execute(query x:Query.Expression, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
+//	{
+//		var	m	=	[String:Value]()
+//		for mapping in x.parameters
+//		{
+//			m[mapping.name]	=	mapping.value
+//		}
+//		
+//		Debug.log(x.code)
+//		Debug.log(m)
+//		execute(code: x.code, parameters: m, success: s, failure: f)
+//	}
+	private func execute(code c:String, parameters p:ParameterList=ParameterList(), success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 	{
 		let	ss1	=	cache(code: c) as [Statement]
 		for s1 in ss1
@@ -245,75 +273,8 @@ public class Database
 				s1.step()		///<	Just step once to make the command surely been executed.
 			}
 		}
-		
-//		class
-//		MultistatementRowGenerator : GeneratorType
-//		{
-//			typealias	Element	=	Row
-//			
-//			init(all:IndexingGenerator<[Statement]>)
-//			{
-//				self.all	=	all
-//				
-//				current	=	self.all.next()
-//				current?.bind(parameters: p)
-//			}
-//			deinit
-//			{
-//				executeAll()
-//			}
-//			
-//			var	all:IndexingGenerator<[Statement]>
-//			var	current:Statement?
-//			
-//			func next() -> Element?
-//			{
-//				if let row = current?.next()
-//				{
-//					return	row
-//				}
-//				else
-//				{
-//					if let current = all.next()
-//					{
-//						return	next()
-//					}
-//					else
-//					{
-//						return	nil
-//					}
-//				}
-//			}
-//			func executeAll()
-//			{
-//				if current != nil
-//				{
-//					for s1 in all
-//					{
-//						s1.step()
-//					}
-//				}
-//			}
-//		}
-//		
-//		let	g1	=	MultistatementRowGenerator(all: ss1.generate())
-//		let	g2	=	GeneratorOf<Row>(g1)
-//		
-//		s(data: g2)
-		
-//		
-//		if ss1.count > 0
-//		{
-//			s1.bind(parameters: ps)
-//		}
-//		if let f = ss1.first
-//		{
-//			var	rg1	=	ROWGEN(stmtgen: ss1.generate(), rowgen: f)
-//			return	GeneratorOf<Row>(rg1)
-//		}
-//		return	GeneratorOf<Row>(GeneratorOfOne<Row>(nil))
 	}
-	func cache(code s:String) -> [Statement]
+	private func cache(code s:String) -> [Statement]
 	{
 		let	(ss1, tail)	=	_core.prepare(s)
 		
@@ -336,31 +297,7 @@ public class Database
 	
 	
 	
-	internal var	_core				=	Core.Database()
-//	internal var _in_transaction		=	false
-	internal var	_dbg				=	DebuggingSupport()
-	
-	
-	
-	
-	struct DebuggingSupport
-	{
-		struct TransactionVersion
-		{
-			var	number	=	0
-			
-			mutating func step()
-			{
-				number++
-				if number == Int.max
-				{
-					number	=	0
-				}
-			}
-		}
-		
-		var	transactionVersion	=	TransactionVersion()
-	}
+	private var	_core				=	Core.Database()
 }
 
 
