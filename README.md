@@ -36,6 +36,8 @@ How to Use
 ----------
 Schematic illustration.
 
+````Swift
+
 	import EonilSQLite3
 
 	///	Create new mutable database in memory.
@@ -75,11 +77,14 @@ Schematic illustration.
 	///	Perform a transaction with multiple commands.
 	db1.apply(tx1)
 
+````
 
 You always perform operations in a transaction. It's not allowed
 to run any operation without transaction. 
 
 Nested transaction is also supported.
+
+````Swift
 
 	let	db1	=	Database(location: Database.Location.Memory, mutable: true)
 	
@@ -124,7 +129,7 @@ Nested transaction is also supported.
 	}
 	db1.apply(tx1)
 
-
+````
 
 
 
@@ -137,6 +142,8 @@ What about multi-table operations?
 Seriously looking for JOIN stuffs on SQLite?
 Well, those stuffs are not provided as formalized methods, 
 but you do them by executing your own custom SQL query.
+
+````Swift
 
 	let	db1	=	Database(location: Database.Location.Memory, mutable: true)
 	db1.schema().create(table: "T1", column: ["c1"])
@@ -155,7 +162,7 @@ but you do them by executing your own custom SQL query.
 		})
 	}
 
-
+````
 
 
 
