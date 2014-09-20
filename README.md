@@ -31,6 +31,8 @@ How to Use
 ----------
 Schematic illustration.
 
+
+
 	import EonilSQLite3
 
 
@@ -66,6 +68,7 @@ Schematic illustration.
 	let	rs3	=	t1.select()
 	assert(rs3.count == 0)
 
+All each command is protected by transaction.
 
 
 
