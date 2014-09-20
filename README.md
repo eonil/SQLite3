@@ -144,8 +144,8 @@ but you do them by executing your own custom SQL query.
 	let	t1	=	db1.table(name: "T1")
 	t1.insert(rowWith: ["c1":"V1"])
 	
-	db1.apply { (operation) -> () in
-		operation.execute(code: "SELECT * FROM T1", parameters: Database.ParameterList(), success: { (data) -> () in
+	db1.apply {
+		db1.run(query: "SELECT * FROM T1", success: { (data) -> () in
 			for row in data
 			{
 				assert(row[0] as String == "V1")
