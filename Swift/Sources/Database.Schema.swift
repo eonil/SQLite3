@@ -55,13 +55,13 @@ public extension Database.Schema
 		{
 			database.run(query: q.express(), success: Database.Default.Handler.success, failure: handler)
 		}
-		database.apply (tx)
+		database.apply(transaction: tx)
 	}
 	public func create(table tname:String, column cnames:[String], error handler:ErrorHandler)
 	{
 		func columnize(name:String) -> Schema.Column
 		{
-			return	Schema.Column(name: name, nullable: true, type: Schema.Column.TypeCode.None, unique: false)
+			return	Schema.Column(name: name, nullable: true, type: Schema.Column.TypeCode.None, unique: false, index: nil)
 		}
 		let	cs	=	cnames.map(columnize)
 		let	def	=	Schema.Table(name: tname, key: [], columns: cs)

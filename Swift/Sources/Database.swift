@@ -11,7 +11,13 @@ import Foundation
 ///	`execute` executes a query as is.
 ///	`run` executes a query with transaction wrapping.
 ///
-///
+///	This class uses unique `SAVEPOINT` name generator
+///	to support nested transaction. If you perform the
+///	`SAVEPOINT` operation youtself manually, the savepoint 
+///	name may be duplicated and derive unexpected result. 
+///	To precent this situation, supply your own 
+///	implementation of savepoint name generator at 
+///	initializer.
 public class Database
 {
 	public typealias	ParameterList	=	[String:Value]
@@ -30,7 +36,17 @@ public class Database
 		case PersistentFile(path:String)
 	}
 	
-	public init(location:Location, mutable:Bool = false)
+	public convenience init(location:Location)
+	{
+		self.init(location: location, mutable: false)
+	}
+	public convenience init(location:Location, mutable:Bool)
+	{
+		self.init(location: location, mutable: mutable, atomicUnitNameGenerator: Default.Generator.uniqueAtomicUnitName)
+	}
+	
+	///	:param:	atomicUnitNameGenerator		Specifies a name generator for SAVEPOINT statement.
+	public required init(location:Location, mutable:Bool, atomicUnitNameGenerator:()->String)
 	{
 		assert(_core.null == true)
 		
@@ -56,6 +72,7 @@ public class Database
 			return	Core.Database.OpenFlag.ReadWrite
 		}
 		
+		_savepoint_name_gen	=	atomicUnitNameGenerator
 		_core.open(resolve_name(), flags: resolve_flag())
 		
 		assert(_core.null == false)
@@ -74,49 +91,38 @@ public class Database
 	
 	
 	
-	///	Operation will be commited automatically.
-	///	There's no way to perform ROLLBACK manually.
-	///	ROLLBACK will occur only on crash situation
-	///	by the SQLite3 machenism.
-	///	Transactions can be nested. You can call this
-	///	method multiple times to make nested transactions.
-	///	Anyway in that situation, out-most transaction 
-	///	rules them all.
-	public func apply(transaction:() -> ())
-	{
-		precondition(_core.null == false)
-		
-		let	nested	=	_core.autocommit == false
-		if nested == false { execute(code: "BEGIN TRANSACTION;") }
-		assert(_core.autocommit == false)
-		transaction()
-		if nested == false { execute(code: "COMMIT TRANSACTION;") }
-	}
 	
-	///	`run` method with optional ROLLBACK support.
-	///	If you return false, everything will be ROLLBACK.
-	///	Returns what the transaction closure returns.
-	/// (true for commit, false for rollback)
-	///	Rollback of inner transaction does not affect outer
-	///	transaction. It can be commit separately.
-	public func applyOptionally(transaction:() -> Bool) -> Bool
+	
+	
+	///	Apply transaction to database.
+	public func apply(transaction tx:()->())
 	{
-		precondition(_core.null == false)
-		
-		let	nested	=	_core.autocommit == false
-		if nested == false { execute(code: "BEGIN TRANSACTION;") }
-		assert(_core.autocommit == false)
-		if transaction()
+		if _core.autocommit
 		{
-			if nested == false { execute(code: "COMMIT TRANSACTION;") }
-			return	true
+			performTransactionSession(transaction: tx)
 		}
 		else
 		{
-			if nested == false { execute(code: "ROLLBACK TRANSACTION;") }
-			return	false
+			performSavepointSession(transaction: tx, name: _savepoint_name_gen())
 		}
 	}
+	
+	///	Apply transaction to database.
+	public func applyConditionally(transaction tx:()->Bool) -> Bool
+	{
+		if _core.autocommit
+		{
+			return	performTransactionSessionConditionally(transaction: tx)
+		}
+		else
+		{
+			return	performSavepointSessionConditionally(transaction: tx, name: _savepoint_name_gen())
+		}
+	}
+	
+	
+	
+	
 	
 	
 	
@@ -167,7 +173,7 @@ public class Database
 	
 	
 	
-	struct Default
+	public struct Default
 	{
 		///	Just does nothing.
 		static func null(rows:GeneratorOf<Row>)
@@ -181,8 +187,43 @@ public class Database
 			Core.Common.crash(message: m)
 		}
 		
-		struct
-		Handler
+		public struct Generator
+		{
+			///	Maximum resolution is `1/(Int.max-1)` per a second.
+			///	That's the hard limit of this algorithm. If you need something
+			///	better, you have to make and specify your own generator on initializer
+			///	of `Database` class.
+			public static func uniqueAtomicUnitName() -> String
+			{
+				struct deduplicator
+				{
+					var	lastSeed			=	0
+					var	duplicationCount	=	0
+					
+					mutating func stepOne() -> String
+					{
+						let	t1	=	Int(NSDate().timeIntervalSince1970)
+						if t1 == lastSeed
+						{
+							precondition(duplicationCount < Int.max)
+							duplicationCount	+=	1
+						}
+						else
+						{
+							lastSeed			=	t1
+							duplicationCount	=	0
+						}
+						return	"eonil__sqlite3__\(lastSeed)__\(duplicationCount)"
+					}
+					
+					static var	defaultInstance	=	deduplicator()
+				}
+				
+				return	deduplicator.defaultInstance.stepOne()
+			}
+		}
+		
+		struct Handler
 		{
 			static let	success	=	Default.null
 			static let	failure	=	Default.crash
@@ -233,7 +274,7 @@ public class Database
 			return	ok
 		}
 		
-		applyOptionally(tx)
+		applyConditionally(transaction: tx)
 		return	m
 	}
 	
@@ -245,6 +286,79 @@ public class Database
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	///	Run an atomic transaction which always commits.
+	private func performTransactionSession(transaction tx:() -> ())
+	{
+		func tx2() -> Bool
+		{
+			tx()
+			return	true
+		}
+		let	ok	=	performTransactionSessionConditionally(transaction: tx2)
+		assert(ok)
+	}
+	
+	///	Run a nested transaction which always comits using `SAVEPOINT`.
+	private func performSavepointSession(transaction tx:() -> (), name n:String)
+	{
+		func tx2() -> Bool
+		{
+			tx()
+			return	true
+		}
+		let	ok	=	performSavepointSessionConditionally(transaction: tx2, name:n)
+		assert(ok)
+	}
+	
+	///	Run an atomic transaction.
+	private func performTransactionSessionConditionally(transaction tx:() -> Bool) -> Bool
+	{
+		precondition(_core.null == false)
+		precondition(_core.autocommit == true)
+		
+		execute(code: "BEGIN TRANSACTION;")
+		assert(_core.autocommit == false)
+		if tx()
+		{
+			execute(code: "COMMIT TRANSACTION;")
+			assert(_core.autocommit == true)
+			return	true
+		}
+		else
+		{
+			execute(code: "ROLLBACK TRANSACTION;")
+			assert(_core.autocommit == true)
+			return	false
+		}
+	}
+	///	Run a nested transaction using `SAVEPOINT`.
+	private func performSavepointSessionConditionally(transaction tx:() -> Bool, name n:String) -> Bool
+	{
+		precondition(n != "", "The atomic transaction subunit name shouldn't be empty.")
+		precondition(_core.null == false)
+		precondition(_core.autocommit == false)
+		
+		execute(code: Query.Language.Syntax.SavepointStmt(name: Query.Identifier(name: n).description).description)
+		if tx()
+		{
+			execute(code: Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(name: n).description).description)
+			return	true
+		}
+		else
+		{
+			execute(code: Query.Language.Syntax.RollbackStmt(name: Query.Identifier(name: n).description).description)
+			return	false
+		}
+	}
 //	private func execute(query x:QueryExpressive, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 //	{
 //		execute(query: x.express(), success: s, failure: f)
@@ -296,6 +410,8 @@ public class Database
 	
 	
 	
+	
+	private let	_savepoint_name_gen:() -> String
 	
 	private var	_core				=	Core.Database()
 }

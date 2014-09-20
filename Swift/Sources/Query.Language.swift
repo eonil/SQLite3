@@ -174,6 +174,70 @@ extension Query.Language.Syntax
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	struct SavepointStmt : Printable
+	{
+		var	name:String
+		
+		var description:String
+		{
+			get
+			{
+				return	"SAVEPOINT \(name)"
+			}
+		}
+	}
+	struct ReleaseStmt : Printable
+	{
+		var	name:String
+		
+		var description:String
+		{
+			get
+			{
+				return	"RELEASE SAVEPOINT \(name)"
+			}
+		}
+	}
+	struct RollbackStmt : Printable
+	{
+		var	name:String?
+		
+		var description:String
+		{
+			get
+			{
+				if name == nil
+				{
+					return	"ROLLBACK TRANSACTION"
+				}
+				else
+				{
+					return	"ROLLBACK TO SAVEPOINT \(name!)"
+				}
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	///	http://www.sqlite.org/pragma.html
 	struct Pragma : Printable
 	{

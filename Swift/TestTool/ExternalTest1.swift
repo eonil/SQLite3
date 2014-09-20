@@ -86,6 +86,51 @@ func test2()
 		///	Perform a transaction with multiple commands.
 		db1.apply(tx1)
 	}
+	func nestedTransactions()
+	{
+		let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+		
+		///	Out-most transaction.
+		func tx1()
+		{
+			db1.schema().create(table: "T1", column: ["c1"])
+			let	t1	=	db1.table(name: "T1")
+			
+			///	Outer transaction.
+			func tx2() -> Bool
+			{
+				t1.insert(rowWith: ["c1":"V1"])
+			
+				///	Inner transaction.
+				func tx3() -> Bool
+				{
+					///	Update the row.
+					t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
+					
+					///	Verify the update.
+					let	rs2	=	t1.select()
+					assert(rs2.count == 1)
+					assert(rs2[0]["c1"]! as String == "W2")
+					
+					///	And rollback.
+					return	false
+				}
+				db1.applyConditionally(transaction: tx3)
+				
+				///	Verify inner rollback.
+				let	rs2	=	t1.select()
+				assert(rs2.count == 1)
+				assert(rs2[0]["c1"]! as String == "V1")
+				
+				return	false
+			}
+			
+			///	Verify outer rollback.
+			let	rs2	=	t1.select()
+			assert(rs2.count == 0)
+		}
+		db1.apply(tx1)
+	}
 	
 	func customQuery()
 	{
@@ -109,6 +154,7 @@ func test2()
 	
 	basics()
 	basicsWithTransaction()
+	nestedTransactions()
 	customQuery()
 }
 

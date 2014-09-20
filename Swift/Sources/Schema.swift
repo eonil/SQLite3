@@ -22,9 +22,10 @@ public struct Schema
 	{
 		public let	name:String
 		public let	nullable:Bool
-//		public let	ordering:Ordering		///<	This is related to indexing or PK...
 		public let	type:TypeCode
-		public let	unique:Bool				///<	Has unique key constraint.
+		
+		public let	unique:Bool				///<	Has unique key constraint. This must be true if this colymn is set to a PK.
+		public let	index:Ordering?			///<	Index sorting order. This must be non-nil value if this column is set as a PK.
 		
 		public enum TypeCode : String
 		{
@@ -34,6 +35,7 @@ public struct Schema
 			case Text			=	"TEXT"
 			case Blob			=	"BLOB"
 		}
+		
 		public enum Ordering : String
 		{
 			case Ascending		=	"ASC"

@@ -19,7 +19,7 @@ struct Config
 			case All				///<	Convenient level and core level wrappers.
 		}
 		
-//		static let	logLevel	=	LogLevel.None
-		static let	logLevel	=	LogLevel.All
+		static let	logLevel	=	LogLevel.None
+//		static let	logLevel	=	LogLevel.All
 	}
 }

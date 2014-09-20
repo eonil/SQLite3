@@ -182,7 +182,7 @@ public struct Test1
 			}
 			func run()
 			{
-				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
+				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 			}
 
@@ -201,7 +201,7 @@ public struct Test1
 		
 			func run()
 			{
-				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
+				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 				
 				let	q1	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
@@ -223,7 +223,7 @@ public struct Test1
 		
 			func run()
 			{
-				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false)])
+				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 				
 				let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: "text1!")])

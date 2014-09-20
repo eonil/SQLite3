@@ -143,21 +143,29 @@ public struct Query
 	
 	
 	///	Represents names such as table or column.
-	public struct Identifier : SubqueryExpressive, StringLiteralConvertible
+	public struct Identifier : SubqueryExpressive, StringLiteralConvertible, Printable
 	{
 		public let	name:String
 		
 		public init(name:String)
 		{
-			precondition(find(name, "\"") == nil, "Identifier containing double-quote(\") is not currently supported by Swift layer.")
+			precondition(find(name, "\"") == nil, "Identifier which is containing double-quote(\") is not currently supported by Swift layer.")
 			
 			self.name	=	name
 		}
 		
+		public var description:String
+		{
+			get
+			{
+				let	x1	=	"\"\(name)\""
+				return	x1
+			}
+		}
+		
 		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
-			let	x1	=	"\"\(name)\""
-			return	Expression(code: x1, parameters: [])
+			return	Expression(code: description, parameters: [])
 		}
 
 		public static func convertFromStringLiteral(value: String) -> Identifier

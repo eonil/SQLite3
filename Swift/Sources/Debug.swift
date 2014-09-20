@@ -23,9 +23,9 @@ struct Debug
 	
 	private static func _log<T>(object:@autoclosure()->T)
 	{
-		if mode
+		if mode && Config.Build.logLevel != Config.Build.LogLevel.None
 		{
-//			println(object())
+			println(object())
 		}
 	}
 }
