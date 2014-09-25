@@ -8,8 +8,8 @@
 
 import Foundation
 
-///	`execute` executes a query as is.
-///	`run` executes a query with transaction wrapping.
+///	`execute` (private methods) executes a query as is.
+///	`run` (public methods) executes asserts for a transaction wrapping.
 ///
 ///	This class uses unique `SAVEPOINT` name generator
 ///	to support nested transaction. If you perform the
@@ -45,7 +45,7 @@ public class Database
 		self.init(location: location, mutable: mutable, atomicUnitNameGenerator: Default.Generator.uniqueAtomicUnitName)
 	}
 	
-	///	:param:	atomicUnitNameGenerator		Specifies a name generator for SAVEPOINT statement.
+	///	:param:	atomicUnitNameGenerator		specifies a name generator which will generate names for SAVEPOINT statement.
 	public required init(location:Location, mutable:Bool, atomicUnitNameGenerator:()->String)
 	{
 		assert(_core.null == true)

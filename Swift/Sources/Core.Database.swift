@@ -22,6 +22,10 @@ func |(left:Core.Database.OpenFlag, right:Core.Database.OpenFlag) -> Core.Databa
 extension
 Core
 {
+	///	Defined as a `class` because `struct` currently does not support `deinit`.
+	///	(Xcode 6.0.1)
+	///	If Swift starts to provide `deinit` also in `struct`, it is recommended
+	///	to use `struct` instead of `class`.
 	class Database
 	{
 		typealias	Common	=	Core.Common

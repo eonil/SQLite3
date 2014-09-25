@@ -11,12 +11,13 @@ import Foundation
 
 
 
+///	Abstracts an object which can produce a complete single query statement.
 public protocol QueryExpressive
 {
 	func express() -> Query.Expression
 }
 
-///	Abstracts single query statement.
+///	Abstracts an object which can produce a fragment of a query statement.
 protocol SubqueryExpressive
 {
 	func express(uniqueParameterNameGenerator upng:Query.UniqueParameterNameGenerator) -> Query.Expression
@@ -116,7 +117,7 @@ public struct Query
 	
 	///	Beware that the number of parameters cannot exceed `Int.max`.
 	///	This is Swift layer limitation.
-	///	SQLite3 may have extra limit which will be applied separately.
+	///	SQLite3 may have extra limits which will be applied separately.
 	static func express(subquery:SubqueryExpressive) -> Expression
 	{
 		var	pc	=	0
@@ -158,7 +159,7 @@ public struct Query
 		{
 			get
 			{
-				let	x1	=	"\"\(name)\""
+				let		x1	=	"\"\(name)\""
 				return	x1
 			}
 		}

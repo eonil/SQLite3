@@ -10,10 +10,12 @@ Hoon H., 2014/09/16
 
 This provides SQLite3 database access on Swift.
 
--	Auto-completion friendly query methods. No manual query command composition.
+-	Auto-completion friendly query methods. No manual query command 
+	composition for basic CRUD and DDL operations.
 -	Array and dictionary based input/output access manner.
 -	Automatically supports nested transactions.
-
+-	Dynamically customizable error handlers. Default handler just crashes
+	the app. You can provide custom behavior on each of error situations.
 
 
 
@@ -79,10 +81,11 @@ Schematic illustration.
 
 ````
 
-You always perform operations in a transaction. It's not allowed
-to run any operation without transaction. 
+You need to perform any operations always in an explicit transaction. It's 
+not allowed to run operations without transaction. 
 
-Nested transaction is also supported.
+Nested transaction is also supported. (using implicitly generated savepoint 
+names which you can customize)
 
 ````Swift
 
@@ -141,7 +144,7 @@ What about multi-table operations?
 ----------------------------------
 Seriously looking for JOIN stuffs on SQLite?
 Well, those stuffs are not provided as formalized methods, 
-but you do them by executing your own custom SQL query.
+but you still can do them by executing your own custom SQL query.
 
 ````Swift
 
@@ -170,6 +173,42 @@ but you do them by executing your own custom SQL query.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+Roadmap
+-------
+
+-	Error handling mechanism need to be reviewed. I am not sure that current
+	mechanism is the ideal one. It will be replaced if I discover a better approach.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Objective-C
 -----------
 Good old Objective-C version library still exists in `ObjectiveC` folder.
@@ -179,10 +218,22 @@ API directly.
 
 
 
-
-
-
-
 License
 -------
 MIT license.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

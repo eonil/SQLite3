@@ -8,8 +8,16 @@
 
 import Foundation
 
+
+
+
+
+
 extension Query
 {
+	///	Provides strict SQL statement generation by language AST.
+	///	Some elements are simplified or omitted because we don't need that level
+	///	of accuracy or expressiveness.
 	struct Language
 	{
 		struct Syntax
@@ -247,8 +255,8 @@ extension Query.Language.Syntax
 		
 		enum Argument : Printable
 		{
-			case Set(value:String)		///<	Value assignment style pragma. `PRAGMA name1=value`.
-			case Call(value:String)		///<	Function call style pragma. `PRAGMA name1(value)`.
+			case Set(value:String)		///<	Value assignment style pragma. `PRAGMA name1=value1`.
+			case Call(value:String)		///<	Function call style pragma. `PRAGMA name1(value1)`.
 			
 			var description:String
 			{
@@ -278,3 +286,16 @@ extension Query.Language.Syntax
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
