@@ -10,11 +10,11 @@ import Foundation
 
 struct Debug
 {
-	#if	DEBUG
+//	#if	DEBUG
 	static let	mode:Bool	=	true
-	#else
-	static let	mode:Bool	=	false
-	#endif
+//	#else
+//	static let	mode:Bool	=	false
+//	#endif
 	
 	static func log<T>(object:@autoclosure()->T)
 	{
