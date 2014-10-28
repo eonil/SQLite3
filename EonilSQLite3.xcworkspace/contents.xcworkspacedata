@@ -7,21 +7,7 @@
    <FileRef
       location = "group:LICENSE.md">
    </FileRef>
-   <Group
-      location = "group:ObjectiveC"
-      name = "ObjectiveC">
-      <FileRef
-         location = "group:README.md">
-      </FileRef>
-      <FileRef
-         location = "group:EonilSQLite3ForObjectiveC.xcodeproj">
-      </FileRef>
-   </Group>
-   <Group
-      location = "group:Swift"
-      name = "Swift">
-      <FileRef
-         location = "group:EonilSQLite3.xcodeproj">
-      </FileRef>
-   </Group>
+   <FileRef
+      location = "group:EonilSQLite3.xcodeproj">
+   </FileRef>
 </Workspace>

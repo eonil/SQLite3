@@ -205,19 +205,6 @@ To Do
 
 
 
-
-
-
-
-Objective-C
------------
-Good old Objective-C version library still exists in `ObjectiveC` folder.
-Anyway, it's completely separated version, and nothing related to Swift 
-version. Swift version is purely Swift based, and interfaces to SQLite3 C 
-API directly.
-
-
-
 License
 -------
 MIT license.
