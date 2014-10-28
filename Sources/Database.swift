@@ -135,7 +135,7 @@ public class Database
 		}
 	}
 	
-	///	Apply transaction to database.
+	///	Apply transaction to database only when the transaction returns `true`.
 	public func applyConditionally(transaction tx:()->Bool) -> Bool
 	{
 		if _core.autocommit

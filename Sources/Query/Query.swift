@@ -155,7 +155,7 @@ public struct Query
 		
 		public init(name:String)
 		{
-			precondition(find(name, "\"") == nil, "Identifier which is containing double-quote(\") is not currently supported by Swift layer.")
+			precondition(find(name, "\"") == nil, "Identifiers which contains double-quote(\") are not currently supported by Swift layer.")
 			
 			self.name	=	name
 		}

@@ -17,20 +17,20 @@ extension Core
 
 extension Core.Common
 {
-	@noreturn static func crash(message s:String = "")
-	{
+	@noreturn static func crash(message s:String = "") {
 		Core.log("CRASH requested by PROGRAMMER" + (s == "" ? "." : (": " + s)))
 		abort()
 	}
 	
 	
 	
-	struct C
-	{
+	struct C {
+		
 		static let	NULL		=	COpaquePointer.null()
 		
 		static let	TRUE		=	Int32(1)
 		static let	FALSE		=	Int32(0)
+		
 	}
 	
 	

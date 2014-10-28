@@ -266,12 +266,12 @@
 		4540C70119FFF56C00D7714F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4540C70719FFF56C00D7714F /* Core.swift */,
 				4540C70219FFF56C00D7714F /* Core.Common.swift */,
 				4540C70319FFF56C00D7714F /* Core.Database.swift */,
 				4540C70419FFF56C00D7714F /* Core.Debug.swift */,
 				4540C70519FFF56C00D7714F /* Core.Result.swift */,
 				4540C70619FFF56C00D7714F /* Core.Statement.swift */,
-				4540C70719FFF56C00D7714F /* Core.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -279,12 +279,12 @@
 		4540C71419FFF57E00D7714F /* Query */ = {
 			isa = PBXGroup;
 			children = (
+				4540C71919FFF57E00D7714F /* Query.swift */,
 				4540C71519FFF57E00D7714F /* Query.Basic.swift */,
-				4540C71619FFF57E00D7714F /* Query.Language.swift */,
 				4540C71719FFF57E00D7714F /* Query.Operators.swift */,
 				4540C71819FFF57E00D7714F /* Query.Schema.swift */,
-				4540C71919FFF57E00D7714F /* Query.swift */,
 				4540C71A19FFF57E00D7714F /* Query.Transaction.swift */,
+				4540C71619FFF57E00D7714F /* Query.Language.swift */,
 			);
 			path = Query;
 			sourceTree = "<group>";

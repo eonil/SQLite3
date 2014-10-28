@@ -4,8 +4,6 @@ Hoon H., 2014/09/16
 
 
 
-**CURRENTLY UNDER DESIGN & DEVELOPMENT, API IS SUBJECT TO CHANGE.**
-
 
 
 This provides SQLite3 database access on Swift.
