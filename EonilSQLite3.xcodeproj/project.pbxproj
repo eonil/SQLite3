@@ -166,7 +166,7 @@
 		45652A8C19CAEFA60064EB45 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		4587124B19CB8AC7006F9BDC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		458D62B119C6DD34001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		458D62E819C6DEB0001E450D /* TestTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		458D62E819C6DEB0001E450D /* TestTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TestTool.app; path = "TestTool - iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458D62EB19C6DEB0001E450D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		458D62EC19C6DEB0001E450D /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
 		458D631019C6E190001E450D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
@@ -541,9 +541,9 @@
 			targets = (
 				4540C72B19FFF59900D7714F /* EonilSQLite3 - OSX */,
 				458D62B019C6DD34001E450D /* EonilSQLite3 - iOS */,
+				4540C6F119FFF53C00D7714F /* UnitTestForOSX */,
 				4540C6D019FFF48300D7714F /* TestTool - OSX */,
 				458D62E719C6DEB0001E450D /* TestTool - iOS */,
-				4540C6F119FFF53C00D7714F /* UnitTestForOSX */,
 			);
 		};
 /* End PBXProject section */
@@ -1196,6 +1196,7 @@
 				4540C6EA19FFF48300D7714F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "UnitTestForOSX" */ = {
 			isa = XCConfigurationList;
@@ -1204,6 +1205,7 @@
 				4540C6F819FFF53C00D7714F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4540C74519FFF59900D7714F /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX" */ = {
 			isa = XCConfigurationList;
@@ -1212,6 +1214,7 @@
 				4540C74719FFF59900D7714F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		458D62A919C6DD00001E450D /* Build configuration list for PBXProject "EonilSQLite3" */ = {
 			isa = XCConfigurationList;

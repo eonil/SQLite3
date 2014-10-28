@@ -216,7 +216,7 @@ extension Core
 			let	cs2	=	UnsafePointer<Int8>(cs)
 			
 			precondition(bc.toIntMax() < Int.max.toIntMax())
-			return	Blob.fromUnsafeMemory(address: cs2, length: Int(bc))
+			return	Blob(address: cs2, length: Int(bc))
 		}
 		
 		
@@ -264,7 +264,7 @@ extension Core
 			assert(_rawptr != C.NULL)
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
-			let	bs	=	value.bytes
+			let	bs	=	value.address
 			let	bc	=	value.length
 			
 			precondition(bc.toIntMax() < Int32.max.toIntMax())

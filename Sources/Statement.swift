@@ -21,27 +21,20 @@ public protocol Row
 	func isNullField(atIndex index:Int) -> Bool
 }
 
-public class Statement : GeneratorType
+
+
+
+///	Comments for Maintainers
+///	------------------------
+///	This can't be a sequence type because this cannot be
+///	re-iterated. Once consumed, and gone.
+public class Statement
 {
-	public typealias	Element	=	Row
-	
-	public func next() -> Element?
-	{
-		if self.step()
-		{
-			return	self.row()
-		}
-		return	nil
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 	let	database:Database
+	
+	private let	_core:Core.Statement
+	private var	_exec:Bool				///<	Has been executed at least once.
+	private var	_rowidx:Int				///<	Counted for validation.
 	
 	init(database:Database, core:Core.Statement)
 	{
@@ -55,6 +48,36 @@ public class Statement : GeneratorType
 	{
 		_core.finalize()
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+
+extension Statement : GeneratorType
+{
+	public func next() -> Row?
+	{
+		if self.step()
+		{
+			return	self.row()
+		}
+		return	nil
+	}
+}
+
+extension Statement
+{
+	
 	
 	var execution:Bool
 	{
@@ -88,11 +111,12 @@ public class Statement : GeneratorType
 	
 	
 	
-	private let	_core:Core.Statement
-	private var	_exec:Bool				///<	Has been executed at least once.
-	private var	_rowidx:Int				///<	Counted for validation.
+}
+
+
+private extension Statement {
 	
-	private func _setparams(ps:[String:Value])
+	func _setparams(ps:[String:Value])
 	{
 		for (k, v) in ps
 		{
@@ -110,67 +134,6 @@ public class Statement : GeneratorType
 			}
 		}
 	}
-	
-	private struct RowReader : Row
-	{
-		let	host:Statement
-		let	rowIndex:Int		///<	Stored for validation.
-		
-		var validity:Bool
-		{
-			get
-			{
-				return	host._rowidx == rowIndex
-			}
-		}
-		
-		var numberOfFields:Int
-		{
-			get
-			{
-				precondition(host._core.dataCount().toIntMax() <= Int.max.toIntMax())
-				
-				return	Int(host._core.dataCount())
-			}
-		}
-		subscript(index:Int) -> Value
-		{
-			get
-			{
-				precondition(host._core.null == false)
-				precondition(index < numberOfFields)
-				precondition(isNullField(atIndex: index) == false)
-				
-				let	idx2	=	Int32(index)
-				let	t2		=	host._core.columnType(idx2)
-				
-//				if t2 == Core.ColumnTypeCode.null		{ return nil }
-				if t2 == Core.ColumnTypeCode.integer	{ return host._core.columnInt64(at: idx2) }
-				if t2 == Core.ColumnTypeCode.float		{ return host._core.columnDouble(at: idx2) }
-				if t2 == Core.ColumnTypeCode.text		{ return host._core.columnText(at: idx2) }
-				if t2 == Core.ColumnTypeCode.blob		{ return host._core.columnBlob(at: idx2) }
-				
-				Core.Common.crash(message: "Unknown column type code discovered; \(t2)")
-			}
-		}
-//		subscript(column:String) -> Value?
-//		{
-//			get
-//			{
-//			}
-//		}
-		func columnNameOfField(atIndex index:Int) -> String
-		{
-			precondition(index.toIntMax() <= Int32.max.toIntMax())
-			return	host._core.columnName(Int32(index))
-		}
-		func isNullField(atIndex index: Int) -> Bool
-		{
-			let	idx2	=	Int32(index)
-			let	t2		=	host._core.columnType(idx2)
-			return	t2 == Core.ColumnTypeCode.null
-		}
-	}
 }
 
 
@@ -183,6 +146,86 @@ public class Statement : GeneratorType
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+
+private struct RowReader : Row
+{
+	let	host:Statement
+	let	rowIndex:Int		///<	Stored for validation.
+	
+	var validity:Bool
+	{
+		get
+		{
+			return	host._rowidx == rowIndex
+		}
+	}
+	
+	var numberOfFields:Int
+	{
+		get
+		{
+			precondition(host._core.dataCount().toIntMax() <= Int.max.toIntMax())
+			
+			return	Int(host._core.dataCount())
+		}
+	}
+	subscript(index:Int) -> Value
+	{
+		get
+		{
+			precondition(host._core.null == false)
+			precondition(index < numberOfFields)
+			precondition(isNullField(atIndex: index) == false)
+			
+			let	idx2	=	Int32(index)
+			let	t2		=	host._core.columnType(idx2)
+			
+//			if t2 == Core.ColumnTypeCode.null		{ return nil }
+			if t2 == Core.ColumnTypeCode.integer	{ return host._core.columnInt64(at: idx2) }
+			if t2 == Core.ColumnTypeCode.float		{ return host._core.columnDouble(at: idx2) }
+			if t2 == Core.ColumnTypeCode.text		{ return host._core.columnText(at: idx2) }
+			if t2 == Core.ColumnTypeCode.blob		{ return host._core.columnBlob(at: idx2) }
+			
+			Core.Common.crash(message: "Unknown column type code discovered; \(t2)")
+		}
+	}
+//	subscript(column:String) -> Value?
+//	{
+//		get
+//		{
+//		}
+//	}
+	func columnNameOfField(atIndex index:Int) -> String
+	{
+		precondition(index.toIntMax() <= Int32.max.toIntMax())
+		return	host._core.columnName(Int32(index))
+	}
+	func isNullField(atIndex index: Int) -> Bool
+	{
+		let	idx2	=	Int32(index)
+		let	t2		=	host._core.columnType(idx2)
+		return	t2 == Core.ColumnTypeCode.null
+	}
+}
 
 
 

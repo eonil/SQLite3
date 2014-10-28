@@ -8,17 +8,142 @@
 
 import Foundation
 
-//enum
-//Value
-//{
-//	case Null
-//	case Integer(value:Int64)
-//	case Float(value:Double)
-//	case Text(value:String)
-//	case Blob(value:Binary)
-//}
-//
-//typealias	Binary	=	Blob
+
+
+
+typealias	Binary	=	Blob
+
+///	SQLite3 `NULL` will be represented as `nil`.
+enum
+Value2
+{
+	case Integer(Int64)
+	case Float(Double)
+	case Text(String)
+	case Blob(Binary)
+}
+
+
+func == (l:Value2, r:Value2) -> Bool {
+	switch (l,r) {
+	case Integer(a), Integer(b):	return	a == b
+	case Float(a), Float(b):		return	a == b
+	case Text(a), Text(b):			return	a == b
+	case Blob(a), Blob(b):			return	a == b
+	default:						return	false
+	}
+}
+func == (l:Value2, r:Int) -> Bool {
+	return	l == Int64(r)
+}
+func == (l:Value2, r:Int64) -> Bool {
+	if let v2 = l.integer { return v2 == r }
+	return	false
+}
+func == (l:Value2, r:Double) -> Bool {
+	if let v2 = l.float { return v2 == r }
+	return	false
+}
+func == (l:Value2, r:String) -> Bool {
+	if let v2 = l.text { return v2 == r }
+	return	false
+}
+func == (l:Value2, r:Binary) -> Bool {
+	if let v2 = l.blob { return v2 == r }
+	return	false
+}
+
+extension Value2: IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
+	init(integerLiteral value: Int64) {
+		self	=	Integer(value)
+	}
+	init(floatLiteral value: Double) {
+		self	=	Float(value)
+	}
+	init(stringLiteral value: String) {
+		self	=	Text(value)
+	}
+	init(extendedGraphemeClusterLiteral value: String) {
+		self	=	Text(value)
+	}
+	init(unicodeScalarLiteral value: String) {
+		self	=	Text(value)
+	}
+}
+
+extension Value2 {
+	init(_ v:Int64) {
+		self	=	Integer(v)
+	}
+	init(_ v:Double) {
+		self	=	Float(v)
+	}
+	init(_ v:String) {
+		self	=	Text(v)
+	}
+	init(_ v:Binary) {
+		self	=	Blob(v)
+	}
+	
+	var integer:Int64? {
+		get {
+			switch self {
+			case let Integer(s):	return	s
+			default:				return	nil
+			}
+		}
+	}
+	var float:Double? {
+		get {
+			switch self {
+			case let Float(s):		return	s
+			default:				return	nil
+			}
+		}
+	}
+	var text:String? {
+		get {
+			switch self {
+			case let Text(s):		return	s
+			default:				return	nil
+			}
+		}
+	}
+	var blob:Binary? {
+		get {
+			switch self {
+			case let Blob(s):		return	s
+			default:				return	nil
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public typealias	Value	=	AnyObject				///<	Don't use `Any`. Currently, it causes many subtle unknown problems.
 
 
@@ -100,14 +225,13 @@ extension Int64
 ///	Represents BLOB.
 class Blob
 {
-	class func fromUnsafeMemory(#address:UnsafePointer<()>, length:Int) -> Blob
-	{
+	init(address:UnsafePointer<()>, length:Int) {
 		precondition(address != UnsafePointer<Int8>.null())
 		precondition(length >= 0)
 		
-		let	d1	=	NSData(bytes: address, length: length)
-		return	Blob(value: d1)
+		value	=	NSData(bytes: address, length: length)
 	}
+	
 	
 	var length:Int
 	{
@@ -117,7 +241,7 @@ class Blob
 		}
 	}
 	
-	var bytes:UnsafePointer<()>
+	var address:UnsafePointer<()>
 	{
 		get
 		{
@@ -136,3 +260,17 @@ class Blob
 	
 	private let	value:NSData
 }
+
+func == (l:Blob, r:Blob) -> Bool {
+	return	l.value == r.value
+}
+
+
+
+
+
+
+
+
+
+
