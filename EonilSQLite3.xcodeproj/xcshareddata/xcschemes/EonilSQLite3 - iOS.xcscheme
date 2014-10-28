@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "458D62BB19C6DD35001E450D"
-               BuildableName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest"
-               BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests"
+               BlueprintIdentifier = "458D62B019C6DD34001E450D"
+               BuildableName = "EonilSQLite3.framework"
+               BlueprintName = "EonilSQLite3 - iOS"
                ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "458D62BB19C6DD35001E450D"
-               BuildableName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest"
-               BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests"
-               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "458D62BB19C6DD35001E450D"
-            BuildableName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest"
-            BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests"
-            ReferencedContainer = "container:EonilSQLite3.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -61,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "458D62BB19C6DD35001E450D"
-            BuildableName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest"
-            BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests"
+            BlueprintIdentifier = "458D62B019C6DD34001E450D"
+            BuildableName = "EonilSQLite3.framework"
+            BlueprintName = "EonilSQLite3 - iOS"
             ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -79,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "458D62BB19C6DD35001E450D"
-            BuildableName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest"
-            BlueprintName = "EonilSQLite3 - iOS - Framework - Dynamic - Tests"
+            BlueprintIdentifier = "458D62B019C6DD34001E450D"
+            BuildableName = "EonilSQLite3.framework"
+            BlueprintName = "EonilSQLite3 - iOS"
             ReferencedContainer = "container:EonilSQLite3.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

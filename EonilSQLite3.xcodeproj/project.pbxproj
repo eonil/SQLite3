@@ -7,30 +7,84 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45406A8D19CD889200A3B706 /* Query.Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45406A8C19CD889200A3B706 /* Query.Transaction.swift */; };
-		45509D2919C93F7A003427FD /* Core.Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45509D2819C93F7A003427FD /* Core.Debug.swift */; };
+		4540C6D619FFF48300D7714F /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6D519FFF48300D7714F /* ApplicationController.swift */; };
+		4540C6D819FFF48300D7714F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4540C6D719FFF48300D7714F /* Images.xcassets */; };
+		4540C6DB19FFF48300D7714F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4540C6D919FFF48300D7714F /* MainMenu.xib */; };
+		4540C6F519FFF53C00D7714F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6F419FFF53C00D7714F /* main.swift */; };
+		4540C6FD19FFF55900D7714F /* CoreBridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.c */; };
+		4540C6FE19FFF55900D7714F /* CoreBridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.c */; };
+		4540C6FF19FFF55900D7714F /* CoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4540C6FB19FFF55900D7714F /* CoreBridge.h */; };
+		4540C70019FFF55900D7714F /* EonilSQLite3-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4540C6FC19FFF55900D7714F /* EonilSQLite3-Bridging-Header.h */; };
+		4540C70819FFF56C00D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
+		4540C70919FFF56C00D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
+		4540C70A19FFF56C00D7714F /* Core.Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70319FFF56C00D7714F /* Core.Database.swift */; };
+		4540C70B19FFF56C00D7714F /* Core.Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70319FFF56C00D7714F /* Core.Database.swift */; };
+		4540C70C19FFF56C00D7714F /* Core.Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70419FFF56C00D7714F /* Core.Debug.swift */; };
+		4540C70D19FFF56C00D7714F /* Core.Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70419FFF56C00D7714F /* Core.Debug.swift */; };
+		4540C70E19FFF56C00D7714F /* Core.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70519FFF56C00D7714F /* Core.Result.swift */; };
+		4540C70F19FFF56C00D7714F /* Core.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70519FFF56C00D7714F /* Core.Result.swift */; };
+		4540C71019FFF56C00D7714F /* Core.Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70619FFF56C00D7714F /* Core.Statement.swift */; };
+		4540C71119FFF56C00D7714F /* Core.Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70619FFF56C00D7714F /* Core.Statement.swift */; };
+		4540C71219FFF56C00D7714F /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70719FFF56C00D7714F /* Core.swift */; };
+		4540C71319FFF56C00D7714F /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70719FFF56C00D7714F /* Core.swift */; };
+		4540C71B19FFF57E00D7714F /* Query.Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71519FFF57E00D7714F /* Query.Basic.swift */; };
+		4540C71C19FFF57E00D7714F /* Query.Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71519FFF57E00D7714F /* Query.Basic.swift */; };
+		4540C71D19FFF57E00D7714F /* Query.Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71619FFF57E00D7714F /* Query.Language.swift */; };
+		4540C71E19FFF57E00D7714F /* Query.Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71619FFF57E00D7714F /* Query.Language.swift */; };
+		4540C71F19FFF57E00D7714F /* Query.Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71719FFF57E00D7714F /* Query.Operators.swift */; };
+		4540C72019FFF57E00D7714F /* Query.Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71719FFF57E00D7714F /* Query.Operators.swift */; };
+		4540C72119FFF57E00D7714F /* Query.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71819FFF57E00D7714F /* Query.Schema.swift */; };
+		4540C72219FFF57E00D7714F /* Query.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71819FFF57E00D7714F /* Query.Schema.swift */; };
+		4540C72319FFF57E00D7714F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71919FFF57E00D7714F /* Query.swift */; };
+		4540C72419FFF57E00D7714F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71919FFF57E00D7714F /* Query.swift */; };
+		4540C72519FFF57E00D7714F /* Query.Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71A19FFF57E00D7714F /* Query.Transaction.swift */; };
+		4540C72619FFF57E00D7714F /* Query.Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71A19FFF57E00D7714F /* Query.Transaction.swift */; };
+		4540C74319FFF59900D7714F /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; };
+		4540C74419FFF59900D7714F /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4540C74C19FFF61400D7714F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4587124B19CB8AC7006F9BDC /* Config.swift */; };
+		4540C74D19FFF61400D7714F /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
+		4540C74E19FFF61400D7714F /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
+		4540C74F19FFF61400D7714F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517219C6FC3D0029EA46 /* Database.swift */; };
+		4540C75019FFF61400D7714F /* Database.Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */; };
+		4540C75119FFF61400D7714F /* Database.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C719C9DA9D00AEABCC /* Database.Table.swift */; };
+		4540C75219FFF61400D7714F /* Database.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C919C9DFF900AEABCC /* Database.Schema.swift */; };
+		4540C75319FFF61400D7714F /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517419C6FC460029EA46 /* Statement.swift */; };
+		4540C75419FFF61400D7714F /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652A8C19CAEFA60064EB45 /* Schema.swift */; };
+		4540C75519FFF61400D7714F /* Query.Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71519FFF57E00D7714F /* Query.Basic.swift */; };
+		4540C75619FFF61400D7714F /* Query.Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71619FFF57E00D7714F /* Query.Language.swift */; };
+		4540C75719FFF61400D7714F /* Query.Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71719FFF57E00D7714F /* Query.Operators.swift */; };
+		4540C75819FFF61400D7714F /* Query.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71819FFF57E00D7714F /* Query.Schema.swift */; };
+		4540C75919FFF61400D7714F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71919FFF57E00D7714F /* Query.swift */; };
+		4540C75A19FFF61400D7714F /* Query.Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71A19FFF57E00D7714F /* Query.Transaction.swift */; };
+		4540C75B19FFF61400D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
+		4540C75C19FFF61400D7714F /* Core.Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70319FFF56C00D7714F /* Core.Database.swift */; };
+		4540C75D19FFF61400D7714F /* Core.Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70419FFF56C00D7714F /* Core.Debug.swift */; };
+		4540C75E19FFF61400D7714F /* Core.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70519FFF56C00D7714F /* Core.Result.swift */; };
+		4540C75F19FFF61400D7714F /* Core.Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70619FFF56C00D7714F /* Core.Statement.swift */; };
+		4540C76019FFF61400D7714F /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70719FFF56C00D7714F /* Core.swift */; };
+		4540C76119FFF61400D7714F /* InternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517E19C75EDC0029EA46 /* InternalTests.swift */; };
+		4540C76219FFF61400D7714F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4587124B19CB8AC7006F9BDC /* Config.swift */; };
+		4540C76319FFF61400D7714F /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
+		4540C76419FFF61400D7714F /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
+		4540C76519FFF61400D7714F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517219C6FC3D0029EA46 /* Database.swift */; };
+		4540C76619FFF61400D7714F /* Database.Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */; };
+		4540C76719FFF61400D7714F /* Database.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C719C9DA9D00AEABCC /* Database.Table.swift */; };
+		4540C76819FFF61400D7714F /* Database.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C919C9DFF900AEABCC /* Database.Schema.swift */; };
+		4540C76919FFF61400D7714F /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517419C6FC460029EA46 /* Statement.swift */; };
+		4540C76A19FFF61400D7714F /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652A8C19CAEFA60064EB45 /* Schema.swift */; };
+		4540C76B19FFF61400D7714F /* InternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517E19C75EDC0029EA46 /* InternalTests.swift */; };
+		4540C76C19FFF62700D7714F /* CoreBridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.c */; };
+		4540C79619FFFA6500D7714F /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */; };
 		4552BA4E19C6E356008FFF3F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4552BA4D19C6E356008FFF3F /* main.swift */; };
 		45652A8D19CAEFA60064EB45 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652A8C19CAEFA60064EB45 /* Schema.swift */; };
-		4583D3AB19C85DEB00861520 /* Core.Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583D3AA19C85DEB00861520 /* Core.Result.swift */; };
-		4583D3AD19C8719A00861520 /* Query.Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583D3AC19C8719A00861520 /* Query.Language.swift */; };
 		4587124C19CB8AC7006F9BDC /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4587124B19CB8AC7006F9BDC /* Config.swift */; };
-		458D62DF19C6DE21001E450D /* Core.Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62DE19C6DE21001E450D /* Core.Statement.swift */; };
-		458D62E119C6DE2A001E450D /* Core.Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62E019C6DE2A001E450D /* Core.Database.swift */; };
-		458D62E319C6DE2F001E450D /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62E219C6DE2F001E450D /* Core.swift */; };
 		458D62ED19C6DEB0001E450D /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62EC19C6DEB0001E450D /* ApplicationController.swift */; };
 		458D631119C6E190001E450D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D631019C6E190001E450D /* libsqlite3.0.dylib */; };
 		458D631919C6E226001E450D /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D62B119C6DD34001E450D /* EonilSQLite3.framework */; };
-		459B513A19C6EA720029EA46 /* CoreBridge.c in Resources */ = {isa = PBXBuildFile; fileRef = 459B513819C6EA720029EA46 /* CoreBridge.c */; };
-		459B513B19C6EA720029EA46 /* CoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 459B513919C6EA720029EA46 /* CoreBridge.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		459B517119C6F1A40029EA46 /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517019C6F1A40029EA46 /* Core.Common.swift */; };
 		459B517319C6FC3D0029EA46 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517219C6FC3D0029EA46 /* Database.swift */; };
 		459B517519C6FC460029EA46 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517419C6FC460029EA46 /* Statement.swift */; };
 		459B517919C72BBC0029EA46 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
-		459B517B19C7309E0029EA46 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517A19C7309E0029EA46 /* Query.swift */; };
 		459B517F19C75EDC0029EA46 /* InternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517E19C75EDC0029EA46 /* InternalTests.swift */; };
-		459B518119C7722B0029EA46 /* Query.Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B518019C7722B0029EA46 /* Query.Operators.swift */; };
-		459B518519C772470029EA46 /* Query.Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B518419C772470029EA46 /* Query.Basic.swift */; };
-		459B518719C773630029EA46 /* Query.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B518619C773630029EA46 /* Query.Schema.swift */; };
 		45B78BCB19CCC44B008D98CA /* ExternalTest1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B78BCA19CCC44B008D98CA /* ExternalTest1.swift */; };
 		45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
 		45CC02C819C9DA9D00AEABCC /* Database.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C719C9DA9D00AEABCC /* Database.Table.swift */; };
@@ -38,38 +92,90 @@
 		45F16E7D19C8AF5A007B4DE2 /* Database.Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4540C74119FFF59900D7714F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 458D62A619C6DD00001E450D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4540C72B19FFF59900D7714F;
+			remoteInfo = EonilSQLite3;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4540C6F019FFF53C00D7714F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		4540C74819FFF59900D7714F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4540C74419FFF59900D7714F /* EonilSQLite3.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4540C78E19FFF9C000D7714F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		45406A8C19CD889200A3B706 /* Query.Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Transaction.swift; sourceTree = "<group>"; };
-		45509D2819C93F7A003427FD /* Core.Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Debug.swift; sourceTree = "<group>"; };
+		4540C6D119FFF48300D7714F /* TestTool - OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestTool - OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4540C6D419FFF48300D7714F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4540C6D519FFF48300D7714F /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
+		4540C6D719FFF48300D7714F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4540C6DA19FFF48300D7714F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		4540C6F219FFF53C00D7714F /* UnitTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
+		4540C6F419FFF53C00D7714F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		4540C6FA19FFF55900D7714F /* CoreBridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CoreBridge.c; sourceTree = "<group>"; };
+		4540C6FB19FFF55900D7714F /* CoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreBridge.h; sourceTree = "<group>"; };
+		4540C6FC19FFF55900D7714F /* EonilSQLite3-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EonilSQLite3-Bridging-Header.h"; sourceTree = "<group>"; };
+		4540C70219FFF56C00D7714F /* Core.Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Common.swift; sourceTree = "<group>"; };
+		4540C70319FFF56C00D7714F /* Core.Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Database.swift; sourceTree = "<group>"; };
+		4540C70419FFF56C00D7714F /* Core.Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Debug.swift; sourceTree = "<group>"; };
+		4540C70519FFF56C00D7714F /* Core.Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Result.swift; sourceTree = "<group>"; };
+		4540C70619FFF56C00D7714F /* Core.Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Statement.swift; sourceTree = "<group>"; };
+		4540C70719FFF56C00D7714F /* Core.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
+		4540C71519FFF57E00D7714F /* Query.Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Basic.swift; sourceTree = "<group>"; };
+		4540C71619FFF57E00D7714F /* Query.Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Language.swift; sourceTree = "<group>"; };
+		4540C71719FFF57E00D7714F /* Query.Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Operators.swift; sourceTree = "<group>"; };
+		4540C71819FFF57E00D7714F /* Query.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Schema.swift; sourceTree = "<group>"; };
+		4540C71919FFF57E00D7714F /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		4540C71A19FFF57E00D7714F /* Query.Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Transaction.swift; sourceTree = "<group>"; };
+		4540C72C19FFF59900D7714F /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4540C79319FFFA0800D7714F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4540C79419FFFA2F00D7714F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		4552BA4D19C6E356008FFF3F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		45652A8C19CAEFA60064EB45 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
-		4583D3AA19C85DEB00861520 /* Core.Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Result.swift; sourceTree = "<group>"; };
-		4583D3AC19C8719A00861520 /* Query.Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Language.swift; sourceTree = "<group>"; };
 		4587124B19CB8AC7006F9BDC /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		458D62B119C6DD34001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		458D62BC19C6DD35001E450D /* EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		458D62D819C6DD9F001E450D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		458D62DE19C6DE21001E450D /* Core.Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Statement.swift; sourceTree = "<group>"; };
-		458D62E019C6DE2A001E450D /* Core.Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Database.swift; sourceTree = "<group>"; };
-		458D62E219C6DE2F001E450D /* Core.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		458D62E819C6DEB0001E450D /* TestTool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestTool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		458D62EB19C6DEB0001E450D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		458D62EC19C6DEB0001E450D /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
-		458D630C19C6E160001E450D /* EonilSQLite3-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EonilSQLite3-Bridging-Header.h"; sourceTree = "<group>"; };
 		458D631019C6E190001E450D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
 		458D631219C6E1BB001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EonilSQLite3.framework; path = "../../../../../../Temp/Xcode/Derivations/EonilSQLite-bsrcfcbdgoxesyeqrdmfaubpdiym/Build/Products/Debug/EonilSQLite3.framework"; sourceTree = "<group>"; };
 		458D631A19C6E2C1001E450D /* TestTool-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestTool-Bridging-Header.h"; sourceTree = "<group>"; };
-		459B513819C6EA720029EA46 /* CoreBridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CoreBridge.c; sourceTree = "<group>"; };
-		459B513919C6EA720029EA46 /* CoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreBridge.h; sourceTree = "<group>"; };
-		459B517019C6F1A40029EA46 /* Core.Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Common.swift; sourceTree = "<group>"; };
 		459B517219C6FC3D0029EA46 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		459B517419C6FC460029EA46 /* Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
 		459B517819C72BBC0029EA46 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
-		459B517A19C7309E0029EA46 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		459B517E19C75EDC0029EA46 /* InternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalTests.swift; sourceTree = "<group>"; };
-		459B518019C7722B0029EA46 /* Query.Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Operators.swift; sourceTree = "<group>"; };
-		459B518419C772470029EA46 /* Query.Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Basic.swift; sourceTree = "<group>"; };
-		459B518619C773630029EA46 /* Query.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Schema.swift; sourceTree = "<group>"; };
 		45B78BCA19CCC44B008D98CA /* ExternalTest1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalTest1.swift; sourceTree = "<group>"; };
 		45CC02B619C9C2ED00AEABCC /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		45CC02C719C9DA9D00AEABCC /* Database.Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Table.swift; sourceTree = "<group>"; };
@@ -78,6 +184,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4540C6CE19FFF48300D7714F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4540C6EF19FFF53C00D7714F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4540C72819FFF59900D7714F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4540C79619FFFA6500D7714F /* libsqlite3.0.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		458D62AD19C6DD34001E450D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,17 +214,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		458D62B919C6DD35001E450D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		458D62E519C6DEB0001E450D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4540C74319FFF59900D7714F /* EonilSQLite3.framework in Frameworks */,
 				458D631919C6E226001E450D /* EonilSQLite3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +226,77 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4540C6D219FFF48300D7714F /* TestToolForOSX */ = {
+			isa = PBXGroup;
+			children = (
+				4540C6D519FFF48300D7714F /* ApplicationController.swift */,
+				4540C6D719FFF48300D7714F /* Images.xcassets */,
+				4540C6D919FFF48300D7714F /* MainMenu.xib */,
+				4540C6D319FFF48300D7714F /* Supporting Files */,
+			);
+			path = TestToolForOSX;
+			sourceTree = "<group>";
+		};
+		4540C6D319FFF48300D7714F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4540C6D419FFF48300D7714F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4540C6F319FFF53C00D7714F /* UnitTestForOSX */ = {
+			isa = PBXGroup;
+			children = (
+				4540C6F419FFF53C00D7714F /* main.swift */,
+			);
+			path = UnitTestForOSX;
+			sourceTree = "<group>";
+		};
+		4540C6F919FFF55900D7714F /* Interop */ = {
+			isa = PBXGroup;
+			children = (
+				4540C6FA19FFF55900D7714F /* CoreBridge.c */,
+				4540C6FB19FFF55900D7714F /* CoreBridge.h */,
+				4540C6FC19FFF55900D7714F /* EonilSQLite3-Bridging-Header.h */,
+			);
+			path = Interop;
+			sourceTree = "<group>";
+		};
+		4540C70119FFF56C00D7714F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4540C70219FFF56C00D7714F /* Core.Common.swift */,
+				4540C70319FFF56C00D7714F /* Core.Database.swift */,
+				4540C70419FFF56C00D7714F /* Core.Debug.swift */,
+				4540C70519FFF56C00D7714F /* Core.Result.swift */,
+				4540C70619FFF56C00D7714F /* Core.Statement.swift */,
+				4540C70719FFF56C00D7714F /* Core.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		4540C71419FFF57E00D7714F /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				4540C71519FFF57E00D7714F /* Query.Basic.swift */,
+				4540C71619FFF57E00D7714F /* Query.Language.swift */,
+				4540C71719FFF57E00D7714F /* Query.Operators.swift */,
+				4540C71819FFF57E00D7714F /* Query.Schema.swift */,
+				4540C71919FFF57E00D7714F /* Query.swift */,
+				4540C71A19FFF57E00D7714F /* Query.Transaction.swift */,
+			);
+			path = Query;
+			sourceTree = "<group>";
+		};
+		4540C79219FFFA0800D7714F /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				4540C79319FFFA0800D7714F /* Info.plist */,
+			);
+			path = OSX;
+			sourceTree = "<group>";
+		};
 		458D62A519C6DD00001E450D = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +304,8 @@
 				458D62C819C6DD8C001E450D /* Sources */,
 				458D62C919C6DD8C001E450D /* Targets */,
 				458D62E919C6DEB0001E450D /* TestTool */,
+				4540C6D219FFF48300D7714F /* TestToolForOSX */,
+				4540C6F319FFF53C00D7714F /* UnitTestForOSX */,
 				458D62B219C6DD34001E450D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,8 +314,10 @@
 			isa = PBXGroup;
 			children = (
 				458D62B119C6DD34001E450D /* EonilSQLite3.framework */,
-				458D62BC19C6DD35001E450D /* EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest */,
 				458D62E819C6DEB0001E450D /* TestTool.app */,
+				4540C6D119FFF48300D7714F /* TestTool - OSX.app */,
+				4540C6F219FFF53C00D7714F /* UnitTestForOSX */,
+				4540C72C19FFF59900D7714F /* EonilSQLite3.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,9 +334,9 @@
 				45CC02C919C9DFF900AEABCC /* Database.Schema.swift */,
 				459B517419C6FC460029EA46 /* Statement.swift */,
 				45652A8C19CAEFA60064EB45 /* Schema.swift */,
-				459B518919C779D60029EA46 /* (query) */,
-				459B518819C773CF0029EA46 /* (core) */,
-				459B518A19C779E10029EA46 /* (interop) */,
+				4540C71419FFF57E00D7714F /* Query */,
+				4540C70119FFF56C00D7714F /* Core */,
+				4540C6F919FFF55900D7714F /* Interop */,
 				459B517E19C75EDC0029EA46 /* InternalTests.swift */,
 			);
 			path = Sources;
@@ -148,8 +345,8 @@
 		458D62C919C6DD8C001E450D /* Targets */ = {
 			isa = PBXGroup;
 			children = (
+				4540C79219FFFA0800D7714F /* OSX */,
 				458D62CA19C6DD8C001E450D /* iOS */,
-				458D62D119C6DD8C001E450D /* OSX */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -157,112 +354,9 @@
 		458D62CA19C6DD8C001E450D /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				458D62CB19C6DD8C001E450D /* Framework */,
-				458D62CE19C6DD8C001E450D /* Library */,
+				4540C79419FFFA2F00D7714F /* Info.plist */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		458D62CB19C6DD8C001E450D /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				458D62CC19C6DD8C001E450D /* Dynamic */,
-				458D62CD19C6DD8C001E450D /* Static */,
-			);
-			path = Framework;
-			sourceTree = "<group>";
-		};
-		458D62CC19C6DD8C001E450D /* Dynamic */ = {
-			isa = PBXGroup;
-			children = (
-				458D62D819C6DD9F001E450D /* Info.plist */,
-			);
-			path = Dynamic;
-			sourceTree = "<group>";
-		};
-		458D62CD19C6DD8C001E450D /* Static */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Static;
-			sourceTree = "<group>";
-		};
-		458D62CE19C6DD8C001E450D /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				458D62CF19C6DD8C001E450D /* Dynamic */,
-				458D62D019C6DD8C001E450D /* Static */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
-		458D62CF19C6DD8C001E450D /* Dynamic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Dynamic;
-			sourceTree = "<group>";
-		};
-		458D62D019C6DD8C001E450D /* Static */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Static;
-			sourceTree = "<group>";
-		};
-		458D62D119C6DD8C001E450D /* OSX */ = {
-			isa = PBXGroup;
-			children = (
-				458D62D219C6DD8C001E450D /* Framework */,
-				458D62D519C6DD8C001E450D /* Library */,
-			);
-			path = OSX;
-			sourceTree = "<group>";
-		};
-		458D62D219C6DD8C001E450D /* Framework */ = {
-			isa = PBXGroup;
-			children = (
-				458D62D319C6DD8C001E450D /* Dynamic */,
-				458D62D419C6DD8C001E450D /* Static */,
-			);
-			path = Framework;
-			sourceTree = "<group>";
-		};
-		458D62D319C6DD8C001E450D /* Dynamic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Dynamic;
-			sourceTree = "<group>";
-		};
-		458D62D419C6DD8C001E450D /* Static */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Static;
-			sourceTree = "<group>";
-		};
-		458D62D519C6DD8C001E450D /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				458D62D619C6DD8C001E450D /* Dynamic */,
-				458D62D719C6DD8C001E450D /* Static */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
-		458D62D619C6DD8C001E450D /* Dynamic */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Dynamic;
-			sourceTree = "<group>";
-		};
-		458D62D719C6DD8C001E450D /* Static */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Static;
 			sourceTree = "<group>";
 		};
 		458D62E919C6DEB0001E450D /* TestTool */ = {
@@ -288,65 +382,91 @@
 		458D631419C6E1D6001E450D /* (dependencies) */ = {
 			isa = PBXGroup;
 			children = (
-				458D631219C6E1BB001E450D /* EonilSQLite3.framework */,
+				4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */,
 				458D631019C6E190001E450D /* libsqlite3.0.dylib */,
+				458D631219C6E1BB001E450D /* EonilSQLite3.framework */,
 			);
 			name = "(dependencies)";
-			sourceTree = "<group>";
-		};
-		459B518819C773CF0029EA46 /* (core) */ = {
-			isa = PBXGroup;
-			children = (
-				458D62E219C6DE2F001E450D /* Core.swift */,
-				45509D2819C93F7A003427FD /* Core.Debug.swift */,
-				4583D3AA19C85DEB00861520 /* Core.Result.swift */,
-				459B517019C6F1A40029EA46 /* Core.Common.swift */,
-				458D62E019C6DE2A001E450D /* Core.Database.swift */,
-				458D62DE19C6DE21001E450D /* Core.Statement.swift */,
-			);
-			name = "(core)";
-			sourceTree = "<group>";
-		};
-		459B518919C779D60029EA46 /* (query) */ = {
-			isa = PBXGroup;
-			children = (
-				459B517A19C7309E0029EA46 /* Query.swift */,
-				45406A8C19CD889200A3B706 /* Query.Transaction.swift */,
-				459B518419C772470029EA46 /* Query.Basic.swift */,
-				459B518019C7722B0029EA46 /* Query.Operators.swift */,
-				459B518619C773630029EA46 /* Query.Schema.swift */,
-				4583D3AC19C8719A00861520 /* Query.Language.swift */,
-			);
-			name = "(query)";
-			sourceTree = "<group>";
-		};
-		459B518A19C779E10029EA46 /* (interop) */ = {
-			isa = PBXGroup;
-			children = (
-				458D630C19C6E160001E450D /* EonilSQLite3-Bridging-Header.h */,
-				459B513919C6EA720029EA46 /* CoreBridge.h */,
-				459B513819C6EA720029EA46 /* CoreBridge.c */,
-			);
-			name = "(interop)";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4540C72919FFF59900D7714F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		458D62AE19C6DD34001E450D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				459B513B19C6EA720029EA46 /* CoreBridge.h in Headers */,
+				4540C6FF19FFF55900D7714F /* CoreBridge.h in Headers */,
+				4540C70019FFF55900D7714F /* EonilSQLite3-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		458D62B019C6DD34001E450D /* EonilSQLite3 - iOS - Framework - Dynamic */ = {
+		4540C6D019FFF48300D7714F /* TestTool - OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 458D62C219C6DD35001E450D /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Dynamic" */;
+			buildConfigurationList = 4540C6E819FFF48300D7714F /* Build configuration list for PBXNativeTarget "TestTool - OSX" */;
+			buildPhases = (
+				4540C6CD19FFF48300D7714F /* Sources */,
+				4540C6CE19FFF48300D7714F /* Frameworks */,
+				4540C6CF19FFF48300D7714F /* Resources */,
+				4540C78E19FFF9C000D7714F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TestTool - OSX";
+			productName = TestToolForOSX;
+			productReference = 4540C6D119FFF48300D7714F /* TestTool - OSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4540C6F119FFF53C00D7714F /* UnitTestForOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "UnitTestForOSX" */;
+			buildPhases = (
+				4540C6EE19FFF53C00D7714F /* Sources */,
+				4540C6EF19FFF53C00D7714F /* Frameworks */,
+				4540C6F019FFF53C00D7714F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTestForOSX;
+			productName = UnitTestForOSX;
+			productReference = 4540C6F219FFF53C00D7714F /* UnitTestForOSX */;
+			productType = "com.apple.product-type.tool";
+		};
+		4540C72B19FFF59900D7714F /* EonilSQLite3 - OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4540C74519FFF59900D7714F /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX" */;
+			buildPhases = (
+				4540C72719FFF59900D7714F /* Sources */,
+				4540C72819FFF59900D7714F /* Frameworks */,
+				4540C72919FFF59900D7714F /* Headers */,
+				4540C72A19FFF59900D7714F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EonilSQLite3 - OSX";
+			productName = EonilSQLite3;
+			productReference = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		458D62B019C6DD34001E450D /* EonilSQLite3 - iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 458D62C219C6DD35001E450D /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS" */;
 			buildPhases = (
 				458D62AC19C6DD34001E450D /* Sources */,
 				458D62AD19C6DD34001E450D /* Frameworks */,
@@ -357,41 +477,26 @@
 			);
 			dependencies = (
 			);
-			name = "EonilSQLite3 - iOS - Framework - Dynamic";
+			name = "EonilSQLite3 - iOS";
 			productName = EonilSQLite3;
 			productReference = 458D62B119C6DD34001E450D /* EonilSQLite3.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		458D62BB19C6DD35001E450D /* EonilSQLite3 - iOS - Framework - Dynamic - Tests */ = {
+		458D62E719C6DEB0001E450D /* TestTool - iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 458D62C519C6DD35001E450D /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Dynamic - Tests" */;
-			buildPhases = (
-				458D62B819C6DD35001E450D /* Sources */,
-				458D62B919C6DD35001E450D /* Frameworks */,
-				458D62BA19C6DD35001E450D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "EonilSQLite3 - iOS - Framework - Dynamic - Tests";
-			productName = EonilSQLite3Tests;
-			productReference = 458D62BC19C6DD35001E450D /* EonilSQLite3 - iOS - Framework - Dynamic - Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		458D62E719C6DEB0001E450D /* TestTool */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 458D630419C6DEB1001E450D /* Build configuration list for PBXNativeTarget "TestTool" */;
+			buildConfigurationList = 458D630419C6DEB1001E450D /* Build configuration list for PBXNativeTarget "TestTool - iOS" */;
 			buildPhases = (
 				458D62E419C6DEB0001E450D /* Sources */,
 				458D62E519C6DEB0001E450D /* Frameworks */,
 				458D62E619C6DEB0001E450D /* Resources */,
+				4540C74819FFF59900D7714F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4540C74219FFF59900D7714F /* PBXTargetDependency */,
 			);
-			name = TestTool;
+			name = "TestTool - iOS";
 			productName = TestTool;
 			productReference = 458D62E819C6DEB0001E450D /* TestTool.app */;
 			productType = "com.apple.product-type.application";
@@ -402,12 +507,18 @@
 		458D62A619C6DD00001E450D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				TargetAttributes = {
-					458D62B019C6DD34001E450D = {
-						CreatedOnToolsVersion = 6.0;
+					4540C6D019FFF48300D7714F = {
+						CreatedOnToolsVersion = 6.1;
 					};
-					458D62BB19C6DD35001E450D = {
+					4540C6F119FFF53C00D7714F = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					4540C72B19FFF59900D7714F = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					458D62B019C6DD34001E450D = {
 						CreatedOnToolsVersion = 6.0;
 					};
 					458D62E719C6DEB0001E450D = {
@@ -428,23 +539,33 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				458D62B019C6DD34001E450D /* EonilSQLite3 - iOS - Framework - Dynamic */,
-				458D62BB19C6DD35001E450D /* EonilSQLite3 - iOS - Framework - Dynamic - Tests */,
-				458D62E719C6DEB0001E450D /* TestTool */,
+				4540C72B19FFF59900D7714F /* EonilSQLite3 - OSX */,
+				458D62B019C6DD34001E450D /* EonilSQLite3 - iOS */,
+				4540C6D019FFF48300D7714F /* TestTool - OSX */,
+				458D62E719C6DEB0001E450D /* TestTool - iOS */,
+				4540C6F119FFF53C00D7714F /* UnitTestForOSX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		458D62AF19C6DD34001E450D /* Resources */ = {
+		4540C6CF19FFF48300D7714F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				459B513A19C6EA720029EA46 /* CoreBridge.c in Resources */,
+				4540C6D819FFF48300D7714F /* Images.xcassets in Resources */,
+				4540C6DB19FFF48300D7714F /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		458D62BA19C6DD35001E450D /* Resources */ = {
+		4540C72A19FFF59900D7714F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		458D62AF19C6DD34001E450D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -461,39 +582,102 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4540C6CD19FFF48300D7714F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4540C6D619FFF48300D7714F /* ApplicationController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4540C6EE19FFF53C00D7714F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4540C76819FFF61400D7714F /* Database.Schema.swift in Sources */,
+				4540C70F19FFF56C00D7714F /* Core.Result.swift in Sources */,
+				4540C71E19FFF57E00D7714F /* Query.Language.swift in Sources */,
+				4540C76219FFF61400D7714F /* Config.swift in Sources */,
+				4540C6F519FFF53C00D7714F /* main.swift in Sources */,
+				4540C71119FFF56C00D7714F /* Core.Statement.swift in Sources */,
+				4540C76419FFF61400D7714F /* Value.swift in Sources */,
+				4540C76719FFF61400D7714F /* Database.Table.swift in Sources */,
+				4540C76519FFF61400D7714F /* Database.swift in Sources */,
+				4540C6FE19FFF55900D7714F /* CoreBridge.c in Sources */,
+				4540C70B19FFF56C00D7714F /* Core.Database.swift in Sources */,
+				4540C72019FFF57E00D7714F /* Query.Operators.swift in Sources */,
+				4540C72419FFF57E00D7714F /* Query.swift in Sources */,
+				4540C70919FFF56C00D7714F /* Core.Common.swift in Sources */,
+				4540C76B19FFF61400D7714F /* InternalTests.swift in Sources */,
+				4540C71319FFF56C00D7714F /* Core.swift in Sources */,
+				4540C76619FFF61400D7714F /* Database.Operation.swift in Sources */,
+				4540C72619FFF57E00D7714F /* Query.Transaction.swift in Sources */,
+				4540C70D19FFF56C00D7714F /* Core.Debug.swift in Sources */,
+				4540C76319FFF61400D7714F /* Debug.swift in Sources */,
+				4540C72219FFF57E00D7714F /* Query.Schema.swift in Sources */,
+				4540C71C19FFF57E00D7714F /* Query.Basic.swift in Sources */,
+				4540C76A19FFF61400D7714F /* Schema.swift in Sources */,
+				4540C76919FFF61400D7714F /* Statement.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4540C72719FFF59900D7714F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4540C75419FFF61400D7714F /* Schema.swift in Sources */,
+				4540C75219FFF61400D7714F /* Database.Schema.swift in Sources */,
+				4540C75E19FFF61400D7714F /* Core.Result.swift in Sources */,
+				4540C76019FFF61400D7714F /* Core.swift in Sources */,
+				4540C75119FFF61400D7714F /* Database.Table.swift in Sources */,
+				4540C75719FFF61400D7714F /* Query.Operators.swift in Sources */,
+				4540C76C19FFF62700D7714F /* CoreBridge.c in Sources */,
+				4540C76119FFF61400D7714F /* InternalTests.swift in Sources */,
+				4540C75819FFF61400D7714F /* Query.Schema.swift in Sources */,
+				4540C74C19FFF61400D7714F /* Config.swift in Sources */,
+				4540C75F19FFF61400D7714F /* Core.Statement.swift in Sources */,
+				4540C75019FFF61400D7714F /* Database.Operation.swift in Sources */,
+				4540C74D19FFF61400D7714F /* Debug.swift in Sources */,
+				4540C75919FFF61400D7714F /* Query.swift in Sources */,
+				4540C75D19FFF61400D7714F /* Core.Debug.swift in Sources */,
+				4540C74F19FFF61400D7714F /* Database.swift in Sources */,
+				4540C75C19FFF61400D7714F /* Core.Database.swift in Sources */,
+				4540C74E19FFF61400D7714F /* Value.swift in Sources */,
+				4540C75519FFF61400D7714F /* Query.Basic.swift in Sources */,
+				4540C75B19FFF61400D7714F /* Core.Common.swift in Sources */,
+				4540C75319FFF61400D7714F /* Statement.swift in Sources */,
+				4540C75619FFF61400D7714F /* Query.Language.swift in Sources */,
+				4540C75A19FFF61400D7714F /* Query.Transaction.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		458D62AC19C6DD34001E450D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				45CC02CA19C9DFF900AEABCC /* Database.Schema.swift in Sources */,
-				459B517B19C7309E0029EA46 /* Query.swift in Sources */,
-				4583D3AB19C85DEB00861520 /* Core.Result.swift in Sources */,
-				458D62DF19C6DE21001E450D /* Core.Statement.swift in Sources */,
+				4540C71B19FFF57E00D7714F /* Query.Basic.swift in Sources */,
 				45652A8D19CAEFA60064EB45 /* Schema.swift in Sources */,
-				45509D2919C93F7A003427FD /* Core.Debug.swift in Sources */,
-				459B518719C773630029EA46 /* Query.Schema.swift in Sources */,
+				4540C6FD19FFF55900D7714F /* CoreBridge.c in Sources */,
 				45CC02C819C9DA9D00AEABCC /* Database.Table.swift in Sources */,
-				459B517119C6F1A40029EA46 /* Core.Common.swift in Sources */,
+				4540C71219FFF56C00D7714F /* Core.swift in Sources */,
+				4540C72319FFF57E00D7714F /* Query.swift in Sources */,
+				4540C70E19FFF56C00D7714F /* Core.Result.swift in Sources */,
+				4540C70C19FFF56C00D7714F /* Core.Debug.swift in Sources */,
+				4540C72119FFF57E00D7714F /* Query.Schema.swift in Sources */,
+				4540C70A19FFF56C00D7714F /* Core.Database.swift in Sources */,
+				4540C72519FFF57E00D7714F /* Query.Transaction.swift in Sources */,
 				459B517919C72BBC0029EA46 /* Value.swift in Sources */,
-				45406A8D19CD889200A3B706 /* Query.Transaction.swift in Sources */,
 				45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */,
-				458D62E119C6DE2A001E450D /* Core.Database.swift in Sources */,
-				459B518119C7722B0029EA46 /* Query.Operators.swift in Sources */,
 				459B517519C6FC460029EA46 /* Statement.swift in Sources */,
 				459B517F19C75EDC0029EA46 /* InternalTests.swift in Sources */,
-				459B518519C772470029EA46 /* Query.Basic.swift in Sources */,
-				4583D3AD19C8719A00861520 /* Query.Language.swift in Sources */,
+				4540C71F19FFF57E00D7714F /* Query.Operators.swift in Sources */,
 				4587124C19CB8AC7006F9BDC /* Config.swift in Sources */,
+				4540C71019FFF56C00D7714F /* Core.Statement.swift in Sources */,
+				4540C71D19FFF57E00D7714F /* Query.Language.swift in Sources */,
+				4540C70819FFF56C00D7714F /* Core.Common.swift in Sources */,
 				459B517319C6FC3D0029EA46 /* Database.swift in Sources */,
 				45F16E7D19C8AF5A007B4DE2 /* Database.Operation.swift in Sources */,
-				458D62E319C6DE2F001E450D /* Core.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		458D62B819C6DD35001E450D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,10 +693,294 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4540C74219FFF59900D7714F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4540C72B19FFF59900D7714F /* EonilSQLite3 - OSX */;
+			targetProxy = 4540C74119FFF59900D7714F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4540C6D919FFF48300D7714F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4540C6DA19FFF48300D7714F /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		4540C6E919FFF48300D7714F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = TestToolForOSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4540C6EA19FFF48300D7714F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = TestToolForOSX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4540C6F719FFF53C00D7714F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4540C6F819FFF53C00D7714F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4540C74619FFF59900D7714F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Targets/OSX/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Interop/EonilSQLite3-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4540C74719FFF59900D7714F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Targets/OSX/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Interop/EonilSQLite3-Bridging-Header.h";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		458D62AA19C6DD00001E450D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 			};
 			name = Debug;
@@ -563,7 +1031,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Targets/iOS/Framework/Dynamic/Info.plist;
+				INFOPLIST_FILE = Targets/iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -572,7 +1040,7 @@
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Sources/EonilSQLite3-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Interop/EonilSQLite3-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -613,7 +1081,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Targets/iOS/Framework/Dynamic/Info.plist;
+				INFOPLIST_FILE = Targets/iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -621,99 +1089,11 @@
 				OTHER_SWIFT_FLAGS = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Sources/EonilSQLite3-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/Interop/EonilSQLite3-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		458D62C619C6DD35001E450D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = EonilSQLite3Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		458D62C719C6DD35001E450D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = EonilSQLite3Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -809,6 +1189,30 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4540C6E819FFF48300D7714F /* Build configuration list for PBXNativeTarget "TestTool - OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4540C6E919FFF48300D7714F /* Debug */,
+				4540C6EA19FFF48300D7714F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "UnitTestForOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4540C6F719FFF53C00D7714F /* Debug */,
+				4540C6F819FFF53C00D7714F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4540C74519FFF59900D7714F /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4540C74619FFF59900D7714F /* Debug */,
+				4540C74719FFF59900D7714F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		458D62A919C6DD00001E450D /* Build configuration list for PBXProject "EonilSQLite3" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -818,7 +1222,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		458D62C219C6DD35001E450D /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Dynamic" */ = {
+		458D62C219C6DD35001E450D /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				458D62C319C6DD35001E450D /* Debug */,
@@ -827,16 +1231,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		458D62C519C6DD35001E450D /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Framework - Dynamic - Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				458D62C619C6DD35001E450D /* Debug */,
-				458D62C719C6DD35001E450D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		458D630419C6DEB1001E450D /* Build configuration list for PBXNativeTarget "TestTool" */ = {
+		458D630419C6DEB1001E450D /* Build configuration list for PBXNativeTarget "TestTool - iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				458D630519C6DEB1001E450D /* Debug */,

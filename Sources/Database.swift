@@ -20,6 +20,8 @@ import Foundation
 ///	initializer.
 public class Database
 {
+	////	Types.
+	
 	public typealias	ParameterList	=	[String:Value]
 	public typealias	RowIterator		=	(row:Row)->()
 	
@@ -36,6 +38,31 @@ public class Database
 		case PersistentFile(path:String)
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	////	Slots.
+	
+	private let	_savepoint_name_gen:() -> String
+	
+	private var	_core				=	Core.Database()
+	
+	
+	
+	
+	
+	
+	
+	
+	////	Methods.
+	
+	
 	public convenience init(location:Location)
 	{
 		self.init(location: location, mutable: false)
@@ -48,7 +75,8 @@ public class Database
 	///	:param:	atomicUnitNameGenerator		specifies a name generator which will generate names for SAVEPOINT statement.
 	public required init(location:Location, mutable:Bool, atomicUnitNameGenerator:()->String)
 	{
-		assert(_core.null == true)
+		//	TODO:	Uncomment this. Commented due to weird compiler error.
+//		assert(_core.null == true)
 		
 		func resolve_name() -> String
 		{
@@ -292,9 +320,6 @@ public class Database
 	
 	
 	
-	
-	
-	
 	///	Run an atomic transaction which always commits.
 	private func performTransactionSession(transaction tx:() -> ())
 	{
@@ -410,10 +435,6 @@ public class Database
 	
 	
 	
-	
-	private let	_savepoint_name_gen:() -> String
-	
-	private var	_core				=	Core.Database()
 }
 
 

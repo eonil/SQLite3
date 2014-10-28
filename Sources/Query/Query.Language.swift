@@ -71,7 +71,7 @@ extension Query.Language.Syntax
 			{
 				if let r1 = reaction
 				{
-					return	"ON CONFLICT \(r1.toRaw())"
+					return	"ON CONFLICT \(r1.rawValue)"
 				}
 				return	""
 			}
@@ -94,7 +94,7 @@ extension Query.Language.Syntax
 			get
 			{
 				let	a1	=	constraints.map({ n in return n.description }) as [String]
-				let	s2	=	type == nil ? "" : type!.toRaw()
+				let	s2	=	type == nil ? "" : type!.rawValue
 				let	s1	=	reduce(a1, "", +) as String
 				return	"\(name) \(s2) \(s1)"
 			}
@@ -138,7 +138,7 @@ extension Query.Language.Syntax
 					switch self
 					{
 						case .PrimaryKey(let value):
-							let	s2	=	value.ordering == nil ? "" : "\(value.ordering!.toRaw())"
+							let	s2	=	value.ordering == nil ? "" : "\(value.ordering!.rawValue)"
 							let	s1	=	value.autoincrement ? "AUTOINCREMENT" : ""
 							return	"PRIMARY KEY \(s2) \(value.conflict) \(s1)"
 						

@@ -48,10 +48,27 @@ public struct Query
 	///	Represents a fragment of a query.
 	public struct Expression : StringLiteralConvertible
 	{
+		public init(stringLiteral value: String) {
+			self	=	Expression(code: value, parameters: [])
+		}
+		public init(extendedGraphemeClusterLiteral value: String) {
+			self	=	Expression(code: value, parameters: [])
+		}
+		public init(unicodeScalarLiteral value: String) {
+			self	=	Expression(code: value, parameters: [])
+		}
+		
+		////
+		
 		let	code:String
 		let	parameters:ParameterNameValueMappings	=	[]
 		
+		init(code:String, parameters:ParameterNameValueMappings) {
+			self.code		=	code
+			self.parameters	=	parameters
+		}
 		
+		////
 		
 		static let	empty	=	Expression(code: "", parameters: [])
 		
@@ -69,18 +86,6 @@ public struct Query
 		static func expressionize<T:SubqueryExpressive>(using upng:UniqueParameterNameGenerator)(elements:[T]) -> ExpressionList
 		{
 			return	ExpressionList(items: elements.map(expressionize(upng)))
-		}
-		
-		
-		
-		public static func convertFromStringLiteral(value: String) -> Expression
-		{
-			return	Expression(code: value, parameters: [])
-		}
-		
-		public static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Expression
-		{
-			return	Expression(code: value, parameters: [])
 		}
 	}
 	
@@ -154,6 +159,17 @@ public struct Query
 			
 			self.name	=	name
 		}
+		
+		public init(stringLiteral value: String) {
+			self	=	Identifier(name: value)
+		}
+		public init(extendedGraphemeClusterLiteral value: String) {
+			self	=	Identifier(name: value)
+		}
+		public init(unicodeScalarLiteral value: String) {
+			self	=	Identifier(name: value)
+		}
+		
 		
 		public var description:String
 		{
