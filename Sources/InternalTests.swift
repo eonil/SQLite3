@@ -75,13 +75,20 @@ public struct Test1
 			}
 		
 		run	{
-			
-			let	f1	=	"col1" == 42
+			let	f1	=	("col1" as Q.Identifier) == (42 as Value)
 			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
 			let	s	=	q.express(uniqueParameterNameGenerator: upng)
 			println(s.code, s.parameters)
 			
 			}
+		
+		run	{
+			let	f1	=	("col1" == 42) as Q.FilterTree.Node
+			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
+			let	s	=	q.express(uniqueParameterNameGenerator: upng)
+			println(s.code, s.parameters)
+			
+		}
 		
 		run	{
 			
@@ -120,13 +127,13 @@ public struct Test1
 			
 			let	rs1	=	t1.select()
 			shouldBe(rs1.count == 1)
-			shouldBe(rs1[0]["c1"]! as String == "V1")
+			shouldBe(rs1[0]["c1"]!.text! == "V1")
 			
 			t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
 			
 			let	rs2	=	t1.select()
 			shouldBe(rs2.count == 1)
-			shouldBe(rs2[0]["c1"]! as String == "W2")
+			shouldBe(rs2[0]["c1"]!.text! == "W2")
 			
 			t1.delete(rowsWithAllOf: ["c1":"W2"])
 			

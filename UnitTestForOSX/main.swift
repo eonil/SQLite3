@@ -8,5 +8,6 @@
 
 import Foundation
 
-println("Hello, World!")
-
+Test1.test1()
+test2()
+		

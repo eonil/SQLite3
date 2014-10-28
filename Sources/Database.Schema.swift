@@ -32,7 +32,7 @@ public extension Database.Schema
 		let	d	=	database.snapshot(query: "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;", error: handler)
 		func getName(r:[String:Value]) -> String
 		{
-			return	r["name"]! as String
+			return	r["name"]!.text!
 		}
 		return	d.map(getName)
 	}

@@ -127,10 +127,12 @@ private extension Statement {
 			}
 			else
 			{
-				if v is Integer { _core.bindInt64(v as Integer, at: n1) }
-				if v is Double { _core.bindDouble(v as Double, at: n1) }
-				if v is String { _core.bindText(v as String, at: n1) }
-				if v is Blob { _core.bindBytes(v as Blob, at: n1) }
+				switch v {
+				case let Value.Integer(s):	_core.bindInt64(s, at: n1)
+				case let Value.Float(s):	_core.bindDouble(s, at: n1)
+				case let Value.Text(s):		_core.bindText(s, at: n1)
+				case let Value.Blob(s):		_core.bindBytes(s, at: n1)
+				}
 			}
 		}
 	}
@@ -200,10 +202,10 @@ private struct RowReader : Row
 			let	t2		=	host._core.columnType(idx2)
 			
 //			if t2 == Core.ColumnTypeCode.null		{ return nil }
-			if t2 == Core.ColumnTypeCode.integer	{ return host._core.columnInt64(at: idx2) }
-			if t2 == Core.ColumnTypeCode.float		{ return host._core.columnDouble(at: idx2) }
-			if t2 == Core.ColumnTypeCode.text		{ return host._core.columnText(at: idx2) }
-			if t2 == Core.ColumnTypeCode.blob		{ return host._core.columnBlob(at: idx2) }
+			if t2 == Core.ColumnTypeCode.integer	{ return Value(host._core.columnInt64(at: idx2)) }
+			if t2 == Core.ColumnTypeCode.float		{ return Value(host._core.columnDouble(at: idx2)) }
+			if t2 == Core.ColumnTypeCode.text		{ return Value(host._core.columnText(at: idx2)) }
+			if t2 == Core.ColumnTypeCode.blob		{ return Value(host._core.columnBlob(at: idx2)) }
 			
 			Core.Common.crash(message: "Unknown column type code discovered; \(t2)")
 		}

@@ -11,67 +11,65 @@ import Foundation
 
 
 
-typealias	Binary	=	Blob
+public typealias	Binary	=	Blob
 
 ///	SQLite3 `NULL` will be represented as `nil`.
-enum
-Value2
-{
+public enum Value {
 	case Integer(Int64)
 	case Float(Double)
 	case Text(String)
 	case Blob(Binary)
 }
 
-
-func == (l:Value2, r:Value2) -> Bool {
-	switch (l,r) {
-	case Integer(a), Integer(b):	return	a == b
-	case Float(a), Float(b):		return	a == b
-	case Text(a), Text(b):			return	a == b
-	case Blob(a), Blob(b):			return	a == b
-	default:						return	false
+extension Value: IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
+	public init(integerLiteral value: Int64) {
+		self	=	Integer(value)
+	}
+	public init(floatLiteral value: Double) {
+		self	=	Float(value)
+	}
+	public init(stringLiteral value: String) {
+		self	=	Text(value)
+	}
+	public init(extendedGraphemeClusterLiteral value: String) {
+		self	=	Text(value)
+	}
+	public init(unicodeScalarLiteral value: String) {
+		self	=	Text(value)
 	}
 }
-func == (l:Value2, r:Int) -> Bool {
+
+
+func == (l:Value, r:Value) -> Bool {
+	switch (l,r) {
+	case let (Value.Integer(a), Value.Integer(b)):	return	a == b
+	case let (Value.Float(a), Value.Float(b)):		return	a == b
+	case let (Value.Text(a), Value.Text(b)):		return	a == b
+	case let (Value.Blob(a), Value.Blob(b)):		return	a == b
+	default:										return	false
+	}
+}
+func == (l:Value, r:Int) -> Bool {
 	return	l == Int64(r)
 }
-func == (l:Value2, r:Int64) -> Bool {
+func == (l:Value, r:Int64) -> Bool {
 	if let v2 = l.integer { return v2 == r }
 	return	false
 }
-func == (l:Value2, r:Double) -> Bool {
+func == (l:Value, r:Double) -> Bool {
 	if let v2 = l.float { return v2 == r }
 	return	false
 }
-func == (l:Value2, r:String) -> Bool {
+func == (l:Value, r:String) -> Bool {
 	if let v2 = l.text { return v2 == r }
 	return	false
 }
-func == (l:Value2, r:Binary) -> Bool {
+func == (l:Value, r:Binary) -> Bool {
 	if let v2 = l.blob { return v2 == r }
 	return	false
 }
 
-extension Value2: IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
-	init(integerLiteral value: Int64) {
-		self	=	Integer(value)
-	}
-	init(floatLiteral value: Double) {
-		self	=	Float(value)
-	}
-	init(stringLiteral value: String) {
-		self	=	Text(value)
-	}
-	init(extendedGraphemeClusterLiteral value: String) {
-		self	=	Text(value)
-	}
-	init(unicodeScalarLiteral value: String) {
-		self	=	Text(value)
-	}
-}
-
-extension Value2 {
+extension Value {
 	init(_ v:Int64) {
 		self	=	Integer(v)
 	}
@@ -143,87 +141,87 @@ extension Value2 {
 
 
 
-
-public typealias	Value	=	AnyObject				///<	Don't use `Any`. Currently, it causes many subtle unknown problems.
-
-
-
-
 //
-//public typealias	FieldList	=	[Value]				///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
-//public typealias	Record		=	[String:Value]
+//public typealias	Value	=	AnyObject				///<	Don't use `Any`. Currently, it causes many subtle unknown problems.
 //
-//struct RowList
+//
+//
+//
+////
+////public typealias	FieldList	=	[Value]				///<	The value can be one of these types;	`Int`, `Double`, `String`, `Blob`. A field with NULL will not be stored.
+////public typealias	Record		=	[String:Value]
+////
+////struct RowList
+////{
+////	let	columns:[String]
+////	let	items:[FieldList]
+////}
+//
+//
+//
+//
+//
+////typealias	Integer	=	Int64
+//
+/////	64-bit signed integer class type.
+/////	Defined to provide conversion to AnyObject.
+/////	(Swift included in Xcode 6.0.1 does not support this conversion...)
+//public class Integer : Printable//, SignedIntegerType, SignedNumberType
 //{
-//	let	columns:[String]
-//	let	items:[FieldList]
+//	public init(_ number:Int64)
+//	{
+//		self.number	=	number
+//	}
+//	
+//	
+//	public var description:String
+//	{
+//		get
+//		{
+//			return	number.description
+//		}
+//	}
+//	
+////	public var hashValue:Int
+////	{
+////		get
+////		{
+////			return	number.hashValue
+////		}
+////	}
+////	
+////	public var arrayBoundValue:Int64.ArrayBound
+////	{
+////		get
+////		{
+////			return	number.arrayBoundValue
+////		}
+////	}
+////	public func toIntMax() -> IntMax
+////	{
+////		return	number.toIntMax()
+////	}
+////	
+////	public class func from(x: IntMax) -> Integer
+////	{
+////		return	Integer(Int64.from(x))
+////	}
+//
+//	let	number:Int64
+//}
+//
+//extension Int64
+//{
+//	init(_ integer:Integer)
+//	{
+//		self.init(integer.number)
+//	}
 //}
 
 
 
-
-
-//typealias	Integer	=	Int64
-
-///	64-bit signed integer class type.
-///	Defined to provide conversion to AnyObject.
-///	(Swift included in Xcode 6.0.1 does not support this conversion...)
-public class Integer : Printable//, SignedIntegerType, SignedNumberType
-{
-	public init(_ number:Int64)
-	{
-		self.number	=	number
-	}
-	
-	
-	public var description:String
-	{
-		get
-		{
-			return	number.description
-		}
-	}
-	
-//	public var hashValue:Int
-//	{
-//		get
-//		{
-//			return	number.hashValue
-//		}
-//	}
-//	
-//	public var arrayBoundValue:Int64.ArrayBound
-//	{
-//		get
-//		{
-//			return	number.arrayBoundValue
-//		}
-//	}
-//	public func toIntMax() -> IntMax
-//	{
-//		return	number.toIntMax()
-//	}
-//	
-//	public class func from(x: IntMax) -> Integer
-//	{
-//		return	Integer(Int64.from(x))
-//	}
-
-	let	number:Int64
-}
-
-extension Int64
-{
-	init(_ integer:Integer)
-	{
-		self.init(integer.number)
-	}
-}
-
-
-
 ///	Represents BLOB.
-class Blob
+public class Blob
 {
 	init(address:UnsafePointer<()>, length:Int) {
 		precondition(address != UnsafePointer<Int8>.null())
@@ -261,7 +259,7 @@ class Blob
 	private let	value:NSData
 }
 
-func == (l:Blob, r:Blob) -> Bool {
+public func == (l:Blob, r:Blob) -> Bool {
 	return	l.value == r.value
 }
 

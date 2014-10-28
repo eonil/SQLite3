@@ -29,7 +29,7 @@ func test2()
 		///	Verify by selecting all current rows.
 		let	rs1	=	t1.select()
 		assert(rs1.count == 1)
-		assert(rs1[0]["c1"]! as String == "V1")
+		assert(rs1[0]["c1"]!.text! == "V1")
 		
 		///	Update the row.
 		t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
@@ -37,7 +37,7 @@ func test2()
 		///	Verify!
 		let	rs2	=	t1.select()
 		assert(rs2.count == 1)
-		assert(rs2[0]["c1"]! as String == "W2")
+		assert(rs2[0]["c1"]!.text! == "W2")
 		
 		///	Delete the row.
 		t1.delete(rowsWithAllOf: ["c1":"W2"])
@@ -65,7 +65,7 @@ func test2()
 			///	Verify by selecting all current rows.
 			let	rs1	=	t1.select()
 			assert(rs1.count == 1)
-			assert(rs1[0]["c1"]! as String == "V1")
+			assert(rs1[0]["c1"]!.text! == "V1")
 			
 			///	Update the row.
 			t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
@@ -73,7 +73,7 @@ func test2()
 			///	Verify!
 			let	rs2	=	t1.select()
 			assert(rs2.count == 1)
-			assert(rs2[0]["c1"]! as String == "W2")
+			assert(rs2[0]["c1"]!.text! == "W2")
 			
 			///	Delete the row.
 			t1.delete(rowsWithAllOf: ["c1":"W2"])
@@ -110,7 +110,7 @@ func test2()
 					///	Verify the update.
 					let	rs2	=	t1.select()
 					assert(rs2.count == 1)
-					assert(rs2[0]["c1"]! as String == "W2")
+					assert(rs2[0]["c1"]!.text! == "W2")
 					
 					///	And rollback.
 					return	false
@@ -120,7 +120,7 @@ func test2()
 				///	Verify inner rollback.
 				let	rs2	=	t1.select()
 				assert(rs2.count == 1)
-				assert(rs2[0]["c1"]! as String == "V1")
+				assert(rs2[0]["c1"]!.text! == "V1")
 				
 				return	false
 			}
@@ -144,7 +144,7 @@ func test2()
 			db1.run(query: "SELECT * FROM T1", success: { (data) -> () in
 				for row in data
 				{
-					assert(row[0] as String == "V1")
+					assert(row[0].text! == "V1")
 				}
 			}, failure: { (message) -> () in
 				

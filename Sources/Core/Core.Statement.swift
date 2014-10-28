@@ -155,7 +155,7 @@ extension Core
 			return	ColumnTypeCode(value: sqlite3_column_type(_rawptr, Int32(index)))
 		}
 		
-		func columnInt64(at index:Int32) -> Integer
+		func columnInt64(at index:Int32) -> Int64
 		{
 			assert(index < dataCount())
 			assert(_rawptr != C.NULL)
@@ -163,8 +163,7 @@ extension Core
 //			assert(columnType(index) == ColumnTypeCode.null)
 
 			let	n1	=	sqlite3_column_int64(_rawptr, Int32(index))
-			let	n2	=	Integer(n1)
-			return	n2
+			return	Int64(n1)
 		}
 		
 		func columnDouble(at index:Int32) -> Double
@@ -224,7 +223,7 @@ extension Core
 		
 		
 		
-		func bindInt64(value:Integer, at index:Int32)
+		func bindInt64(value:Int64, at index:Int32)
 		{
 //			assert(index <= dataCount())
 			assert(_rawptr != C.NULL)
