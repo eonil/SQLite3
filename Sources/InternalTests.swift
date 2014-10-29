@@ -135,17 +135,22 @@ public struct Test1
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.schema().create(table: "T1", column: ["c1"])
 			db1.apply(transaction: { () -> () in
 				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
 				for s in p1.items {
 					println(s.row().numberOfFields)
+					assert(s.row().numberOfFields == 0)
+					
 					s.step()
 					println(s.row().numberOfFields)
-					
-					assert(s.row().numberOfFields == 1)
 					println(s.row().columnNameOfField(atIndex: 0))
-//					assert(s.row()[0] == "AAA")
+					println(s.row()[0])
+					assert(s.row().numberOfFields == 1)
+					assert(s.row().columnNameOfField(atIndex: 0) == "name")
+					assert(s.row()[0] == "T1")
 					s.step()
+					
 					assert(s.row().numberOfFields == 0)
 				}
 			})
@@ -179,11 +184,8 @@ public struct Test1
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(table: "T1", column: ["c1"])
-			
 			db1.apply(transaction: { () -> () in
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"AAA\")")
-				
-				let	p1	=	db1.prepare(code: "SELECT * FROM T1;")
+				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
 				let	e1	=	p1.execute(parameters: [:])
 				let	r0	=	e1.next()
 				let	r1	=	r0!
@@ -191,9 +193,44 @@ public struct Test1
 				println(r1.columnNameOfField(atIndex: 0))
 				println(r1[0])
 				assert(r1.numberOfFields == 1)
-				assert(r1[0] == "AAA")
+				assert(r1.columnNameOfField(atIndex: 0) == "name")
+				assert(r1[0] == "T1")
 			})
-			
+		}
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.schema().create(table: "T1", column: ["c1"])
+			db1.apply(transaction: { () -> () in
+				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
+				for s in p1.items {
+					println(s.row().numberOfFields)
+					assert(s.row().numberOfFields == 0)
+					
+					s.step()
+					println(s.row().numberOfFields)
+					println(s.row().columnNameOfField(atIndex: 0))
+					println(s.row()[0])
+					assert(s.row().numberOfFields == 1)
+					assert(s.row().columnNameOfField(atIndex: 0) == "name")
+					assert(s.row()[0] == "T1")
+					s.step()
+					
+					assert(s.row().numberOfFields == 0)
+				}
+			})
+		}
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.schema().create(table: "T1", column: ["c1"])
+			db1.apply(transaction: { () -> () in
+				let	rs	=	db1.prepare(code: "SELECT name FROM sqlite_master;").execute(parameters: [:]).all()
+				for r in rs {
+					println(r)
+					assert(r["name"]! == "T1")
+				}
+			})
 		}
 		
 		
@@ -205,15 +242,15 @@ public struct Test1
 			db1.schema().create(table: "T1", column: ["c1"])
 			
 			db1.apply(transaction: { () -> () in
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"AAA\")")
-//				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"BBB\")")
-//				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"CCC\")")
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (123);").all()
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"BBB\");").all()
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (456.789);").all()
 				
 				let	rs	=	db1.run(query: "SELECT * FROM T1;").all()
 				println(rs)
-				assert(rs[0]["c1"]! == "AAA")
-//				assert(rs[1]["c1"]! == "BBB")
-//				assert(rs[2]["c1"]! == "CCC")
+				assert(rs[0]["c1"]! == 123)
+				assert(rs[1]["c1"]! == "BBB")
+				assert(rs[2]["c1"]! == 456.789)
 			})
 			
 		}
