@@ -28,9 +28,6 @@ public class Database
 //	public typealias	DataHandler		=	(data:GeneratorOf<Row>)->()
 //	public typealias	ErrorHandler	=	(message:String)->()
 	
-	public typealias	SuccessHandler	=	(data:GeneratorOf<Row>)->()
-	public typealias	FailureHandler	=	(message:String)->()
-	
 	public enum Location
 	{
 		case Memory
@@ -49,10 +46,15 @@ public class Database
 	
 	////	Slots.
 	
+	class DebuggingValidationSupport {
+		var	spawnedStatements	=	[] as [WeakReference<Statement>]
+	}
+	
 	private let	_savepoint_name_gen:() -> String
 	
 	private var	_core				=	Core.Database()
 	
+	var	_debugging_validation_state	=	DebuggingValidationSupport()
 	
 	
 	
@@ -65,15 +67,15 @@ public class Database
 	
 	public convenience init(location:Location)
 	{
-		self.init(location: location, mutable: false)
+		self.init(location: location, editable: false)
 	}
-	public convenience init(location:Location, mutable:Bool)
+	public convenience init(location:Location, editable:Bool)
 	{
-		self.init(location: location, mutable: mutable, atomicUnitNameGenerator: Default.Generator.uniqueAtomicUnitName)
+		self.init(location: location, editable: editable, atomicUnitNameGenerator: Default.Generator.uniqueAtomicUnitName)
 	}
 	
 	///	:param:	atomicUnitNameGenerator		specifies a name generator which will generate names for SAVEPOINT statement.
-	public required init(location:Location, mutable:Bool, atomicUnitNameGenerator:()->String)
+	public required init(location:Location, editable:Bool, atomicUnitNameGenerator:()->String)
 	{
 		//	TODO:	Uncomment this. Commented due to weird compiler error.
 //		assert(_core.null == true)
@@ -96,7 +98,7 @@ public class Database
 		}
 		func resolve_flag() -> Core.Database.OpenFlag
 		{
-			if mutable == false { return Core.Database.OpenFlag.Readonly }
+			if editable == false { return Core.Database.OpenFlag.Readonly }
 			return	Core.Database.OpenFlag.ReadWrite
 		}
 		
@@ -123,27 +125,27 @@ public class Database
 	
 	
 	///	Apply transaction to database.
-	public func apply(transaction tx:()->())
-	{
-		if _core.autocommit
-		{
+	public func apply(transaction tx:()->()) {
+		if _core.autocommit {
 			performTransactionSession(transaction: tx)
-		}
-		else
-		{
+		} else {
 			performSavepointSession(transaction: tx, name: _savepoint_name_gen())
+		}
+	}
+	///	Apply transaction to database.
+	public func apply<T>(transaction tx:()->T) -> T {
+		if _core.autocommit {
+			return	performTransactionSession(transaction: tx)
+		} else {
+			return	performSavepointSession(transaction: tx, name: _savepoint_name_gen())
 		}
 	}
 	
 	///	Apply transaction to database only when the transaction returns `true`.
-	public func applyConditionally(transaction tx:()->Bool) -> Bool
-	{
-		if _core.autocommit
-		{
+	public func applyConditionally<T>(transaction tx:()->T?) -> T? {
+		if _core.autocommit {
 			return	performTransactionSessionConditionally(transaction: tx)
-		}
-		else
-		{
+		} else {
 			return	performSavepointSessionConditionally(transaction: tx, name: _savepoint_name_gen())
 		}
 	}
@@ -157,37 +159,42 @@ public class Database
 	
 	///	Executes a single query within a transaction.
 	///	You always need a valid transaction context to call this method.
-	public func run(query q:QueryExpressive, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
-	{
-		run(query: q.express(), success: s, failure: f)
+	public func run(query q:QueryExpressive) -> StatementList.Execution {
+		return	run(query: q.express())
 	}
-	public func run(query c:String, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
-	{
-		run(query: Query.Expression(code: c, parameters: []), success: s, failure: f)
+	///	Executes a single query within a transaction.
+	///	You always need a valid transaction context to call this method.
+	public func run(query c:String) -> StatementList.Execution {
+		return	run(query: Query.Expression(code: c, parameters: []))
 	}
-	public func run(query x:Query.Expression, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
-	{
+	///	Executes a single query within a transaction.
+	///	You always need a valid transaction context to call this method.
+	public func run(query x:Query.Expression) -> StatementList.Execution {
 		assert(_core.autocommit == false)
 		
 		var	m	=	[String:Value]()
-		for mapping in x.parameters
-		{
-			m[mapping.name]	=	mapping.value
+		for mapping in x.parameters {
+			m[mapping.name]	=	mapping.value()
 		}
 		
 		Debug.log(x.code)
 		Debug.log(m)
 		
-		execute(code: x.code, parameters: m, success: s, failure: f)
+		return	prepare(code: x.code).execute(parameters: m)
 	}
 	
-	public func schema() -> Database.Schema
-	{
-		return	Schema(database: self, defaultErrorHandler: Default.Handler.failure)
+	
+	
+	
+	
+	
+	///	Get schema informations.
+	public func schema() -> Database.Schema {
+		return	Schema(database: self)
 	}
-	public func table(name n:String) -> Database.Table
-	{
-		return	Table(database: self, name: n, defaultErrorHandler: Default.Handler.failure)
+	///	Get table object which provides table access features.
+	public func table(name n:String) -> Database.Table {
+		return	Table(database: self, name: n)
 	}
 	
 	
@@ -203,10 +210,10 @@ public class Database
 	
 	public struct Default
 	{
-		///	Just does nothing.
-		static func null(rows:GeneratorOf<Row>)
-		{
-		}
+//		///	Just does nothing.
+//		static func null(rows:GeneratorOf<Row>)
+//		{
+//		}
 		
 		///	Default error handler.
 		///	Crashes the caller. Any uncommited transaction will be undone.
@@ -251,58 +258,21 @@ public class Database
 			}
 		}
 		
-		struct Handler
-		{
-			static let	success	=	Default.null
-			static let	failure	=	Default.crash
-		}
+//		struct Handler
+//		{
+//			static let	success	=	Default.null
+//			static let	failure	=	Default.crash
+//		}
 	}
 	
 	
 	///	Execute the query and captures snapshot of all values of resulting rows.
-	func snapshot(query x:Query.Expression, error handler:FailureHandler) -> [[String:Value]]
-	{
-		func collect(rows:GeneratorOf<Row>) -> [[String:Value]]
-		{
-			var	vs	=	[[String:Value]]()
-			for row in rows
-			{
-				var	m	=	[String:Value]()
-				let	c	=	row.numberOfFields
-				for i in 0..<c
-				{
-					if	row.isNullField(atIndex: i) == false
-					{
-						let	n:String	=	row.columnNameOfField(atIndex: i)
-						let	v:Value		=	row[i]
-						
-						m[n]	=	v
-					}
-				}
-				vs	+=	[m]
-			}
-			return	vs
+	func snapshot(query x:Query.Expression) -> [[String:Value]] {
+		var	m	=	[] as [[String:Value]]
+		func tx() {
+			m	=	run(query: x).all()
 		}
-		
-		var	m:[[String:Value]]	=	[]
-		func tx() -> Bool
-		{
-			var	ok	=	false
-			func s(data:GeneratorOf<Row>)
-			{
-				ok	=	true
-				m	=	collect(data)
-			}
-			func f(message:String)
-			{
-				handler(message: message)
-			}
-			
-			run(query: x, success: s, failure: f)
-			return	ok
-		}
-		
-		applyConditionally(transaction: tx)
+		apply(transaction: tx)
 		return	m
 	}
 	
@@ -321,67 +291,55 @@ public class Database
 	
 	
 	///	Run an atomic transaction which always commits.
-	private func performTransactionSession(transaction tx:() -> ())
-	{
-		func tx2() -> Bool
-		{
-			tx()
-			return	true
+	private func performTransactionSession<T>(transaction tx:()->T) -> T {
+		if let v1 = performTransactionSessionConditionally(transaction: tx) {
+			return	v1
+		} else {
+			fatalError("Transaction failed unexpectedly.")
 		}
-		let	ok	=	performTransactionSessionConditionally(transaction: tx2)
-		assert(ok)
 	}
 	
 	///	Run a nested transaction which always comits using `SAVEPOINT`.
-	private func performSavepointSession(transaction tx:() -> (), name n:String)
-	{
-		func tx2() -> Bool
-		{
-			tx()
-			return	true
+	private func performSavepointSession<T>(transaction tx:()->T, name n:String) -> T {
+		if let v1 = performSavepointSessionConditionally(transaction: tx, name:n) {
+			return	v1
+		} else {
+			fatalError("Transaction failed unexpectedly.")
 		}
-		let	ok	=	performSavepointSessionConditionally(transaction: tx2, name:n)
-		assert(ok)
 	}
 	
 	///	Run an atomic transaction.
-	private func performTransactionSessionConditionally(transaction tx:() -> Bool) -> Bool
-	{
+	///	Return `nil` in the transaction closure to rollback the transaction.
+	private func performTransactionSessionConditionally<T>(transaction tx:()->T?) -> T? {
 		precondition(_core.null == false)
 		precondition(_core.autocommit == true)
 		
 		execute(code: "BEGIN TRANSACTION;")
 		assert(_core.autocommit == false)
-		if tx()
-		{
+		
+		if let v = tx() {
 			execute(code: "COMMIT TRANSACTION;")
 			assert(_core.autocommit == true)
-			return	true
-		}
-		else
-		{
+			return	v
+		} else {
 			execute(code: "ROLLBACK TRANSACTION;")
 			assert(_core.autocommit == true)
-			return	false
+			return	nil
 		}
 	}
 	///	Run a nested transaction using `SAVEPOINT`.
-	private func performSavepointSessionConditionally(transaction tx:() -> Bool, name n:String) -> Bool
-	{
+	private func performSavepointSessionConditionally<T>(transaction tx:()->T?, name n:String) -> T? {
 		precondition(n != "", "The atomic transaction subunit name shouldn't be empty.")
 		precondition(_core.null == false)
 		precondition(_core.autocommit == false)
 		
 		execute(code: Query.Language.Syntax.SavepointStmt(name: Query.Identifier(name: n).description).description)
-		if tx()
-		{
+		if let v = tx() {
 			execute(code: Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(name: n).description).description)
-			return	true
-		}
-		else
-		{
+			return	v
+		} else {
 			execute(code: Query.Language.Syntax.RollbackStmt(name: Query.Identifier(name: n).description).description)
-			return	false
+			return	nil
 		}
 	}
 //	private func execute(query x:QueryExpressive, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
@@ -400,31 +358,38 @@ public class Database
 //		Debug.log(m)
 //		execute(code: x.code, parameters: m, success: s, failure: f)
 //	}
-	private func execute(code c:String, parameters p:ParameterList=ParameterList(), success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
-	{
-		let	ss1	=	cache(code: c) as [Statement]
-		for s1 in ss1
-		{
-			s1.bind(parameters: p)
-			s(data: GeneratorOf<Row>(s1))
-			if s1.execution == false
-			{
-				s1.step()		///<	Just step once to make the command surely been executed.
-			}
-		}
+	
+	///	Just execute. Dumps away result.
+	private func execute(code c:String, parameters ps:ParameterList = ParameterList()) {
+		prepare(code: c).execute(parameters: ps).all()
 	}
-	private func cache(code s:String) -> [Statement]
-	{
-		let	(ss1, tail)	=	_core.prepare(s)
+	
+	
+	
+	
+	///	Produces prepared statements.
+	///	You need to bound parameters to execute them.
+	
+	///	It is caller's responsibility to execute prepared statement to apply
+	///	commands in the code.
+	///
+	///	Produced statements will be invalidated when this database object
+	///	deinitialises.
+	func prepare(code c:String) -> StatementList {
+		println("Database.prepare: \(c)")
+
+		let	(ss1, tail)	=	_core.prepare(c)
 		
-		if tail != ""
-		{
-			Core.Common.crash(message: "The SQL command was not fully consumed, remaining part = \(tail)")
+		if tail != "" {
+			Core.Common.crash(message: "The SQL command was not fully consumed. Remaining part = \(tail)")
 		}
 		
-		return	ss1.map({ (n:Core.Statement) -> Statement in return Statement(database: self, core: n )})
-		
+		let	ss2	=	ss1.map { Statement(database: self, core: $0) }	//		({ (n:Core.Statement) -> Statement in return Statement(database: self, core: n )})
+//		_debugging_validation_state.spawnedStatements	+=	ss2.map {WeakReference($0)}
+		return	StatementList(ss2)
 	}
+	
+	
 	
 	
 	

@@ -8,17 +8,14 @@
 
 import Foundation
 
-extension Core
-{
-	struct Common
-	{
+extension Core {
+	struct Common {
 	}
 }
 
-extension Core.Common
-{
+extension Core.Common {
 	@noreturn static func crash(message s:String = "") {
-		Core.log("CRASH requested by PROGRAMMER" + (s == "" ? "." : (": " + s)))
+		Core.log("CRASH requested by PROGRAMMER for core C inter-ops." + (s == "" ? "." : (": " + s)))
 		abort()
 	}
 	

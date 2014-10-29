@@ -7,15 +7,13 @@
 //
 
 import Foundation
-import EonilSQLite3
 
-func test2()
-{
-	func basics()
-	{
+
+func test2() {
+	func basics() {
 		
 		///	Create new mutable database in memory.
-		let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+		let	db1	=	Database(location: Database.Location.Memory, editable: true)
 		
 		///	Create a new table.
 		db1.schema().create(table: "T1", column: ["c1"])
@@ -47,12 +45,10 @@ func test2()
 		assert(rs3.count == 0)
 	}
 	
-	func basicsWithTransaction()
-	{
+	func basicsWithTransaction() {
 		///	Create new mutable database in memory.
-		let	db1	=	Database(location: Database.Location.Memory, mutable: true)
-		func tx1()
-		{
+		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+		func tx1() {
 			///	Create a new table.
 			db1.schema().create(table: "T1", column: ["c1"])
 			
@@ -86,24 +82,22 @@ func test2()
 		///	Perform a transaction with multiple commands.
 		db1.apply(tx1)
 	}
-	func nestedTransactions()
-	{
-		let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+	
+	
+	func nestedTransactions() {
+		let	db1	=	Database(location: Database.Location.Memory, editable: true)
 		
 		///	Out-most transaction.
-		func tx1()
-		{
+		func tx1() {
 			db1.schema().create(table: "T1", column: ["c1"])
 			let	t1	=	db1.table(name: "T1")
 			
 			///	Outer transaction.
-			func tx2() -> Bool
-			{
+			func tx2() -> Bool {
 				t1.insert(rowWith: ["c1":"V1"])
 			
 				///	Inner transaction.
-				func tx3() -> Bool
-				{
+				func tx3() -> Bool {
 					///	Update the row.
 					t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
 					
@@ -132,23 +126,17 @@ func test2()
 		db1.apply(tx1)
 	}
 	
-	func customQuery()
-	{
-		let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+	func customQuery() {
+		let	db1	=	Database(location: Database.Location.Memory, editable: true)
 		db1.schema().create(table: "T1", column: ["c1"])
 		
 		let	t1	=	db1.table(name: "T1")
 		t1.insert(rowWith: ["c1":"V1"])
 		
 		db1.apply {
-			db1.run(query: "SELECT * FROM T1", success: { (data) -> () in
-				for row in data
-				{
-					assert(row[0].text! == "V1")
-				}
-			}, failure: { (message) -> () in
-				
-			})
+			for (_, row) in enumerate(db1.run(query: "SELECT * FROM T1")) {
+				assert(row[0].text! == "V1")
+			}
 		}
 	}
 	
@@ -157,4 +145,11 @@ func test2()
 	nestedTransactions()
 	customQuery()
 }
+
+
+
+
+
+
+
 

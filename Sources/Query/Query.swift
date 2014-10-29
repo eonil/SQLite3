@@ -36,10 +36,10 @@ protocol SubqueryExpressive
 public struct Query
 {
 	
-	public typealias	UniqueParameterNameGenerator	=	() -> String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
-	public typealias	ParameterNameValueMapping		=	(name:String, value:Value)
+	public typealias	UniqueParameterNameGenerator	=	()->String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
+	public typealias	ParameterNameValueMapping		=	(name:String, value:@autoclosure()->Value)
 	public typealias	ParameterNameValueMappings		=	[ParameterNameValueMapping]
-	public typealias	Expressive						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator) -> Expression
+	public typealias	Expressive						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator)->Expression
 	
 	
 	
@@ -93,22 +93,17 @@ public struct Query
 	
 	
 	
-	struct ExpressionList
-	{
+	struct ExpressionList{
 		let	items:[Expression]
 		
-		func concatenation() -> Expression
-		{
+		func concatenation() -> Expression {
 			return	items.reduce(Expression.empty, combine: +)
 		}
-		func concatenationWith(#separator:String) -> Expression
-		{
+		func concatenationWith(#separator:String) -> Expression {
 			return	concatenationWith(separator: Expression(code: separator, parameters: []))
 		}
-		func concatenationWith(#separator:Expression) -> Expression
-		{
-			func add_with_sep(left:Expression, right:Expression) -> Expression
-			{
+		func concatenationWith(#separator:Expression) -> Expression {
+			func add_with_sep(left:Expression, right:Expression) -> Expression {
 				return	left + separator + right
 			}
 			
@@ -123,15 +118,12 @@ public struct Query
 	///	Beware that the number of parameters cannot exceed `Int.max`.
 	///	This is Swift layer limitation.
 	///	SQLite3 may have extra limits which will be applied separately.
-	static func express(subquery:SubqueryExpressive) -> Expression
-	{
+	static func express(subquery:SubqueryExpressive) -> Expression {
 		var	pc	=	0
-		func upng() -> String
-		{
+		func upng() -> String {
 			pc++
 			return	"@param\(pc)"
 		}
-		
 		return	subquery.express(uniqueParameterNameGenerator: upng)
 	}
 	

@@ -128,7 +128,7 @@ Core
 		
 		
 		
-		func checkNoErrorWith(resultCode code:Int32)
+		func crashOnErrorWith(resultCode code:Int32)
 		{
 			if code == SQLITE_OK
 			{
@@ -140,7 +140,8 @@ Core
 			}
 			else
 			{
-				Core.log("[ERROR] \(currentErrorMessage)")
+				let	errmsg	=	currentErrorMessage
+				Core.log("[ERROR] \(errmsg)")
 				assert(code == sqlite3_errcode(_rawptr))
 				Common.crash()
 			}
@@ -150,11 +151,11 @@ Core
 		///	If `reset` is `true`, then the peak value will be reset after return.
 		func status(op:Status.Code, resetPeak reset:Bool = false) -> (current:Int32, peak:Int32)
 		{
-			var	c	=	Int32(0)
-			var	p	=	Int32(0)
+			var	c	=	0 as Int32
+			var	p	=	0 as Int32
 			
 			let	r	=	sqlite3_status(op.value, &c, &p, C.TRUE)
-			checkNoErrorWith(resultCode: r)
+			crashOnErrorWith(resultCode: r)
 			
 			return	(c, p)
 		}
@@ -166,7 +167,7 @@ Core
 			let	name2	=	filename.cStringUsingEncoding(NSUTF8StringEncoding)!
 			
 			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, UnsafePointer<Int8>.null())
-			checkNoErrorWith(resultCode: r)
+			crashOnErrorWith(resultCode: r)
 			Core.LeakDetector.theDetector.registerInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 		}
 		
@@ -178,7 +179,7 @@ Core
 			//	but it also will be treated as a programmer
 			//	error -- a bug, and crashes the execution.
 			let	r	=	sqlite3_close(_rawptr)
-			checkNoErrorWith(resultCode: r)
+			crashOnErrorWith(resultCode: r)
 			Core.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 			_rawptr	=	C.NULL
 		}
@@ -195,7 +196,7 @@ Core
 				
 				var	pStmt	=	C.NULL
 				let	r		=	sqlite3_prepare_v2(_rawptr, zSql, len, &pStmt, &zTail)
-				checkNoErrorWith(resultCode: r)
+				crashOnErrorWith(resultCode: r)
 				Core.log("`sqlite3_prepare_v2(\(_rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called")
 				
 				if pStmt == C.NULL

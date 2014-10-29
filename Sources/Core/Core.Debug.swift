@@ -12,7 +12,7 @@ extension Core
 {
 	static func log<T>(object:@autoclosure()->T)
 	{
-		if Debug.mode && Config.Build.logLevel == Config.Build.LogLevel.All
+		if Debug.mode && Debug.useCoreLogging
 		{
 			println(object())
 		}

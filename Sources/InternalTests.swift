@@ -117,9 +117,109 @@ public struct Test1
 
 		
 		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.apply(transaction: { () -> () in
+				let	p1	=	db1.prepare(code: "SELECT \"AAA\";")
+				for s in p1.items {
+					s.step()
+					assert(s.row().numberOfFields == 1)
+					println(s.row().columnNameOfField(atIndex: 0))
+//					assert(s.row().columnNameOfField(atIndex: 0) == nil)
+					assert(s.row()[0] == "AAA")
+					s.step()
+					assert(s.row().numberOfFields == 0)
+				}
+			})
+		}
 		
-		run{
-			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.apply(transaction: { () -> () in
+				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
+				for s in p1.items {
+					println(s.row().numberOfFields)
+					s.step()
+					println(s.row().numberOfFields)
+					
+					assert(s.row().numberOfFields == 1)
+					println(s.row().columnNameOfField(atIndex: 0))
+//					assert(s.row()[0] == "AAA")
+					s.step()
+					assert(s.row().numberOfFields == 0)
+				}
+			})
+			
+		}
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.apply(transaction: { () -> () in
+				let	p1	=	db1.prepare(code: "SELECT \"AAA\";")
+				let	e1	=	p1.execute(parameters: [:])
+				let	r0	=	e1.next()
+				let	r1	=	r0!
+				println(r1.numberOfFields)
+				println(r1.columnNameOfField(atIndex: 0))
+				println(r1[0])
+				assert(r1.numberOfFields == 1)
+				assert(r1[0] == "AAA")
+			})
+		}
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.apply(transaction: { () -> () in
+				let	rs1	=	db1.run(query: "SELECT \"AAA\";").all()
+				println(rs1)
+				assert(rs1.count == 1)
+			})
+		}
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.schema().create(table: "T1", column: ["c1"])
+			
+			db1.apply(transaction: { () -> () in
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"AAA\")")
+				
+				let	p1	=	db1.prepare(code: "SELECT * FROM T1;")
+				let	e1	=	p1.execute(parameters: [:])
+				let	r0	=	e1.next()
+				let	r1	=	r0!
+				println(r1.numberOfFields)
+				println(r1.columnNameOfField(atIndex: 0))
+				println(r1[0])
+				assert(r1.numberOfFields == 1)
+				assert(r1[0] == "AAA")
+			})
+			
+		}
+		
+		
+		
+		
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.schema().create(table: "T1", column: ["c1"])
+			
+			db1.apply(transaction: { () -> () in
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"AAA\")")
+//				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"BBB\")")
+//				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"CCC\")")
+				
+				let	rs	=	db1.run(query: "SELECT * FROM T1;").all()
+				println(rs)
+				assert(rs[0]["c1"]! == "AAA")
+//				assert(rs[1]["c1"]! == "BBB")
+//				assert(rs[2]["c1"]! == "CCC")
+			})
+			
+		}
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(table: "T1", column: ["c1"])
 			
 			let	t1	=	db1.table(name: "T1")
@@ -159,7 +259,7 @@ public struct Test1
 		
 		
 		run	{
-			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(table: "T1", column: ["c1"])
 		
 			let	k	=	db1.schema().allRowsOfRawMasterTable()
@@ -181,7 +281,7 @@ public struct Test1
 		
 		run	{
 			
-			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			func iter1(row:Row)
 			{
 				println(row.numberOfFields)
@@ -199,7 +299,7 @@ public struct Test1
 		}
 
 		run{
-			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			func iter1(row:Row)
 			{
 				println(row.numberOfFields)
@@ -221,7 +321,7 @@ public struct Test1
 		shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 0)
 		
 		run{
-			let	db1	=	Database(location: Database.Location.Memory, mutable: true)
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			func iter1(row:Row)
 			{
 				println(row.numberOfFields)
@@ -237,13 +337,9 @@ public struct Test1
 				db1.run(query: q1)
 				
 				let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
-				db1.run(query: q2, success: { (data:GeneratorOf<Row>) -> () in
-					for r:Row in data
-					{
-						println(r[0])
-					}
-				}, failure: { (message) -> () in
-				})
+				for (_, r) in enumerate(db1.run(query: q2)) {
+					println(r[0])
+				}
 			}
 		
 			db1.apply(run)

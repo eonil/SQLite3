@@ -8,6 +8,18 @@
 
 import Foundation
 
+
+
+
+
+
+
+
+
+
+
+
+
 public extension Database
 {
 	
@@ -19,12 +31,8 @@ public extension Database
 	///	and nothing will be changed.
 	public struct Table
 	{
-		public typealias	ErrorHandler	=	Database.FailureHandler
-		
 		let	database:Database
 		let	name:String
-		
-		let	defaultErrorHandler:ErrorHandler
 	}
 }
 
@@ -32,35 +40,23 @@ public extension Database
 public extension Database.Table
 {
 	
-	public func select(rowsWithAllOf pairs:[String:Value], error handler:ErrorHandler) -> [[String:Value]]
+	public func select(rowsWithAllOf pairs:[String:Value]) -> [[String:Value]]
 	{
 		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.And)
 		let	q	=	Query.Select(table: Query.Identifier(name: name), columns: Query.ColumnList.All, filter: t)
-		return	snapshot(query: q, error: handler)
-	}
-	public func select(rowsWithAllOf pairs:[String:Value]) -> [[String:Value]]
-	{
-		return	select(rowsWithAllOf: pairs, error: defaultErrorHandler)
-	}
-	public func select(rowsWithAnyOf pairs:[String:Value], error handler:ErrorHandler) -> [[String:Value]]
-	{
-		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
-		let	q	=	Query.Select(table: Query.Identifier(name: name), columns: Query.ColumnList.All, filter: t)
-		return	snapshot(query: q, error: handler)
+		return	snapshot(query: q)
 	}
 	public func select(rowsWithAnyOf pairs:[String:Value]) -> [[String:Value]]
 	{
-		return	select(rowsWithAnyOf: pairs, error: defaultErrorHandler)
+		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
+		let	q	=	Query.Select(table: Query.Identifier(name: name), columns: Query.ColumnList.All, filter: t)
+		return	snapshot(query: q)
 	}
 	///	Selects all rows.
-	public func select(error handler:ErrorHandler) -> [[String:Value]]
-	{
-		let	q	=	Query.Select(table: Query.Identifier(name: name), columns: Query.ColumnList.All, filter: nil)
-		return	snapshot(query: q, error: handler)
-	}
 	public func select() -> [[String:Value]]
 	{
-		return	select(error: defaultErrorHandler)
+		let	q	=	Query.Select(table: Query.Identifier(name: name), columns: Query.ColumnList.All, filter: nil)
+		return	snapshot(query: q)
 	}
 	
 	
@@ -69,7 +65,7 @@ public extension Database.Table
 	
 	
 
-	public func insert(rowWith pairs:[String:Value], error handler:ErrorHandler)
+	public func insert(rowWith pairs:[String:Value])
 	{
 		var	bs:[Query.Binding]	=	[]
 		for (k, v) in pairs
@@ -77,36 +73,24 @@ public extension Database.Table
 			bs.append(Query.Binding(column: Query.Identifier(name: k), value: v))
 		}
 		let	q	=	Query.Insert(table: Query.Identifier(name: name), bindings: bs)
-		snapshot(query: q, error: handler)
-	}
-	public func insert(rowWith pairs:[String:Value])
-	{
-		insert(rowWith: pairs, error: defaultErrorHandler)
+		snapshot(query: q)
 	}
 	
 	
 	
 	
 	
-	public func update(rowsWithAllOf existingPairs:[String:Value], bySetting newPairs:[String:Value], error handler:ErrorHandler)
+	public func update(rowsWithAllOf existingPairs:[String:Value], bySetting newPairs:[String:Value])
 	{
 		let	t	=	filterTreeWith(samples: existingPairs, combinationStyle: Query.FilterTree.Node.Combination.And)
 		let	q	=	Query.Update(table: Query.Identifier(name: name), bindings: bindingsOf(paris: newPairs), filter: t)
-		snapshot(query: q, error: handler)
-	}
-	public func update(rowsWithAllOf existingPairs:[String:Value], bySetting newPairs:[String:Value])
-	{
-		update(rowsWithAllOf: existingPairs, bySetting: newPairs, error: defaultErrorHandler)
-	}
-	public func update(rowsWithAnyOf existingPairs:[String:Value], bySetting newPairs:[String:Value], error handler:ErrorHandler)
-	{
-		let	t	=	filterTreeWith(samples: existingPairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
-		let	q	=	Query.Update(table: Query.Identifier(name: name), bindings: bindingsOf(paris: newPairs), filter: t)
-		snapshot(query: q, error: handler)
+		snapshot(query: q)
 	}
 	public func update(rowsWithAnyOf existingPairs:[String:Value], bySetting newPairs:[String:Value])
 	{
-		update(rowsWithAnyOf: existingPairs, bySetting: newPairs, error: defaultErrorHandler)
+		let	t	=	filterTreeWith(samples: existingPairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
+		let	q	=	Query.Update(table: Query.Identifier(name: name), bindings: bindingsOf(paris: newPairs), filter: t)
+		snapshot(query: q)
 	}
 	
 	
@@ -115,26 +99,17 @@ public extension Database.Table
 	
 	
 	
-	
-	public func delete(rowsWithAllOf pairs:[String:Value], error handler:ErrorHandler)
+	public func delete(rowsWithAllOf pairs:[String:Value])
 	{
 		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.And)
 		let	q	=	Query.Delete(table: Query.Identifier(name: name), filter: t)
-		snapshot(query: q, error: handler)
-	}
-	public func delete(rowsWithAllOf pairs:[String:Value])
-	{
-		delete(rowsWithAllOf: pairs, error: defaultErrorHandler)
-	}
-	public func delete(rowsWithAnyOf pairs:[String:Value], error handler:ErrorHandler)
-	{
-		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
-		let	q	=	Query.Delete(table: Query.Identifier(name: name), filter: t)
-		snapshot(query: q, error: handler)
+		snapshot(query: q)
 	}
 	public func delete(rowsWithAnyOf pairs:[String:Value])
 	{
-		delete(rowsWithAnyOf: pairs, error: defaultErrorHandler)
+		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
+		let	q	=	Query.Delete(table: Query.Identifier(name: name), filter: t)
+		snapshot(query: q)
 	}
 	
 	
@@ -145,9 +120,9 @@ public extension Database.Table
 		
 	
 	
-	func snapshot(query q:QueryExpressive, error handler:ErrorHandler) -> [[String:Value]]
+	func snapshot(query q:QueryExpressive) -> [[String:Value]]
 	{
-		return	database.snapshot(query: q.express(), error: handler)
+		return	database.snapshot(query: q.express())
 	}
 		
 	func bindingsOf(paris ps:[String:Value]) -> [Query.Binding]

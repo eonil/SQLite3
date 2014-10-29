@@ -8,17 +8,14 @@
 
 import Foundation
 
-public extension Query
-{
-	public struct Master
-	{
+public extension Query {
+	
+	
+	public struct Master {
 	}
 	
-	public struct Schema
-	{
-		public struct Table
-		{
-			
+	public struct Schema {
+		public struct Table {
 		}
 	}
 	
@@ -140,20 +137,21 @@ public extension Query.Schema.Table
 		}
 	}
 
-	public struct Drop : QueryExpressive, SubqueryExpressive
-	{
+	
+	
+	
+	
+	public struct Drop : QueryExpressive, SubqueryExpressive {
 		public let	name:Query.Identifier
 		public let	ifExists:Bool
 		
-		public func express() -> Query.Expression
-		{
+		public func express() -> Query.Expression {
 			return	Query.express(self)
 		}
 		
 		
 		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
+		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression {
 			return	"DROP TABLE " + (ifExists ? " IF EXISTS " : " ") + name.express(uniqueParameterNameGenerator: upng)
 		}
 	}

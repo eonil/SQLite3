@@ -13,14 +13,23 @@ import Foundation
 
 public typealias	Binary	=	Blob
 
-///	SQLite3 `NULL` will be represented as `nil`.
+///	We don't use Swift `nil` to represent SQLite3 `NULL` because it
+///	makes program more complex.
+///
+///	https://www.sqlite.org/datatype3.html
 public enum Value {
+	case Null
 	case Integer(Int64)
 	case Float(Double)
 	case Text(String)
 	case Blob(Binary)
 }
 
+extension Value: NilLiteralConvertible {
+	public init(nilLiteral: ()) {
+		self	=	Value.Null
+	}
+}
 extension Value: IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
 	public init(integerLiteral value: Int64) {
 		self	=	Integer(value)
@@ -39,9 +48,25 @@ extension Value: IntegerLiteralConvertible, FloatLiteralConvertible, StringLiter
 	}
 }
 
+extension Value: Printable {
+	public var description:String {
+		get {
+			switch self {
+			case let Null(s):		return	"NULL"
+			case let Integer(s):	return	"INTEGER(\(s))"
+			case let Float(s):		return	"FLOAT(\(s))"
+			case let Text(s):		return	"TEXT(\(s))"
+			case let Blob(s):		return	"BLOB(~~~~)"
+//			default:				fatalError("Unsupported value case.")
+			}
+		}
+	}
+}
+
 
 func == (l:Value, r:Value) -> Bool {
 	switch (l,r) {
+	case let (Value.Null, Value.Null):				return	true
 	case let (Value.Integer(a), Value.Integer(b)):	return	a == b
 	case let (Value.Float(a), Value.Float(b)):		return	a == b
 	case let (Value.Text(a), Value.Text(b)):		return	a == b
@@ -49,6 +74,11 @@ func == (l:Value, r:Value) -> Bool {
 	default:										return	false
 	}
 }
+
+func == (l:Value, r:()?) -> Bool {
+	return	l == Value.Null && r == nil
+}
+
 func == (l:Value, r:Int) -> Bool {
 	return	l == Int64(r)
 }
@@ -70,6 +100,9 @@ func == (l:Value, r:Binary) -> Bool {
 }
 
 extension Value {
+//	init(){
+//		self	=	Value.Null
+//	}
 	init(_ v:Int64) {
 		self	=	Integer(v)
 	}
@@ -83,6 +116,15 @@ extension Value {
 		self	=	Blob(v)
 	}
 	
+	var null:Bool {
+		get {
+			return	self == Value.Null
+//			switch self {
+//			case let Null:			return	true
+//			default:				return	false
+//			}
+		}
+	}
 	var integer:Int64? {
 		get {
 			switch self {

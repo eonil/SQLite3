@@ -67,7 +67,7 @@ extension Core
 			return	s2
 		}
 		
-		///	Returns continuativity or more data availability. You can interate while this returns `true`.
+		///	Returns continuability or more data availability. You can continue to interate while this returns `true`.
 		func step() -> Bool
 		{
 			assert(_rawptr != C.NULL)
@@ -93,7 +93,7 @@ extension Core
 					return	false
 				
 				default:
-					database.checkNoErrorWith(resultCode: rc1)
+					database.crashOnErrorWith(resultCode: rc1)
 			}
 			Common.crash()	//	unreachable code.
 		}
@@ -103,7 +103,7 @@ extension Core
 			assert(_rawptr != C.NULL)
 			
 			let	r	=	sqlite3_reset(_rawptr)
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 		}
 		
 		func finalize()
@@ -111,7 +111,7 @@ extension Core
 			assert(_rawptr != C.NULL)
 			
 			let	r	=	sqlite3_finalize(_rawptr)
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 //			Core.log(message: "`sqlite3_finalize(\(_rawptr))` called")
 			Core.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.stmt)
 			
@@ -230,7 +230,7 @@ extension Core
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
 			let	r	=	sqlite3_bind_int64(_rawptr, Int32(index), Int64(value))
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 		}
 		
 		func bindDouble(value:Double, at index:Int32)
@@ -240,7 +240,7 @@ extension Core
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
 			let	r	=	sqlite3_bind_double(_rawptr, Int32(index), value)
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 		}
 		
 		func bindText(value:String, at index:Int32)
@@ -254,7 +254,7 @@ extension Core
 			
 			precondition(bc.toIntMax() < Int32.max.toIntMax())
 			let	r	=	CoreBridge____sqlite3_bind_text_transient(_rawptr, Int32(index), cs, Int32(bc))
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 		}
 		
 		func bindBytes(value:Blob, at index:Int32)
@@ -268,7 +268,7 @@ extension Core
 			
 			precondition(bc.toIntMax() < Int32.max.toIntMax())
 			let	r	=	CoreBridge____sqlite3_bind_blob_transient(_rawptr, Int32(index), bs, Int32(bc))
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 		}
 		
 		func bindNull(at index:Int32)
@@ -278,7 +278,7 @@ extension Core
 			assert(index >= 1, "The `index` is 1-based, and must be equals or larger then 1.")
 			
 			let	r	=	sqlite3_bind_null(_rawptr, Int32(index))
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 		}
 		
 		///	Return the index of an SQL parameter given its name. The index value returned is suitable for use as the second parameter to sqlite3_bind(). A zero is returned if no matching parameter is found. The parameter name must be given in UTF-8 even if the original statement was prepared from UTF-16 text using sqlite3_prepare16_v2().
@@ -304,7 +304,7 @@ extension Core
 			assert(_rawptr != C.NULL)
 			
 			let	r	=	sqlite3_clear_bindings(_rawptr)
-			database.checkNoErrorWith(resultCode: r)
+			database.crashOnErrorWith(resultCode: r)
 		}
 		
 		

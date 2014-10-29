@@ -12,8 +12,7 @@ import Foundation
 
 
 
-public protocol Row
-{
+public protocol Row {
 	var numberOfFields:Int { get }
 	subscript(index:Int) -> Value { get }				///<	Program crashes if the field value is `NULL`. Use `isNull` method to test nullity.
 //	subscript(column:String) -> AnyObject? { get }
@@ -26,30 +25,92 @@ public protocol Row
 
 ///	Comments for Maintainers
 ///	------------------------
-///	This can't be a sequence type because this cannot be
-///	re-iterated. Once consumed, and gone.
-public class Statement
-{
+///	This can't be a `SequenceType`, but `GeneratorType` because
+///	there's only one iteration context can be exist at once. It
+///	is impossible to create multiple context from a statement.
+public final class Statement {
 	let	database:Database
 	
 	private let	_core:Core.Statement
 	private var	_exec:Bool				///<	Has been executed at least once.
 	private var	_rowidx:Int				///<	Counted for validation.
 	
-	init(database:Database, core:Core.Statement)
-	{
+	init(database:Database, core:Core.Statement) {
 		self.database	=	database
 		
 		_core	=	core
 		_exec	=	false
 		_rowidx	=	-1
 	}
-	deinit
-	{
+	deinit {
 		_core.finalize()
 	}
 }
 
+///	Set to `class` to prevent copying because this must be a sole owner of an execution.
+public final class StatementList {
+	let	items		=	[] as [Statement]
+	
+	private var	execution	=	nil as Execution?	//	Only one execution can be instanced at once.
+	
+	init(_ items:[Statement]) {
+		self.items	=	items
+	}
+	deinit {
+	}
+	public func execute(parameters ps:[String:Value]) -> Execution {
+		precondition(execution == nil || execution!.processingLock == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
+		
+		for s1 in items {
+			s1.reset()
+			s1.bind(parameters: ps)
+		}
+		
+		execution	=	Execution(items)
+		return			execution!
+	}
+	
+	///	Set to `class` to prevent copying.
+	public final class Execution: GeneratorType {
+		private var	m1:Statement
+		private var	g1:GeneratorOf<Statement>
+		private var	g2:GeneratorOf<Row>?
+		private var	v2:Row?
+		
+		private var	processingLock	=	false
+		
+		private init(_ items:[Statement]) {
+			m1	=	items[0]
+			g1			=	GeneratorOf<Statement>(items.generate())
+		}
+		public func next() -> Row? {
+			processingLock	=	true
+//			precondition(processingLock == true, "This execution is not valid anymore.")
+			
+			let	v1	=	g1.next()
+			if g2 == nil { g2 = v1 == nil ? nil : GeneratorOf<Row>(v1!) }
+			v2	=	g2?.next()
+			
+			if v2 == nil { processingLock = false }		//	It's finished if it's `nil` twice.
+			return	v2
+		}
+		///	Returns snapshot of all remaining rows at once.
+		public func rest() -> [[String:Value]] {
+			var	m1	=	[] as [[String:Value]]
+			while let r1 = next() {
+				m1	+=	[snapshot(r1)]
+			}
+			return	m1
+//			return	map(enumerate(self), { snapshot($1) })
+		}
+		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
+		///	Once started execution cannot be used.
+		public func all() -> [[String:Value]] {
+			precondition(processingLock == false, "You cannot call this method on once started execution.")
+			return	rest()
+		}
+	}
+}
 
 
 
@@ -63,12 +124,9 @@ public class Statement
 
 ///	MARK:
 
-extension Statement : GeneratorType
-{
-	public func next() -> Row?
-	{
-		if self.step()
-		{
+extension Statement : GeneratorType {
+	public func next() -> Row? {
+		if self.step() {
 			return	self.row()
 		}
 		return	nil
@@ -121,13 +179,11 @@ private extension Statement {
 		for (k, v) in ps
 		{
 			let	n1	=	_core.bindParameterIndex(by: k)
-			if n1 == 0
-			{
-				//	skip.
-			}
-			else
-			{
+			assert(n1 != 0, "A field index for the column name `\(k)` (value = `\(v)`) couldn't be found.")
+			
+			if n1 != 0 {
 				switch v {
+				case let Value.Null:		_core.bindNull(at: n1)
 				case let Value.Integer(s):	_core.bindInt64(s, at: n1)
 				case let Value.Float(s):	_core.bindDouble(s, at: n1)
 				case let Value.Text(s):		_core.bindText(s, at: n1)
@@ -232,6 +288,19 @@ private struct RowReader : Row
 
 
 
+func snapshot(row:Row) -> [String:Value] {
+	var	m	=	[:] as [String:Value]
+	let	c	=	row.numberOfFields
+	for i in 0..<c {
+		if	row.isNullField(atIndex: i) == false {
+			let	n:String	=	row.columnNameOfField(atIndex: i)
+			let	v:Value		=	row[i]
+			
+			m[n]	=	v
+		}
+	}
+	return	m
+}
 
 
 
