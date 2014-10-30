@@ -57,7 +57,7 @@ public final class StatementList {
 
 extension StatementList {
 	
-	public func execute(parameters ps:[(name:String, value:@autoclosure()->Value)]) -> Execution {
+	public func execute(parameters ps:[@autoclosure()->Value]) -> Execution {
 		precondition(currentExecution == nil || currentExecution!.processingLock == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
 		
 		for s1 in items {
@@ -241,9 +241,9 @@ extension Statement {
 		return	RowReader(host: self, rowIndex: _rowidx)
 	}
 	
-	func bind2(parameters ps:[(name:String, value:@autoclosure()->Value)]) {
+	func bind2(parameters ps:[@autoclosure()->Value]) {
 		for i in 0..<ps.count {
-			let	v			=	ps[i].value()
+			let	v			=	ps[i]()
 			let	(n1, f1)	=	Int.addWithOverflow(i, 1)
 			precondition(f1 == false)
 			precondition(IntMax(n1) < IntMax(Int32.max))
@@ -258,24 +258,6 @@ extension Statement {
 			}
 		}
 	}
-//	func bind(parameters ps:[String:Value]) {
-////		}
-////		for (k, v) in ps {
-////			
-////			let	n1	=	_core.bindParameterIndex(by: k)
-////			assert(n1 != 0, "A field index for the column name `\(k)` (value = `\(v)`) couldn't be found.")
-////			
-////			if n1 != 0 {
-////				switch v {
-////				case let Value.Null:		_core.bindNull(at: n1)
-////				case let Value.Integer(s):	_core.bindInt64(s, at: n1)
-////				case let Value.Float(s):	_core.bindDouble(s, at: n1)
-////				case let Value.Text(s):		_core.bindText(s, at: n1)
-////				case let Value.Blob(s):		_core.bindBytes(s, at: n1)
-////				}
-////			}
-////		}
-//	}
 	
 }
 

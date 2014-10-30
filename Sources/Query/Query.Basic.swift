@@ -61,10 +61,13 @@ public extension Query
 		public func express() -> Query.Expression
 		{
 			let	ns		=	bindings.map({ (n:Query.Binding) -> Expression in return n.column.express() })
-			let	ps		=	bindings.map({ (n:Query.Binding) -> Value in return n.value })
+			var	vs	=	[] as [ParameterValueEvaluation]
+			for v in bindings {
+				vs.append(v.value)
+			}
 			
 			let	cols	=	ExpressionList(items: ns).concatenationWith(separator: ", ")						///<	`col1, col2, col3, ...`
-			let	params	=	Expression.byGeneratingUniqueParameterNames(ps)										///<	`?, ?, ?, ...`
+			let	params	=	Expression.ofParameterList(vs)										///<	`?, ?, ?, ...`
 			
 			return	"INSERT INTO "
 			+		table.express()

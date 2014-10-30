@@ -27,9 +27,8 @@ public protocol QueryExpressible {
 public struct Query {
 	
 	public typealias	UniqueParameterNameGenerator	=	()->String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
-	public typealias	ParameterNameValueMapping		=	(name:String, value:@autoclosure()->Value)
-	public typealias	ParameterNameValueMappings		=	[ParameterNameValueMapping]
-	public typealias	Expressible						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator)->Expression
+	public typealias	ParameterValueEvaluation		=	@autoclosure()->Value
+
 	
 	
 	
@@ -37,13 +36,13 @@ public struct Query {
 
 	///	Represents a fragment of a query.
 	public struct Expression : StringLiteralConvertible {
-		let	code									=	""
-		let	parameters:ParameterNameValueMappings	=	[]
+		let	code		=	""
+		let	parameters	=	[] as [ParameterValueEvaluation]
 
 		init(_ code:String) {
 			self.init(code: code, parameters: [])
 		}
-		init(code:String, parameters:ParameterNameValueMappings) {
+		init(code:String, parameters:[ParameterValueEvaluation]) {
 			self.code		=	code
 			self.parameters	=	parameters
 		}
@@ -61,12 +60,13 @@ public struct Query {
 		
 		static let	empty	=	Expression(code: "", parameters: [])
 		
-		///	Returned expression's `code` will be zero length string.
-		static func byGeneratingUniqueParameterNames(values:[Value]) -> Expression {
-			let	a1	=	values.map({ (n:Value) -> ParameterNameValueMapping in return (name: "?", value: n) })
-			let	a2	=	a1.map({ n in return n.name }) as [String]
-			let	s3	=	join(", ", a2) as String
-			return	Expression(code: s3, parameters: a1)
+		static func ofParameterList(values:[ParameterValueEvaluation]) -> Expression {
+			var	qs0	=	[] as [String]
+			for _ in 0..<values.count {
+				qs0.append("?")
+			}
+			let	qs2	=	join(", ", qs0)
+			return	Expression(code: qs2, parameters: values)
 		}
 		static func expressionize<T:QueryExpressible>(#element:T) -> Expression
 		{
@@ -189,14 +189,14 @@ public struct Query {
 	public struct Binding : QueryExpressible
 	{
 		public let	column:Identifier
-		public let	value:Value
+		public let	value:ParameterValueEvaluation
 		
 		///	Makes `col1 = @param1` style expression.
 		public func express() -> Query.Expression
 		{
 			return	column.express()
 				+	"="
-				+	Expression(code: "?", parameters: [ParameterNameValueMapping(name: "?", value: value)])
+				+	Expression(code: "?", parameters: [value])
 		}
 	}
 //	public struct BindingList : SubqueryExpressible
@@ -271,7 +271,7 @@ public struct Query {
 					case let Leaf(operation: op, column: col, value: val):
 						return	col.express()
 						+		op.express()
-						+		Expression(code: "?", parameters: [("?", val)])
+						+		Expression(code: "?", parameters: [val])
 					
 					case let Branch(combination: comb, subnodes: ns):
 						let	x1	=	" " + comb.express() + " "

@@ -9,6 +9,9 @@
 import Foundation
 
 
+
+
+
 public func +(left:Query.Expression, right:Query.Expression) -> Query.Expression {
 	return	Query.Expression(code: left.code + right.code, parameters: left.parameters + right.parameters)
 }
