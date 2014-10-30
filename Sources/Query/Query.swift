@@ -27,10 +27,12 @@ public protocol QueryExpressible {
 public struct Query {
 	
 	public typealias	UniqueParameterNameGenerator	=	()->String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
-	public typealias	ParameterValueEvaluation		=	@autoclosure()->Value
+	public typealias	ParameterValueEvaluation		=	()->Value
+	
+	
+	
+	static let	missingParameter	=	{ Debug.trapConvenientExtensionsError("Value for this parameter is intentionally missing. It must be provided later."); return Value.Null } as Query.ParameterValueEvaluation
 
-	
-	
 	
 	
 
@@ -38,7 +40,11 @@ public struct Query {
 	public struct Expression : StringLiteralConvertible {
 		let	code		=	""
 		let	parameters	=	[] as [ParameterValueEvaluation]
-
+		
+		static let	empty				=	Expression(code: "", parameters: [])
+		
+		////
+		
 		init(_ code:String) {
 			self.init(code: code, parameters: [])
 		}
@@ -46,6 +52,8 @@ public struct Query {
 			self.code		=	code
 			self.parameters	=	parameters
 		}
+		
+		
 		public init(stringLiteral value: String) {
 			self	=	Expression(code: value, parameters: [])
 		}
@@ -58,8 +66,6 @@ public struct Query {
 		
 		////
 		
-		static let	empty	=	Expression(code: "", parameters: [])
-		
 		static func ofParameterList(values:[ParameterValueEvaluation]) -> Expression {
 			var	qs0	=	[] as [String]
 			for _ in 0..<values.count {
@@ -68,42 +74,19 @@ public struct Query {
 			let	qs2	=	join(", ", qs0)
 			return	Expression(code: qs2, parameters: values)
 		}
-		static func expressionize<T:QueryExpressible>(#element:T) -> Expression
-		{
-			return	element.express()
-		}
-		static func expressionize<T:QueryExpressible>(#elements:[T]) -> ExpressionList
-		{
-//			return	ExpressionList(items: elements.map(T.express)
-			return	ExpressionList(items: elements.map(expressionize))
-		}
-	}
-	
-	
-	
-	
-	
-	struct ExpressionList{
-		let	items:[Expression]
-		
-		func concatenation() -> Expression {
-			return	items.reduce(Expression.empty, combine: +)
-		}
-		func concatenationWith(#separator:String) -> Expression {
-			return	concatenationWith(separator: Expression(code: separator, parameters: []))
-		}
-		func concatenationWith(#separator:Expression) -> Expression {
+		static func concatenation(#separator:Expression, components:[Expression]) -> Expression {
 			func add_with_sep(left:Expression, right:Expression) -> Expression {
 				return	left + separator + right
 			}
 			
-			switch items.count {
-				case 0:		return	Expression.empty
-				case 1:		return	items.first!
-				default:	return	items[1..<items.count].reduce(items.first!, combine: add_with_sep)
+			switch components.count {
+			case 0:		return	Expression.empty
+			case 1:		return	components.first!
+			default:	return	components[1..<components.count].reduce(components.first!, combine: add_with_sep)
 			}
 		}
 	}
+	
 	
 	
 	
@@ -120,12 +103,10 @@ public struct Query {
 	
 	
 	///	Represents names such as table or column.
-	public struct Identifier : QueryExpressible, StringLiteralConvertible, Printable
-	{
+	public struct Identifier : QueryExpressible, StringLiteralConvertible, Printable {
 		public let	name:String
 		
-		public init(name:String)
-		{
+		public init(name:String) {
 			precondition(find(name, "\"") == nil, "Identifiers which contains double-quote(\") are not currently supported by Swift layer.")
 			
 			self.name	=	name
@@ -142,58 +123,48 @@ public struct Query {
 		}
 		
 		
-		public var description:String
-		{
-			get
-			{
+		public var description:String {
+			get {
 				let		x1	=	"\"\(name)\""
 				return	x1
 			}
 		}
 		
-		public func express() -> Query.Expression
-		{
+		public func express() -> Query.Expression {
 			return	Expression(code: description, parameters: [])
 		}
 
-		public static func convertFromStringLiteral(value: String) -> Identifier
-		{
+		public static func convertFromStringLiteral(value: String) -> Identifier {
 			return	Identifier(name: value)
 		}
 		
-		public static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Identifier
-		{
+		public static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Identifier {
 			return	Identifier(name: value)
 		}
 	}
 	
-	public enum ColumnList : QueryExpressible
-	{
+	public enum ColumnList : QueryExpressible {
 		case All
 		case Items(names:[Identifier])
 		
-		public func express() -> Query.Expression
-		{
-			switch self
-			{
-				case let All:
-					return	Expression(code: "*", parameters: [])
+		public func express() -> Query.Expression {
+			switch self {
+			case let All:
+				return	Expression(code: "*", parameters: [])
 				
-				case let Items(names: names):
-					return	Expression.expressionize(elements: names).concatenation()
+			case let Items(names: names):
+				return	Expression.concatenation(separator: Query.Expression.empty, components: names.map {$0.express()})
 			}
 		}
 	}
 	
 	///	Only for value setting expression.
-	public struct Binding : QueryExpressible
-	{
+	public struct Binding : QueryExpressible {
 		public let	column:Identifier
 		public let	value:ParameterValueEvaluation
 		
 		///	Makes `col1 = @param1` style expression.
-		public func express() -> Query.Expression
-		{
+		public func express() -> Query.Expression {
 			return	column.express()
 				+	"="
 				+	Expression(code: "?", parameters: [value])
@@ -209,19 +180,15 @@ public struct Query {
 //		}
 //	}
 	
-	public struct FilterTree : QueryExpressible
-	{
+	public struct FilterTree : QueryExpressible {
 		public let	root:Node
 		
-		public func express() -> Query.Expression
-		{
+		public func express() -> Query.Expression {
 			return	root.express()
 		}
 		
-		public enum Node : QueryExpressible
-		{
-			public enum Operation : QueryExpressible
-			{
+		public enum Node : QueryExpressible {
+			public enum Operation : QueryExpressible {
 				case Equal
 				case NotEqual
 				case LessThan
@@ -232,10 +199,8 @@ public struct Query {
 //				case Like
 //				case In
 				
-				public func express() -> Query.Expression
-				{
-					switch self
-					{
+				public func express() -> Query.Expression {
+					switch self {
 						case .Equal:				return	Expression(code: "=", parameters: [])
 						case .NotEqual:				return	Expression(code: "<>", parameters: [])
 						case .LessThan:				return	Expression(code: "<", parameters: [])
@@ -246,36 +211,31 @@ public struct Query {
 				}
 			}
 
-			public enum Combination : QueryExpressible
-			{
+			public enum Combination : QueryExpressible {
 				case And
 				case Or
 				
-				public func express() -> Query.Expression
-				{
-					switch self
-					{
+				public func express() -> Query.Expression {
+					switch self {
 						case .And:	return	Expression(code: "AND", parameters: [])
 						case .Or:	return	Expression(code: "OR", parameters: [])
 					}
 				}
 			}
 			
-			case Leaf(operation:Operation, column:Identifier, value:Value)
+			case Leaf(operation:Operation, column:Identifier, value:Query.ParameterValueEvaluation)
 			case Branch(combination:Combination, subnodes:[Node])
 			
-			public func express() -> Query.Expression
-			{
-				switch self
-				{
-					case let Leaf(operation: op, column: col, value: val):
-						return	col.express()
-						+		op.express()
-						+		Expression(code: "?", parameters: [val])
-					
-					case let Branch(combination: comb, subnodes: ns):
-						let	x1	=	" " + comb.express() + " "
-						return	Expression.expressionize(elements: ns).concatenationWith(separator: x1)
+			public func express() -> Query.Expression {
+				switch self {
+				case let Leaf(operation: op, column: col, value: val):
+					return	col.express()
+					+		op.express()
+					+		Expression(code: "?", parameters: [val])
+				
+				case let Branch(combination: comb, subnodes: ns):
+					let	x1	=	" " + comb.express() + " "
+					return	Expression.concatenation(separator: x1, components: ns.map {$0.express()})
 				}
 			}
 		}

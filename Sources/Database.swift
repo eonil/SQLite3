@@ -350,7 +350,9 @@ extension Database {
 //		Debug.log(x.code)
 //		Debug.log(m)
 //		
-		return	prepare(code: x.code).execute(parameters: x.parameters).all()
+		let	ps2	=	x.parameters.map {$0()}
+	
+		return	prepare(code: x.code).execute(parameters: ps2).all()
 	}
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.

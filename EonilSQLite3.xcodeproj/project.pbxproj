@@ -40,8 +40,6 @@
 		4540C72219FFF57E00D7714F /* Query.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71819FFF57E00D7714F /* Query.Schema.swift */; };
 		4540C72319FFF57E00D7714F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71919FFF57E00D7714F /* Query.swift */; };
 		4540C72419FFF57E00D7714F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71919FFF57E00D7714F /* Query.swift */; };
-		4540C72519FFF57E00D7714F /* Query.Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71A19FFF57E00D7714F /* Query.Transaction.swift */; };
-		4540C72619FFF57E00D7714F /* Query.Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71A19FFF57E00D7714F /* Query.Transaction.swift */; };
 		4540C74319FFF59900D7714F /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; };
 		4540C74419FFF59900D7714F /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4540C74D19FFF61400D7714F /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
@@ -56,7 +54,6 @@
 		4540C75719FFF61400D7714F /* Query.Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71719FFF57E00D7714F /* Query.Operators.swift */; };
 		4540C75819FFF61400D7714F /* Query.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71819FFF57E00D7714F /* Query.Schema.swift */; };
 		4540C75919FFF61400D7714F /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71919FFF57E00D7714F /* Query.swift */; };
-		4540C75A19FFF61400D7714F /* Query.Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C71A19FFF57E00D7714F /* Query.Transaction.swift */; };
 		4540C75B19FFF61400D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
 		4540C75C19FFF61400D7714F /* Core.Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70319FFF56C00D7714F /* Core.Database.swift */; };
 		4540C75D19FFF61400D7714F /* Core.Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70419FFF56C00D7714F /* Core.Debug.swift */; };
@@ -164,7 +161,6 @@
 		4540C71719FFF57E00D7714F /* Query.Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Operators.swift; sourceTree = "<group>"; };
 		4540C71819FFF57E00D7714F /* Query.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Schema.swift; sourceTree = "<group>"; };
 		4540C71919FFF57E00D7714F /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
-		4540C71A19FFF57E00D7714F /* Query.Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Transaction.swift; sourceTree = "<group>"; };
 		4540C72C19FFF59900D7714F /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4540C79319FFFA0800D7714F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4540C79419FFFA2F00D7714F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -185,6 +181,7 @@
 		459B517419C6FC460029EA46 /* Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
 		459B517819C72BBC0029EA46 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		459B517E19C75EDC0029EA46 /* InternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalTests.swift; sourceTree = "<group>"; };
+		45C232C31A028B5D0068EA53 /* Example.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Example.playground; sourceTree = "<group>"; };
 		45CC02B619C9C2ED00AEABCC /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		45CC02C719C9DA9D00AEABCC /* Database.Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Table.swift; sourceTree = "<group>"; };
 		45CC02C919C9DFF900AEABCC /* Database.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Schema.swift; sourceTree = "<group>"; };
@@ -291,7 +288,6 @@
 				4540C71519FFF57E00D7714F /* Query.Basic.swift */,
 				4540C71719FFF57E00D7714F /* Query.Operators.swift */,
 				4540C71819FFF57E00D7714F /* Query.Schema.swift */,
-				4540C71A19FFF57E00D7714F /* Query.Transaction.swift */,
 				4540C71619FFF57E00D7714F /* Query.Language.swift */,
 			);
 			path = Query;
@@ -308,6 +304,7 @@
 		458D62A519C6DD00001E450D = {
 			isa = PBXGroup;
 			children = (
+				45C232C31A028B5D0068EA53 /* Example.playground */,
 				458D631419C6E1D6001E450D /* (dependencies) */,
 				458D62C819C6DD8C001E450D /* Sources */,
 				458D62C919C6DD8C001E450D /* Targets */,
@@ -624,7 +621,6 @@
 				4540C79F1A000FE000D7714F /* ExternalTest1.swift in Sources */,
 				4540C71319FFF56C00D7714F /* Core.swift in Sources */,
 				45373C891A016A3C00631143 /* Database.Table.Optimisation.swift in Sources */,
-				4540C72619FFF57E00D7714F /* Query.Transaction.swift in Sources */,
 				4540C70D19FFF56C00D7714F /* Core.Debug.swift in Sources */,
 				4540C76319FFF61400D7714F /* Debug.swift in Sources */,
 				4540C72219FFF57E00D7714F /* Query.Schema.swift in Sources */,
@@ -660,7 +656,6 @@
 				4540C75B19FFF61400D7714F /* Core.Common.swift in Sources */,
 				4540C75319FFF61400D7714F /* Statement.swift in Sources */,
 				4540C75619FFF61400D7714F /* Query.Language.swift in Sources */,
-				4540C75A19FFF61400D7714F /* Query.Transaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,7 +676,6 @@
 				4540C70C19FFF56C00D7714F /* Core.Debug.swift in Sources */,
 				4540C72119FFF57E00D7714F /* Query.Schema.swift in Sources */,
 				4540C70A19FFF56C00D7714F /* Core.Database.swift in Sources */,
-				4540C72519FFF57E00D7714F /* Query.Transaction.swift in Sources */,
 				459B517919C72BBC0029EA46 /* Value.swift in Sources */,
 				45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */,
 				459B517519C6FC460029EA46 /* Statement.swift in Sources */,

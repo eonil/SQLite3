@@ -31,9 +31,9 @@ struct Debug {
 	
 	
 	///	Crashes the app only in debug mode.
-	static func crash() {
+	static func crash(_ message:String = "Reason unknown.") {
 		if mode {
-			fatalError("Crash requested by programmer in debug mode.")
+			fatalError("Crash requested by programmer in debug mode: " + message)
 		}
 	}
 	
@@ -41,11 +41,11 @@ struct Debug {
 	
 	///	Install these traps to make a conditional breakpoint for specific situations.
 	
-	static func trapConvenientExtensionsError() {
-		crash()
+	static func trapConvenientExtensionsError(message:String) {
+		crash(message)
 	}
-	static func trapError() {
-		crash()
+	static func trapError(message:String) {
+		crash(message)
 	}
 
 	

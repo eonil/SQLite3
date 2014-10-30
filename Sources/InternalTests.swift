@@ -16,10 +16,6 @@ public struct Test1
 		{
 			println(object())
 		}
-		func shouldBe(condition:Bool)
-		{
-			assert(condition)
-		}
 		
 		func run(block:() -> ())
 		{
@@ -57,7 +53,7 @@ public struct Test1
 		
 		run	{
 			
-			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: 42)
+			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: { 42 })
 			let	s	=	f1.express()
 			println(s.code, s.parameters)
 			
@@ -65,41 +61,41 @@ public struct Test1
 		
 		run	{
 			
-			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: 42)
+			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: { 42 })
 			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
 			let	s	=	q.express()
 			println(s.code, s.parameters)
 			
 			}
 		
-		run	{
-			let	f1	=	("col1" as Q.Identifier) == (42 as Value)
-			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
-			let	s	=	q.express()
-			println(s.code, s.parameters)
-			
-			}
-		
-		run	{
-			let	f1	=	("col1" == 42) as Q.FilterTree.Node
-			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
-			let	s	=	q.express()
-			println(s.code, s.parameters)
-			
-		}
-		
-		run	{
-			
-			let	f1:Q.FilterTree.Node	=	"col1" == 42
-			let	f2:Q.FilterTree.Node	=	"col2" != 45
-			let	f3:Q.FilterTree.Node	=	"col4" < 2324
-			let	f4	=	f1 & f2
-			let	f5	=	f4 | f3
-			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f5))
-			let	s	=	q.express()
-			println(s.code, s.parameters)
-			
-			}
+//		run	{
+//			let	f1	=	("col1" as Q.Identifier) == (42 as Value)
+//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
+//			let	s	=	q.express()
+//			println(s.code, s.parameters)
+//			
+//			}
+//		
+//		run	{
+//			let	f1	=	("col1" == 42) as Q.FilterTree.Node
+//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
+//			let	s	=	q.express()
+//			println(s.code, s.parameters)
+//			
+//		}
+//		
+//		run	{
+//			
+//			let	f1:Q.FilterTree.Node	=	"col1" == 42
+//			let	f2:Q.FilterTree.Node	=	"col2" != 45
+//			let	f3:Q.FilterTree.Node	=	"col4" < 2324
+//			let	f4	=	f1 & f2
+//			let	f5	=	f4 | f3
+//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f5))
+//			let	s	=	q.express()
+//			println(s.code, s.parameters)
+//			
+//		}
 		
 
 		
@@ -123,7 +119,7 @@ public struct Test1
 		}
 		
 		println(Core.LeakDetector.theDetector.countAllInstances())
-		shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 0)
+		assert(Core.LeakDetector.theDetector.countAllInstances() == 0)
 		
 		
 		
@@ -257,19 +253,19 @@ public struct Test1
 			t1.insert(rowWith: ["c1":"V1"])
 			
 			let	rs1	=	t1.select()
-			shouldBe(rs1.count == 1)
-			shouldBe(rs1[0]["c1"]!.text! == "V1")
+			assert(rs1.count == 1)
+			assert(rs1[0]["c1"]!.text! == "V1")
 			
 			t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
 			
 			let	rs2	=	t1.select()
-			shouldBe(rs2.count == 1)
-			shouldBe(rs2[0]["c1"]!.text! == "W2")
+			assert(rs2.count == 1)
+			assert(rs2[0]["c1"]!.text! == "W2")
 			
 			t1.delete(rowsWithAllOf: ["c1":"W2"])
 			
 			let	rs3	=	t1.select()
-			shouldBe(rs3.count == 0)
+			assert(rs3.count == 0)
 		}
 		
 		
@@ -349,7 +345,7 @@ public struct Test1
 			db1.apply(run)
 		}
 		
-		shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 0)
+		assert(Core.LeakDetector.theDetector.countAllInstances() == 0)
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
@@ -364,7 +360,7 @@ public struct Test1
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
 				
-				let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: "text1!" as Value)])
+				let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: { "text1!" })])
 				db1.run(query: q1)
 				
 				let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
@@ -374,10 +370,10 @@ public struct Test1
 			}
 		
 			db1.apply(run)
-			shouldBe(Core.LeakDetector.theDetector.countAllInstances() > 0)
+			assert(Core.LeakDetector.theDetector.countAllInstances() > 0)
 		}
 		
-		shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 0)
+		assert(Core.LeakDetector.theDetector.countAllInstances() == 0)
 		
 		
 		

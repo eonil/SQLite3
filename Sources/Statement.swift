@@ -57,7 +57,7 @@ public final class StatementList {
 
 extension StatementList {
 	
-	public func execute(parameters ps:[@autoclosure()->Value]) -> Execution {
+	public func execute(parameters ps:[Value]) -> Execution {
 		precondition(currentExecution == nil || currentExecution!.processingLock == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
 		
 		for s1 in items {
@@ -241,9 +241,9 @@ extension Statement {
 		return	RowReader(host: self, rowIndex: _rowidx)
 	}
 	
-	func bind2(parameters ps:[@autoclosure()->Value]) {
+	func bind2(parameters ps:[Value]) {
 		for i in 0..<ps.count {
-			let	v			=	ps[i]()
+			let	v			=	ps[i]
 			let	(n1, f1)	=	Int.addWithOverflow(i, 1)
 			precondition(f1 == false)
 			precondition(IntMax(n1) < IntMax(Int32.max))

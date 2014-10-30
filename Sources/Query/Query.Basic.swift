@@ -66,8 +66,8 @@ public extension Query
 				vs.append(v.value)
 			}
 			
-			let	cols	=	ExpressionList(items: ns).concatenationWith(separator: ", ")						///<	`col1, col2, col3, ...`
-			let	params	=	Expression.ofParameterList(vs)										///<	`?, ?, ?, ...`
+			let	cols	=	Expression.concatenation(separator: ", ", components: ns)		///<	`col1, col2, col3, ...`
+			let	params	=	Expression.ofParameterList(vs)									///<	`?, ?, ?, ...`
 			
 			return	"INSERT INTO "
 			+		table.express()
@@ -95,7 +95,7 @@ public extension Query
 		public func express() -> Query.Expression
 		{
 			let	bs2	=	bindings.map({ u in return u.express() }) as [Query.Expression]
-			let	bs3	=	ExpressionList(items: bs2).concatenationWith(separator: ", ")
+			let	bs3	=	Expression.concatenation(separator: ", ", components: bs2)
 
 			Debug.log(bs2[0].code)
 			Debug.log(bs2[0].parameters)
