@@ -49,9 +49,12 @@ public final class Statement {
 
 ///	Set to `class` to prevent copying because this must be a sole owner of an execution.
 public final class StatementList {
-	let	items		=	[] as [Statement]
 	
-	private var	execution	=	nil as Execution?	//	Only one execution can be instanced at once.
+	
+	internal let	items				=	[] as [Statement]
+	private var		currentExecution	=	nil as Execution?	//	Only one execution can be instanced at once.
+	
+	////
 	
 	init(_ items:[Statement]) {
 		self.items	=	items
@@ -59,64 +62,19 @@ public final class StatementList {
 	deinit {
 	}
 	
-	public func execute(parameters ps:[String:Value]) -> Execution {
-		precondition(execution == nil || execution!.processingLock == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
-		
-		for s1 in items {
-			s1.reset()
-			s1.bind(parameters: ps)
-		}
-		
-		execution	=	Execution(items)
-		return			execution!
-	}
-	
-	///	Set to `class` to prevent copying.
-	public final class Execution: GeneratorType {
-		private var	m1:Statement
-		private var	g1:GeneratorOf<Statement>
-		private var	g2:GeneratorOf<Row>?
-		private var	v2:Row?
-		
-		private var	processingLock	=	false
-		
-		private init(_ items:[Statement]) {
-			m1	=	items[0]
-			g1			=	GeneratorOf<Statement>(items.generate())
-		}
-		
-		public func next() -> Row? {
-			processingLock	=	true
-//			precondition(processingLock == true, "This execution is not valid anymore.")
-			
-			let	v1	=	g1.next()
-			if g2 == nil { g2 = v1 == nil ? nil : GeneratorOf<Row>(v1!) }
-			v2	=	g2?.next()
-			
-			if v2 == nil { processingLock = false }		//	It's finished if it's `nil` twice.
-			return	v2
-		}
-		
-		
-		///	Returns snapshot of all remaining rows at once.
-		private func rest() -> [[String:Value]] {
-			var	m1	=	[] as [[String:Value]]
-			while let r1 = next() {
-				m1	+=	[snapshotRow(r1)]
-			}
-			return	m1
-//			return	map(enumerate(self), { snapshot($1) })
-		}
-		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
-		///	Once started and unfinished execution cannot be used.
-		///	If you want to avoid collecting of all rows, then you have to iterate this
-		///	manually yourself.
-		public func all() -> [[String:Value]] {
-			precondition(processingLock == false, "You cannot call this method on once started execution.")
-			return	rest()
-		}
-	}
+	////
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -139,51 +97,30 @@ extension Statement : GeneratorType {
 	}
 }
 
-extension Statement
-{
+extension Statement {
 	
-	
-	var execution:Bool
-	{
-		get
-		{
+	var execution:Bool {
+		get {
 			return	_exec
 		}
 	}
-	func step() -> Bool
-	{
+	func step() -> Bool {
 		_exec	=	true
 		_rowidx++
 		return	_core.step()
 	}
-	func reset()
-	{
+	func reset() {
 		_exec	=	false
 		_rowidx	=	-1
 		_core.reset()
 	}
 	
-	func row() -> Row
-	{
+	func row() -> Row {
 		return	RowReader(host: self, rowIndex: _rowidx)
 	}
 	
-	func bind(parameters ps:Database.ParameterList)
-	{
-		_setparams(ps)
-	}
-	
-	
-	
-}
-
-
-private extension Statement {
-	
-	func _setparams(ps:[String:Value])
-	{
-		for (k, v) in ps
-		{
+	func bind(parameters ps:Database.ParameterList) {
+		for (k, v) in ps {
 			let	n1	=	_core.bindParameterIndex(by: k)
 			assert(n1 != 0, "A field index for the column name `\(k)` (value = `\(v)`) couldn't be found.")
 			
@@ -198,7 +135,131 @@ private extension Statement {
 			}
 		}
 	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+
+extension StatementList {
+	
+	public func execute(parameters ps:[String:Value]) -> Execution {
+		precondition(currentExecution == nil || currentExecution!.processingLock == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
+		
+		for s1 in items {
+			s1.reset()
+			s1.bind(parameters: ps)
+		}
+		
+		currentExecution	=	Execution(items)
+		return	currentExecution!
+	}
+	
+	///	Set to `class` to prevent copying.
+	public final class Execution: GeneratorType {
+		private var	m1:Statement
+		private var	g1:GeneratorOf<Statement>
+		private var	g2:GeneratorOf<Row>?
+		private var	v2:Row?
+		
+		private var	processingLock	=	false
+		
+		private init(_ items:[Statement]) {
+			m1	=	items[0]
+			g1			=	GeneratorOf<Statement>(items.generate())
+		}
+		
+		public func next() -> Row? {
+			processingLock	=	true
+			//			precondition(processingLock == true, "This execution is not valid anymore.")
+			
+			let	v1	=	g1.next()
+			if g2 == nil { g2 = v1 == nil ? nil : GeneratorOf<Row>(v1!) }
+			v2	=	g2?.next()
+			
+			if v2 == nil { processingLock = false }		//	It's finished if it's `nil` twice.
+			return	v2
+		}
+		
+		
+		///	Returns snapshot of all remaining rows at once.
+		private func rest() -> [[String:Value]] {
+			var	m1	=	[] as [[String:Value]]
+			while let r1 = next() {
+				m1	+=	[snapshotRow(r1)]
+			}
+			return	m1
+			//			return	map(enumerate(self), { snapshot($1) })
+		}
+		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
+		///	Once started and unfinished execution cannot be used.
+		///	If you want to avoid collecting of all rows, then you have to iterate this
+		///	manually yourself.
+		public func all() -> [[String:Value]] {
+			precondition(processingLock == false, "You cannot call this method on once started execution.")
+			return	rest()
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -294,7 +355,7 @@ private struct RowReader : Row
 
 
 
-func snapshotRow(row:Row) -> [String:Value] {
+private func snapshotRow(row:Row) -> [String:Value] {
 	var	m	=	[:] as [String:Value]
 	let	c	=	row.numberOfFields
 	for i in 0..<c {

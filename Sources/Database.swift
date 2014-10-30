@@ -201,64 +201,6 @@ public class Database {
 	
 	
 	
-	public struct Default
-	{
-//		///	Just does nothing.
-//		static func null(rows:GeneratorOf<Row>)
-//		{
-//		}
-		
-		///	Default error handler.
-		///	Crashes the caller. Any uncommited transaction will be undone.
-		static func crash(message m: String)
-		{
-			Core.Common.crash(message: m)
-		}
-		
-		public struct Generator
-		{
-			///	Maximum resolution is `1/(Int.max-1)` per a second.
-			///	That's the hard limit of this algorithm. If you need something
-			///	better, you have to make and specify your own generator on initializer
-			///	of `Database` class.
-			public static func uniqueAtomicUnitName() -> String
-			{
-				struct deduplicator
-				{
-					var	lastSeed			=	0
-					var	duplicationCount	=	0
-					
-					mutating func stepOne() -> String
-					{
-						let	t1	=	Int(NSDate().timeIntervalSince1970)
-						if t1 == lastSeed
-						{
-							precondition(duplicationCount < Int.max)
-							duplicationCount	+=	1
-						}
-						else
-						{
-							lastSeed			=	t1
-							duplicationCount	=	0
-						}
-						return	"eonil__sqlite3__\(lastSeed)__\(duplicationCount)"
-					}
-					
-					static var	defaultInstance	=	deduplicator()
-				}
-				
-				return	deduplicator.defaultInstance.stepOne()
-			}
-		}
-		
-//		struct Handler
-//		{
-//			static let	success	=	Default.null
-//			static let	failure	=	Default.crash
-//		}
-	}
-	
-	
 	
 	
 	
@@ -374,6 +316,13 @@ public class Database {
 
 
 
+
+
+
+
+
+
+
 extension Database {
 	
 	///	Execute the query and captures snapshot of all values of resulting rows.
@@ -423,5 +372,45 @@ extension Database {
 
 
 
+
+
+
+
+
+
+
+extension Database {
+	
+	public struct Default {
+		public struct Generator {
+			///	Maximum resolution is `1/(Int.max-1)` per a second.
+			///	That's the hard limit of this algorithm. If you need something
+			///	better, you have to make and specify your own generator on initializer
+			///	of `Database` class.
+			public static func uniqueAtomicUnitName() -> String {
+				struct deduplicator {
+					var	lastSeed			=	0
+					var	duplicationCount	=	0
+					
+					mutating func stepOne() -> String {
+						let	t1	=	Int(NSDate().timeIntervalSince1970)
+						if t1 == lastSeed {
+							precondition(duplicationCount < Int.max)
+							duplicationCount	+=	1
+						} else {
+							lastSeed			=	t1
+							duplicationCount	=	0
+						}
+						return	"eonil__sqlite3__\(lastSeed)__\(duplicationCount)"
+					}
+					
+					static var	defaultInstance	=	deduplicator()
+				}
+				
+				return	deduplicator.defaultInstance.stepOne()
+			}
+		}
+	}
+}
 
 
