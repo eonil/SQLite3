@@ -41,10 +41,10 @@ extension Query.Language.Syntax {
 //	{
 //		
 //	}
-	
-	static func emptize<T>(value:T?) -> String {
-		return	value == nil ? "" : "\(value!)"
-	}
+
+//	static func emptize<T>(value:T?) -> String {
+//		return	value == nil ? "" : "\(value!)"
+//	}
 	
 	struct ConflictClause : Printable {
 		enum Reaction : String {

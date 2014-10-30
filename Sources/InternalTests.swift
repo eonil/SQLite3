@@ -125,7 +125,7 @@ public struct Test1
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
 				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
 				for s in p1.items {
@@ -173,7 +173,7 @@ public struct Test1
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
 				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
 				let	e1	=	p1.execute(parameters: [])
@@ -190,7 +190,7 @@ public struct Test1
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
 				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
 				for s in p1.items {
@@ -213,7 +213,7 @@ public struct Test1
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
 				let	rs	=	db1.prepare(code: "SELECT name FROM sqlite_master;").execute(parameters: []).all()
 				for r in rs {
@@ -229,14 +229,14 @@ public struct Test1
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			
 			db1.apply(transaction: { () -> () in
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (123);")
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"BBB\");")
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (456.789);")
+				db1.run("INSERT INTO T1 (c1) VALUES (123);")
+				db1.run("INSERT INTO T1 (c1) VALUES (\"BBB\");")
+				db1.run("INSERT INTO T1 (c1) VALUES (456.789);")
 				
-				let	rs	=	db1.run(query: "SELECT * FROM T1;")
+				let	rs	=	db1.run("SELECT * FROM T1;")
 				println(rs)
 				assert(rs[0]["c1"]! == 123)
 				assert(rs[1]["c1"]! == "BBB")
@@ -244,30 +244,6 @@ public struct Test1
 			})
 			
 		}
-		
-		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			db1.schema().create(table: "T1", column: ["c1"])
-			
-			let	t1	=	db1.table(name: "T1")
-			t1.insert(rowWith: ["c1":"V1"])
-			
-			let	rs1	=	t1.select()
-			assert(rs1.count == 1)
-			assert(rs1[0]["c1"]!.text! == "V1")
-			
-			t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
-			
-			let	rs2	=	t1.select()
-			assert(rs2.count == 1)
-			assert(rs2[0]["c1"]!.text! == "W2")
-			
-			t1.delete(rowsWithAllOf: ["c1":"W2"])
-			
-			let	rs3	=	t1.select()
-			assert(rs3.count == 0)
-		}
-		
 		
 
 		
@@ -287,7 +263,7 @@ public struct Test1
 		
 		run	{
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 		
 			let	k	=	db1.schema().allRowsOfRawMasterTable()
 			println(k)
@@ -309,66 +285,40 @@ public struct Test1
 		run	{
 			
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			func iter1(row:Row)
-			{
-				println(row.numberOfFields)
-				println(row.columnNameOfField(atIndex: 0))
-			}
-			func run()
-			{
+			func run() {
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
-				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				db1.run(Query.Schema.Table.Create(temporary: false, definition: t1))
 			}
-
 			db1.apply(run)
-			
-			
 		}
-
+		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			func iter1(row:Row)
-			{
-				println(row.numberOfFields)
-				println(row.columnNameOfField(atIndex: 0))
-			}
-		
-			func run()
-			{
+			db1.apply {
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
-				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				db1.run(Query.Schema.Table.Create(temporary: false, definition: t1))
 				
 				let	q1	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
-				db1.run(query: q1)
+				db1.run(q1)
 			}
-
-			db1.apply(run)
 		}
 		
 		assert(Core.LeakDetector.theDetector.countAllInstances() == 0)
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
-			func iter1(row:Row)
-			{
-				println(row.numberOfFields)
-				println(row.columnNameOfField(atIndex: 0))
-			}
-		
-			func run()
-			{
+			func run() {
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
-				db1.run(query: Query.Schema.Table.Create(temporary: false, definition: t1))
+				db1.run(Query.Schema.Table.Create(temporary: false, definition: t1))
 				
 				let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: { "text1!" })])
-				db1.run(query: q1)
+				db1.run(q1)
 				
 				let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
-				for (_, r) in enumerate(db1.run(query: q2)) {
+				for (_, r) in enumerate(db1.run(q2)) {
 					println(r)
 				}
 			}
-		
 			db1.apply(run)
 			assert(Core.LeakDetector.theDetector.countAllInstances() > 0)
 		}
@@ -381,8 +331,58 @@ public struct Test1
 		
 		
 		
+//		run {
+//			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
+//			
+//			let	t1	=	db1.table(name: "T1")
+//			t1.insert(rowWith: ["c1":"V1"])
+//			
+//			let	rs1	=	t1.select()
+//			assert(rs1.count == 1)
+//			assert(rs1[0]["c1"]!.text! == "V1")
+//			
+//			t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
+//			
+//			let	rs2	=	t1.select()
+//			assert(rs2.count == 1)
+//			assert(rs2[0]["c1"]!.text! == "W2")
+//			
+//			t1.delete(rowsWithAllOf: ["c1":"W2"])
+//			
+//			let	rs3	=	t1.select()
+//			assert(rs3.count == 0)
+//		}
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		run {
+			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["c1", "c2", "c3"])
+			
+			let	t1	=	db1.table(name: "T1")
+			let	r1	=	Record(table: t1, values: ["AAA", "BBB", "CCC"])
+			
+			t1[111]	=	r1
+			
+			let	r2	=	t1[111]!
+			let	v2	=	r2.values
+			println(v2)
+			assert(v2.count == 4)
+			assert(v2[0] == Value.Integer(111))
+			assert(v2[1] == Value.Text("AAA"))
+			assert(v2[2] == Value.Text("BBB"))
+			assert(v2[3] == Value.Text("CCC"))
+		}
 		
 		
 	}

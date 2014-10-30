@@ -12,3 +12,21 @@ import Foundation
 func enumerate<T:GeneratorType>(g:T) -> EnumerateGenerator<T> {
 	return	EnumerateGenerator<T>(g)
 }
+
+
+
+
+extension Array {
+	init(_ elements:GeneratorOf<T>) {
+		self.init()
+		for e in elements {
+			self.append(e)
+		}
+	}
+	init(_ elements:LazyBidirectionalCollection<[T]>) {
+		self.init()
+		for e in elements {
+			self.append(e)
+		}
+	}
+}

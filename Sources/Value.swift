@@ -34,6 +34,11 @@ extension Value: IntegerLiteralConvertible, FloatLiteralConvertible, StringLiter
 	public init(integerLiteral value: Int64) {
 		self	=	Integer(value)
 	}
+//	public init(integerLiteral value: Int) {
+//		precondition(IntMax(value) <= IntMax(Int64.max))
+//		self	=	Integer(Int64(value))
+//	}
+
 	public init(floatLiteral value: Double) {
 		self	=	Float(value)
 	}

@@ -25,7 +25,7 @@ public extension Database.Schema
 {
 	public func namesOfAllTables() -> [String]
 	{
-		let	d	=	database.snapshot(query: "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+		let	d	=	database.snapshot("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
 		return	d.map {$0["name"]!.text!}
 	}
 	
@@ -33,7 +33,7 @@ public extension Database.Schema
 	{
 		let	p	=	Query.Language.Syntax.Pragma(database: nil, name: "table_info", argument: Query.Language.Syntax.Pragma.Argument.Call(value: name))
 		let	c	=	p.description
-		let	d	=	database.snapshot(query: Query.Expression(code: c, parameters: []))
+		let	d	=	database.snapshot(Query.Expression(code: c, parameters: []))
 		
 		Debug.log(d)
 		
@@ -43,20 +43,22 @@ public extension Database.Schema
 	
 	public func create(table q:Query.Schema.Table.Create) {
 		func tx() {
-			database.run(query: q.express())
+			database.run(q)
 		}
 		database.apply(transaction: tx)
 	}
-	public func create(table tname:String, column cnames:[String])
-	{
-		func columnize(name:String) -> Schema.Column
-		{
-			return	Schema.Column(name: name, nullable: true, type: Schema.Column.TypeCode.None, unique: false, index: nil)
-		}
-		let	cs	=	cnames.map(columnize)
-		let	def	=	Schema.Table(name: tname, key: [], columns: cs)
+	public func create(#tableName:String, keyColumnNames:[String], dataColumnNames:[String]) {
+		let	kcs	=	keyColumnNames.map {Schema.Column(name: $0, nullable: false, type: Schema.Column.TypeCode.None, unique: true, index: nil)}
+		let	dcs	=	dataColumnNames.map {Schema.Column(name: $0, nullable: true, type: Schema.Column.TypeCode.None, unique: false, index: nil)}
+		let	def	=	Schema.Table(name: tableName, key: keyColumnNames, columns: kcs+dcs)
 		let	cmd	=	Query.Schema.Table.Create(temporary: false, definition: def)
-		create(table: cmd)
+		database.apply { self.database.run(cmd) }
+	}
+	public func create(#tableName:String, keyColumnName:String, dataColumnNames:[String]) {
+		create(tableName: tableName, keyColumnNames: [keyColumnName], dataColumnNames: dataColumnNames)
+	}
+	public func create(#tableName:String, dataColumnNames:[String]) {
+		create(tableName: tableName, keyColumnNames: [], dataColumnNames: dataColumnNames)
 	}
 	
 	
@@ -64,17 +66,14 @@ public extension Database.Schema
 	
 	
 	
-	public func drop(table q:Query.Schema.Table.Drop)
-	{
-		func tx()
-		{
-			database.run(query: q.express())
+	public func drop(table q:Query.Schema.Table.Drop) {
+		func tx() {
+			database.run(q.express())
 		}
 		database.apply(tx)
 	}
-	public func drop(table tname:String)
-	{
-		drop(table: Query.Schema.Table.Drop(name: Query.Identifier(name: tname), ifExists: false))
+	public func drop(table tname:String) {
+		drop(table: Query.Schema.Table.Drop(name: Query.Identifier(tname), ifExists: false))
 	}
 
 
@@ -86,9 +85,8 @@ public extension Database.Schema
 	
 	
 	
-	func allRowsOfRawMasterTable() -> [[String:Value]]
-	{
-		return	database.snapshot(query: "SELECT * FROM sqlite_master")
+	func allRowsOfRawMasterTable() -> [[String:Value]] {
+		return	database.snapshot("SELECT * FROM sqlite_master")
 	}
 	
 	

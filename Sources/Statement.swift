@@ -35,7 +35,6 @@ public protocol Row {
 
 
 
-
 ///	MARK:
 ///	Set to `class` to prevent copying because this must be a sole owner of an execution.
 public final class StatementList {
@@ -59,6 +58,7 @@ extension StatementList {
 	
 	public func execute(parameters ps:[Value]) -> Execution {
 		precondition(currentExecution == nil || currentExecution!.processingLock == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
+		Debug.log("EonilSQLte3 executes: \(items), parameters: \(ps)")
 		
 		for s1 in items {
 			s1.reset()
@@ -180,35 +180,13 @@ public final class Statement {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///	MARK:
+extension Statement: Printable {
+	public var description: String {
+		get {
+			return	"Statement(\(_core.sql()))"
+		}
+	}
+}
 
 extension Statement : GeneratorType {
 	public func next() -> Row? {
@@ -260,8 +238,6 @@ extension Statement {
 	}
 	
 }
-
-
 
 
 

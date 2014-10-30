@@ -145,6 +145,10 @@ public class Database {
 	
 	
 	
+	///	Apply transaction to database.
+	public func apply<T>(query:QueryExpressible) -> T {
+		return	apply { return self.run(query) as T }
+	}
 	
 	///	Apply transaction to database.
 	public func apply(transaction tx:()->()) {
@@ -186,8 +190,8 @@ public class Database {
 		return	Schema(database: self)
 	}
 	///	Get table object which provides table access features.
-	public func table(name n:String) -> Database.Table {
-		return	Table(database: self, name: n)
+	public func table(name n:String) -> Table {
+		return	Table(database: self, table: n)
 	}
 	
 	
@@ -259,12 +263,12 @@ public class Database {
 		precondition(_core.null == false)
 		precondition(_core.autocommit == false)
 		
-		run(query: Query.Language.Syntax.SavepointStmt(name: Query.Identifier(name: n).description).description)
+		run(Query.Language.Syntax.SavepointStmt(name: Query.Identifier(n).description).description)
 		if let v = tx() {
-			run(query: Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(name: n).description).description)
+			run(Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(n).description).description)
 			return	v
 		} else {
-			run(query: Query.Language.Syntax.RollbackStmt(name: Query.Identifier(name: n).description).description)
+			run(Query.Language.Syntax.RollbackStmt(name: Query.Identifier(n).description).description)
 			return	nil
 		}
 	}
@@ -281,8 +285,6 @@ public class Database {
 	///	Produced statements will be invalidated when this database object
 	///	deinitialises.
 	func prepare(code c:String) -> StatementList {
-		println("Database.prepare: \(c)")
-
 		let	(ss1, tail)	=	_core.prepare(c)
 		
 		if tail != "" {
@@ -326,10 +328,10 @@ public class Database {
 extension Database {
 	
 	///	Execute the query and captures snapshot of all values of resulting rows.
-	func snapshot(query x:Query.Expression) -> [[String:Value]] {
+	func snapshot(query:Query.Expression) -> [[String:Value]] {
 		var	m	=	[] as [[String:Value]]
 		func tx() {
-			m	=	run(query: x)
+			m	=	run(query)
 		}
 		apply(transaction: tx)
 		return	m
@@ -339,7 +341,7 @@ extension Database {
 	
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
-	public func run(query x:Query.Expression) -> [[String:Value]] {
+	public func run(query:Query.Expression) -> [[String:Value]] {
 		assert(_core.autocommit == false)
 //		
 //		var	m	=	[String:Value]()
@@ -350,19 +352,19 @@ extension Database {
 //		Debug.log(x.code)
 //		Debug.log(m)
 //		
-		let	ps2	=	x.parameters.map {$0()}
+		let	ps2	=	query.parameters.map {$0()}
 	
-		return	prepare(code: x.code).execute(parameters: ps2).all()
+		return	prepare(code: query.code).execute(parameters: ps2).all()
 	}
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
-	public func run(query q:QueryExpressible) -> [[String:Value]] {
-		return	run(query: q.express())
+	public func run(query:QueryExpressible) -> [[String:Value]] {
+		return	run(query.express())
 	}
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
-	public func run(query c:String) -> [[String:Value]] {
-		return	run(query: Query.Expression(code: c, parameters: []))
+	public func run(query:String) -> [[String:Value]] {
+		return	run(Query.Expression(code: query, parameters: []))
 	}
 	//	public func run(query c:String) {
 	//		return	run(query: Query.Expression(code: c, parameters: []))

@@ -26,7 +26,6 @@ public protocol QueryExpressible {
 ///	Safely and easily generate SQL queries.
 public struct Query {
 	
-	public typealias	UniqueParameterNameGenerator	=	()->String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
 	public typealias	ParameterValueEvaluation		=	()->Value
 	
 	
@@ -106,20 +105,20 @@ public struct Query {
 	public struct Identifier : QueryExpressible, StringLiteralConvertible, Printable {
 		public let	name:String
 		
-		public init(name:String) {
+		public init(_ name:String) {
 			precondition(find(name, "\"") == nil, "Identifiers which contains double-quote(\") are not currently supported by Swift layer.")
 			
 			self.name	=	name
 		}
 		
 		public init(stringLiteral value: String) {
-			self	=	Identifier(name: value)
+			self	=	Identifier(value)
 		}
 		public init(extendedGraphemeClusterLiteral value: String) {
-			self	=	Identifier(name: value)
+			self	=	Identifier(value)
 		}
 		public init(unicodeScalarLiteral value: String) {
-			self	=	Identifier(name: value)
+			self	=	Identifier(value)
 		}
 		
 		
@@ -135,11 +134,11 @@ public struct Query {
 		}
 
 		public static func convertFromStringLiteral(value: String) -> Identifier {
-			return	Identifier(name: value)
+			return	Identifier(value)
 		}
 		
 		public static func convertFromExtendedGraphemeClusterLiteral(value: String) -> Identifier {
-			return	Identifier(name: value)
+			return	Identifier(value)
 		}
 	}
 	
@@ -168,6 +167,23 @@ public struct Query {
 			return	column.express()
 				+	"="
 				+	Expression(code: "?", parameters: [value])
+		}
+		
+		init(column:Identifier, value:ParameterValueEvaluation) {
+			self.column	=	column
+			self.value	=	value
+		}
+		
+		static func bind(names:[String], values:[Value]) -> [Binding] {
+			precondition(names.count == values.count)
+			var	bs	=	[] as [Binding]
+			for i in 0..<names.count {
+				let	n	=	names[i]
+				let	v	=	values[i]
+				let	b	=	Binding(column: Identifier(n), value: { v })
+				bs.append(b)
+			}
+			return	bs
 		}
 	}
 //	public struct BindingList : SubqueryExpressible

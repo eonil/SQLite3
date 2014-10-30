@@ -16,7 +16,7 @@ func test2() {
 		let	db1	=	Database(location: Database.Location.Memory, editable: true)
 		
 		///	Create a new table.
-		db1.schema().create(table: "T1", column: ["c1"])
+		db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 		
 		///	Make a single table accessor object.
 		let	t1	=	db1.table(name: "T1")
@@ -50,7 +50,7 @@ func test2() {
 		let	db1	=	Database(location: Database.Location.Memory, editable: true)
 		func tx1() {
 			///	Create a new table.
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			
 			///	Make a single table accessor object.
 			let	t1	=	db1.table(name: "T1")
@@ -89,7 +89,7 @@ func test2() {
 		
 		///	Out-most transaction.
 		func tx1() {
-			db1.schema().create(table: "T1", column: ["c1"])
+			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			let	t1	=	db1.table(name: "T1")
 			
 			///	Outer transaction.
@@ -128,15 +128,27 @@ func test2() {
 	
 	func customQuery() {
 		let	db1	=	Database(location: Database.Location.Memory, editable: true)
-		db1.schema().create(table: "T1", column: ["c1"])
+		db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 		
 		let	t1	=	db1.table(name: "T1")
 		t1.insert(rowWith: ["c1":"V1"])
 		
 		db1.apply {
-			for (_, row) in enumerate(db1.run(query: "SELECT * FROM T1")) {
+			for (_, row) in enumerate(db1.run("SELECT * FROM T1")) {
 				assert(row["c1"]!.text! == "V1")
 			}
+		}
+		
+		db1.apply {
+			let	rs1	=	t1.selection(valuesInColumns: ["c1"])(equalsTo: ["V1"])
+			println(rs1)
+			assert(rs1.count == 1)
+			assert(rs1[0]["c1"]! == "V1" as Value)
+		}
+		db1.apply {
+			let	rs1	=	t1.selection(valuesInColumns: ["c1"])(equalsTo: ["V2"])
+			println(rs1)
+			assert(rs1.count == 0)
 		}
 	}
 	
