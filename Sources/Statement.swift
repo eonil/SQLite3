@@ -347,6 +347,8 @@ private struct RowReader : Row
 			return	Int(host._core.dataCount())
 		}
 	}
+	
+	///	0-based indexing.
 	subscript(index:Int) -> Value
 	{
 		get
@@ -358,7 +360,7 @@ private struct RowReader : Row
 			let	idx2	=	Int32(index)
 			let	t2		=	host._core.columnType(idx2)
 			
-//			if t2 == Core.ColumnTypeCode.null		{ return nil }
+			if t2 == Core.ColumnTypeCode.null		{ return Value.Null }
 			if t2 == Core.ColumnTypeCode.integer	{ return Value(host._core.columnInt64(at: idx2)) }
 			if t2 == Core.ColumnTypeCode.float		{ return Value(host._core.columnDouble(at: idx2)) }
 			if t2 == Core.ColumnTypeCode.text		{ return Value(host._core.columnText(at: idx2)) }

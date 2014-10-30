@@ -29,6 +29,18 @@ public class Table {
 		self.name			=	table
 	}
 	
+	///	0 based indexes.
+	var keyColumnIndexes:[Int] {
+		get {
+			return	_kidxs
+		}
+	}
+	///	0 based indexes.
+	var dataColumnIndexes:[Int] {
+		get {
+			return	_didxs
+		}
+	}
 	var keyColumnNames:[String] {
 		get {
 			return	_kcns
@@ -39,6 +51,9 @@ public class Table {
 			return	_dcns
 		}
 	}
+	
+	private lazy var _kidxs:[Int]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).keyColumns().map {Int($0.cid)}
+	private lazy var _didxs:[Int]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).dataColumns().map {Int($0.cid)}
 	
 	private lazy var _kcns:[String]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).keyColumns().map {$0.name}
 	private lazy var _dcns:[String]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).dataColumns().map {$0.name}
@@ -60,11 +75,9 @@ extension Table: SequenceType {
 		func next() -> Record? {
 			if s.step() {
 				let	r	=	s.row()
-				var	vs	=	[] as [Value]
-				for i in 0..<r.numberOfFields {
-					vs.append(r[i])
-				}
-				return	Record(table: self, values: vs)
+				let	kvs	=	keyColumnIndexes.map {r[$0]}
+				let	dvs	=	dataColumnIndexes.map {r[$0]}
+				return	Record(table: self, keys: kvs, data: dvs)
 			} else {
 				return	nil
 			}
@@ -89,11 +102,19 @@ extension Table: SequenceType {
 		}
 	}
 
+	
+	///	:id:	Key colum values. Must be ordered correctly.
 	public subscript(id:[Value]) -> Record? {
 		get {
 			let	bs	=	combine(keyColumnNames, id)
+			let	dcs	=	dataColumnNames.map {Query.Identifier($0)}
 			let	t	=	filterTreeWith(samples: bs, combinationStyle: Query.FilterTree.Node.Combination.And)
-			let	q	=	Query.Select(table: Query.Identifier(self.name), columns: Query.ColumnList.All, filter: t)
+			let	q	=	Query.Select(table: Query.Identifier(self.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
+			switch q.columns {
+			case let Query.ColumnList.All:		println("ALL")
+			case let Query.ColumnList.Items(s):	println(s)
+			}
+			println(q.columns)
 			let	fs	=	database.apply {
 				let	x	=	self.database.prepare(code: q.express().code).execute(parameters: id)
 				let r = x.next()
@@ -103,7 +124,7 @@ extension Table: SequenceType {
 				assert(r2 == nil)
 				return	fs
 			} as [Value]
-			return	Record(table: self, values: fs)
+			return	Record(table: self, keys: id, data: fs)
 		}
 		set(v) {
 			let	kcns	=	keyColumnNames
@@ -122,7 +143,7 @@ extension Table: SequenceType {
 					precondition(v!.table === self, "You're setting a record from another table object. Don't.")
 					
 					let	kbs	=	Query.Binding.bind(kcns, values: id)
-					let	dbs	=	Query.Binding.bind(dcns, values: v2.values)
+					let	dbs	=	Query.Binding.bind(dcns, values: v2.data)
 					let	q	=	Query.Insert(table: Query.Identifier(self.name), bindings: kbs+dbs)
 					let	rs	=	self.snapshot(query: q)
 					assert(rs.count == 0)
@@ -135,14 +156,13 @@ extension Table: SequenceType {
 			
 		}
 	}
-			
+	
+	///	:id:	Key column value.
 	public subscript(id:Value) -> Record? {
 		get {
-			assert(keyColumnNames.count == 1, "This feature supports only table with non-nullable single-column PK.")
 			return	self[[id]]
 		}
 		set(v) {
-			assert(keyColumnNames.count == 1, "This feature supports only table with non-nullable single-column PK.")
 			self[[id]]	=	v
 		}
 	}
@@ -186,7 +206,6 @@ extension Table: SequenceType {
 
 
 extension Table {
-	
 	
 	public func select(rowsWithAllOf pairs:[String:Value]) -> [[String:Value]] {
 //		let	ss	=	splitPairs(pairs)

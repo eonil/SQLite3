@@ -137,6 +137,7 @@ extension Core
 			return	c
 		}
 		
+		///	0-based indexing.
 		func columnName(index:Int32) -> String
 		{
 			precondition(index < dataCount())
@@ -147,6 +148,7 @@ extension Core
 			return	s1
 		}
 		
+		///	0-based indexing.
 		func columnType(index:Int32) -> ColumnTypeCode
 		{
 			assert(index < dataCount())
@@ -155,6 +157,7 @@ extension Core
 			return	ColumnTypeCode(value: sqlite3_column_type(_rawptr, Int32(index)))
 		}
 		
+		///	0-based indexing.
 		func columnInt64(at index:Int32) -> Int64
 		{
 			assert(index < dataCount())
@@ -166,6 +169,7 @@ extension Core
 			return	Int64(n1)
 		}
 		
+		///	0-based indexing.
 		func columnDouble(at index:Int32) -> Double
 		{
 			assert(index < dataCount())
@@ -176,6 +180,7 @@ extension Core
 			return	sqlite3_column_double(_rawptr, Int32(index))
 		}
 		
+		///	0-based indexing.
 		func columnText(at index:Int32) -> String
 		{
 			assert(index < dataCount())
@@ -203,6 +208,7 @@ extension Core
 			return	s1
 		}
 		
+		///	0-based indexing.
 		func columnBlob(at index:Int32) -> Blob
 		{
 			assert(index < dataCount())
@@ -223,6 +229,7 @@ extension Core
 		
 		
 		
+		///	1-based indexing.
 		func bindInt64(value:Int64, at index:Int32)
 		{
 //			assert(index <= dataCount())
@@ -233,6 +240,7 @@ extension Core
 			database.crashOnErrorWith(resultCode: r)
 		}
 		
+		///	1-based indexing.
 		func bindDouble(value:Double, at index:Int32)
 		{
 //			assert(index <= dataCount())
@@ -243,6 +251,7 @@ extension Core
 			database.crashOnErrorWith(resultCode: r)
 		}
 		
+		///	1-based indexing.
 		func bindText(value:String, at index:Int32)
 		{
 //			assert(index <= dataCount())
@@ -257,6 +266,7 @@ extension Core
 			database.crashOnErrorWith(resultCode: r)
 		}
 		
+		///	1-based indexing.
 		func bindBytes(value:Blob, at index:Int32)
 		{
 //			assert(index <= dataCount())
@@ -271,6 +281,7 @@ extension Core
 			database.crashOnErrorWith(resultCode: r)
 		}
 		
+		///	1-based indexing.
 		func bindNull(at index:Int32)
 		{
 //			assert(index <= dataCount())

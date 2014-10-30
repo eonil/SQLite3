@@ -370,18 +370,17 @@ public struct Test1
 			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["c1", "c2", "c3"])
 			
 			let	t1	=	db1.table(name: "T1")
-			let	r1	=	Record(table: t1, values: ["AAA", "BBB", "CCC"])
+			let	r1	=	Record(table: t1, keys: [Value.Null], data: ["AAA", "BBB", "CCC"])
 			
 			t1[111]	=	r1
 			
 			let	r2	=	t1[111]!
-			let	v2	=	r2.values
+			let	v2	=	r2.data
 			println(v2)
-			assert(v2.count == 4)
-			assert(v2[0] == Value.Integer(111))
-			assert(v2[1] == Value.Text("AAA"))
-			assert(v2[2] == Value.Text("BBB"))
-			assert(v2[3] == Value.Text("CCC"))
+			assert(v2.count == 3)
+			assert(v2[0] == Value.Text("AAA"))
+			assert(v2[1] == Value.Text("BBB"))
+			assert(v2[2] == Value.Text("CCC"))
 		}
 		
 		
