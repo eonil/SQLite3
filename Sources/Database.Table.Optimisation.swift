@@ -20,27 +20,27 @@ public extension Database {
 }
 
 public extension Database.Table {
-	public func selection(rowsWithAllOfColumns cs:[String]) -> (parameters:[String:Value]) -> [[String:Value]] {
-		var	ps2	=	[:] as [String:Value]
-		func remap() -> [String:Value] {
-			var	m1	=	[:] as [String:Value]
-			for c in cs {
-				m1[c]	=	ps2[c]!
-			}
-			return	m1
-		}
-		
-		let	cs2		=	remap()
-		let	t		=	filterTreeWith(samples: cs2, combinationStyle: Query.FilterTree.Node.Combination.And)
-		let	q		=	Query.Select(table: Query.Identifier(name: name), columns: Query.ColumnList.All, filter: t)
-		let	x		=	q.express()
-		let	stmts	=	database.prepare(code: x.code)
-		
-		return	{ (parameters:[String:Value]) -> [[String:Value]] in
-			ps2	=	parameters
-			return	self.database.apply {stmts.execute(parameters: cs2).all()}
-		}
-	}
+//	public func selection(rowsWithAllOfColumns cs:[String]) -> (parameters:[String:Value]) -> [[String:Value]] {
+//		var	ps2	=	[:] as [String:Value]
+//		func remap() -> [String:Value] {
+//			var	m1	=	[:] as [String:Value]
+//			for c in cs {
+//				m1[c]	=	ps2[c]!
+//			}
+//			return	m1
+//		}
+//		
+//		let	cs2		=	remap()
+//		let	t		=	filterTreeWith(samples: cs2, combinationStyle: Query.FilterTree.Node.Combination.And)
+//		let	q		=	Query.Select(table: Query.Identifier(name: name), columns: Query.ColumnList.All, filter: t)
+//		let	x		=	q.express()
+//		let	stmts	=	database.prepare(code: x.code)
+//		
+//		return	{ (parameters:[String:Value]) -> [[String:Value]] in
+//			ps2	=	parameters
+//			return	self.database.apply {stmts.execute(parameters: cs2).all()}
+//		}
+//	}
 //	public func selection(rowsWithAnyOfColumns cs:[String])(parameters ps:[String:Value]) -> [[String:Value]] {
 //	}
 //	public func selection()() -> [[String:Value]] {

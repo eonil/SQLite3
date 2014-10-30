@@ -50,7 +50,7 @@ public struct Test1
 		run	{
 			
 			let	q	=	Query.Select.all(of: "MyTable1")
-			let	s	=	q.express(uniqueParameterNameGenerator: upng)
+			let	s	=	q.express()
 			println(s.code, s.parameters)
 			
 			}
@@ -58,7 +58,7 @@ public struct Test1
 		run	{
 			
 			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: 42)
-			let	s	=	f1.express(uniqueParameterNameGenerator: upng)
+			let	s	=	f1.express()
 			println(s.code, s.parameters)
 			
 			}
@@ -67,7 +67,7 @@ public struct Test1
 			
 			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: 42)
 			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
-			let	s	=	q.express(uniqueParameterNameGenerator: upng)
+			let	s	=	q.express()
 			println(s.code, s.parameters)
 			
 			}
@@ -75,7 +75,7 @@ public struct Test1
 		run	{
 			let	f1	=	("col1" as Q.Identifier) == (42 as Value)
 			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
-			let	s	=	q.express(uniqueParameterNameGenerator: upng)
+			let	s	=	q.express()
 			println(s.code, s.parameters)
 			
 			}
@@ -83,7 +83,7 @@ public struct Test1
 		run	{
 			let	f1	=	("col1" == 42) as Q.FilterTree.Node
 			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
-			let	s	=	q.express(uniqueParameterNameGenerator: upng)
+			let	s	=	q.express()
 			println(s.code, s.parameters)
 			
 		}
@@ -96,7 +96,7 @@ public struct Test1
 			let	f4	=	f1 & f2
 			let	f5	=	f4 | f3
 			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f5))
-			let	s	=	q.express(uniqueParameterNameGenerator: upng)
+			let	s	=	q.express()
 			println(s.code, s.parameters)
 			
 			}
@@ -155,7 +155,7 @@ public struct Test1
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.apply(transaction: { () -> () in
 				let	p1	=	db1.prepare(code: "SELECT \"AAA\";")
-				let	e1	=	p1.execute(parameters: [:])
+				let	e1	=	p1.execute(parameters: [])
 				let	r0	=	e1.next()
 				let	r1	=	r0!
 				println(r1.numberOfFields)
@@ -169,7 +169,7 @@ public struct Test1
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.apply(transaction: { () -> () in
-				let	rs1	=	db1.prepare(code: "SELECT \"AAA\";").execute(parameters: [:]).all()
+				let	rs1	=	db1.prepare(code: "SELECT \"AAA\";").execute(parameters: []).all()
 				println(rs1)
 				assert(rs1.count == 1)
 			})
@@ -180,7 +180,7 @@ public struct Test1
 			db1.schema().create(table: "T1", column: ["c1"])
 			db1.apply(transaction: { () -> () in
 				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
-				let	e1	=	p1.execute(parameters: [:])
+				let	e1	=	p1.execute(parameters: [])
 				let	r0	=	e1.next()
 				let	r1	=	r0!
 				println(r1.numberOfFields)
@@ -219,7 +219,7 @@ public struct Test1
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(table: "T1", column: ["c1"])
 			db1.apply(transaction: { () -> () in
-				let	rs	=	db1.prepare(code: "SELECT name FROM sqlite_master;").execute(parameters: [:]).all()
+				let	rs	=	db1.prepare(code: "SELECT name FROM sqlite_master;").execute(parameters: []).all()
 				for r in rs {
 					println(r)
 					assert(r["name"]! == "T1")

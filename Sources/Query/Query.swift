@@ -11,15 +11,11 @@ import Foundation
 
 
 
-///	Abstracts an object which can produce a complete single query statement.
+///	Abstracts an object which can produce a fragment of a query statement.
 public protocol QueryExpressible {
 	func express() -> Query.Expression
 }
 
-///	Abstracts an object which can produce a fragment of a query statement.
-protocol SubqueryExpressible {
-	func express(uniqueParameterNameGenerator upng:Query.UniqueParameterNameGenerator) -> Query.Expression
-}
 
 
 
@@ -65,20 +61,21 @@ public struct Query {
 		
 		static let	empty	=	Expression(code: "", parameters: [])
 		
-		static func byGeneratingUniqueParameterNames(using upng:UniqueParameterNameGenerator, with values:[Value]) -> Expression		///<	Returned expression's `code` will be zero length string.
-		{
-			let	a1	=	values.map({ (n:Value) -> ParameterNameValueMapping in return (name: upng(), value: n) })
+		///	Returned expression's `code` will be zero length string.
+		static func byGeneratingUniqueParameterNames(values:[Value]) -> Expression {
+			let	a1	=	values.map({ (n:Value) -> ParameterNameValueMapping in return (name: "?", value: n) })
 			let	a2	=	a1.map({ n in return n.name }) as [String]
 			let	s3	=	join(", ", a2) as String
 			return	Expression(code: s3, parameters: a1)
 		}
-		static func expressionize<T:SubqueryExpressible>(using upng:UniqueParameterNameGenerator)(element:T) -> Expression
+		static func expressionize<T:QueryExpressible>(#element:T) -> Expression
 		{
-			return	element.express(uniqueParameterNameGenerator: upng)
+			return	element.express()
 		}
-		static func expressionize<T:SubqueryExpressible>(using upng:UniqueParameterNameGenerator)(elements:[T]) -> ExpressionList
+		static func expressionize<T:QueryExpressible>(#elements:[T]) -> ExpressionList
 		{
-			return	ExpressionList(items: elements.map(expressionize(upng)))
+//			return	ExpressionList(items: elements.map(T.express)
+			return	ExpressionList(items: elements.map(expressionize))
 		}
 	}
 	
@@ -108,17 +105,6 @@ public struct Query {
 		}
 	}
 	
-	///	Beware that the number of parameters cannot exceed `Int.max`.
-	///	This is Swift layer limitation.
-	///	SQLite3 may have extra limits which will be applied separately.
-	static func express(subquery:SubqueryExpressible) -> Expression {
-		var	pc	=	0
-		func upng() -> String {
-			pc++
-			return	"@param\(pc)"
-		}
-		return	subquery.express(uniqueParameterNameGenerator: upng)
-	}
 	
 	
 	
@@ -134,7 +120,7 @@ public struct Query {
 	
 	
 	///	Represents names such as table or column.
-	public struct Identifier : SubqueryExpressible, StringLiteralConvertible, Printable
+	public struct Identifier : QueryExpressible, StringLiteralConvertible, Printable
 	{
 		public let	name:String
 		
@@ -165,7 +151,7 @@ public struct Query {
 			}
 		}
 		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+		public func express() -> Query.Expression
 		{
 			return	Expression(code: description, parameters: [])
 		}
@@ -181,12 +167,12 @@ public struct Query {
 		}
 	}
 	
-	public enum ColumnList : SubqueryExpressible
+	public enum ColumnList : QueryExpressible
 	{
 		case All
 		case Items(names:[Identifier])
 		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+		public func express() -> Query.Expression
 		{
 			switch self
 			{
@@ -194,24 +180,23 @@ public struct Query {
 					return	Expression(code: "*", parameters: [])
 				
 				case let Items(names: names):
-					return	Expression.expressionize(using: upng)(elements: names).concatenation()
+					return	Expression.expressionize(elements: names).concatenation()
 			}
 		}
 	}
 	
 	///	Only for value setting expression.
-	public struct Binding : SubqueryExpressible
+	public struct Binding : QueryExpressible
 	{
 		public let	column:Identifier
 		public let	value:Value
 		
 		///	Makes `col1 = @param1` style expression.
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+		public func express() -> Query.Expression
 		{
-			let	n1	=	upng()
-			return	column.express(uniqueParameterNameGenerator: upng)
+			return	column.express()
 				+	"="
-				+	Expression(code: n1, parameters: [ParameterNameValueMapping(name: n1, value: value)])
+				+	Expression(code: "?", parameters: [ParameterNameValueMapping(name: "?", value: value)])
 		}
 	}
 //	public struct BindingList : SubqueryExpressible
@@ -224,18 +209,18 @@ public struct Query {
 //		}
 //	}
 	
-	public struct FilterTree : SubqueryExpressible
+	public struct FilterTree : QueryExpressible
 	{
 		public let	root:Node
 		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+		public func express() -> Query.Expression
 		{
-			return	root.express(uniqueParameterNameGenerator: upng)
+			return	root.express()
 		}
 		
-		public enum Node : SubqueryExpressible
+		public enum Node : QueryExpressible
 		{
-			public enum Operation : SubqueryExpressible
+			public enum Operation : QueryExpressible
 			{
 				case Equal
 				case NotEqual
@@ -247,7 +232,7 @@ public struct Query {
 //				case Like
 //				case In
 				
-				func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+				public func express() -> Query.Expression
 				{
 					switch self
 					{
@@ -261,12 +246,12 @@ public struct Query {
 				}
 			}
 
-			public enum Combination : SubqueryExpressible
+			public enum Combination : QueryExpressible
 			{
 				case And
 				case Or
 				
-				func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+				public func express() -> Query.Expression
 				{
 					switch self
 					{
@@ -279,19 +264,18 @@ public struct Query {
 			case Leaf(operation:Operation, column:Identifier, value:Value)
 			case Branch(combination:Combination, subnodes:[Node])
 			
-			func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
+			public func express() -> Query.Expression
 			{
 				switch self
 				{
 					case let Leaf(operation: op, column: col, value: val):
-						let	pn	=	upng()
-						return	col.express(uniqueParameterNameGenerator: upng)
-						+		op.express(uniqueParameterNameGenerator: upng)
-						+		Expression(code: pn, parameters: [(pn, val)])
+						return	col.express()
+						+		op.express()
+						+		Expression(code: "?", parameters: [("?", val)])
 					
 					case let Branch(combination: comb, subnodes: ns):
-						let	x1	=	" " + comb.express(uniqueParameterNameGenerator: upng) + " "
-						return	Expression.expressionize(using: upng)(elements: ns).concatenationWith(separator: x1)
+						let	x1	=	" " + comb.express() + " "
+						return	Expression.expressionize(elements: ns).concatenationWith(separator: x1)
 				}
 			}
 		}

@@ -78,21 +78,17 @@ public extension Query {
 
 public extension Query.Schema.Table
 {
-	public struct Create : QueryExpressible, SubqueryExpressible
+	public struct Create : QueryExpressible
 	{
 		public let	temporary:Bool
 		public let	definition:Schema.Table
 		
+		
+		
+		
+		
+		
 		public func express() -> Query.Expression
-		{
-			return	Query.express(self)
-		}
-		
-		
-		
-		
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
 		{
 			typealias	Column	=	Schema.Column
 			
@@ -141,18 +137,12 @@ public extension Query.Schema.Table
 	
 	
 	
-	public struct Drop : QueryExpressible, SubqueryExpressible {
+	public struct Drop : QueryExpressible {
 		public let	name:Query.Identifier
 		public let	ifExists:Bool
 		
 		public func express() -> Query.Expression {
-			return	Query.express(self)
-		}
-		
-		
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression {
-			return	"DROP TABLE " + (ifExists ? " IF EXISTS " : " ") + name.express(uniqueParameterNameGenerator: upng)
+			return	"DROP TABLE " + (ifExists ? " IF EXISTS " : " ") + name.express()
 		}
 	}
 }

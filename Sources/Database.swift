@@ -21,7 +21,7 @@ import Foundation
 public class Database {
 	////	Types.
 	
-	public typealias	ParameterList	=	[String:Value]
+//	public typealias	ParameterList	=	[String:Value]
 	public typealias	RowIterator		=	(row:Row)->()
 	
 //	public typealias	DataHandler		=	(data:GeneratorOf<Row>)->()
@@ -47,7 +47,7 @@ public class Database {
 			func make1(cmd:String) -> ()->() {
 				let	stmts1	=	prepare(cmd: cmd)
 				return	{
-					let	exec1	=	stmts1.execute(parameters: [:])
+					let	exec1	=	stmts1.execute(parameters: [])
 					while let _ = exec1.next() {
 					}
 				}
@@ -341,16 +341,16 @@ extension Database {
 	///	You always need a valid transaction context to call this method.
 	public func run(query x:Query.Expression) -> [[String:Value]] {
 		assert(_core.autocommit == false)
-		
-		var	m	=	[String:Value]()
-		for mapping in x.parameters {
-			m[mapping.name]	=	mapping.value()
-		}
-		
-		Debug.log(x.code)
-		Debug.log(m)
-		
-		return	prepare(code: x.code).execute(parameters: m).all()
+//		
+//		var	m	=	[String:Value]()
+//		for mapping in x.parameters {
+//			m[mapping.name]	=	mapping.value()
+//		}
+//		
+//		Debug.log(x.code)
+//		Debug.log(m)
+//		
+		return	prepare(code: x.code).execute(parameters: x.parameters).all()
 	}
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.

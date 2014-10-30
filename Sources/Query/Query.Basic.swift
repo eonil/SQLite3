@@ -19,7 +19,7 @@ public extension Query
 	///		SELECT * FROM "MyTable1"
 	///		SELECT "col1", "col2", "col3" FROM "YourTable2"
 	///
-	public struct Select : QueryExpressible, SubqueryExpressible
+	public struct Select : QueryExpressible
 	{
 		static func all(of table:Identifier) -> Select
 		{
@@ -32,20 +32,13 @@ public extension Query
 		
 		public func express() -> Query.Expression
 		{
-			return	Query.express(self)
-		}
-		
-		
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
 //			println(filter is FilterTree)
-			let	x1	=	(filter == nil ? Expression.empty : filter!.express(uniqueParameterNameGenerator: upng)) as Expression
+			let	x1	=	(filter == nil ? Expression.empty : filter!.express()) as Expression
 			return	"SELECT " as Expression
-			+		columns.express(uniqueParameterNameGenerator: upng)
+			+		columns.express()
 			+		" " as Expression
 			+		"FROM " as Expression
-			+		table.express(uniqueParameterNameGenerator: upng)
+			+		table.express()
 			+		" " as Expression
 			+		Expression(code: (filter == nil ? "" : "WHERE "), parameters: [])
 			+		x1 as Expression
@@ -60,28 +53,21 @@ public extension Query
 	///		INSERT INTO "MyTable1" ("col1", "col2", "col3") VALUES (@param1, @param2, @param3)
 	///
 	///	http://www.sqlite.org/lang_insert.html
-	public struct Insert : QueryExpressible, SubqueryExpressible
+	public struct Insert : QueryExpressible
 	{
 		public let	table:Identifier
 		public let	bindings:[Query.Binding]
 		
 		public func express() -> Query.Expression
 		{
-			return	Query.express(self)
-		}
-		
-		
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
-			let	ns		=	bindings.map({ (n:Query.Binding) -> Expression in return n.column.express(uniqueParameterNameGenerator: upng) })
+			let	ns		=	bindings.map({ (n:Query.Binding) -> Expression in return n.column.express() })
 			let	ps		=	bindings.map({ (n:Query.Binding) -> Value in return n.value })
 			
 			let	cols	=	ExpressionList(items: ns).concatenationWith(separator: ", ")						///<	`col1, col2, col3, ...`
-			let	params	=	Expression.byGeneratingUniqueParameterNames(using: upng, with: ps)					///<	`@p1, @p2, @p3, ...`
+			let	params	=	Expression.byGeneratingUniqueParameterNames(ps)										///<	`?, ?, ?, ...`
 			
 			return	"INSERT INTO "
-			+		table.express(uniqueParameterNameGenerator: upng)
+			+		table.express()
 			+		"("
 			+		cols
 			+		")"
@@ -97,7 +83,7 @@ public extension Query
 	///		UPDATE "MyTable1" SET "col1"=@param1, "col2"=@param2, "col3"=@param3 WHERE "col4"=@param4
 	///
 	///	http://www.sqlite.org/lang_update.html
-	public struct Update : QueryExpressible, SubqueryExpressible
+	public struct Update : QueryExpressible
 	{
 		public let	table:Identifier
 		public let	bindings:[Query.Binding]
@@ -105,25 +91,18 @@ public extension Query
 		
 		public func express() -> Query.Expression
 		{
-			return	Query.express(self)
-		}
-		
-		
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
-			let	bs2	=	bindings.map({ u in return u.express(uniqueParameterNameGenerator: upng) }) as [Query.Expression]
+			let	bs2	=	bindings.map({ u in return u.express() }) as [Query.Expression]
 			let	bs3	=	ExpressionList(items: bs2).concatenationWith(separator: ", ")
-			Debug.log(upng())
+
 			Debug.log(bs2[0].code)
 			Debug.log(bs2[0].parameters)
 			Debug.log(bs3.code)
 			return	"UPDATE "
-			+		table.express(uniqueParameterNameGenerator: upng)
+			+		table.express()
 			+		" SET "
 			+		bs3
 			+		" WHERE "
-			+		filter?.express(uniqueParameterNameGenerator: upng)
+			+		filter?.express()
 		}
 	}
 	
@@ -131,24 +110,17 @@ public extension Query
 	///	
 	///		DELETE FROM "MyTable1" WHERE "col1"=@param1
 	///
-	public struct Delete : QueryExpressible, SubqueryExpressible
+	public struct Delete : QueryExpressible
 	{
 		public let	table:Identifier
 		public let	filter:Query.FilterTree
 		
 		public func express() -> Query.Expression
 		{
-			return	Query.express(self)
-		}
-		
-		
-		
-		func express(uniqueParameterNameGenerator upng: Query.UniqueParameterNameGenerator) -> Query.Expression
-		{
 			return	"DELETE FROM "
-			+	table.express(uniqueParameterNameGenerator: upng)
+			+	table.express()
 			+	" WHERE "
-			+	filter.express(uniqueParameterNameGenerator: upng)
+			+	filter.express()
 		}
 	}
 
