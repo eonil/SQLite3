@@ -135,7 +135,7 @@ func test2() {
 		
 		db1.apply {
 			for (_, row) in enumerate(db1.run(query: "SELECT * FROM T1")) {
-				assert(row[0].text! == "V1")
+				assert(row["c1"]!.text! == "V1")
 			}
 		}
 	}

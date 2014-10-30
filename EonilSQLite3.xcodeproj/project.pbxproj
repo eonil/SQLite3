@@ -48,7 +48,6 @@
 		4540C74D19FFF61400D7714F /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
 		4540C74E19FFF61400D7714F /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
 		4540C74F19FFF61400D7714F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517219C6FC3D0029EA46 /* Database.swift */; };
-		4540C75019FFF61400D7714F /* Database.Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */; };
 		4540C75119FFF61400D7714F /* Database.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C719C9DA9D00AEABCC /* Database.Table.swift */; };
 		4540C75219FFF61400D7714F /* Database.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C919C9DFF900AEABCC /* Database.Schema.swift */; };
 		4540C75319FFF61400D7714F /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517419C6FC460029EA46 /* Statement.swift */; };
@@ -69,7 +68,6 @@
 		4540C76319FFF61400D7714F /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
 		4540C76419FFF61400D7714F /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
 		4540C76519FFF61400D7714F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517219C6FC3D0029EA46 /* Database.swift */; };
-		4540C76619FFF61400D7714F /* Database.Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */; };
 		4540C76719FFF61400D7714F /* Database.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C719C9DA9D00AEABCC /* Database.Table.swift */; };
 		4540C76819FFF61400D7714F /* Database.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C919C9DFF900AEABCC /* Database.Schema.swift */; };
 		4540C76919FFF61400D7714F /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517419C6FC460029EA46 /* Statement.swift */; };
@@ -107,7 +105,6 @@
 		45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
 		45CC02C819C9DA9D00AEABCC /* Database.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C719C9DA9D00AEABCC /* Database.Table.swift */; };
 		45CC02CA19C9DFF900AEABCC /* Database.Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02C919C9DFF900AEABCC /* Database.Schema.swift */; };
-		45F16E7D19C8AF5A007B4DE2 /* Database.Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,7 +200,6 @@
 		45CC02B619C9C2ED00AEABCC /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		45CC02C719C9DA9D00AEABCC /* Database.Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Table.swift; sourceTree = "<group>"; };
 		45CC02C919C9DFF900AEABCC /* Database.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Schema.swift; sourceTree = "<group>"; };
-		45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Operation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,7 +353,6 @@
 				459B517819C72BBC0029EA46 /* Value.swift */,
 				459B517219C6FC3D0029EA46 /* Database.swift */,
 				45505ADA1A012F9100E0D3B8 /* Database.Configurations.swift */,
-				45F16E7C19C8AF5A007B4DE2 /* Database.Operation.swift */,
 				45CC02C719C9DA9D00AEABCC /* Database.Table.swift */,
 				45373C861A016A3C00631143 /* Database.Table.Optimisation.swift */,
 				45CC02C919C9DFF900AEABCC /* Database.Schema.swift */,
@@ -647,7 +642,6 @@
 				4540C79F1A000FE000D7714F /* ExternalTest1.swift in Sources */,
 				4540C71319FFF56C00D7714F /* Core.swift in Sources */,
 				45373C891A016A3C00631143 /* Database.Table.Optimisation.swift in Sources */,
-				4540C76619FFF61400D7714F /* Database.Operation.swift in Sources */,
 				4540C72619FFF57E00D7714F /* Query.Transaction.swift in Sources */,
 				4540C70D19FFF56C00D7714F /* Core.Debug.swift in Sources */,
 				4540C76319FFF61400D7714F /* Debug.swift in Sources */,
@@ -675,7 +669,6 @@
 				4540C75819FFF61400D7714F /* Query.Schema.swift in Sources */,
 				4540C74C19FFF61400D7714F /* Config.swift in Sources */,
 				4540C75F19FFF61400D7714F /* Core.Statement.swift in Sources */,
-				4540C75019FFF61400D7714F /* Database.Operation.swift in Sources */,
 				4540C74D19FFF61400D7714F /* Debug.swift in Sources */,
 				4540C75919FFF61400D7714F /* Query.swift in Sources */,
 				4540C75D19FFF61400D7714F /* Core.Debug.swift in Sources */,
@@ -722,7 +715,6 @@
 				4540C71D19FFF57E00D7714F /* Query.Language.swift in Sources */,
 				4540C70819FFF56C00D7714F /* Core.Common.swift in Sources */,
 				459B517319C6FC3D0029EA46 /* Database.swift in Sources */,
-				45F16E7D19C8AF5A007B4DE2 /* Database.Operation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

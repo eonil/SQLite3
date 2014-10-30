@@ -15,8 +15,7 @@ extension Core {
 
 extension Core.Common {
 	@noreturn static func crash(message s:String = "") {
-		Core.log("CRASH requested by PROGRAMMER for core C inter-ops." + (s == "" ? "." : (": " + s)))
-		abort()
+		fatalError("CRASH requested by PROGRAMMER for core C inter-ops" + (s == "" ? "." : (": " + s)))
 	}
 	
 	

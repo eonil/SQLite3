@@ -175,7 +175,7 @@ public struct Test1
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.apply(transaction: { () -> () in
-				let	rs1	=	db1.run(query: "SELECT \"AAA\";").all()
+				let	rs1	=	db1.prepare(code: "SELECT \"AAA\";").execute(parameters: [:]).all()
 				println(rs1)
 				assert(rs1.count == 1)
 			})
@@ -242,11 +242,11 @@ public struct Test1
 			db1.schema().create(table: "T1", column: ["c1"])
 			
 			db1.apply(transaction: { () -> () in
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (123);").all()
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"BBB\");").all()
-				db1.run(query: "INSERT INTO T1 (c1) VALUES (456.789);").all()
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (123);")
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (\"BBB\");")
+				db1.run(query: "INSERT INTO T1 (c1) VALUES (456.789);")
 				
-				let	rs	=	db1.run(query: "SELECT * FROM T1;").all()
+				let	rs	=	db1.run(query: "SELECT * FROM T1;")
 				println(rs)
 				assert(rs[0]["c1"]! == 123)
 				assert(rs[1]["c1"]! == "BBB")
@@ -335,7 +335,7 @@ public struct Test1
 			
 		}
 
-		run{
+		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			func iter1(row:Row)
 			{
@@ -351,13 +351,13 @@ public struct Test1
 				let	q1	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
 				db1.run(query: q1)
 			}
-		
+
 			db1.apply(run)
 		}
 		
 		shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 0)
 		
-		run{
+		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			func iter1(row:Row)
 			{
@@ -375,7 +375,7 @@ public struct Test1
 				
 				let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
 				for (_, r) in enumerate(db1.run(query: q2)) {
-					println(r[0])
+					println(r)
 				}
 			}
 		

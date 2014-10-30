@@ -12,14 +12,12 @@ import Foundation
 
 
 ///	Abstracts an object which can produce a complete single query statement.
-public protocol QueryExpressive
-{
+public protocol QueryExpressible {
 	func express() -> Query.Expression
 }
 
 ///	Abstracts an object which can produce a fragment of a query statement.
-protocol SubqueryExpressive
-{
+protocol SubqueryExpressible {
 	func express(uniqueParameterNameGenerator upng:Query.UniqueParameterNameGenerator) -> Query.Expression
 }
 
@@ -30,24 +28,29 @@ protocol SubqueryExpressive
 
 
 ///	Safely and easily generate SQL queries.
-///
-///	
-///
-public struct Query
-{
+public struct Query {
 	
 	public typealias	UniqueParameterNameGenerator	=	()->String							///<	Returns a unique name which is prefixed with `@` to build a parameter name.
 	public typealias	ParameterNameValueMapping		=	(name:String, value:@autoclosure()->Value)
 	public typealias	ParameterNameValueMappings		=	[ParameterNameValueMapping]
-	public typealias	Expressive						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator)->Expression
+	public typealias	Expressible						=	(uniqueParameterNameGenerator:UniqueParameterNameGenerator)->Expression
 	
 	
 	
 	
 
 	///	Represents a fragment of a query.
-	public struct Expression : StringLiteralConvertible
-	{
+	public struct Expression : StringLiteralConvertible {
+		let	code									=	""
+		let	parameters:ParameterNameValueMappings	=	[]
+
+		init(_ code:String) {
+			self.init(code: code, parameters: [])
+		}
+		init(code:String, parameters:ParameterNameValueMappings) {
+			self.code		=	code
+			self.parameters	=	parameters
+		}
 		public init(stringLiteral value: String) {
 			self	=	Expression(code: value, parameters: [])
 		}
@@ -56,16 +59,6 @@ public struct Query
 		}
 		public init(unicodeScalarLiteral value: String) {
 			self	=	Expression(code: value, parameters: [])
-		}
-		
-		////
-		
-		let	code:String
-		let	parameters:ParameterNameValueMappings	=	[]
-		
-		init(code:String, parameters:ParameterNameValueMappings) {
-			self.code		=	code
-			self.parameters	=	parameters
 		}
 		
 		////
@@ -79,11 +72,11 @@ public struct Query
 			let	s3	=	join(", ", a2) as String
 			return	Expression(code: s3, parameters: a1)
 		}
-		static func expressionize<T:SubqueryExpressive>(using upng:UniqueParameterNameGenerator)(element:T) -> Expression
+		static func expressionize<T:SubqueryExpressible>(using upng:UniqueParameterNameGenerator)(element:T) -> Expression
 		{
 			return	element.express(uniqueParameterNameGenerator: upng)
 		}
-		static func expressionize<T:SubqueryExpressive>(using upng:UniqueParameterNameGenerator)(elements:[T]) -> ExpressionList
+		static func expressionize<T:SubqueryExpressible>(using upng:UniqueParameterNameGenerator)(elements:[T]) -> ExpressionList
 		{
 			return	ExpressionList(items: elements.map(expressionize(upng)))
 		}
@@ -118,7 +111,7 @@ public struct Query
 	///	Beware that the number of parameters cannot exceed `Int.max`.
 	///	This is Swift layer limitation.
 	///	SQLite3 may have extra limits which will be applied separately.
-	static func express(subquery:SubqueryExpressive) -> Expression {
+	static func express(subquery:SubqueryExpressible) -> Expression {
 		var	pc	=	0
 		func upng() -> String {
 			pc++
@@ -141,7 +134,7 @@ public struct Query
 	
 	
 	///	Represents names such as table or column.
-	public struct Identifier : SubqueryExpressive, StringLiteralConvertible, Printable
+	public struct Identifier : SubqueryExpressible, StringLiteralConvertible, Printable
 	{
 		public let	name:String
 		
@@ -188,7 +181,7 @@ public struct Query
 		}
 	}
 	
-	public enum ColumnList : SubqueryExpressive
+	public enum ColumnList : SubqueryExpressible
 	{
 		case All
 		case Items(names:[Identifier])
@@ -207,7 +200,7 @@ public struct Query
 	}
 	
 	///	Only for value setting expression.
-	public struct Binding : SubqueryExpressive
+	public struct Binding : SubqueryExpressible
 	{
 		public let	column:Identifier
 		public let	value:Value
@@ -221,7 +214,7 @@ public struct Query
 				+	Expression(code: n1, parameters: [ParameterNameValueMapping(name: n1, value: value)])
 		}
 	}
-//	public struct BindingList : SubqueryExpressive
+//	public struct BindingList : SubqueryExpressible
 //	{
 //		public let	items:[Binding]
 //		
@@ -231,7 +224,7 @@ public struct Query
 //		}
 //	}
 	
-	public struct FilterTree : SubqueryExpressive
+	public struct FilterTree : SubqueryExpressible
 	{
 		public let	root:Node
 		
@@ -240,9 +233,9 @@ public struct Query
 			return	root.express(uniqueParameterNameGenerator: upng)
 		}
 		
-		public enum Node : SubqueryExpressive
+		public enum Node : SubqueryExpressible
 		{
-			public enum Operation : SubqueryExpressive
+			public enum Operation : SubqueryExpressible
 			{
 				case Equal
 				case NotEqual
@@ -268,7 +261,7 @@ public struct Query
 				}
 			}
 
-			public enum Combination : SubqueryExpressive
+			public enum Combination : SubqueryExpressible
 			{
 				case And
 				case Or

@@ -43,8 +43,7 @@ public extension Database.Schema
 	
 	public func create(table q:Query.Schema.Table.Create) {
 		func tx() {
-			let	exec1	=	database.run(query: q.express())
-			exec1.next()
+			database.run(query: q.express())
 		}
 		database.apply(transaction: tx)
 	}
@@ -69,7 +68,7 @@ public extension Database.Schema
 	{
 		func tx()
 		{
-			database.run(query: q.express()).all()
+			database.run(query: q.express())
 		}
 		database.apply(tx)
 	}

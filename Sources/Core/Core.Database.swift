@@ -143,7 +143,7 @@ Core
 				let	errmsg	=	currentErrorMessage
 				Core.log("[ERROR] \(errmsg)")
 				assert(code == sqlite3_errcode(_rawptr))
-				Common.crash()
+				Common.crash(message: errmsg)
 			}
 			
 		}

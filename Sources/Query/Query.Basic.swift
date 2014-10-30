@@ -19,7 +19,7 @@ public extension Query
 	///		SELECT * FROM "MyTable1"
 	///		SELECT "col1", "col2", "col3" FROM "YourTable2"
 	///
-	public struct Select : QueryExpressive, SubqueryExpressive
+	public struct Select : QueryExpressible, SubqueryExpressible
 	{
 		static func all(of table:Identifier) -> Select
 		{
@@ -60,7 +60,7 @@ public extension Query
 	///		INSERT INTO "MyTable1" ("col1", "col2", "col3") VALUES (@param1, @param2, @param3)
 	///
 	///	http://www.sqlite.org/lang_insert.html
-	public struct Insert : QueryExpressive, SubqueryExpressive
+	public struct Insert : QueryExpressible, SubqueryExpressible
 	{
 		public let	table:Identifier
 		public let	bindings:[Query.Binding]
@@ -97,7 +97,7 @@ public extension Query
 	///		UPDATE "MyTable1" SET "col1"=@param1, "col2"=@param2, "col3"=@param3 WHERE "col4"=@param4
 	///
 	///	http://www.sqlite.org/lang_update.html
-	public struct Update : QueryExpressive, SubqueryExpressive
+	public struct Update : QueryExpressible, SubqueryExpressible
 	{
 		public let	table:Identifier
 		public let	bindings:[Query.Binding]
@@ -131,7 +131,7 @@ public extension Query
 	///	
 	///		DELETE FROM "MyTable1" WHERE "col1"=@param1
 	///
-	public struct Delete : QueryExpressive, SubqueryExpressive
+	public struct Delete : QueryExpressible, SubqueryExpressible
 	{
 		public let	table:Identifier
 		public let	filter:Query.FilterTree

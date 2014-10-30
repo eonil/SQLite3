@@ -120,7 +120,7 @@ public extension Database.Table
 		
 	
 	
-	func snapshot(query q:QueryExpressive) -> [[String:Value]]
+	func snapshot(query q:QueryExpressible) -> [[String:Value]]
 	{
 		return	database.snapshot(query: q.express())
 	}

@@ -18,8 +18,7 @@ import Foundation
 ///	To precent this situation, supply your own 
 ///	implementation of savepoint name generator at 
 ///	initializer.
-public class Database
-{
+public class Database {
 	////	Types.
 	
 	public typealias	ParameterList	=	[String:Value]
@@ -28,12 +27,39 @@ public class Database
 //	public typealias	DataHandler		=	(data:GeneratorOf<Row>)->()
 //	public typealias	ErrorHandler	=	(message:String)->()
 	
-	public enum Location
-	{
+	public enum Location {
 		case Memory
 		case TemporaryFile
 		case PersistentFile(path:String)
 	}
+	
+
+	private struct Optimisation {
+		struct CommonStatementCache {
+			let	beginTransaction	=	{} as ()->()
+			let	commitTransaction	=	{} as ()->()
+			let	rollbackTransaction	=	{} as ()->()
+		}
+		let	commonStatementCache:CommonStatementCache
+		init(_ prepare:(cmd:String)->StatementList) {
+			func make1(cmd:String) -> ()->() {
+				let	stmts1	=	prepare(cmd: cmd)
+				return	{
+					let	exec1	=	stmts1.execute(parameters: [:])
+					while let _ = exec1.next() {
+					}
+				}
+			}
+			commonStatementCache	=
+				CommonStatementCache(
+					beginTransaction: make1("BEGIN TRANSACTION;"),
+					commitTransaction: make1("COMMIT TRANSACTION;"),
+					rollbackTransaction: make1("ROLLBACK TRANSACTION;"))
+		}
+	}
+	
+	private lazy var	optimisation:Optimisation	=	Optimisation({ self.prepare(code: $0) })
+	
 	
 	
 	
@@ -46,15 +72,8 @@ public class Database
 	
 	////	Slots.
 	
-	class DebuggingValidationSupport {
-		var	spawnedStatements	=	[] as [WeakReference<Statement>]
-	}
-	
 	private let	_savepoint_name_gen:() -> String
-	
-	private var	_core				=	Core.Database()
-	
-	var	_debugging_validation_state	=	DebuggingValidationSupport()
+	private var	_core					=	Core.Database()
 	
 	
 	
@@ -157,35 +176,6 @@ public class Database
 	
 	
 	
-	///	Executes a single query within a transaction.
-	///	You always need a valid transaction context to call this method.
-	public func run(query q:QueryExpressive) -> StatementList.Execution {
-		return	run(query: q.express())
-	}
-	///	Executes a single query within a transaction.
-	///	You always need a valid transaction context to call this method.
-	public func run(query c:String) -> StatementList.Execution {
-		return	run(query: Query.Expression(code: c, parameters: []))
-	}
-	///	Executes a single query within a transaction.
-	///	You always need a valid transaction context to call this method.
-	public func run(query x:Query.Expression) -> StatementList.Execution {
-		assert(_core.autocommit == false)
-		
-		var	m	=	[String:Value]()
-		for mapping in x.parameters {
-			m[mapping.name]	=	mapping.value()
-		}
-		
-		Debug.log(x.code)
-		Debug.log(m)
-		
-		return	prepare(code: x.code).execute(parameters: m)
-	}
-	
-	
-	
-	
 	
 	
 	///	Get schema informations.
@@ -266,18 +256,6 @@ public class Database
 	}
 	
 	
-	///	Execute the query and captures snapshot of all values of resulting rows.
-	func snapshot(query x:Query.Expression) -> [[String:Value]] {
-		var	m	=	[] as [[String:Value]]
-		func tx() {
-			m	=	run(query: x).all()
-		}
-		apply(transaction: tx)
-		return	m
-	}
-	
-	
-	
 	
 	
 	
@@ -314,15 +292,18 @@ public class Database
 		precondition(_core.null == false)
 		precondition(_core.autocommit == true)
 		
-		execute(code: "BEGIN TRANSACTION;")
+//		execute(code: "BEGIN TRANSACTION;")
+		optimisation.commonStatementCache.beginTransaction()
 		assert(_core.autocommit == false)
 		
 		if let v = tx() {
-			execute(code: "COMMIT TRANSACTION;")
+//			execute(code: "COMMIT TRANSACTION;")
+			optimisation.commonStatementCache.commitTransaction()
 			assert(_core.autocommit == true)
 			return	v
 		} else {
-			execute(code: "ROLLBACK TRANSACTION;")
+//			execute(code: "ROLLBACK TRANSACTION;")
+			optimisation.commonStatementCache.rollbackTransaction()
 			assert(_core.autocommit == true)
 			return	nil
 		}
@@ -333,16 +314,16 @@ public class Database
 		precondition(_core.null == false)
 		precondition(_core.autocommit == false)
 		
-		execute(code: Query.Language.Syntax.SavepointStmt(name: Query.Identifier(name: n).description).description)
+		run(query: Query.Language.Syntax.SavepointStmt(name: Query.Identifier(name: n).description).description)
 		if let v = tx() {
-			execute(code: Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(name: n).description).description)
+			run(query: Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(name: n).description).description)
 			return	v
 		} else {
-			execute(code: Query.Language.Syntax.RollbackStmt(name: Query.Identifier(name: n).description).description)
+			run(query: Query.Language.Syntax.RollbackStmt(name: Query.Identifier(name: n).description).description)
 			return	nil
 		}
 	}
-//	private func execute(query x:QueryExpressive, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
+//	private func execute(query x:QueryExpressible, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
 //	{
 //		execute(query: x.express(), success: s, failure: f)
 //	}
@@ -359,10 +340,12 @@ public class Database
 //		execute(code: x.code, parameters: m, success: s, failure: f)
 //	}
 	
-	///	Just execute. Dumps away result.
-	private func execute(code c:String, parameters ps:ParameterList = ParameterList()) {
-		prepare(code: c).execute(parameters: ps).all()
-	}
+	
+	
+//	///	Just execute. Dumps away result.
+//	private func execute(code c:String, parameters ps:ParameterList = ParameterList()) {
+//		return	prepare(code: c).execute(parameters: ps).all()
+//	}
 	
 	
 	
@@ -388,24 +371,76 @@ public class Database
 //		_debugging_validation_state.spawnedStatements	+=	ss2.map {WeakReference($0)}
 		return	StatementList(ss2)
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension Database {
+	
+	///	Execute the query and captures snapshot of all values of resulting rows.
+	func snapshot(query x:Query.Expression) -> [[String:Value]] {
+		var	m	=	[] as [[String:Value]]
+		func tx() {
+			m	=	run(query: x)
+		}
+		apply(transaction: tx)
+		return	m
+	}
+	
+	
+	
+	///	Executes a single query.
+	///	You always need a valid transaction context to call this method.
+	public func run(query x:Query.Expression) -> [[String:Value]] {
+		assert(_core.autocommit == false)
+		
+		var	m	=	[String:Value]()
+		for mapping in x.parameters {
+			m[mapping.name]	=	mapping.value()
+		}
+		
+		Debug.log(x.code)
+		Debug.log(m)
+		
+		return	prepare(code: x.code).execute(parameters: m).all()
+	}
+	///	Executes a single query.
+	///	You always need a valid transaction context to call this method.
+	public func run(query q:QueryExpressible) -> [[String:Value]] {
+		return	run(query: q.express())
+	}
+	///	Executes a single query.
+	///	You always need a valid transaction context to call this method.
+	public func run(query c:String) -> [[String:Value]] {
+		return	run(query: Query.Expression(code: c, parameters: []))
+	}
+	//	public func run(query c:String) {
+	//		return	run(query: Query.Expression(code: c, parameters: []))
+	//	}
+	
+	
+	
+}
 
 
 

@@ -58,6 +58,7 @@ public final class StatementList {
 	}
 	deinit {
 	}
+	
 	public func execute(parameters ps:[String:Value]) -> Execution {
 		precondition(execution == nil || execution!.processingLock == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
 		
@@ -83,6 +84,7 @@ public final class StatementList {
 			m1	=	items[0]
 			g1			=	GeneratorOf<Statement>(items.generate())
 		}
+		
 		public func next() -> Row? {
 			processingLock	=	true
 //			precondition(processingLock == true, "This execution is not valid anymore.")
@@ -94,17 +96,21 @@ public final class StatementList {
 			if v2 == nil { processingLock = false }		//	It's finished if it's `nil` twice.
 			return	v2
 		}
+		
+		
 		///	Returns snapshot of all remaining rows at once.
-		public func rest() -> [[String:Value]] {
+		private func rest() -> [[String:Value]] {
 			var	m1	=	[] as [[String:Value]]
 			while let r1 = next() {
-				m1	+=	[snapshot(r1)]
+				m1	+=	[snapshotRow(r1)]
 			}
 			return	m1
 //			return	map(enumerate(self), { snapshot($1) })
 		}
 		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
-		///	Once started execution cannot be used.
+		///	Once started and unfinished execution cannot be used.
+		///	If you want to avoid collecting of all rows, then you have to iterate this
+		///	manually yourself.
 		public func all() -> [[String:Value]] {
 			precondition(processingLock == false, "You cannot call this method on once started execution.")
 			return	rest()
@@ -288,7 +294,7 @@ private struct RowReader : Row
 
 
 
-func snapshot(row:Row) -> [String:Value] {
+func snapshotRow(row:Row) -> [String:Value] {
 	var	m	=	[:] as [String:Value]
 	let	c	=	row.numberOfFields
 	for i in 0..<c {

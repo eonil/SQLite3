@@ -78,7 +78,7 @@ public extension Query {
 
 public extension Query.Schema.Table
 {
-	public struct Create : QueryExpressive, SubqueryExpressive
+	public struct Create : QueryExpressible, SubqueryExpressible
 	{
 		public let	temporary:Bool
 		public let	definition:Schema.Table
@@ -141,7 +141,7 @@ public extension Query.Schema.Table
 	
 	
 	
-	public struct Drop : QueryExpressive, SubqueryExpressive {
+	public struct Drop : QueryExpressible, SubqueryExpressible {
 		public let	name:Query.Identifier
 		public let	ifExists:Bool
 		
