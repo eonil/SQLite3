@@ -4,6 +4,8 @@ Hoon H., 2014/09/16
 
 
 
+**API IS BEING REPLACED. CURRENTLY DOCUMENTATION IS NOT CORRECT**
+
 
 
 This provides SQLite3 database access on Swift.
