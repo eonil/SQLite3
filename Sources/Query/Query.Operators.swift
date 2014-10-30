@@ -9,14 +9,14 @@
 import Foundation
 
 
-//public func +(left:Query.Expression, right:Query.Expression) -> Query.Expression {
-//	return	Query.Expression(code: left.code + right.code, parameters: left.parameters + right.parameters)
-//}
-public func +(left:Query.Expression?, right:Query.Expression?) -> Query.Expression {
-	let	l2	=	left == nil ? Query.Expression.empty : left!
-	let	r2	=	right == nil ? Query.Expression.empty : right!
-	return	l2 + r2
-//	return	right == nil ? left : (left + right!)
+public func +(left:Query.Expression, right:Query.Expression) -> Query.Expression {
+	return	Query.Expression(code: left.code + right.code, parameters: left.parameters + right.parameters)
+}
+public func +(left:Query.Expression, right:Query.Expression?) -> Query.Expression {
+//	let	l2	=	left == nil ? Query.Expression.empty : left!
+//	let	r2	=	right == nil ? Query.Expression.empty : right!
+//	return	l2 + r2
+	return	right == nil ? left : (left + right!)
 }
 public func +(left:Query.Expression, right:String) -> Query.Expression
 {

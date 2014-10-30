@@ -40,7 +40,9 @@ public class Database {
 			let	commitTransaction	=	{} as ()->()
 			let	rollbackTransaction	=	{} as ()->()
 		}
-		let	commonStatementCache:CommonStatementCache
+		let	commonStatementCache	=	CommonStatementCache()
+		init() {
+		}
 		init(_ prepare:(cmd:String)->StatementList) {
 			func make1(cmd:String) -> ()->() {
 				let	stmts1	=	prepare(cmd: cmd)
@@ -130,6 +132,7 @@ public class Database {
 	{
 		precondition(_core.null == false)
 		
+		optimisation	=	Optimisation()
 		_core.close()
 		
 		assert(_core.null == true)
@@ -292,17 +295,17 @@ public class Database {
 		precondition(_core.null == false)
 		precondition(_core.autocommit == true)
 		
-//		execute(code: "BEGIN TRANSACTION;")
+//		prepare(code: "BEGIN TRANSACTION;").execute(parameters: [:]).all()
 		optimisation.commonStatementCache.beginTransaction()
 		assert(_core.autocommit == false)
 		
 		if let v = tx() {
-//			execute(code: "COMMIT TRANSACTION;")
+//			prepare(code: "COMMIT TRANSACTION;").execute(parameters: [:]).all()
 			optimisation.commonStatementCache.commitTransaction()
 			assert(_core.autocommit == true)
 			return	v
 		} else {
-//			execute(code: "ROLLBACK TRANSACTION;")
+//			prepare(code: "ROLLBACK TRANSACTION;").execute(parameters: [:]).all()
 			optimisation.commonStatementCache.rollbackTransaction()
 			assert(_core.autocommit == true)
 			return	nil
@@ -323,36 +326,13 @@ public class Database {
 			return	nil
 		}
 	}
-//	private func execute(query x:QueryExpressible, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
-//	{
-//		execute(query: x.express(), success: s, failure: f)
-//	}
-//	private func execute(query x:Query.Expression, success s:SuccessHandler=Default.Handler.success, failure f:FailureHandler=Default.Handler.failure)
-//	{
-//		var	m	=	[String:Value]()
-//		for mapping in x.parameters
-//		{
-//			m[mapping.name]	=	mapping.value
-//		}
-//		
-//		Debug.log(x.code)
-//		Debug.log(m)
-//		execute(code: x.code, parameters: m, success: s, failure: f)
-//	}
-	
-	
-	
-//	///	Just execute. Dumps away result.
-//	private func execute(code c:String, parameters ps:ParameterList = ParameterList()) {
-//		return	prepare(code: c).execute(parameters: ps).all()
-//	}
 	
 	
 	
 	
 	///	Produces prepared statements.
 	///	You need to bound parameters to execute them.
-	
+	///
 	///	It is caller's responsibility to execute prepared statement to apply
 	///	commands in the code.
 	///
@@ -368,7 +348,6 @@ public class Database {
 		}
 		
 		let	ss2	=	ss1.map { Statement(database: self, core: $0) }	//		({ (n:Core.Statement) -> Statement in return Statement(database: self, core: n )})
-//		_debugging_validation_state.spawnedStatements	+=	ss2.map {WeakReference($0)}
 		return	StatementList(ss2)
 	}
 }

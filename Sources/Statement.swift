@@ -29,7 +29,7 @@ public protocol Row {
 ///	there's only one iteration context can be exist at once. It
 ///	is impossible to create multiple context from a statement.
 public final class Statement {
-	let	database:Database
+	unowned let	database:Database
 	
 	private let	_core:Core.Statement
 	private var	_exec:Bool				///<	Has been executed at least once.

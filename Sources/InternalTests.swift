@@ -34,11 +34,10 @@ public struct Test1
 		typealias	CL	=	Q.ColumnList
 		
 		
-//		class
-//		counter
-//		{
-//			var	number	=	0
-//		}
+		
+		
+		
+		
 		
 		var	pc		=	0
 		let	upng	=	{ () -> String in return "@param\(pc++)" }
@@ -55,7 +54,6 @@ public struct Test1
 			println(s.code, s.parameters)
 			
 			}
-		
 		
 		run	{
 			
@@ -103,15 +101,7 @@ public struct Test1
 			
 			}
 		
-//		run	{
-//			
-//			let	db1	=	Database(location: Database.Location.Memory)
-//			db1.apply({ x in
-//				x.run(code: "SELECT * FROM MyTable;")
-//				return
-//			})
-//			
-//		}
+
 		
 		
 
@@ -125,13 +115,17 @@ public struct Test1
 					s.step()
 					assert(s.row().numberOfFields == 1)
 					println(s.row().columnNameOfField(atIndex: 0))
-//					assert(s.row().columnNameOfField(atIndex: 0) == nil)
 					assert(s.row()[0] == "AAA")
 					s.step()
 					assert(s.row().numberOfFields == 0)
 				}
 			})
 		}
+		
+		println(Core.LeakDetector.theDetector.countAllInstances())
+		shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 0)
+		
+		
 		
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
@@ -380,7 +374,7 @@ public struct Test1
 			}
 		
 			db1.apply(run)
-			shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 1)
+			shouldBe(Core.LeakDetector.theDetector.countAllInstances() > 0)
 		}
 		
 		shouldBe(Core.LeakDetector.theDetector.countAllInstances() == 0)

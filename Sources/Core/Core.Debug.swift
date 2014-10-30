@@ -8,39 +8,31 @@
 
 import Foundation
 
-extension Core
-{
-	static func log<T>(object:@autoclosure()->T)
-	{
-		if Debug.mode && Debug.useCoreLogging
-		{
+extension Core {
+	static func log<T>(object:@autoclosure()->T) {
+		if Debug.mode && Debug.useCoreLogging {
 			println(object())
 		}
 	}
 
-	struct LeakDetector
-	{
-		enum TargetObjectType
-		{
+	struct LeakDetector {
+		
+		enum TargetObjectType {
 			case db
 			case stmt
 		}
 
 		static var theDetector	=	LeakDetector()
 		
-		mutating func registerInstance(inst:COpaquePointer, of type:TargetObjectType)
-		{
-			if Debug.mode
-			{
+		mutating func registerInstance(inst:COpaquePointer, of type:TargetObjectType) {
+			if Debug.mode {
 				precondition(inst != COpaquePointer.null())
 				precondition(find(instanceListForType[type]!, inst) == nil)
 				instanceListForType[type]!.append(inst)
 			}
 		}
-		mutating func unregisterInstance(inst:COpaquePointer, of type:TargetObjectType)
-		{
-			if Debug.mode
-			{
+		mutating func unregisterInstance(inst:COpaquePointer, of type:TargetObjectType) {
+			if Debug.mode {
 				precondition(inst != COpaquePointer.null())
 				let	idx	=	find(instanceListForType[type]!, inst)
 				
@@ -48,29 +40,23 @@ extension Core
 				instanceListForType[type]!.removeAtIndex(idx!)
 			}
 		}
-		var allInstancesByTypes:Dictionary<TargetObjectType,[COpaquePointer]>
-		{
-			get
-			{
+		var allInstancesByTypes:Dictionary<TargetObjectType,[COpaquePointer]> {
+			get {
 				return	instanceListForType
 			}
 		}
-		func countAllInstances() -> Int
-		{
-			if Debug.mode
-			{
+		func countAllInstances() -> Int {
+			if Debug.mode {
 				let	a1	=	map(instanceListForType.values, { (v:[COpaquePointer]) -> (Int) in return v.count })
 				let	a2	=	reduce(a1, 0, +)
 				return	a2
 			}
-			else
-			{
+			else {
 				Core.Common.crash(message: "Unsupported feature on RELEASE build.")
 			}
 		}
 		
-		private var instanceListForType	=
-		[
+		private var instanceListForType = [
 			TargetObjectType.db:	[COpaquePointer](),
 			TargetObjectType.stmt:	[COpaquePointer](),
 		]
