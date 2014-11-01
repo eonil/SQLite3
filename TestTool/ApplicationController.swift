@@ -9,7 +9,7 @@
 import UIKit
 import EonilSQLite3
 
-func main(argc:Int32, argv:UnsafeMutablePointer<UnsafeMutablePointer<Int8>>) -> Int32
+func main(argc:Int32, argv:UnsafeMutablePointer<UnsafeMutablePointer<Int8>>>>) -> Int32
 {
 	return	UIApplicationMain(argc, argv, nil, "ApplicationController")
 }

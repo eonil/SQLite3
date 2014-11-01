@@ -36,7 +36,7 @@ public struct Query {
 	
 
 	///	Represents a fragment of a query.
-	public struct Expression : StringLiteralConvertible {
+	public struct Expression {
 		let	code		=	""
 		let	parameters	=	[] as [ParameterValueEvaluation]
 		
@@ -53,15 +53,15 @@ public struct Query {
 		}
 		
 		
-		public init(stringLiteral value: String) {
-			self	=	Expression(code: value, parameters: [])
-		}
-		public init(extendedGraphemeClusterLiteral value: String) {
-			self	=	Expression(code: value, parameters: [])
-		}
-		public init(unicodeScalarLiteral value: String) {
-			self	=	Expression(code: value, parameters: [])
-		}
+//		public init(stringLiteral value: String) {
+//			self	=	Expression(code: value, parameters: [])
+//		}
+//		public init(extendedGraphemeClusterLiteral value: String) {
+//			self	=	Expression(code: value, parameters: [])
+//		}
+//		public init(unicodeScalarLiteral value: String) {
+//			self	=	Expression(code: value, parameters: [])
+//		}
 		
 		////
 		
@@ -74,8 +74,11 @@ public struct Query {
 			return	Expression(code: qs2, parameters: values)
 		}
 		static func concatenation(#separator:Expression, components:[Expression]) -> Expression {
+			func add(left:Expression, right:Expression) -> Expression {
+				return	Expression(code: left.code + right.code, parameters: left.parameters + right.parameters)
+			}
 			func add_with_sep(left:Expression, right:Expression) -> Expression {
-				return	[left, separator, right] >> concat
+				return	add(add(left, separator), right)
 			}
 			
 			switch components.count {
@@ -163,7 +166,7 @@ public struct Query {
 		
 		///	Makes `col1 = @param1` style expression.
 		public func express() -> Query.Expression {
-			return	[column.express(), Expression("="), Expression(code: "?", parameters: [value])] >> concat
+			return	[column.express(), Expression("="), Expression(code: "?", parameters: [value])] >>>> concat
 		}
 		
 		init(column:Identifier, value:ParameterValueEvaluation) {
@@ -251,10 +254,10 @@ public struct Query {
 			public func express() -> Query.Expression {
 				switch self {
 				case let Leaf(operation: op, column: col, value: val):
-					return	[col.express(), op.express(), Expression(code: "?", parameters: [val])] >> concat
+					return	[col.express(), op.express(), Expression(code: "?", parameters: [val])] >>>> concat
 				
 				case let Branch(combination: comb, subnodes: ns):
-					let	x1	=	[Expression(" "), comb.express(), Expression(" ")] >> concat
+					let	x1	=	[Expression(" "), comb.express(), Expression(" ")] >>>> concat
 					return	Expression.concatenation(separator: x1, components: ns.map {$0.express()})
 				}
 			}

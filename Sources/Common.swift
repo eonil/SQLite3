@@ -42,23 +42,23 @@ func collect <T:GeneratorType> (g:T) -> [T.Element] {
 ///	MARK:
 ///	MARK:	Operators
 
-infix operator >> {
+infix operator >>>> {
 
 }
-infix operator >>? {
+//infix operator >>>>? {
+//
+//}
+//infix operator >>>>! {
+//
+//}
 
-}
-infix operator >>! {
-
-}
-
-func >> <T,U> (value:T, function:T->U) -> U {
+func >>>> <T,U> (value:T, function:T->U) -> U {
 	return	function(value)
 }
-func >>? <T,U> (value:T?, function:T->U) -> U? {
-	return	value == nil ? nil : function(value!)
-}
-//func >>! <T,U> (value:T!, function:T->U) -> U {
+//func >>>>? <T,U> (value:T?, function:T->U) -> U? {
+//	return	value == nil ? nil : function(value!)
+//}
+//func >>>>! <T,U> (value:T!, function:T->U) -> U {
 //	precondition(value != nil, "Supplied value `T` shouldn't be `nil`.")
 //	return	function(value!)
 //}

@@ -120,11 +120,11 @@ extension Statement {
 		///	If you want to avoid collecting of all rows, then you have to iterate this
 		///	manually yourself.
 		public func allRows() -> [[(String,Value)]] {
-			return	GeneratorOf<[(String,Value)]> { [unowned self] in self.step()?.allColumns() } >> collect
+			return	GeneratorOf<[(String,Value)]> { [unowned self] in self.step()?.allColumns() } >>>> collect
 		}
 		
 		public func allRowValues() -> [[Value]] {
-			return	GeneratorOf<[Value]> { [unowned self] in self.step()?.allColumnValues() } >> collect
+			return	GeneratorOf<[Value]> { [unowned self] in self.step()?.allColumnValues() } >>>> collect
 		}
 		
 		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
@@ -132,7 +132,7 @@ extension Statement {
 		///	If you want to avoid collecting of all rows, then you have to iterate this
 		///	manually yourself.
 		public func allRowsAsDictionaries() -> [[String:Value]] {
-			return	GeneratorOf<[String:Value]> { [unowned self] in self.step()?.allColumnsAsDictionary() } >> collect
+			return	GeneratorOf<[String:Value]> { [unowned self] in self.step()?.allColumnsAsDictionary() } >>>> collect
 		}
 	}
 }
@@ -196,7 +196,7 @@ extension Statement {
 	///	0-based indexing.
 	subscript(index:Int) -> Value {
 		get {
-			return	index >> columnValueAtIndex
+			return	index >>>> columnValueAtIndex
 		}
 	}
 	subscript(column:String) -> Value? {
@@ -419,22 +419,22 @@ private struct StatementExecutionRowProxy: Row {
 	
 	///	Available only while the execution is not done yet.
 	func allColumnNames() -> [String] {
-		return	statement >> snapshotFieldNamesOfRow
+		return	statement >>>> snapshotFieldNamesOfRow
 	}
 	
 	///	Available only while the execution is not done yet.
 	func allColumnValues() -> [Value] {
-		return	statement >> snapshotFieldValuesOfRow
+		return	statement >>>> snapshotFieldValuesOfRow
 	}
 	
 	///	Available only while the execution is not done yet.
 	func allColumns() -> [(String,Value)] {
-		return	statement >> snapshotFieldNamesAndValuesOfRow
+		return	statement >>>> snapshotFieldNamesAndValuesOfRow
 	}
 	
 	///	Available only while the execution is not done yet.
 	func allColumnsAsDictionary() -> [String:Value] {
-		return	statement >> snapshotRowAsDictionary
+		return	statement >>>> snapshotRowAsDictionary
 	}
 	
 }

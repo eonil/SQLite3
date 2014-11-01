@@ -341,7 +341,7 @@ private final class CallbackProxy: Eonil____SQLite3____Bridge____CallbackProxy {
 			return	flag ? SQLITE_OK : SQLITE_DENY
 		}
 		
-		return	resolve()(databaseName: argA >> stringify, tableName: argB >> stringify) >> codify
+		return	resolve()(databaseName: argA >>>> stringify, tableName: argB >>>> stringify) >>>> codify
 	}
 }
 

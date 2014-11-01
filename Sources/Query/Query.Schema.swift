@@ -79,12 +79,12 @@ public extension Query.Schema.Table {
 			let	ss2	=	join(", ", ss1)
 			
 			return	[
-				expr("CREATE"),
+				expr("CREATE "),
 				expr((temporary ? "TEMPORARY " : "")),
-				expr("TABLE"),
+				expr("TABLE "),
 				Query.Expression(code: definition.name, parameters: []),
 				expr("(\(ss2))"),
-			] >> concat
+			] >>>> concat
 		}
 	}
 
@@ -98,10 +98,10 @@ public extension Query.Schema.Table {
 		
 		public func express() -> Query.Expression {
 			return	[
-				expr("DROP TABLE"),
+				expr("DROP TABLE "),
 				expr((ifExists ? " IF EXISTS " : " ")),
 				name.express(),
-			] >> concat
+			] >>>> concat
 		}
 	}
 }

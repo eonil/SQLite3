@@ -104,7 +104,7 @@ extension Database {
 	func snapshot(query q:QueryExpressible) -> [[String:Value]] {
 		return
 			apply { [unowned self] in
-				return	q >> self.run
+				return	q >>>> self.run
 		}
 	}
 	

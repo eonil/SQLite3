@@ -40,7 +40,7 @@ public extension Query
 				expr(" "),
 				Expression(code: (filter == nil ? "" : "WHERE "), parameters: []),
 				x1,
-			] >> concat
+			] >>>> concat
 		}
 	}
 	
@@ -65,8 +65,8 @@ public extension Query
 				vs.append(v.value)
 			}
 			
-			let	cols	=	Expression.concatenation(separator: ", ", components: ns)		///<	`col1, col2, col3, ...`
-			let	params	=	Expression.ofParameterList(vs)									///<	`?, ?, ?, ...`
+			let	cols	=	Expression.concatenation(separator: expr(", "), components: ns)		///<	`col1, col2, col3, ...`
+			let	params	=	Expression.ofParameterList(vs)										///<	`?, ?, ?, ...`
 			
 			return	[
 				expr("INSERT INTO"),
@@ -78,7 +78,7 @@ public extension Query
 				expr("("),
 				params,
 				expr(")"),
-			] >> concat
+			] >>>> concat
 		}
 	}
 	
@@ -96,7 +96,7 @@ public extension Query
 		public func express() -> Query.Expression
 		{
 			let	bs2	=	bindings.map({ u in return u.express() }) as [Query.Expression]
-			let	bs3	=	Expression.concatenation(separator: ", ", components: bs2)
+			let	bs3	=	Expression.concatenation(separator: expr(", "), components: bs2)
 
 			Debug.log(bs2[0].code)
 			Debug.log(bs2[0].parameters)
@@ -108,7 +108,7 @@ public extension Query
 				bs3,
 				expr(" WHERE "),
 				(filter == nil ? expr("") : filter!.express()),
-			] >> concat
+			] >>>> concat
 		}
 	}
 	
@@ -128,7 +128,7 @@ public extension Query
 				table.express(),
 				expr(" WHERE"),
 				filter.express(),
-			] >> concat
+			] >>>> concat
 		}
 	}
 
