@@ -9,8 +9,27 @@
 import Foundation
 
 
-
-
+private struct Info {
+	unowned
+	let	database:Database
+	
+	let	name:String
+	
+	let	keyColumnIndexes:[Int]
+	let	dataColumnIndexes:[Int]
+	let	keyColumnNames:[String]
+	let	dataColumnNames:[String]
+	
+	init(database:Database, name:String) {
+		self.database	=	database
+		self.name		=	name
+		
+		keyColumnIndexes	=	Internals.TableInfo.fetch(database, tableName: name).keyColumns().map {Int($0.cid)}
+		dataColumnIndexes	=	Internals.TableInfo.fetch(database, tableName: name).dataColumns().map {Int($0.cid)}
+		keyColumnNames		=	Internals.TableInfo.fetch(database, tableName: name).keyColumns().map {$0.name}
+		dataColumnNames		=	Internals.TableInfo.fetch(database, tableName: name).dataColumns().map {$0.name}
+	}
+}
 
 
 
@@ -20,49 +39,86 @@ import Foundation
 ///	new table object. Querying on altered table using old table object can cause
 ///	various problems.
 public class Table {
-	unowned let	database:Database
-	let			name:String
+	private let	info:Info
+	
+	let	selectRow:(keys:[Value])->[Value]?
+	let	insertRow:(keys:[Value],values:[Value])->()
+	let	deleteRow:(keys:[Value])->()
 	
 	init(database:Database, table:String) {
-		self.database		=	database
-		self.name			=	table
+		info	=	Info(database: database, name: table)
 		
-		self.database.notifyBornOfTableForName(self.name)
+		self.selectRow		=	CommandMaker.makeSelectRowCommand(info)
+		self.insertRow		=	CommandMaker.makeInsertRowCommand(info)
+		self.deleteRow		=	CommandMaker.makeDeleteRowCommand(info)
+		
+		self.info.database.notifyBornOfTableForName(info.name)
 	}
 	deinit {
-		self.database.notifyDeathOfTableForName(self.name)
+		self.info.database.notifyDeathOfTableForName(info.name)
 	}
-	
-	///	0 based indexes.
-	var keyColumnIndexes:[Int] {
-		get {
-			return	_kidxs
-		}
-	}
-	///	0 based indexes.
-	var dataColumnIndexes:[Int] {
-		get {
-			return	_didxs
-		}
-	}
-	var keyColumnNames:[String] {
-		get {
-			return	_kcns
-		}
-	}
-	var dataColumnNames:[String] {
-		get {
-			return	_dcns
-		}
-	}
-	
-	private lazy var _kidxs:[Int]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).keyColumns().map {Int($0.cid)}
-	private lazy var _didxs:[Int]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).dataColumns().map {Int($0.cid)}
-	
-	private lazy var _kcns:[String]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).keyColumns().map {$0.name}
-	private lazy var _dcns:[String]	=	Internals.TableInfo.fetch(self.database, tableName: self.name).dataColumns().map {$0.name}
 }
 
+
+
+
+
+extension Table {
+	struct CommandMaker {
+		private static func makeSelectRowCommand(table:Info) -> (keys:[Value])->[Value]? {
+			return	{ (keys:[Value])->[Value]? in
+				let	bs	=	combine(table.keyColumnNames, keys)
+				let	dcs	=	table.dataColumnNames.map {Query.Identifier($0)}
+				let	t	=	filterTreeWith(samples: bs, combinationStyle: Query.FilterTree.Node.Combination.And)
+				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
+				switch q.columns {
+				case let Query.ColumnList.All:		println("ALL")
+				case let Query.ColumnList.Items(s):	println(s)
+				}
+				println(q.columns)
+				
+				return	table.database.apply {
+					let	x	=	table.database.prepare(q.express().code).execute(parameters: keys)
+					let r = x.next()
+					assert(r != nil)
+					let	fs	=	scanAllFieldValues(r!)
+					let r2 = x.next()
+					assert(r2 == nil)
+					return	fs
+				}
+			}
+		}
+		
+		private static func makeInsertRowCommand(table:Info) -> (keys:[Value], values:[Value])->() {
+			let	kcns	=	table.keyColumnNames
+			let	dcns	=	table.dataColumnNames
+			return	{ (keys:[Value], values:[Value])->() in
+				
+				table.database.apply {
+					let	kbs	=	Query.Binding.bind(kcns, values: keys)
+					let	dbs	=	Query.Binding.bind(dcns, values: values)
+					let	q	=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
+					let	rs	=	table.database.run(q)
+					assert(rs.count == 0)
+				}
+			}
+		}
+		private static func makeDeleteRowCommand(table:Info) -> (keys:[Value])->() {
+			let	kcns	=	table.keyColumnNames
+			let	dcns	=	table.dataColumnNames
+			return	{ (keys:[Value])->() in
+				table.database.apply {
+					let	bs	=	combine(kcns, keys)
+					let	f	=	filterTreeWith(samples: bs, combinationStyle: Query.FilterTree.Node.Combination.And)
+					let	q	=	Query.Delete(table: Query.Identifier(table.name), filter: f)
+					let	rs	=	table.database.run(q)
+					assert(rs.count == 0)
+				}
+			}
+		}
+	}
+	
+}
 
 
 
@@ -71,16 +127,16 @@ public class Table {
 extension Table: SequenceType {
 
 	public func generate() -> GeneratorOf<Record> {
-		let	q	=	Query.Select(table: Query.Identifier(self.name), columns: Query.ColumnList.All, filter: nil)
-		let	ss	=	database.prepare(q.express().code)
+		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
+		let	ss	=	info.database.prepare(q.express().code)
 		assert(ss.items.count == 1)
 		let	s	=	ss.items[0]
 		
 		func next() -> Record? {
 			if s.step() {
 				let	r	=	s.row()
-				let	kvs	=	keyColumnIndexes.map {r[$0]}
-				let	dvs	=	dataColumnIndexes.map {r[$0]}
+				let	kvs	=	info.keyColumnIndexes.map {r[$0]}
+				let	dvs	=	info.dataColumnIndexes.map {r[$0]}
 				return	Record(table: self, keys: kvs, data: dvs)
 			} else {
 				return	nil
@@ -89,15 +145,15 @@ extension Table: SequenceType {
 		return	GeneratorOf<Record>(next)
 	}
 	
-	///	Selects all rows.
-	public func all() -> [[String:Value]] {
-		let	q	=	Query.Select(table: Query.Identifier(self.name), columns: Query.ColumnList.All, filter: nil)
-		return	snapshot(query: q)
-	}
+//	///	Selects all rows.
+//	public func all() -> [[String:Value]] {
+//		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
+//		return	snapshot(query: q)
+//	}
 	
 	public var count:Int {
 		get {
-			let	rs	=	database.prepare("SELECT count(*) FROM \(Query.Identifier(self.name).express().code)").execute(parameters: []).all()
+			let	rs	=	info.database.prepare("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute(parameters: []).all()
 			assert(rs.count == 0)
 			assert(rs[0].count == 1)
 			let	r	=	rs[0]
@@ -110,67 +166,30 @@ extension Table: SequenceType {
 	///	:id:	Key colum values. Must be ordered correctly.
 	public subscript(id:[Value]) -> Record? {
 		get {
-			let	bs	=	combine(keyColumnNames, id)
-			let	dcs	=	dataColumnNames.map {Query.Identifier($0)}
-			let	t	=	filterTreeWith(samples: bs, combinationStyle: Query.FilterTree.Node.Combination.And)
-			let	q	=	Query.Select(table: Query.Identifier(self.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
-			switch q.columns {
-			case let Query.ColumnList.All:		println("ALL")
-			case let Query.ColumnList.Items(s):	println(s)
-			}
-			println(q.columns)
-			let	fs	=	database.apply {
-				let	x	=	self.database.prepare(q.express().code).execute(parameters: id)
-				let r = x.next()
-				assert(r != nil)
-				let	fs	=	scanAllFieldValues(r!)
-				let r2 = x.next()
-				assert(r2 == nil)
-				return	fs
-			} as [Value]
-			return	Record(table: self, keys: id, data: fs)
+			let	fs	=	self.selectRow(keys: id)
+			return	fs == nil ? nil : Record(table: self, keys: id, data: fs!)
 		}
 		set(v) {
-			let	kcns	=	keyColumnNames
-			let	dcns	=	dataColumnNames
-			
-			database.apply {
-				
-				let	bs	=	combine(kcns, id)
-				let	q	=	Query.Delete(table: Query.Identifier(self.name), filter: self.filterTreeWith(samples: bs, combinationStyle: Query.FilterTree.Node.Combination.And))
-				let	rs	=	self.snapshot(query: q)
-				assert(rs.count == 0)
-				
-				////
-				
-				if let v2 = v {
-					precondition(v!.table === self, "You're setting a record from another table object. Don't.")
-					
-					let	kbs	=	Query.Binding.bind(kcns, values: id)
-					let	dbs	=	Query.Binding.bind(dcns, values: v2.data)
-					let	q	=	Query.Insert(table: Query.Identifier(self.name), bindings: kbs+dbs)
-					let	rs	=	self.snapshot(query: q)
-					assert(rs.count == 0)
-					assert(self[id] != nil)
-				} else {
-					assert(self[id] == nil)
-				}
-
+			self.deleteRow(keys: id)
+			if let v2 = v {
+				self.insertRow(keys: id, values: v2.data)
 			}
-			
 		}
 	}
 	
-	///	:id:	Key column value.
-	public subscript(id:Value) -> Record? {
+	public subscript(id:Value) -> [Value]? {
 		get {
-			return	self[[id]]
+			return	self.selectRow(keys: [id])
 		}
 		set(v) {
-			self[[id]]	=	v
+			self.deleteRow(keys: [id])
+			if let v2 = v {
+				self.insertRow(keys: [id], values: v2)
+			}
 		}
 	}
-	public subscript(id:Int) -> Record? {
+	
+	public subscript(id:Int) -> [Value]? {
 		get {
 			return	self[Value(Int64(id))]
 		}
@@ -178,7 +197,7 @@ extension Table: SequenceType {
 			self[Value(Int64(id))]	=	v
 		}
 	}
-	public subscript(id:Int64) -> Record? {
+	public subscript(id:Int64) -> [Value]? {
 		get {
 			return	self[Value(id)]
 		}
@@ -186,7 +205,7 @@ extension Table: SequenceType {
 			self[Value(id)]	=	v
 		}
 	}
-	public subscript(id:String) -> Record? {
+	public subscript(id:String) -> [Value]? {
 		get {
 			return	self[Value(id)]
 		}
@@ -194,6 +213,11 @@ extension Table: SequenceType {
 			self[Value(id)]	=	v
 		}
 	}
+	
+//	public func filter(f:Query.FilterTree) -> Selection {
+//		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: t)
+//		return	snapshot(q)
+//	}
 }
 
 
@@ -216,23 +240,21 @@ extension Table {
 //		return	cacheableSelect(rowsWithAllOfColumns: ss.keys)(parameters: ss.values)
 		
 		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.And)
-		let	q	=	Query.Select(table: Query.Identifier(name), columns: Query.ColumnList.All, filter: t)
+		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: t)
 		return	snapshot(query: q)
 	}
 	public func select(rowsWithAnyOf pairs:[String:Value]) -> [[String:Value]] {
 //		let	ss	=	splitPairs(pairs)
 //		return	cacheableSelect(rowsWithAnyOfColumns: ss.keys)(parameters: ss.values)
 		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
-		let	q	=	Query.Select(table: Query.Identifier(name), columns: Query.ColumnList.All, filter: t)
+		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: t)
 		return	snapshot(query: q)
 	}
 	///	Selects all rows.
 	public func select() -> [[String:Value]] {
-		let	q	=	Query.Select(table: Query.Identifier(name), columns: Query.ColumnList.All, filter: nil)
+		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
 		return	snapshot(query: q)
 	}
-	
-	
 	
 	
 	
@@ -244,7 +266,7 @@ extension Table {
 		{
 			bs.append(Query.Binding(column: c, value: v))
 		}
-		let	q	=	Query.Insert(table: Query.Identifier(name), bindings: bs)
+		let	q	=	Query.Insert(table: Query.Identifier(info.name), bindings: bs)
 		snapshot(query: q)
 	}
 	///	Performs multiple inserts.
@@ -267,13 +289,13 @@ extension Table {
 	public func update(rowsWithAllOf existingPairs:[String:Value], bySetting newPairs:[String:Value])
 	{
 		let	t	=	filterTreeWith(samples: existingPairs, combinationStyle: Query.FilterTree.Node.Combination.And)
-		let	q	=	Query.Update(table: Query.Identifier(name), bindings: bindingsOf(paris: newPairs), filter: t)
+		let	q	=	Query.Update(table: Query.Identifier(info.name), bindings: bindingsOf(paris: newPairs), filter: t)
 		snapshot(query: q)
 	}
 	public func update(rowsWithAnyOf existingPairs:[String:Value], bySetting newPairs:[String:Value])
 	{
 		let	t	=	filterTreeWith(samples: existingPairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
-		let	q	=	Query.Update(table: Query.Identifier(name), bindings: bindingsOf(paris: newPairs), filter: t)
+		let	q	=	Query.Update(table: Query.Identifier(info.name), bindings: bindingsOf(paris: newPairs), filter: t)
 		snapshot(query: q)
 	}
 	
@@ -286,13 +308,13 @@ extension Table {
 	public func delete(rowsWithAllOf pairs:[String:Value])
 	{
 		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.And)
-		let	q	=	Query.Delete(table: Query.Identifier(name), filter: t)
+		let	q	=	Query.Delete(table: Query.Identifier(info.name), filter: t)
 		snapshot(query: q)
 	}
 	public func delete(rowsWithAnyOf pairs:[String:Value])
 	{
 		let	t	=	filterTreeWith(samples: pairs, combinationStyle: Query.FilterTree.Node.Combination.Or)
-		let	q	=	Query.Delete(table: Query.Identifier(name), filter: t)
+		let	q	=	Query.Delete(table: Query.Identifier(info.name), filter: t)
 		snapshot(query: q)
 	}
 	
@@ -306,8 +328,8 @@ extension Table {
 	
 	func snapshot(query q:QueryExpressible) -> [[String:Value]] {
 		return
-			database.apply {
-				return	q >> self.database.run
+			info.database.apply { [unowned self] in
+				return	q >> self.info.database.run
 			}
 	}
 		
@@ -320,19 +342,6 @@ extension Table {
 		return	bs
 	}
 	
-	func filterTreeWith(samples ss:[(column:Query.Identifier, value:Query.ParameterValueEvaluation)], combinationStyle cs:Query.FilterTree.Node.Combination) -> Query.FilterTree {
-		var	ns	=	[] as [Query.FilterTree.Node]
-		for (c, v) in ss {
-			ns.append(Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: c, value: v))
-		}
-		let	n	=	Query.FilterTree.Node.Branch(combination: cs, subnodes: ns)
-		let	t	=	Query.FilterTree(root: n)
-		return	t
-	}
-	
-	func filterTreeWith(samples ss:[String:Value], combinationStyle cs:Query.FilterTree.Node.Combination) -> Query.FilterTree {
-		return	filterTreeWith(samples: devaluate(ss), combinationStyle: cs)
-	}
 }
 
 
@@ -372,14 +381,14 @@ public extension Table {
 	private func selection(mode m:Query.FilterTree.Node.Combination, filterColumns cs:[String]) -> (constraintValues:[Value]) -> [[String:Value]] {
 		let	cs2		=	parameterMappings(cs)
 		let	t		=	filterTreeWith(samples: cs2, combinationStyle: m)
-		let	q		=	Query.Select(table: Query.Identifier(name), columns: Query.ColumnList.All, filter: t)
+		let	q		=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: t)
 		let	x		=	q.express()
-		let	stmts	=	database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
+		let	stmts	=	info.database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
 		let	cc		=	cs.count
 		
 		return	{ (parameters:[Value]) -> [[String:Value]] in
 			precondition(cc == parameters.count, "Parameter count doesn't match.")
-			return	self.database.apply {
+			return	self.info.database.apply {
 				stmts.execute(parameters: parameters).all()
 			}
 		}
@@ -396,13 +405,13 @@ public extension Table {
 	public func insertion(columns cs:[String]) -> (values:[[Value]]) -> () {
 		let	cs2		=	parameterMappings(cs)
 		let	bs		=	cs2.map { Query.Binding($0) }
-		let	q		=	Query.Insert(table: Query.Identifier(self.name), bindings: bs)
+		let	q		=	Query.Insert(table: Query.Identifier(info.name), bindings: bs)
 		let	x		=	q.express()
-		let	stmts	=	database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
+		let	stmts	=	info.database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
 		let	cc		=	cs.count
 		
 		return	{ (vss:[[Value]])->() in
-			self.database.apply {
+			self.info.database.apply {
 				precondition(stmts.items.count == 1)
 				let	stmt1	=	stmts.items[0]
 				for vs1 in vss {
@@ -461,6 +470,20 @@ private func scanAllFieldValues(r:Row) -> [Value] {
 
 
 
+
+private func filterTreeWith(samples ss:[(column:Query.Identifier, value:Query.ParameterValueEvaluation)], combinationStyle cs:Query.FilterTree.Node.Combination) -> Query.FilterTree {
+	var	ns	=	[] as [Query.FilterTree.Node]
+	for (c, v) in ss {
+		ns.append(Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: c, value: v))
+	}
+	let	n	=	Query.FilterTree.Node.Branch(combination: cs, subnodes: ns)
+	let	t	=	Query.FilterTree(root: n)
+	return	t
+}
+
+private func filterTreeWith(samples ss:[String:Value], combinationStyle cs:Query.FilterTree.Node.Combination) -> Query.FilterTree {
+	return	filterTreeWith(samples: devaluate(ss), combinationStyle: cs)
+}
 
 
 

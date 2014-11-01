@@ -17,7 +17,7 @@ extension Internals {
 	struct TableInfo {
 		let	columns:[ColumnInfo]
 		
-		func allColumnNames() -> [String] {
+		func allkeyColumnNames() -> [String] {
 			return	columns.map {$0.name}
 		}
 		func keyColumns() -> [ColumnInfo] {

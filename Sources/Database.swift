@@ -57,7 +57,7 @@ public class Database {
 		let	commonStatementCache	=	CommonStatementCache()
 		init() {
 		}
-		init(_ prepare:(cmd:String)->StatementList) {
+		init(_ prepare:(cmd:String)->Program) {
 			func make1(cmd:String) -> ()->() {
 				let	stmts1	=	prepare(cmd: cmd)
 				return	{
@@ -148,7 +148,7 @@ public class Database {
 	///
 	///	Produced statements will be invalidated when this database object
 	///	deinitialises.
-	public func prepare(code:String) -> StatementList {
+	public func prepare(code:String) -> Program {
 		let	(ss1, tail)	=	_core.prepare(code)
 		
 		if tail != "" {
@@ -156,7 +156,7 @@ public class Database {
 		}
 		
 		let	ss2	=	ss1.map { Statement(database: self, core: $0) }	//		({ (n:Core.Statement) -> Statement in return Statement(database: self, core: n )})
-		return	StatementList(ss2)
+		return	Program(ss2)
 	}
 	
 	
@@ -235,7 +235,8 @@ public class Database {
 	
 	///	Run an atomic transaction which always commits.
 	private func performTransactionSession<T>(transaction tx:()->T) -> T {
-		if let v1 = performTransactionSessionConditionally(transaction: tx) {
+		func tx2() -> T? { return tx() as T? }		//	This `as` is very important.
+		if let v1 = performTransactionSessionConditionally(transaction: tx2) {
 			return	v1
 		} else {
 			fatalError("Transaction failed unexpectedly.")
@@ -244,7 +245,8 @@ public class Database {
 	
 	///	Run a nested transaction which always comits using `SAVEPOINT`.
 	private func performSavepointSession<T>(transaction tx:()->T, name n:String) -> T {
-		if let v1 = performSavepointSessionConditionally(transaction: tx, name:n) {
+		func tx2() -> T? { return tx() as T? }		//	This `as` is very important.
+		if let v1 = performSavepointSessionConditionally(transaction: tx2, name:n) {
 			return	v1
 		} else {
 			fatalError("Transaction failed unexpectedly.")
