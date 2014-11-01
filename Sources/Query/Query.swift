@@ -75,7 +75,7 @@ public struct Query {
 		}
 		static func concatenation(#separator:Expression, components:[Expression]) -> Expression {
 			func add_with_sep(left:Expression, right:Expression) -> Expression {
-				return	left + separator + right
+				return	[left, separator, right] >> concat
 			}
 			
 			switch components.count {
@@ -163,9 +163,7 @@ public struct Query {
 		
 		///	Makes `col1 = @param1` style expression.
 		public func express() -> Query.Expression {
-			return	column.express()
-				+	"="
-				+	Expression(code: "?", parameters: [value])
+			return	[column.express(), Expression("="), Expression(code: "?", parameters: [value])] >> concat
 		}
 		
 		init(column:Identifier, value:ParameterValueEvaluation) {
@@ -253,12 +251,10 @@ public struct Query {
 			public func express() -> Query.Expression {
 				switch self {
 				case let Leaf(operation: op, column: col, value: val):
-					return	col.express()
-					+		op.express()
-					+		Expression(code: "?", parameters: [val])
+					return	[col.express(), op.express(), Expression(code: "?", parameters: [val])] >> concat
 				
 				case let Branch(combination: comb, subnodes: ns):
-					let	x1	=	" " + comb.express() + " "
+					let	x1	=	[Expression(" "), comb.express(), Expression(" ")] >> concat
 					return	Expression.concatenation(separator: x1, components: ns.map {$0.express()})
 				}
 			}
@@ -323,3 +319,37 @@ extension Query.FilterTree {
 		return	Query.FilterTree(root: n)
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+func expr(s:String) -> Query.Expression {
+	return	Query.Expression(s)
+}
+
+func concat(exprs:[Query.Expression]) -> Query.Expression {
+	return	Query.Expression.concatenation(separator: Query.Expression(""), components: exprs)
+}
+
+
+

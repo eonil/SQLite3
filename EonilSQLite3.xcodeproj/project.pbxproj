@@ -80,9 +80,6 @@
 		454BA4451A02F51500C121C8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BA4441A02F51500C121C8 /* Common.swift */; };
 		454BA4461A02F51500C121C8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BA4441A02F51500C121C8 /* Common.swift */; };
 		454BA4471A02F51500C121C8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BA4441A02F51500C121C8 /* Common.swift */; };
-		45505ADF1A01366600E0D3B8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505ADE1A01366600E0D3B8 /* Error.swift */; };
-		45505AE01A01366600E0D3B8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505ADE1A01366600E0D3B8 /* Error.swift */; };
-		45505AE11A01366600E0D3B8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505ADE1A01366600E0D3B8 /* Error.swift */; };
 		45505AE71A0162A800E0D3B8 /* SwiftPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */; };
 		45505AE81A0162A800E0D3B8 /* SwiftPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */; };
 		45505AE91A0162A800E0D3B8 /* SwiftPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */; };
@@ -189,7 +186,6 @@
 		454BA4381A02D8AA00C121C8 /* Internals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Internals.swift; sourceTree = "<group>"; };
 		454BA43C1A02DD7A00C121C8 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		454BA4441A02F51500C121C8 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
-		45505ADE1A01366600E0D3B8 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPatch.swift; sourceTree = "<group>"; };
 		4552BA4D19C6E356008FFF3F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		45652A8C19CAEFA60064EB45 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
@@ -370,7 +366,6 @@
 				45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */,
 				454BA4441A02F51500C121C8 /* Common.swift */,
 				45CC02B619C9C2ED00AEABCC /* Debug.swift */,
-				45505ADE1A01366600E0D3B8 /* Error.swift */,
 				459B517819C72BBC0029EA46 /* Value.swift */,
 				459B517219C6FC3D0029EA46 /* Database.swift */,
 				45CC02C919C9DFF900AEABCC /* Database.Schema.swift */,
@@ -664,7 +659,6 @@
 				4540C71E19FFF57E00D7714F /* Query.Language.swift in Sources */,
 				4540C6F519FFF53C00D7714F /* main.swift in Sources */,
 				4540C71119FFF56C00D7714F /* Core.Statement.swift in Sources */,
-				45505AE11A01366600E0D3B8 /* Error.swift in Sources */,
 				45AF9C6F1A04C18200BD7EE7 /* Section.swift in Sources */,
 				4540C76419FFF61400D7714F /* Value.swift in Sources */,
 				454BA43B1A02D8AA00C121C8 /* Internals.swift in Sources */,
@@ -715,7 +709,6 @@
 				4540C74F19FFF61400D7714F /* Database.swift in Sources */,
 				454BA43D1A02DD7A00C121C8 /* Record.swift in Sources */,
 				4540C75C19FFF61400D7714F /* Core.Database.swift in Sources */,
-				45505ADF1A01366600E0D3B8 /* Error.swift in Sources */,
 				4540C74E19FFF61400D7714F /* Value.swift in Sources */,
 				4540C75519FFF61400D7714F /* Query.Basic.swift in Sources */,
 				4540C75B19FFF61400D7714F /* Core.Common.swift in Sources */,
@@ -752,7 +745,6 @@
 				454BA43E1A02DD7A00C121C8 /* Record.swift in Sources */,
 				459B517519C6FC460029EA46 /* Statement.swift in Sources */,
 				4540C71F19FFF57E00D7714F /* Query.Operators.swift in Sources */,
-				45505AE01A01366600E0D3B8 /* Error.swift in Sources */,
 				4540C71019FFF56C00D7714F /* Core.Statement.swift in Sources */,
 				4540C71D19FFF57E00D7714F /* Query.Language.swift in Sources */,
 				4540C70819FFF56C00D7714F /* Core.Common.swift in Sources */,

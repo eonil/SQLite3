@@ -78,11 +78,13 @@ public extension Query.Schema.Table {
 			let	ss1	=	definition.columns.map(resolveColumnCode)
 			let	ss2	=	join(", ", ss1)
 			
-			return	"CREATE "
-				+		(temporary ? "TEMPORARY " : "")
-				+		"TABLE "
-				+		Query.Expression(code: definition.name, parameters: [])
-				+		"(\(ss2))"
+			return	[
+				expr("CREATE"),
+				expr((temporary ? "TEMPORARY " : "")),
+				expr("TABLE"),
+				Query.Expression(code: definition.name, parameters: []),
+				expr("(\(ss2))"),
+			] >> concat
 		}
 	}
 
@@ -95,7 +97,11 @@ public extension Query.Schema.Table {
 		public let	ifExists:Bool
 		
 		public func express() -> Query.Expression {
-			return	"DROP TABLE " + (ifExists ? " IF EXISTS " : " ") + name.express()
+			return	[
+				expr("DROP TABLE"),
+				expr((ifExists ? " IF EXISTS " : " ")),
+				name.express(),
+			] >> concat
 		}
 	}
 }

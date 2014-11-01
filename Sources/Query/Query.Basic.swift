@@ -27,17 +27,20 @@ public extension Query
 		public let	table:Identifier
 		public let	columns:Query.ColumnList
 		public let	filter:Query.FilterTree?
-		
+
 		public func express() -> Query.Expression{
 			let	x1	=	(filter == nil ? Expression.empty : filter!.express()) as Expression
-			return	"SELECT " as Expression
-			+		columns.express()
-			+		" " as Expression
-			+		"FROM " as Expression
-			+		table.express()
-			+		" " as Expression
-			+		Expression(code: (filter == nil ? "" : "WHERE "), parameters: [])
-			+		x1 as Expression
+			
+			return	[
+				expr("SELECT"),
+				columns.express(),
+				expr(" "),
+				expr("FROM"),
+				table.express(),
+				expr(" "),
+				Expression(code: (filter == nil ? "" : "WHERE "), parameters: []),
+				x1,
+			] >> concat
 		}
 	}
 	
@@ -65,15 +68,17 @@ public extension Query
 			let	cols	=	Expression.concatenation(separator: ", ", components: ns)		///<	`col1, col2, col3, ...`
 			let	params	=	Expression.ofParameterList(vs)									///<	`?, ?, ?, ...`
 			
-			return	"INSERT INTO "
-			+		table.express()
-			+		"("
-			+		cols
-			+		")"
-			+		" VALUES "
-			+		"("
-			+		params
-			+		")"
+			return	[
+				expr("INSERT INTO"),
+				table.express(),
+				expr("("),
+				cols,
+				expr(")"),
+				expr(" VALUES"),
+				expr("("),
+				params,
+				expr(")"),
+			] >> concat
 		}
 	}
 	
@@ -96,12 +101,14 @@ public extension Query
 			Debug.log(bs2[0].code)
 			Debug.log(bs2[0].parameters)
 			Debug.log(bs3.code)
-			return	"UPDATE "
-			+		table.express()
-			+		" SET "
-			+		bs3
-			+		" WHERE "
-			+		filter?.express()
+			return	[
+				expr("UPDATE"),
+				table.express(),
+				expr(" SET "),
+				bs3,
+				expr(" WHERE "),
+				(filter == nil ? expr("") : filter!.express()),
+			] >> concat
 		}
 	}
 	
@@ -116,11 +123,17 @@ public extension Query
 		
 		public func express() -> Query.Expression
 		{
-			return	"DELETE FROM "
-			+	table.express()
-			+	" WHERE "
-			+	filter.express()
+			return	[
+				expr("DELETE FROM"),
+				table.express(),
+				expr(" WHERE"),
+				filter.express(),
+			] >> concat
 		}
 	}
 
 }
+
+
+
+
