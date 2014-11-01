@@ -8,19 +8,21 @@
 
 import Foundation
 
-public struct Test1
-{
-	public static func test1()
-	{
-		func log<T>(object:@autoclosure()->T)
-		{
+public struct Test1 {
+	
+	static func run(block:() -> ()) {
+		block()
+	}
+	
+	static func run(name:String, block:() -> ()) {
+		block()
+	}
+	
+	public static func test1() {
+		func log<T>(object:@autoclosure()->T) {
 			println(object())
 		}
 		
-		func run(block:() -> ())
-		{
-			block()
-		}
 		
 		typealias	Q	=	Query
 		
@@ -106,7 +108,7 @@ public struct Test1
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.apply(transaction: { () -> () in
-				let	p1	=	db1.prepare(code: "SELECT \"AAA\";")
+				let	p1	=	db1.prepare("SELECT \"AAA\";")
 				for s in p1.items {
 					s.step()
 					assert(s.row().numberOfFields == 1)
@@ -127,7 +129,7 @@ public struct Test1
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
-				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
+				let	p1	=	db1.prepare("SELECT name FROM sqlite_master;")
 				for s in p1.items {
 					println(s.row().numberOfFields)
 					assert(s.row().numberOfFields == 0)
@@ -150,7 +152,7 @@ public struct Test1
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.apply(transaction: { () -> () in
-				let	p1	=	db1.prepare(code: "SELECT \"AAA\";")
+				let	p1	=	db1.prepare("SELECT \"AAA\";")
 				let	e1	=	p1.execute(parameters: [])
 				let	r0	=	e1.next()
 				let	r1	=	r0!
@@ -165,7 +167,7 @@ public struct Test1
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.apply(transaction: { () -> () in
-				let	rs1	=	db1.prepare(code: "SELECT \"AAA\";").execute(parameters: []).all()
+				let	rs1	=	db1.prepare("SELECT \"AAA\";").execute(parameters: []).all()
 				println(rs1)
 				assert(rs1.count == 1)
 			})
@@ -175,7 +177,7 @@ public struct Test1
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
-				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
+				let	p1	=	db1.prepare("SELECT name FROM sqlite_master;")
 				let	e1	=	p1.execute(parameters: [])
 				let	r0	=	e1.next()
 				let	r1	=	r0!
@@ -192,7 +194,7 @@ public struct Test1
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
-				let	p1	=	db1.prepare(code: "SELECT name FROM sqlite_master;")
+				let	p1	=	db1.prepare("SELECT name FROM sqlite_master;")
 				for s in p1.items {
 					println(s.row().numberOfFields)
 					assert(s.row().numberOfFields == 0)
@@ -215,7 +217,7 @@ public struct Test1
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply(transaction: { () -> () in
-				let	rs	=	db1.prepare(code: "SELECT name FROM sqlite_master;").execute(parameters: []).all()
+				let	rs	=	db1.prepare("SELECT name FROM sqlite_master;").execute(parameters: []).all()
 				for r in rs {
 					println(r)
 					assert(r["name"]! == "T1")
@@ -382,6 +384,31 @@ public struct Test1
 			assert(v2[1] == Value.Text("BBB"))
 			assert(v2[2] == Value.Text("CCC"))
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+//		run("prohibitionAlteringTableWhileTableObjectAlive") {
+//			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["c1", "c2", "c3"])
+//			
+//			self.run {
+//				let	t1	=	db1.table(name: "T1")
+//			}
+//			
+//			db1.apply {
+//				db1.run("ALTER TABLE T1 RENAME TO T2;")
+//			}
+//			
+//			//			t1[[Value.Integer(111)]]	=	Record(table: t1, keys: [Value.Integer(111)], data: ["AAA", "BBB", "CCC"])
+//			//			println(t1[111])
+//		}
+		
+		
 		
 		
 	}

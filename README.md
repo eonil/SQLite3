@@ -17,9 +17,8 @@ This provides SQLite3 database access on Swift.
 
 -	Automatically supports nested transactions. 
 
--	Forces safety in statically and dynamically. Does not allow you 
-	to funny stuffs. Crashes on any illegal operations. For 
-	example, explicit transaction is forced.
+-	Forces safety statically and dynamically. Does not allow you 
+	to do funny stuffs. Crashes on any illegal operations.
 
 
 

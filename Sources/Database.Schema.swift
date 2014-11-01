@@ -21,19 +21,16 @@ public extension Database
 
 
 
-public extension Database.Schema
-{
-	public func namesOfAllTables() -> [String]
-	{
-		let	d	=	database.snapshot("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+public extension Database.Schema {
+	public func namesOfAllTables() -> [String] {
+		let	d	=	database.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute(parameters: []).all()
 		return	d.map {$0["name"]!.text!}
 	}
 	
-	public func table(of name:String) -> Schema.Table
-	{
+	public func table(of name:String) -> Schema.Table {
 		let	p	=	Query.Language.Syntax.Pragma(database: nil, name: "table_info", argument: Query.Language.Syntax.Pragma.Argument.Call(value: name))
 		let	c	=	p.description
-		let	d	=	database.snapshot(Query.Expression(code: c, parameters: []))
+		let	d	=	database.prepare(c).execute(parameters: []).all()
 		
 		Debug.log(d)
 		
@@ -86,7 +83,7 @@ public extension Database.Schema
 	
 	
 	func allRowsOfRawMasterTable() -> [[String:Value]] {
-		return	database.snapshot("SELECT * FROM sqlite_master")
+		return	database.apply { self.database.run("SELECT * FROM sqlite_master") }
 	}
 	
 	

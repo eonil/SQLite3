@@ -15,11 +15,10 @@ import Foundation
 
 
 ///	Provides simple and convenient methods to get results easily on a single table.
-///	`select` series methods returns empty result (array) on error.
-///	The error-handler will be called on error.
-///	All of each methods are protected by transaction.
-///	Transaction will be rollback on any error,
-///	and nothing will be changed.
+///
+///	Table object caches metadata. If you alter schema of a table, you have to make a 
+///	new table object. Querying on altered table using old table object can cause
+///	various problems.
 public class Table {
 	unowned let	database:Database
 	let			name:String
@@ -27,6 +26,11 @@ public class Table {
 	init(database:Database, table:String) {
 		self.database		=	database
 		self.name			=	table
+		
+		self.database.notifyBornOfTableForName(self.name)
+	}
+	deinit {
+		self.database.notifyDeathOfTableForName(self.name)
 	}
 	
 	///	0 based indexes.
@@ -68,7 +72,7 @@ extension Table: SequenceType {
 
 	public func generate() -> GeneratorOf<Record> {
 		let	q	=	Query.Select(table: Query.Identifier(self.name), columns: Query.ColumnList.All, filter: nil)
-		let	ss	=	database.prepare(code: q.express().code)
+		let	ss	=	database.prepare(q.express().code)
 		assert(ss.items.count == 1)
 		let	s	=	ss.items[0]
 		
@@ -93,7 +97,7 @@ extension Table: SequenceType {
 	
 	public var count:Int {
 		get {
-			let	rs	=	database.prepare(code: "SELECT count(*) FROM \(Query.Identifier(self.name).express().code)").execute(parameters: []).all()
+			let	rs	=	database.prepare("SELECT count(*) FROM \(Query.Identifier(self.name).express().code)").execute(parameters: []).all()
 			assert(rs.count == 0)
 			assert(rs[0].count == 1)
 			let	r	=	rs[0]
@@ -116,7 +120,7 @@ extension Table: SequenceType {
 			}
 			println(q.columns)
 			let	fs	=	database.apply {
-				let	x	=	self.database.prepare(code: q.express().code).execute(parameters: id)
+				let	x	=	self.database.prepare(q.express().code).execute(parameters: id)
 				let r = x.next()
 				assert(r != nil)
 				let	fs	=	scanAllFieldValues(r!)
@@ -300,13 +304,14 @@ extension Table {
 		
 	
 	
-	func snapshot(query q:QueryExpressible) -> [[String:Value]]
-	{
-		return	database.snapshot(q.express())
+	func snapshot(query q:QueryExpressible) -> [[String:Value]] {
+		return
+			database.apply {
+				return	q >> self.database.run
+			}
 	}
 		
-	func bindingsOf(paris ps:[String:Value]) -> [Query.Binding]
-	{
+	func bindingsOf(paris ps:[String:Value]) -> [Query.Binding] {
 		var	bs:[Query.Binding]	=	[]
 		for (c, v) in devaluate(ps)
 		{
@@ -369,7 +374,7 @@ public extension Table {
 		let	t		=	filterTreeWith(samples: cs2, combinationStyle: m)
 		let	q		=	Query.Select(table: Query.Identifier(name), columns: Query.ColumnList.All, filter: t)
 		let	x		=	q.express()
-		let	stmts	=	database.prepare(code: x.code)	//	Ignore the parameters. New one will be provided.
+		let	stmts	=	database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
 		let	cc		=	cs.count
 		
 		return	{ (parameters:[Value]) -> [[String:Value]] in
@@ -393,7 +398,7 @@ public extension Table {
 		let	bs		=	cs2.map { Query.Binding($0) }
 		let	q		=	Query.Insert(table: Query.Identifier(self.name), bindings: bs)
 		let	x		=	q.express()
-		let	stmts	=	database.prepare(code: x.code)	//	Ignore the parameters. New one will be provided.
+		let	stmts	=	database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
 		let	cc		=	cs.count
 		
 		return	{ (vss:[[Value]])->() in

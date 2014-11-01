@@ -11,8 +11,8 @@
 		4540C6D819FFF48300D7714F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4540C6D719FFF48300D7714F /* Images.xcassets */; };
 		4540C6DB19FFF48300D7714F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4540C6D919FFF48300D7714F /* MainMenu.xib */; };
 		4540C6F519FFF53C00D7714F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6F419FFF53C00D7714F /* main.swift */; };
-		4540C6FD19FFF55900D7714F /* CoreBridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.c */; };
-		4540C6FE19FFF55900D7714F /* CoreBridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.c */; };
+		4540C6FD19FFF55900D7714F /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.m */; };
+		4540C6FE19FFF55900D7714F /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.m */; };
 		4540C6FF19FFF55900D7714F /* CoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 4540C6FB19FFF55900D7714F /* CoreBridge.h */; };
 		4540C70019FFF55900D7714F /* EonilSQLite3-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4540C6FC19FFF55900D7714F /* EonilSQLite3-Bridging-Header.h */; };
 		4540C70819FFF56C00D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
@@ -63,7 +63,7 @@
 		4540C76919FFF61400D7714F /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517419C6FC460029EA46 /* Statement.swift */; };
 		4540C76A19FFF61400D7714F /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45652A8C19CAEFA60064EB45 /* Schema.swift */; };
 		4540C76B19FFF61400D7714F /* InternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517E19C75EDC0029EA46 /* InternalTests.swift */; };
-		4540C76C19FFF62700D7714F /* CoreBridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.c */; };
+		4540C76C19FFF62700D7714F /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6FA19FFF55900D7714F /* CoreBridge.m */; };
 		4540C79619FFFA6500D7714F /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */; };
 		4540C79B1A000F9200D7714F /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */; };
 		4540C79F1A000FE000D7714F /* ExternalTest1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C79C1A000FE000D7714F /* ExternalTest1.swift */; };
@@ -94,6 +94,9 @@
 		458D62ED19C6DEB0001E450D /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62EC19C6DEB0001E450D /* ApplicationController.swift */; };
 		458D631119C6E190001E450D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D631019C6E190001E450D /* libsqlite3.0.dylib */; };
 		458D631919C6E226001E450D /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D62B119C6DD34001E450D /* EonilSQLite3.framework */; };
+		458DEE2F1A04968400F60F89 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458DEE2E1A04968400F60F89 /* Operators.swift */; };
+		458DEE301A04968400F60F89 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458DEE2E1A04968400F60F89 /* Operators.swift */; };
+		458DEE311A04968400F60F89 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458DEE2E1A04968400F60F89 /* Operators.swift */; };
 		459B517319C6FC3D0029EA46 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517219C6FC3D0029EA46 /* Database.swift */; };
 		459B517519C6FC460029EA46 /* Statement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517419C6FC460029EA46 /* Statement.swift */; };
 		459B517919C72BBC0029EA46 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
@@ -155,7 +158,7 @@
 		4540C6DA19FFF48300D7714F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4540C6F219FFF53C00D7714F /* UnitTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
 		4540C6F419FFF53C00D7714F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		4540C6FA19FFF55900D7714F /* CoreBridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CoreBridge.c; sourceTree = "<group>"; };
+		4540C6FA19FFF55900D7714F /* CoreBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreBridge.m; sourceTree = "<group>"; };
 		4540C6FB19FFF55900D7714F /* CoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreBridge.h; sourceTree = "<group>"; };
 		4540C6FC19FFF55900D7714F /* EonilSQLite3-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EonilSQLite3-Bridging-Header.h"; sourceTree = "<group>"; };
 		4540C70219FFF56C00D7714F /* Core.Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Common.swift; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 		458D631019C6E190001E450D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
 		458D631219C6E1BB001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EonilSQLite3.framework; path = "../../../../../../Temp/Xcode/Derivations/EonilSQLite-bsrcfcbdgoxesyeqrdmfaubpdiym/Build/Products/Debug/EonilSQLite3.framework"; sourceTree = "<group>"; };
 		458D631A19C6E2C1001E450D /* TestTool-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestTool-Bridging-Header.h"; sourceTree = "<group>"; };
+		458DEE2E1A04968400F60F89 /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		459B517219C6FC3D0029EA46 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		459B517419C6FC460029EA46 /* Statement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statement.swift; sourceTree = "<group>"; };
 		459B517819C72BBC0029EA46 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
@@ -273,8 +277,8 @@
 		4540C6F919FFF55900D7714F /* Interop */ = {
 			isa = PBXGroup;
 			children = (
-				4540C6FA19FFF55900D7714F /* CoreBridge.c */,
 				4540C6FB19FFF55900D7714F /* CoreBridge.h */,
+				4540C6FA19FFF55900D7714F /* CoreBridge.m */,
 				4540C6FC19FFF55900D7714F /* EonilSQLite3-Bridging-Header.h */,
 			);
 			path = Interop;
@@ -359,6 +363,7 @@
 				45CC02C919C9DFF900AEABCC /* Database.Schema.swift */,
 				459B517419C6FC460029EA46 /* Statement.swift */,
 				45652A8C19CAEFA60064EB45 /* Schema.swift */,
+				458DEE2E1A04968400F60F89 /* Operators.swift */,
 				45C30E1E1A02BE4B00E1B7CB /* Table */,
 				4540C71419FFF57E00D7714F /* Query */,
 				4540C70119FFF56C00D7714F /* Core */,
@@ -644,8 +649,9 @@
 				4540C76419FFF61400D7714F /* Value.swift in Sources */,
 				454BA43B1A02D8AA00C121C8 /* Internals.swift in Sources */,
 				4540C76519FFF61400D7714F /* Database.swift in Sources */,
+				458DEE311A04968400F60F89 /* Operators.swift in Sources */,
 				454BA43F1A02DD7A00C121C8 /* Record.swift in Sources */,
-				4540C6FE19FFF55900D7714F /* CoreBridge.c in Sources */,
+				4540C6FE19FFF55900D7714F /* CoreBridge.m in Sources */,
 				4540C70B19FFF56C00D7714F /* Core.Database.swift in Sources */,
 				4540C72019FFF57E00D7714F /* Query.Operators.swift in Sources */,
 				4540C72419FFF57E00D7714F /* Query.swift in Sources */,
@@ -674,7 +680,7 @@
 				4540C75E19FFF61400D7714F /* Core.Result.swift in Sources */,
 				4540C76019FFF61400D7714F /* Core.swift in Sources */,
 				4540C75719FFF61400D7714F /* Query.Operators.swift in Sources */,
-				4540C76C19FFF62700D7714F /* CoreBridge.c in Sources */,
+				4540C76C19FFF62700D7714F /* CoreBridge.m in Sources */,
 				45505AE71A0162A800E0D3B8 /* SwiftPatch.swift in Sources */,
 				4540C75819FFF61400D7714F /* Query.Schema.swift in Sources */,
 				4540C75F19FFF61400D7714F /* Core.Statement.swift in Sources */,
@@ -684,6 +690,7 @@
 				454BA4451A02F51500C121C8 /* Common.swift in Sources */,
 				4540C75D19FFF61400D7714F /* Core.Debug.swift in Sources */,
 				4540C74F19FFF61400D7714F /* Database.swift in Sources */,
+				458DEE2F1A04968400F60F89 /* Operators.swift in Sources */,
 				454BA43D1A02DD7A00C121C8 /* Record.swift in Sources */,
 				4540C75C19FFF61400D7714F /* Core.Database.swift in Sources */,
 				45505ADF1A01366600E0D3B8 /* Error.swift in Sources */,
@@ -704,7 +711,7 @@
 				454BA4421A02DD9500C121C8 /* Selection.swift in Sources */,
 				4540C71B19FFF57E00D7714F /* Query.Basic.swift in Sources */,
 				45652A8D19CAEFA60064EB45 /* Schema.swift in Sources */,
-				4540C6FD19FFF55900D7714F /* CoreBridge.c in Sources */,
+				4540C6FD19FFF55900D7714F /* CoreBridge.m in Sources */,
 				4540C71219FFF56C00D7714F /* Core.swift in Sources */,
 				4540C72319FFF57E00D7714F /* Query.swift in Sources */,
 				45505AE81A0162A800E0D3B8 /* SwiftPatch.swift in Sources */,
@@ -716,6 +723,7 @@
 				454BA4461A02F51500C121C8 /* Common.swift in Sources */,
 				459B517919C72BBC0029EA46 /* Value.swift in Sources */,
 				45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */,
+				458DEE301A04968400F60F89 /* Operators.swift in Sources */,
 				454BA43E1A02DD7A00C121C8 /* Record.swift in Sources */,
 				459B517519C6FC460029EA46 /* Statement.swift in Sources */,
 				4540C71F19FFF57E00D7714F /* Query.Operators.swift in Sources */,

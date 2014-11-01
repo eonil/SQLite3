@@ -31,8 +31,7 @@ Core
 		typealias	Common	=	Core.Common
 		typealias	C		=	Core.Common.C
 		
-		struct OpenFlag
-		{
+		struct OpenFlag {
 			static let	Readonly	=	OpenFlag(value: SQLITE_OPEN_READONLY)
 			static let	ReadWrite	=	OpenFlag(value: SQLITE_OPEN_READWRITE)
 			static let	Create		=	OpenFlag(value: SQLITE_OPEN_CREATE)
@@ -40,14 +39,11 @@ Core
 			///
 			///	You can use any predefined option value `SQLITE_OPEN_~` constants.
 			///
-			let	value:Int32
+			private let	value:Int32
 			
-			init(value:Int32)
-			{
-				func validate(value:Int32) -> Bool
-				{
-					let	opts	=
-					[
+			private init(value:Int32) {
+				func validate(value:Int32) -> Bool {
+					let	opts	=	[
 						SQLITE_OPEN_READONLY,
 						SQLITE_OPEN_READWRITE,
 						SQLITE_OPEN_CREATE,
@@ -62,10 +58,8 @@ Core
 			}
 		}
 		
-		struct Status
-		{
-			struct Code
-			{
+		struct Status {
+			struct Code {
 				static let	MemoryUsed			=	Code(value: SQLITE_STATUS_MEMORY_USED)
 				static let	PagecacheUsed		=	Code(value: SQLITE_STATUS_PAGECACHE_USED)
 				static let	PagecacheOverflow	=	Code(value: SQLITE_STATUS_PAGECACHE_OVERFLOW)
@@ -77,7 +71,7 @@ Core
 				static let	ScratchSize			=	Code(value: SQLITE_STATUS_SCRATCH_SIZE)
 				static let	MallocCount			=	Code(value: SQLITE_STATUS_MALLOC_COUNT)
 				
-				let	value:Int32
+				private let	value:Int32
 			}
 		}
 		
@@ -162,7 +156,7 @@ Core
 		
 		func open(filename:String, flags:OpenFlag)
 		{
-			assert(_rawptr == C.NULL)
+			precondition(_rawptr == C.NULL)
 			
 			let	name2	=	filename.cStringUsingEncoding(NSUTF8StringEncoding)!
 			
@@ -171,9 +165,9 @@ Core
 			Core.LeakDetector.theDetector.registerInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 		}
 		
-		func close()
-		{
-			assert(_rawptr != C.NULL)
+		func close() {
+			precondition(_callback == nil)
+			precondition(_rawptr != C.NULL)
 			
 			//	This can return `SQLITE_BUSY` for some cases,
 			//	but it also will be treated as a programmer
@@ -182,6 +176,20 @@ Core
 			crashOnErrorWith(resultCode: r)
 			Core.LeakDetector.theDetector.unregisterInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 			_rawptr	=	C.NULL
+		}
+		
+		func setAuthorizer(routingTable:AuthorisationRoutingTable?) {
+			if let rt2 = routingTable {
+				precondition(_callback == nil)
+				_callback	=	CallbackProxy(routingTable: rt2)
+				let	r	=	CallbackProxy.installAuthorisationCallbackProxy(_callback, forSQLite3Database: _rawptr)
+				crashOnErrorWith(resultCode: r)
+			} else {
+				precondition(_callback != nil)
+				_callback	=	nil
+				let	r	=	CallbackProxy.uninstallAuthorisationCallbackProxyForSQLite3Database(_rawptr)
+				crashOnErrorWith(resultCode: r)
+			}
 		}
 		
 		///	Returns `nil` for `tail` if the SQL fully consumed.
@@ -250,9 +258,99 @@ Core
 		
 		
 		
-		private var	_rawptr	=	COpaquePointer.null()
+		private var	_rawptr		=	COpaquePointer.null()
+		private var	_callback	=	nil as CallbackProxy?
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+
+extension Core.Database {
+	
+//	struct ActionCode {
+//		static let	AlterTable	=	ActionCode(SQLITE_ALTER_TABLE)
+//		static let	DropTable	=	ActionCode(SQLITE_DROP_TABLE)
+//		
+//		private let	number:Int32
+//		
+//		private init(_ number:Int32) {
+//			self.number	=	number
+//		}
+//	}
+	
+	struct AuthorisationRoutingTable {
+		typealias	Authorise	=	(databaseName:String, tableName:String)->Bool
+		
+		let	alterTable:Authorise
+		let	dropTable:Authorise
+	}
+	
+}
+
+
+
+
+
+
+
+
+private final class CallbackProxy: Eonil____SQLite3____Bridge____CallbackProxy {
+	let	routingTable:Core.Database.AuthorisationRoutingTable
+	init(routingTable:Core.Database.AuthorisationRoutingTable) {
+		self.routingTable	=	routingTable
+	}
+	private override func authoriseActionCode(actionCode: Int32, _ argA: UnsafePointer<Int8>, _ argB: UnsafePointer<Int8>, _ argC: UnsafePointer<Int8>, _ argD: UnsafePointer<Int8>) -> Int32 {
+		func resolve() -> Core.Database.AuthorisationRoutingTable.Authorise {
+			switch actionCode {
+			case SQLITE_ALTER_TABLE:	return	routingTable.alterTable
+			case SQLITE_DROP_TABLE:		return	routingTable.dropTable
+			default:					return	{ (_, _) in return true }
+			}
+		}
+		func stringify(source:UnsafePointer<Int8>) -> String {
+			let	s1	=	String.fromCString(source)
+			return	s1	== nil ? "" : s1!
+		}
+		func codify(flag:Bool)->Int32 {
+			return	flag ? SQLITE_OK : SQLITE_DENY
+		}
+		
+		return	resolve()(databaseName: argA >> stringify, tableName: argB >> stringify) >> codify
+	}
+}
+
+
+
+
+
+
+
 
 
 

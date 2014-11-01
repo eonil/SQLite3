@@ -19,6 +19,20 @@ import Foundation
 ///	implementation of savepoint name generator at 
 ///	initializer.
 public class Database {
+	
+	////	Slots.
+	
+	private var	_core			=	Core.Database()
+	private var	_liveTableNames	=	[] as [String]
+	private var	_authoriser		=	nil as Core.Database.AuthorisationRoutingTable?
+	
+	private let	_savepoint_name_gen:() -> String
+	
+	private lazy var	optimisation:Optimisation	=	Optimisation({ self.prepare($0) })
+	
+	
+	
+	
 	////	Types.
 	
 //	public typealias	ParameterList	=	[String:Value]
@@ -60,38 +74,15 @@ public class Database {
 		}
 	}
 	
-	private lazy var	optimisation:Optimisation	=	Optimisation({ self.prepare(code: $0) })
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	////	Slots.
-	
-	private let	_savepoint_name_gen:() -> String
-	private var	_core					=	Core.Database()
-	
-	
-	
-	
-	
 	
 	
 	////	Methods.
 	
 	
-	public convenience init(location:Location)
-	{
+	public convenience init(location:Location) {
 		self.init(location: location, editable: false)
 	}
-	public convenience init(location:Location, editable:Bool)
-	{
+	public convenience init(location:Location, editable:Bool) {
 		self.init(location: location, editable: editable, atomicUnitNameGenerator: Default.Generator.uniqueAtomicUnitName)
 	}
 	
@@ -127,12 +118,16 @@ public class Database {
 		_core.open(resolve_name(), flags: resolve_flag())
 		
 		assert(_core.null == false)
+		
+		_installDebuggingGuidanceAuthoriser()
 	}
 	deinit
 	{
 		precondition(_core.null == false)
 		
 		optimisation	=	Optimisation()
+		
+		_uninstallDebuggingGuidanceAuthoriser()
 		_core.close()
 		
 		assert(_core.null == true)
@@ -142,6 +137,27 @@ public class Database {
 	
 	
 	
+	
+	
+	
+	///	Produces prepared statements.
+	///	You need to bound parameters to execute them.
+	///
+	///	It is caller's responsibility to execute prepared statement to apply
+	///	commands in the code.
+	///
+	///	Produced statements will be invalidated when this database object
+	///	deinitialises.
+	public func prepare(code:String) -> StatementList {
+		let	(ss1, tail)	=	_core.prepare(code)
+		
+		if tail != "" {
+			Core.Common.crash(message: "The SQL command was not fully consumed. Remaining part = \(tail)")
+		}
+		
+		let	ss2	=	ss1.map { Statement(database: self, core: $0) }	//		({ (n:Core.Statement) -> Statement in return Statement(database: self, core: n )})
+		return	StatementList(ss2)
+	}
 	
 	
 	
@@ -275,25 +291,6 @@ public class Database {
 	
 	
 	
-	
-	///	Produces prepared statements.
-	///	You need to bound parameters to execute them.
-	///
-	///	It is caller's responsibility to execute prepared statement to apply
-	///	commands in the code.
-	///
-	///	Produced statements will be invalidated when this database object
-	///	deinitialises.
-	func prepare(code c:String) -> StatementList {
-		let	(ss1, tail)	=	_core.prepare(c)
-		
-		if tail != "" {
-			Core.Common.crash(message: "The SQL command was not fully consumed. Remaining part = \(tail)")
-		}
-		
-		let	ss2	=	ss1.map { Statement(database: self, core: $0) }	//		({ (n:Core.Statement) -> Statement in return Statement(database: self, core: n )})
-		return	StatementList(ss2)
-	}
 }
 
 
@@ -327,48 +324,37 @@ public class Database {
 
 extension Database {
 	
-	///	Execute the query and captures snapshot of all values of resulting rows.
-	func snapshot(query:Query.Expression) -> [[String:Value]] {
-		var	m	=	[] as [[String:Value]]
-		func tx() {
-			m	=	run(query)
-		}
-		apply(transaction: tx)
-		return	m
-	}
+//	///	Execute the query and captures snapshot of all values of resulting rows.
+//	func snapshot(query:Query.Expression) -> [[String:Value]] {
+//		var	m	=	[] as [[String:Value]]
+//		func tx() {
+//			m	=	run(query)
+//		}
+//		apply(transaction: tx)
+//		return	m
+//	}
 	
 	
 	
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
 	public func run(query:Query.Expression) -> [[String:Value]] {
-		assert(_core.autocommit == false)
-//		
-//		var	m	=	[String:Value]()
-//		for mapping in x.parameters {
-//			m[mapping.name]	=	mapping.value()
-//		}
-//		
-//		Debug.log(x.code)
-//		Debug.log(m)
-//		
+		precondition(_core.autocommit == false)
 		let	ps2	=	query.parameters.map {$0()}
-	
-		return	prepare(code: query.code).execute(parameters: ps2).all()
+		return	prepare(query.code).execute(parameters: ps2).all()
 	}
+	
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
 	public func run(query:QueryExpressible) -> [[String:Value]] {
 		return	run(query.express())
 	}
+	
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
 	public func run(query:String) -> [[String:Value]] {
 		return	run(Query.Expression(code: query, parameters: []))
 	}
-	//	public func run(query c:String) {
-	//		return	run(query: Query.Expression(code: c, parameters: []))
-	//	}
 	
 	
 	
@@ -416,5 +402,54 @@ extension Database {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension Database {
+	func notifyBornOfTableForName(n:String) {
+		_liveTableNames.append(n)
+	}
+	func notifyDeathOfTableForName(n:String) {
+		_liveTableNames	=	_liveTableNames.filter {$0 != n}
+	}
+	
+	private func _installDebuggingGuidanceAuthoriser() {
+		if !Debug.mode { return }
+		
+		let prohibitNameForLiveTables	=	{ [unowned self](databaseName:String, tableName:String) -> Bool in
+			let	ok	=	self._liveTableNames.filter {$0 == tableName}.count == 0
+			assert(ok, "Altering or dropping a table is not allowed while a `Table` object linked to the table is alive.")
+			return	ok
+		}
+		_authoriser	=	Core.Database.AuthorisationRoutingTable(alterTable: prohibitNameForLiveTables, dropTable: prohibitNameForLiveTables)
+		_core.setAuthorizer(_authoriser)
+	}
+	private func _uninstallDebuggingGuidanceAuthoriser() {
+		if !Debug.mode { return }
+		
+		_core.setAuthorizer(nil)
+	}
+}
+
+
+
+
 
 
