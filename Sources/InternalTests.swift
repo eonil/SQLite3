@@ -194,7 +194,7 @@ public struct Test1 {
 		run {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.apply {
-				let	rs1	=	db1.prepare("SELECT \"AAA\";").execute(parameters: []).allRowsAsDictionaries()
+				let	rs1	=	db1.run("SELECT \"AAA\";")
 				println(rs1)
 				assert(rs1.count == 1)
 			}
@@ -242,7 +242,7 @@ public struct Test1 {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply { () -> () in
-				let	rs	=	db1.prepare("SELECT name FROM sqlite_master;").execute(parameters: []).allRowsAsDictionaries()
+				let	rs	=	db1.run("SELECT name FROM sqlite_master;")
 				for r in rs {
 					println(r)
 					assert(r["name"]! == "T1")

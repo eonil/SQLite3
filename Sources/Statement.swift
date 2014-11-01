@@ -120,6 +120,10 @@ extension Statement {
 			return	GeneratorOf<[(String,Value)]> { [unowned self] in self.step()?.allColumns() } >> collect
 		}
 		
+		public func allRowValues() -> [[Value]] {
+			return	GeneratorOf<[Value]> { [unowned self] in self.step()?.allColumnValues() } >> collect
+		}
+		
 		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
 		///	Once started and unfinished execution cannot be used.
 		///	If you want to avoid collecting of all rows, then you have to iterate this

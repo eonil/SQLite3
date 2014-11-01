@@ -15,30 +15,64 @@ struct Internals {
 extension Internals {
 	
 	struct TableInfo {
-		let	columns:[ColumnInfo]
+		unowned let	database:Database
 		
-		func allkeyColumnNames() -> [String] {
-			return	columns.map {$0.name}
-		}
-		func keyColumns() -> [ColumnInfo] {
-			return	columns.filter {$0.pk}
-		}
-		func dataColumns() -> [ColumnInfo] {
-			return	columns.filter {$0.pk == false}
-		}
+		let	name:String
+		let	allColumns:[ColumnInfo]
 		
-		static func fetch(db:Database, tableName:String) -> TableInfo {
-			let	rs	=	db.apply {
-				db.run("PRAGMA table_info(\( Query.Identifier(tableName).express().code ))")
+		private init(database:Database, name:String) {
+			let	rs	=	database.apply {
+				database.run("PRAGMA table_info(\( Query.Identifier(name).express().code ))")
 			}
 			let	cs	=	rs.map {ColumnInfo($0)}
-			let	t	=	TableInfo(columns: cs)
-			return	t
+			
+			self.database		=	database
+			self.name			=	name
+			self.allColumns		=	cs
+			
+			if Debug.mode {
+				for i in 0..<cs.count {
+					assert(IntMax(allColumns[i].cid) == IntMax(i))
+				}
+			}
+		}
+		
+		func keyColumns() -> [ColumnInfo] {
+			return	allColumns.filter {$0.pk}
+		}
+		func dataColumns() -> [ColumnInfo] {
+			return	allColumns.filter {$0.pk == false}
+		}
+		
+		func keyColumnNames() -> [String] {
+			return	keyColumns().map {$0.name}
+		}
+		func dataColumnNames() -> [String] {
+			return	dataColumns().map {$0.name}
+		}
+		func keyColumnIndexes() -> [Int] {
+			return	keyColumns().map {Int($0.cid)}
+		}
+		func dataColumnIndexes() -> [Int] {
+			return	dataColumns().map {Int($0.cid)}
+		}
+		
+		func findKeyColumnIndexForName(name:String) -> Int? {
+			return	find(keyColumnNames(), name)
+		}
+		func findDataColumnIndexForName(name:String) -> Int? {
+			return	find(dataColumnNames(), name)
+		}
+		
+		////
+		
+		static func fetch(db:Database, tableName:String) -> TableInfo {
+			return	TableInfo(database: db, name: tableName)
 		}
 	}
 	
 	struct ColumnInfo {
-		let	cid:Int64
+		let	cid:Int64				///<	Column index.
 		let	name:String
 		let	type:String?
 		let	notNull:Bool			///<	`notnull` column.

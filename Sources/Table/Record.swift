@@ -11,19 +11,40 @@ import Foundation
 
 ///	You can get column names from `table`.
 public struct Record {
-	unowned let	table:Table
-	public let	keys:[Value]
-	public let	data:[Value]
+	private unowned let	table:Table
 	
-	public init(table:Table, keys:[Value], data:[Value]) {
+	public let	key:[Value]
+	public let	value:[Value]
+	
+	public init(table:Table, key:[Value], value:[Value]) {
 		self.table	=	table
-		self.keys	=	keys
-		self.data	=	data
+		self.key	=	key
+		self.value	=	value
 	}
 	
-//	public subscript(column:String) -> Value? {
-//		get {
-//		}
-//	}
+	public subscript(column:String) -> Value? {
+		get {
+			if let idx = table.info.findDataColumnIndexForName(column) {
+				return	value[idx]
+			}
+			if let idx = table.info.findKeyColumnIndexForName(column) {
+				return	key[idx]
+			}
+			return	nil
+		}
+	}
 }
 
+
+
+
+
+
+
+extension Record: Printable {
+	public var description:String {
+		get {
+			return	"Record(table: \(table), key: \(key), data: \(value))"
+		}
+	}
+}

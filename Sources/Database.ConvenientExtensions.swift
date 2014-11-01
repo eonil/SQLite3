@@ -31,7 +31,7 @@ extension Database {
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
 	public func run(query:String, parameters:[Value]) -> [[String:Value]] {
-		precondition(hasExplicitTransaction == false)
+		precondition(hasExplicitTransaction == true)
 		return	runWithoutExplicitTransactionCheck(query, parameters: parameters)
 	}
 	
@@ -105,7 +105,7 @@ extension Database {
 	}
 	///	Get table object which provides table access features.
 	public func table(name n:String) -> Table {
-		return	Table(database: self, table: n)
+		return	Table(database: self, name: n)
 	}
 	
 }

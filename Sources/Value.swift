@@ -25,6 +25,9 @@ public enum Value {
 	case Blob(Binary)
 }
 
+extension Value: Equatable {
+}
+
 extension Value: NilLiteralConvertible {
 	public init(nilLiteral: ()) {
 		self	=	Value.Null
@@ -69,7 +72,7 @@ extension Value: Printable {
 }
 
 
-func == (l:Value, r:Value) -> Bool {
+public func == (l:Value, r:Value) -> Bool {
 	switch (l,r) {
 	case let (Value.Null, Value.Null):				return	true
 	case let (Value.Integer(a), Value.Integer(b)):	return	a == b

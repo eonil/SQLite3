@@ -195,6 +195,15 @@ public struct Query {
 //		}
 //	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public struct FilterTree : QueryExpressible {
 		public let	root:Node
 		
@@ -267,3 +276,50 @@ public struct Query {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:	Convenient Filter Tree Generation
+extension Query.FilterTree {
+	static func allOfEqualColumnValues(cvs:[String:Value]) -> Query.FilterTree {
+		var	ns	=	[] as [Node]
+		for (c, v) in cvs {
+			ns.append(Query.FilterTree.Node.Leaf(operation: Node.Operation.Equal, column: Query.Identifier(c), value: {v}))
+		}
+		let	n	=	Node.Branch(combination: Node.Combination.And, subnodes: ns)
+		return	Query.FilterTree(root: n)
+	}
+	static func anyOfEuqlaColumnValues(cvs:[String:Value]) -> Query.FilterTree{
+		var	ns	=	[] as [Node]
+		for (c, v) in cvs {
+			ns.append(Query.FilterTree.Node.Leaf(operation: Node.Operation.Equal, column: Query.Identifier(c), value: {v}))
+		}
+		let	n	=	Node.Branch(combination: Node.Combination.Or, subnodes: ns)
+		return	Query.FilterTree(root: n)
+	}
+}

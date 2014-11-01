@@ -9,7 +9,14 @@
 import Foundation
 
 
-///	A subset of tables.
+///	An unresolved subset of tables.
 struct Section {
+	unowned let	table:Table
+	let	rows:[Record]
 	
+	subscript(index:Int) -> Record {
+		get {
+			return	rows[index]
+		}
+	}
 }

@@ -244,7 +244,7 @@ extension Database {
 	
 	var hasExplicitTransaction:Bool {
 		get {
-			return	_core.autocommit
+			return	_core.autocommit == false
 		}
 	}
 	
@@ -393,18 +393,18 @@ extension Database {
 		precondition(_core.null == false)
 		precondition(_core.autocommit == true)
 		
-		run("BEGIN TRANSACTION;")
-		//		optimisation.commonStatementCache.beginTransaction()
+		runWithoutExplicitTransactionCheck("BEGIN TRANSACTION;", parameters: [])
+//		optimisation.commonStatementCache.beginTransaction()
 		assert(_core.autocommit == false)
 		
 		if let v = tx() {
-			run("COMMIT TRANSACTION;")
-			//			optimisation.commonStatementCache.commitTransaction()
+			runWithoutExplicitTransactionCheck("COMMIT TRANSACTION;", parameters: [])
+//			optimisation.commonStatementCache.commitTransaction()
 			assert(_core.autocommit == true)
 			return	v
 		} else {
-			run("ROLLBACK TRANSACTION;")
-			//			optimisation.commonStatementCache.rollbackTransaction()
+			runWithoutExplicitTransactionCheck("ROLLBACK TRANSACTION;", parameters: [])
+//			optimisation.commonStatementCache.rollbackTransaction()
 			assert(_core.autocommit == true)
 			return	nil
 		}
