@@ -42,6 +42,7 @@ class ApplicationController: UIResponder, UIApplicationDelegate
 		
 		Test1.test1()
 		test2()
+		test3()
 		
 		return true
 	}

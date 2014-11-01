@@ -12,24 +12,27 @@ import Foundation
 ///	A record is always connected to a table.
 ///	You can get column names from `table`.
 public struct Record {
+	public typealias	Identity	=	[Value]
+	public typealias	Content		=	[Value]
+	
 	private unowned let	table:Table
 	
-	public let	key:[Value]
-	public let	value:[Value]
+	public let	identity:[Value]
+	public let	content:[Value]
 	
-	public init(table:Table, key:[Value], value:[Value]) {
+	public init(table:Table, identity:[Value], content:[Value]) {
 		self.table	=	table
-		self.key	=	key
-		self.value	=	value
+		self.identity	=	identity
+		self.content	=	content
 	}
 	
 	public subscript(column:String) -> Value? {
 		get {
 			if let idx = table.info.findDataColumnIndexForName(column) {
-				return	value[idx]
+				return	content[idx]
 			}
 			if let idx = table.info.findKeyColumnIndexForName(column) {
-				return	key[idx]
+				return	identity[idx]
 			}
 			return	nil
 		}
@@ -46,7 +49,7 @@ public struct Record {
 extension Record: Printable {
 	public var description:String {
 		get {
-			return	"Record(table: \(table), key: \(key), data: \(value))"
+			return	"Record(table: \(table), key: \(identity), data: \(content))"
 		}
 	}
 }

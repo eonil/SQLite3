@@ -17,11 +17,14 @@ import Foundation
 ///	new table object. Querying on altered table using old table object can cause
 ///	various problems.
 public class Table {
+	public typealias	Identity	=	Record.Identity
+	public typealias	Content		=	Record.Content
+
 	let	info:Internals.TableInfo
 	
-	let	selectRow:(keys:[Value])->[Value]?				///<	:returns:	data fields.
-	let	insertRow:(keys:[Value],values:[Value])->()		///<	:values:	data fields.
-	let	deleteRow:(keys:[Value])->()
+	let	selectRow:(identity:Identity)->Content?				///<	:returns:	data fields.
+	let	insertRow:(identity:Identity,content:Content)->()		///<	:values:	data fields.
+	let	deleteRow:(identity:Identity)->()
 	
 	init(database:Database, name:String) {
 		info	=	Internals.TableInfo.fetch(database, tableName: name)
@@ -43,7 +46,7 @@ public class Table {
 
 extension Table {
 	struct CommandMaker {
-		private static func makeSelectRowCommand(table:Internals.TableInfo) -> (keys:[Value])->[Value]? {
+		private static func makeSelectRowCommand(table:Internals.TableInfo) -> (identity:Identity)->Content? {
 			return	{ (keys:[Value])->[Value]? in
 				let	bs	=	combine(table.keyColumnNames(), keys)
 				let	dcs	=	table.dataColumnNames().map {Query.Identifier($0)}
@@ -65,26 +68,26 @@ extension Table {
 			}
 		}
 		
-		private static func makeInsertRowCommand(table:Internals.TableInfo) -> (keys:[Value], values:[Value])->() {
+		private static func makeInsertRowCommand(table:Internals.TableInfo) -> (identity:Identity, content:Content)->() {
 			let	kcns	=	table.keyColumnNames()
 			let	dcns	=	table.dataColumnNames()
-			return	{ (keys:[Value], values:[Value])->() in
+			return	{ (identity:Identity, content:Content)->() in
 				
 				table.database.apply {
-					let	kbs	=	Query.Binding.bind(kcns, values: keys)
-					let	dbs	=	Query.Binding.bind(dcns, values: values)
+					let	kbs	=	Query.Binding.bind(kcns, values: identity)
+					let	dbs	=	Query.Binding.bind(dcns, values: content)
 					let	q	=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
 					let	rs	=	table.database.run(q)
 					assert(rs.count == 0)
 				}
 			}
 		}
-		private static func makeDeleteRowCommand(table:Internals.TableInfo) -> (keys:[Value])->() {
+		private static func makeDeleteRowCommand(table:Internals.TableInfo) -> (identity:Identity)->() {
 			let	kcns	=	table.keyColumnNames()
 			let	dcns	=	table.dataColumnNames()
-			return	{ (keys:[Value])->() in
+			return	{ (identity:Identity)->() in
 				table.database.apply {
-					let	bs	=	combine(kcns, keys)
+					let	bs	=	combine(kcns, identity)
 					let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
 					let	q	=	Query.Delete(table: Query.Identifier(table.name), filter: f)
 					let	rs	=	table.database.run(q)
@@ -128,7 +131,7 @@ extension Table: SequenceType {
 				let	r	=	s
 				let	kvs	=	info.keyColumnIndexes().map {r[$0]}
 				let	dvs	=	info.dataColumnIndexes().map {r[$0]}
-				return	Record(table: self, key: kvs, value: dvs)
+				return	Record(table: self, identity: kvs, content: dvs)
 			} else {
 				return	nil
 			}
@@ -168,67 +171,67 @@ extension Table {
 
 	
 	///	:id:	Key colum values. Must be ordered correctly.
-	public subscript(id:[Value]) -> Record? {
+	public subscript(identity:Identity) -> Record? {
 		get {
-			let	fs	=	self.selectRow(keys: id)
-			return	fs == nil ? nil : Record(table: self, key: id, value: fs!)
+			let	fs	=	self.selectRow(identity: identity)
+			return	fs == nil ? nil : Record(table: self, identity: identity, content: fs!)
 		}
 		set(v) {
-			self.deleteRow(keys: id)
+			self.deleteRow(identity: identity)
 			if let v2 = v {
-				self.insertRow(keys: id, values: v2.value)
+				self.insertRow(identity: identity, content: v2.content)
 			}
 		}
 	}
 	
-	public subscript(id:Value) -> [Value]? {
+	public subscript(identity:Value) -> Content? {
 		get {
-			return	self.selectRow(keys: [id])
+			return	self.selectRow(identity: [identity])
 		}
 		set(v) {
-			self.deleteRow(keys: [id])
+			self.deleteRow(identity: [identity])
 			if let v2 = v {
-				self.insertRow(keys: [id], values: v2)
+				self.insertRow(identity: [identity], content: v2)
 			}
 		}
 	}
 	
-	public subscript(id:Int) -> [Value]? {
+	public subscript(identity:Int) -> Content? {
 		get {
-			return	self[Value(Int64(id))]
+			return	self[Value(Int64(identity))]
 		}
 		set(v) {
-			self[Value(Int64(id))]	=	v
+			self[Value(Int64(identity))]	=	v
 		}
 	}
-	public subscript(id:Int64) -> [Value]? {
+	public subscript(identity:Int64) -> Content? {
 		get {
-			return	self[Value(id)]
+			return	self[Value(identity)]
 		}
 		set(v) {
-			self[Value(id)]	=	v
+			self[Value(identity)]	=	v
 		}
 	}
-	public subscript(id:String) -> [Value]? {
+	public subscript(identity:String) -> Content? {
 		get {
-			return	self[Value(id)]
+			return	self[Value(identity)]
 		}
 		set(v) {
-			self[Value(id)]	=	v
+			self[Value(identity)]	=	v
 		}
 	}
 	
 	
-	public var keys:GeneratorOf<[Value]> {
+	public var keys:GeneratorOf<Identity> {
 		get {
 			var	g	=	generate()
-			return	GeneratorOf<[Value]> {g.next()?.key}
+			return	GeneratorOf<Identity> {g.next()?.identity}
 		}
 	}
-	public var values:GeneratorOf<[Value]> {
+	public var values:GeneratorOf<Content> {
 		get {
 			var	g	=	generate()
-			return	GeneratorOf<[Value]> {g.next()?.value}
+			return	GeneratorOf<Content> {g.next()?.content}
 		}
 	}
 
