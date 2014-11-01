@@ -39,7 +39,7 @@ extension Database {
 	func runWithoutExplicitTransactionCheck(query:String, parameters:[Value]) -> [[String:Value]] {
 		let	s	=	compile(query)
 		let	x	=	s.execute(parameters)
-		return	x.allRowsAsDictionaries()
+		return	x.allDictionaries()
 	}
 	
 }

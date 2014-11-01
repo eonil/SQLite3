@@ -8,14 +8,25 @@
 //
 //import Foundation
 //
-//struct Matrix {
-//	let	columns:[String]
-//	let	rows:[Row]
+//
+//
+/////	Read-only data-set returned by a query.
+//protocol MatrixType: SequenceType {
+//	var	columns:[Column]
+//}
+//
+//
+//
+//struct Column {
+//	var	name:String
 //}
 //
 //struct Row {
-//	let	keys:[Value]
-//	let	values:[Value]
+//	typealias	Identity	=	Value
+//	typealias	Content		=	[Value]
+//	
+//	let	identity:Identity
+//	let	content:Content
 //}
 //
 //
@@ -24,10 +35,3 @@
 //
 //
 //
-//
-////struct LazyMatrix {
-////	let	s:Statement
-////}
-////struct LazyRow {
-////	let	s:Statement
-////}

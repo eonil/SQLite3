@@ -57,85 +57,8 @@ extension Statement: Printable {
 	}
 }
 
-extension Statement {
-	
-	public func execute(parameters:[Value]) -> Execution {
-		precondition(!running, "You cannot execute a statement which already started manual stepping.")
-		precondition(_execution == nil || _execution!.running == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
-		Debug.log("EonilSQLte3 executes: \(self), parameters: \(parameters)")
-		
-		self.reset()
-		self.bind(parameters)
-		
-		let	x	=	Execution(self)
-		_execution	=	x
-		return	x
-	}
-	public func execute(parameters:[Query.ParameterValueEvaluation]) -> Execution {
-		let	ps2	=	parameters.map {$0()}
-		return	execute(ps2)
-	}
-	public func execute() -> Execution {
-		return	execute([] as [Value])
-	}
-	
-	///	Set to `class` to prevent copying.
-	public final class Execution {
-		private unowned let	s:Statement		///<	Circularly retains `Statement` to keep the statement alive while this execution is running. This will be broke when the execution finishes.
-		
-		private init(_ statement:Statement) {
-			s	=	statement
-		}
-		
-		public func step() -> Row? {
-			return	statement.step() ? StatementExecutionRowProxy(statement: statement) : nil
-		}
-		public func cancel() {
-			statement.reset()
-		}
-		
-		var statement:Statement {
-			get {
-				return	s
-			}
-		}
-		var	running:Bool {
-			get {
-				return	statement.running
-			}
-		}
-		
-		///	Run all at once.
-		///	The statement shouldn't produce any result.
-		public func all() {
-			precondition(statement._started == false, "You cannot call this method on once started execution.")
-			while statement.step() {
-				assert(statement.numberOfFields == 0, "This statement shouldn't produce any result columns.")
-			}
-		}
-		
-		
-		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
-		///	Once started and unfinished execution cannot be used.
-		///	If you want to avoid collecting of all rows, then you have to iterate this
-		///	manually yourself.
-		public func allRows() -> [[(String,Value)]] {
-			return	GeneratorOf<[(String,Value)]> { [unowned self] in self.step()?.allColumns() } >>>> collect
-		}
-		
-		public func allRowValues() -> [[Value]] {
-			return	GeneratorOf<[Value]> { [unowned self] in self.step()?.allColumnValues() } >>>> collect
-		}
-		
-		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
-		///	Once started and unfinished execution cannot be used.
-		///	If you want to avoid collecting of all rows, then you have to iterate this
-		///	manually yourself.
-		public func allRowsAsDictionaries() -> [[String:Value]] {
-			return	GeneratorOf<[String:Value]> { [unowned self] in self.step()?.allColumnsAsDictionary() } >>>> collect
-		}
-	}
-}
+
+
 
 extension Statement {
 	
@@ -163,7 +86,7 @@ extension Statement {
 		_rowidx	=	-1
 		_core.reset()
 	}
-
+	
 	func bind(parameters:[Value]) {
 		for i in 0..<parameters.count {
 			let	v			=	parameters[i]
@@ -183,6 +106,264 @@ extension Statement {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+///	MARK:	Execution Iteration
+
+extension Statement {
+	
+	public func execute(parameters:[Value]) -> Execution {
+		precondition(!running, "You cannot execute a statement which already started manual stepping.")
+		precondition(_execution == nil || _execution!.running == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
+		Debug.log("EonilSQLte3 executes: \(self), parameters: \(parameters)")
+		
+		self.reset()
+		self.bind(parameters)
+		
+		let	x	=	Execution(self)
+		_execution	=	x
+		return	x
+	}
+	public func execute(parameters:[Query.ParameterValueEvaluation]) -> Execution {
+		let	ps2	=	parameters.map {$0()}
+		return	execute(ps2)
+	}
+	public func execute() -> Execution {
+		return	execute([] as [Value])
+	}
+	
+}
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+///	Available only while execution is on going.
+public protocol Record {
+	func allColumnNames() -> [String]
+	func allColumnValues() -> [Value]
+	func allColumns() -> [(String,Value)]
+	func allColumnsAsDictionary() -> [String:Value]
+}
+	
+extension Statement {
+	
+	///	Set to `class` to prevent copying.
+	public final class Execution {
+		private unowned let	s:Statement		///<	Circularly retains `Statement` to keep the statement alive while this execution is running. This will be broke when the execution finishes.
+		
+		private init(_ statement:Statement) {
+			s	=	statement
+		}
+		
+//		public func step() -> Record? {
+//			return	statement.step() ? StatementExecutionRowProxy(statement: statement) : nil
+//		}
+//		public func cancel() {
+//			statement.reset()
+//		}
+		
+		var statement:Statement {
+			get {
+				return	s
+			}
+		}
+		var	running:Bool {
+			get {
+				return	statement.running
+			}
+		}
+		
+		///	Run all at once.
+		///	The statement shouldn't produce any result.
+		public func all() {
+			precondition(statement._started == false, "You cannot call this method on once started execution.")
+			while statement.step() {
+				assert(statement.numberOfFields == 0, "This statement shouldn't produce any result columns.")
+			}
+		}
+		
+		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
+		///	Once started and unfinished execution cannot be used.
+		///	If you want to avoid collecting of all rows, then you have to iterate this
+		///	manually yourself.
+		public func allTuples() -> [[Value]] {
+			precondition(statement._started == false, "You cannot call this method on once started execution.")
+			return	tuples().generate() >>>> collect
+		}
+		
+		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
+		///	Once started and unfinished execution cannot be used.
+		///	If you want to avoid collecting of all rows, then you have to iterate this
+		///	manually yourself.
+		public func allDictionaries() -> [[String:Value]] {
+			precondition(statement._started == false, "You cannot call this method on once started execution.")
+			return	dictionaries().generate() >>>> collect
+		}
+		
+		///	Returns enumerable tuple view. Represents a row as a tuple of values.
+		public func tuples() -> TupleView {
+			return	TupleView(statement)
+		}
+		
+		///	Returns enumerable dictionary view. Represents a row as a dictionary of column names and field values.
+		public func dictionaries() -> DictionaryView {
+			return	DictionaryView(statement)
+		}
+	}
+}
+
+
+
+
+extension Statement.Execution {
+	///	Provides most essential data iteration.
+	///	Shows only value part. You optionally can
+	///	take column names.
+	public final class TupleView: SequenceType {
+		unowned let	statement:Statement
+		init(_ s:Statement) {
+			self.statement	=	s
+			s.step()
+		}
+		public lazy var columns:[String]	=	{
+			var	cs	=	[] as [String]
+			cs.reserveCapacity(self.statement.numberOfFields)
+			for i in 0..<self.statement.numberOfFields {
+				cs.append(self.statement.columnNameAtIndex(i))
+			}
+			return	cs
+		}()
+		public func generate() -> GeneratorOf<[Value]> {
+			let	s	=	statement
+			return	GeneratorOf {
+				if s.running {
+					var	a1	=	[] as [Value]
+					s.numberOfFields >>>> a1.reserveCapacity
+					for i in 0..<s.numberOfFields {
+						s.columnValueAtIndex(i) >>>> a1.append
+					}
+					s.step()
+					return	a1
+				} else {
+					return	nil
+				}
+			}
+		}
+	}
+	
+	///	Provides convenient dictionary form.
+	public final class DictionaryView: SequenceType {
+		unowned let	statement:Statement
+		private var _columns	=	nil as [String]?
+		public var columns:[String] {
+			get {
+				return	_columns!
+			}
+		}
+		init(_ s:Statement) {
+			self.statement	=	s
+			statement.step()
+
+			if statement.running {
+				var	cs	=	[] as [String]
+				cs.reserveCapacity(statement.numberOfFields)
+				for i in 0..<self.statement.numberOfFields {
+					cs.append(self.statement.columnNameAtIndex(i))
+				}
+				_columns	=	cs
+			}
+		}
+		public func generate() -> GeneratorOf<[String:Value]> {
+			let	s	=	statement
+			let	cs	=	_columns
+			return	GeneratorOf {
+				if s.running {
+					var	d1	=	[:] as [String:Value]
+					for i in 0..<s.numberOfFields {
+						d1[cs![i]]	=	s.columnValueAtIndex(i)
+					}
+					s.step()
+					return	d1
+				} else {
+					return	nil
+				}
+			}
+		}
+	}
+	
+//	public struct Column {
+//		let	name:String
+//		let	origin:Origination
+//		
+//		struct Origination {
+//			let	database:String
+//			let	table:String
+//			let	column:String
+//		}
+//	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 extension Statement {
 	
@@ -305,7 +486,8 @@ extension Statement {
 
 
 
-
+///	MARK:
+///	MARK:	Private Stuffs
 
 
 private func snapshotFieldNamesOfRow(r:Statement) -> [String] {
@@ -404,17 +586,7 @@ private struct StatementFieldValuesGenerator: GeneratorType {
 
 
 
-
-///	Available only while execution is on going.
-public protocol Row {
-	func allColumnNames() -> [String]
-	func allColumnValues() -> [Value]
-	func allColumns() -> [(String,Value)]
-	func allColumnsAsDictionary() -> [String:Value]
-}
-
-
-private struct StatementExecutionRowProxy: Row {
+private struct StatementExecutionRowProxy: Record {
 	let	statement:Statement
 	
 	///	Available only while the execution is not done yet.

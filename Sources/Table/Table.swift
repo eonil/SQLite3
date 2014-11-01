@@ -20,8 +20,8 @@ import Foundation
 ///	Table is treated something like a dictionary with PK column (identity) and the
 ///	other columns (content).
 public class Table {
-	public typealias	Identity	=	Record.Identity
-	public typealias	Content		=	Record.Content
+	public typealias	Identity	=	Value
+	public typealias	Content		=	[Value]
 
 	let	info:Internals.TableInfo
 	
@@ -55,16 +55,10 @@ extension Table {
 				let	dcs	=	table.dataColumnNames().map {Query.Identifier($0)}
 				let	t	=	Query.FilterTree.allOfEqualColumnValues(bs)
 				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
-				switch q.columns {
-				case let Query.ColumnList.All:		println("ALL")
-				case let Query.ColumnList.Items(s):	println(s)
-				}
-				println(q.columns)
-				
 				let	s	=	table.database.prepare(q.express().code)
 				
 				return	table.database.apply {
-					let	rs	=	s.execute([identity]).allRowValues()
+					let	rs	=	s.execute([identity]).allTuples()
 					precondition(rs.count <= 1)
 					return	rs.count == 0 ? nil : rs[0]
 				}
@@ -178,7 +172,7 @@ extension Table {
 
 	public var count:Int {
 		get {
-			let	rs	=	info.database.prepare("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute().allRowsAsDictionaries()
+			let	rs	=	info.database.prepare("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute().allDictionaries()
 			assert(rs.count == 0)
 			assert(rs[0].count == 1)
 			let	r	=	rs[0]
@@ -267,8 +261,13 @@ extension Table {
 ///	MARK:	Filtering
 extension Table {
 
-	public func filter(f:Query.FilterTree) -> Section {
-		return	Section(table: self, filter: f)
+	public func filter(f:Query.FilterTree) -> Selection {
+		let	q	=	select(Query.Identifier(info.name), Query.ColumnList.All, f)
+		let	e	=	q.express()
+		let	s	=	info.database.prepare(e.code)
+		let	x	=	s.execute(e.parameters)
+		let	t	=	Selection(table: self, statement: s, execution: x)
+		return	t
 	}
 	
 //	public func section(f:Query.FilterTree) -> Section {
