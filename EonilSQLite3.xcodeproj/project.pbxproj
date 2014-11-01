@@ -110,6 +110,9 @@
 		45E237811A04FBEA00B7857B /* Database.ConvenientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E237801A04FBEA00B7857B /* Database.ConvenientExtensions.swift */; };
 		45E237821A04FBEA00B7857B /* Database.ConvenientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E237801A04FBEA00B7857B /* Database.ConvenientExtensions.swift */; };
 		45E237831A04FBEA00B7857B /* Database.ConvenientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E237801A04FBEA00B7857B /* Database.ConvenientExtensions.swift */; };
+		45EFE5F61A05492000B11FBD /* Query.Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EFE5F51A05492000B11FBD /* Query.Functions.swift */; };
+		45EFE5F71A05492000B11FBD /* Query.Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EFE5F51A05492000B11FBD /* Query.Functions.swift */; };
+		45EFE5F81A05492000B11FBD /* Query.Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EFE5F51A05492000B11FBD /* Query.Functions.swift */; };
 		45F3CC091A05054C0078E091 /* ExternalTest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F3CC081A05054C0078E091 /* ExternalTest2.swift */; };
 /* End PBXBuildFile section */
 
@@ -209,6 +212,7 @@
 		45CC02B619C9C2ED00AEABCC /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		45CC02C919C9DFF900AEABCC /* Database.Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.Schema.swift; sourceTree = "<group>"; };
 		45E237801A04FBEA00B7857B /* Database.ConvenientExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.ConvenientExtensions.swift; sourceTree = "<group>"; };
+		45EFE5F51A05492000B11FBD /* Query.Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.Functions.swift; sourceTree = "<group>"; };
 		45F3CC081A05054C0078E091 /* ExternalTest2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalTest2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -310,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				4540C71919FFF57E00D7714F /* Query.swift */,
+				45EFE5F51A05492000B11FBD /* Query.Functions.swift */,
 				4540C71519FFF57E00D7714F /* Query.Basic.swift */,
 				4540C71719FFF57E00D7714F /* Query.Operators.swift */,
 				4540C71819FFF57E00D7714F /* Query.Schema.swift */,
@@ -663,6 +668,7 @@
 				4540C76419FFF61400D7714F /* Value.swift in Sources */,
 				454BA43B1A02D8AA00C121C8 /* Internals.swift in Sources */,
 				4540C76519FFF61400D7714F /* Database.swift in Sources */,
+				45EFE5F81A05492000B11FBD /* Query.Functions.swift in Sources */,
 				454BA43F1A02DD7A00C121C8 /* Record.swift in Sources */,
 				4540C6FE19FFF55900D7714F /* CoreBridge.m in Sources */,
 				4540C70B19FFF56C00D7714F /* Core.Database.swift in Sources */,
@@ -689,6 +695,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EFE5F61A05492000B11FBD /* Query.Functions.swift in Sources */,
 				45AF9C6D1A04C18200BD7EE7 /* Section.swift in Sources */,
 				4540C75419FFF61400D7714F /* Schema.swift in Sources */,
 				4540C75219FFF61400D7714F /* Database.Schema.swift in Sources */,
@@ -733,6 +740,7 @@
 				45E237821A04FBEA00B7857B /* Database.ConvenientExtensions.swift in Sources */,
 				4540C71219FFF56C00D7714F /* Core.swift in Sources */,
 				4540C72319FFF57E00D7714F /* Query.swift in Sources */,
+				45EFE5F71A05492000B11FBD /* Query.Functions.swift in Sources */,
 				45505AE81A0162A800E0D3B8 /* SwiftPatch.swift in Sources */,
 				4540C70E19FFF56C00D7714F /* Core.Result.swift in Sources */,
 				4540C70C19FFF56C00D7714F /* Core.Debug.swift in Sources */,
