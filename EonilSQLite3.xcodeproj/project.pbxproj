@@ -99,9 +99,6 @@
 		45AF9C6D1A04C18200BD7EE7 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C6C1A04C18200BD7EE7 /* Selection.swift */; };
 		45AF9C6E1A04C18200BD7EE7 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C6C1A04C18200BD7EE7 /* Selection.swift */; };
 		45AF9C6F1A04C18200BD7EE7 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C6C1A04C18200BD7EE7 /* Selection.swift */; };
-		45AF9C751A04CA9800BD7EE7 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C741A04CA9800BD7EE7 /* Program.swift */; };
-		45AF9C761A04CA9800BD7EE7 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C741A04CA9800BD7EE7 /* Program.swift */; };
-		45AF9C771A04CA9800BD7EE7 /* Program.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C741A04CA9800BD7EE7 /* Program.swift */; };
 		45AF9C791A04CB2C00BD7EE7 /* Database.CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C781A04CB2C00BD7EE7 /* Database.CRUD.swift */; };
 		45AF9C7A1A04CB2C00BD7EE7 /* Database.CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C781A04CB2C00BD7EE7 /* Database.CRUD.swift */; };
 		45AF9C7B1A04CB2C00BD7EE7 /* Database.CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF9C781A04CB2C00BD7EE7 /* Database.CRUD.swift */; };
@@ -209,7 +206,6 @@
 		459B517819C72BBC0029EA46 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		459B517E19C75EDC0029EA46 /* InternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalTests.swift; sourceTree = "<group>"; };
 		45AF9C6C1A04C18200BD7EE7 /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
-		45AF9C741A04CA9800BD7EE7 /* Program.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Program.swift; sourceTree = "<group>"; };
 		45AF9C781A04CB2C00BD7EE7 /* Database.CRUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.CRUD.swift; sourceTree = "<group>"; };
 		45C232C31A028B5D0068EA53 /* Example.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Example.playground; sourceTree = "<group>"; };
 		45C30E1F1A02BE4B00E1B7CB /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
@@ -379,7 +375,6 @@
 				459B517219C6FC3D0029EA46 /* Database.swift */,
 				45CC02C919C9DFF900AEABCC /* Database.Schema.swift */,
 				45AF9C781A04CB2C00BD7EE7 /* Database.CRUD.swift */,
-				45AF9C741A04CA9800BD7EE7 /* Program.swift */,
 				459B517419C6FC460029EA46 /* Statement.swift */,
 				45E237801A04FBEA00B7857B /* Database.ConvenientExtensions.swift */,
 				45652A8C19CAEFA60064EB45 /* Schema.swift */,
@@ -662,7 +657,6 @@
 			files = (
 				4540C76819FFF61400D7714F /* Database.Schema.swift in Sources */,
 				4540C70F19FFF56C00D7714F /* Core.Result.swift in Sources */,
-				45AF9C771A04CA9800BD7EE7 /* Program.swift in Sources */,
 				45F3CC091A05054C0078E091 /* ExternalTest2.swift in Sources */,
 				4585E26D1A054EDA0058187F /* Table.Views.swift in Sources */,
 				45505AE91A0162A800E0D3B8 /* SwiftPatch.swift in Sources */,
@@ -706,7 +700,6 @@
 				4540C75419FFF61400D7714F /* Schema.swift in Sources */,
 				4540C75219FFF61400D7714F /* Database.Schema.swift in Sources */,
 				4540C75E19FFF61400D7714F /* Core.Result.swift in Sources */,
-				45AF9C751A04CA9800BD7EE7 /* Program.swift in Sources */,
 				4585E26B1A054EDA0058187F /* Table.Views.swift in Sources */,
 				4540C76019FFF61400D7714F /* Core.swift in Sources */,
 				45E237811A04FBEA00B7857B /* Database.ConvenientExtensions.swift in Sources */,
@@ -742,7 +735,6 @@
 				45CC02CA19C9DFF900AEABCC /* Database.Schema.swift in Sources */,
 				4540C71B19FFF57E00D7714F /* Query.Basic.swift in Sources */,
 				45652A8D19CAEFA60064EB45 /* Schema.swift in Sources */,
-				45AF9C761A04CA9800BD7EE7 /* Program.swift in Sources */,
 				4540C6FD19FFF55900D7714F /* CoreBridge.m in Sources */,
 				45E237821A04FBEA00B7857B /* Database.ConvenientExtensions.swift in Sources */,
 				4540C71219FFF56C00D7714F /* Core.swift in Sources */,
