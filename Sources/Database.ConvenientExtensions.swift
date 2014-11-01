@@ -38,7 +38,7 @@ extension Database {
 	///	Executes a single query.
 	func runWithoutExplicitTransactionCheck(query:String, parameters:[Value]) -> [[String:Value]] {
 		let	s	=	compile(query)
-		let	x	=	s.execute(parameters: parameters)
+		let	x	=	s.execute(parameters)
 		return	x.allRowsAsDictionaries()
 	}
 	

@@ -44,6 +44,9 @@ extension Internals {
 			return	allColumns.filter {$0.pk == false}
 		}
 		
+		func columnNames() -> [String] {
+			return	keyColumns().map {$0.name}
+		}
 		func keyColumnNames() -> [String] {
 			return	keyColumns().map {$0.name}
 		}
@@ -57,6 +60,9 @@ extension Internals {
 			return	dataColumns().map {Int($0.cid)}
 		}
 		
+		func findColumnIndexForName(name:String) -> Int? {
+			return	find(columnNames(), name)
+		}
 		func findKeyColumnIndexForName(name:String) -> Int? {
 			return	find(keyColumnNames(), name)
 		}

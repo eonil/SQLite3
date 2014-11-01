@@ -164,7 +164,7 @@ public extension Database {
 		return	{ [unowned self](parameters:[Value]) -> [[String:Value]] in
 			precondition(cc == parameters.count, "Parameter count doesn't match.")
 			return	self.apply { [unowned self] in
-				stmts.execute(parameters: parameters).allRowsAsDictionaries()
+				stmts.execute(parameters).allRowsAsDictionaries()
 			}
 		}
 	}
@@ -189,7 +189,7 @@ public extension Database {
 			self.apply {
 				for vs1 in vss {
 					precondition(cc == vs1.count, "Parameter count doesn't match.")
-					stmt1.bind(parameters: vs1)
+					stmt1.bind(vs1)
 				}
 			}
 		}

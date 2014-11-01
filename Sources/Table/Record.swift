@@ -9,6 +9,7 @@
 import Foundation
 
 
+///	A record is always connected to a table.
 ///	You can get column names from `table`.
 public struct Record {
 	private unowned let	table:Table
@@ -33,6 +34,7 @@ public struct Record {
 			return	nil
 		}
 	}
+	
 }
 
 
@@ -48,3 +50,12 @@ extension Record: Printable {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+

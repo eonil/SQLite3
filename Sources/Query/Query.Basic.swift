@@ -19,10 +19,8 @@ public extension Query
 	///		SELECT * FROM "MyTable1"
 	///		SELECT "col1", "col2", "col3" FROM "YourTable2"
 	///
-	public struct Select : QueryExpressible
-	{
-		static func all(of table:Identifier) -> Select
-		{
+	public struct Select : QueryExpressible {
+		static func all(of table:Identifier) -> Select {
 			return	Select(table: table, columns: Query.ColumnList.All, filter: nil)
 		}
 		
@@ -30,9 +28,7 @@ public extension Query
 		public let	columns:Query.ColumnList
 		public let	filter:Query.FilterTree?
 		
-		public func express() -> Query.Expression
-		{
-//			println(filter is FilterTree)
+		public func express() -> Query.Expression{
 			let	x1	=	(filter == nil ? Expression.empty : filter!.express()) as Expression
 			return	"SELECT " as Expression
 			+		columns.express()

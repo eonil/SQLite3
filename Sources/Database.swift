@@ -269,7 +269,7 @@ extension Database {
 		init(_ prepare:(cmd:String)->Statement) {
 			func make1(cmd:String) -> ()->() {
 				let	stmt1	=	prepare(cmd: cmd)
-				return	{ stmt1.execute(parameters: []).all() }
+				return	{ stmt1.execute().all() }
 			}
 			commonStatementCache	=
 				CommonStatementCache(

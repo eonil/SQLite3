@@ -59,21 +59,24 @@ extension Statement: Printable {
 
 extension Statement {
 	
-	public func execute(parameters ps:[Value]) -> Execution {
+	public func execute(parameters:[Value]) -> Execution {
 		precondition(!running, "You cannot execute a statement which already started manual stepping.")
 		precondition(_execution == nil || _execution!.running == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
-		Debug.log("EonilSQLte3 executes: \(self), parameters: \(ps)")
+		Debug.log("EonilSQLte3 executes: \(self), parameters: \(parameters)")
 		
 		self.reset()
-		self.bind(parameters: ps)
+		self.bind(parameters)
 		
 		let	x	=	Execution(self)
 		_execution	=	x
 		return	x
 	}
-
+	public func execute(parameters:[Query.ParameterValueEvaluation]) -> Execution {
+		let	ps2	=	parameters.map {$0()}
+		return	execute(ps2)
+	}
 	public func execute() -> Execution {
-		return	execute(parameters: [])
+		return	execute([] as [Value])
 	}
 	
 	///	Set to `class` to prevent copying.
@@ -161,9 +164,9 @@ extension Statement {
 		_core.reset()
 	}
 
-	func bind(parameters ps:[Value]) {
-		for i in 0..<ps.count {
-			let	v			=	ps[i]
+	func bind(parameters:[Value]) {
+		for i in 0..<parameters.count {
+			let	v			=	parameters[i]
 			let	(n1, f1)	=	Int.addWithOverflow(i, 1)
 			precondition(f1 == false)
 			precondition(IntMax(n1) < IntMax(Int32.max))

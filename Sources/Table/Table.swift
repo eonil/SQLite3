@@ -9,30 +9,6 @@
 import Foundation
 
 
-//private struct Info {
-//	unowned
-//	let	database:Database
-//	
-//	let	name:String
-//	
-//	let	keyColumnIndexes():[Int]
-//	let	dataColumnIndexes():[Int]
-//	let	keyColumnNames():[String]
-//	let	dataColumnNames():[String]
-//	let	allColumnNames():[String]
-//	
-//	init(database:Database, name:String) {
-//		self.database	=	database
-//		self.name		=	name
-//		
-//		keyColumnIndexes()	=	Internals.TableInfo.fetch(database, tableName: name).keyColumns().map {Int($0.cid)}
-//		dataColumnIndexes()	=	Internals.TableInfo.fetch(database, tableName: name).dataColumns().map {Int($0.cid)}
-//		keyColumnNames()		=	Internals.TableInfo.fetch(database, tableName: name).keyColumns().map {$0.name}
-//		dataColumnNames()		=	Internals.TableInfo.fetch(database, tableName: name).dataColumns().map {$0.name}
-//		allColumnNames()		=	Internals.TableInfo.fetch(database, tableName: name).allColumns().map {$0.name}
-//	}
-//}
-
 
 
 ///	Provides simple and convenient methods to get results easily on a single table.
@@ -43,8 +19,8 @@ import Foundation
 public class Table {
 	let	info:Internals.TableInfo
 	
-	let	selectRow:(keys:[Value])->[Value]?
-	let	insertRow:(keys:[Value],values:[Value])->()
+	let	selectRow:(keys:[Value])->[Value]?				///<	:returns:	data fields.
+	let	insertRow:(keys:[Value],values:[Value])->()		///<	:values:	data fields.
 	let	deleteRow:(keys:[Value])->()
 	
 	init(database:Database, name:String) {
@@ -82,7 +58,7 @@ extension Table {
 				let	s	=	table.database.prepare(q.express().code)
 				
 				return	table.database.apply {
-					let	rs	=	s.execute(parameters: keys).allRowValues()
+					let	rs	=	s.execute(keys).allRowValues()
 					precondition(rs.count <= 1)
 					return	rs.count == 0 ? nil : rs[0]
 				}
@@ -181,7 +157,7 @@ extension Table {
 
 	public var count:Int {
 		get {
-			let	rs	=	info.database.prepare("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute(parameters: []).allRowsAsDictionaries()
+			let	rs	=	info.database.prepare("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute().allRowsAsDictionaries()
 			assert(rs.count == 0)
 			assert(rs[0].count == 1)
 			let	r	=	rs[0]
@@ -255,15 +231,30 @@ extension Table {
 			return	GeneratorOf<[Value]> {g.next()?.value}
 		}
 	}
-	
-	
-	
-//	public func filter(f:Query.FilterTree) -> Selection {
-//		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: t)
-//		return	snapshot(q)
-//	}
+
 }
 
+
+
+
+
+
+
+
+
+///	MARK:
+///	MARK:	Filtering
+extension Table {
+
+	public func filter(f:Query.FilterTree) -> Section {
+		return	Section(table: self, filter: f)
+	}
+	
+//	public func section(f:Query.FilterTree) -> Section {
+//		return	Section(table: self, filter: f)
+//	}
+	
+}
 
 
 
