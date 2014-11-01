@@ -18,7 +18,7 @@ extension Internals {
 		unowned let	database:Database
 		
 		let	name:String
-		let	allColumns:[ColumnInfo]
+		let	columns:[ColumnInfo]		///<	All table related column stuffs will be ordered exactly same with this array.
 		
 		private init(database:Database, name:String) {
 			let	rs	=	database.apply {
@@ -28,31 +28,40 @@ extension Internals {
 			
 			self.database		=	database
 			self.name			=	name
-			self.allColumns		=	cs
+			self.columns		=	cs
 			
 			if Debug.mode {
 				for i in 0..<cs.count {
-					assert(IntMax(allColumns[i].cid) == IntMax(i))
+					assert(IntMax(columns[i].cid) == IntMax(i))
 				}
 			}
 		}
 		
+//		func keyColumn() -> ColumnInfo {
+//			return	allColumns.filter {$0.pk}[0]
+//		}
+		func allColumns() -> [ColumnInfo] {
+			return	columns
+		}
 		func keyColumns() -> [ColumnInfo] {
-			return	allColumns.filter {$0.pk}
+			return	allColumns().filter {$0.pk}
 		}
 		func dataColumns() -> [ColumnInfo] {
-			return	allColumns.filter {$0.pk == false}
+			return	allColumns().filter {$0.pk == false}
 		}
 		
-		func columnNames() -> [String] {
-			return	keyColumns().map {$0.name}
-		}
+//		func keyColumnName() -> String {
+//			return	keyColumn().name
+//		}
 		func keyColumnNames() -> [String] {
 			return	keyColumns().map {$0.name}
 		}
 		func dataColumnNames() -> [String] {
 			return	dataColumns().map {$0.name}
 		}
+//		func keyColumnIndex() -> Int {
+//			return	Int(keyColumn().cid)
+//		}
 		func keyColumnIndexes() -> [Int] {
 			return	keyColumns().map {Int($0.cid)}
 		}
@@ -60,14 +69,61 @@ extension Internals {
 			return	dataColumns().map {Int($0.cid)}
 		}
 		
-		func findColumnIndexForName(name:String) -> Int? {
-			return	find(columnNames(), name)
-		}
+//		func findColumnIndexForName(name:String) -> Int? {
+//			return	find(columnNames(), name)
+//		}
+//		func findKeyColumnIndexForName(name:String) -> Int? {
+//			return	find([keyColumnName()], name)
+//		}
 		func findKeyColumnIndexForName(name:String) -> Int? {
 			return	find(keyColumnNames(), name)
 		}
 		func findDataColumnIndexForName(name:String) -> Int? {
 			return	find(dataColumnNames(), name)
+		}
+		
+		
+		
+		///	:tuple:	Must be ordered same as columns.
+		func convertTupleToDictionary(tuple:[Value]) -> [String:Value]{
+			assert(tuple.count == columns.count)
+			var	d1	=	[:] as [String:Value]
+			for i in 0..<columns.count {
+				let	c	=	columns[i]
+				d1[c.name]	=	tuple[i]
+			}
+			return	d1
+		}
+		///	:tuple:	Must be ordered same as columns.
+		func convertTupleToDictionary(identity:[Value], _ content:[Value]) -> [String:Value]{
+			var	a1	=	Array(count: columns.count, repeatedValue: Value.Null)
+			for i in 0..<keyColumns().count {
+				a1[convertInt64ToInt(keyColumns()[i].cid)]	=	identity[i]
+			}
+			for i in 0..<dataColumns().count {
+				a1[convertInt64ToInt(dataColumns()[i].cid)]	=	content[i]
+			}
+			return	convertTupleToDictionary(a1)
+		}
+		
+		func convertDictionaryToTuple(d1:[String:Value]) -> [Value] {
+			assert(d1.count == columns.count)
+			var	a1	=	Array(count: columns.count, repeatedValue: Value.Null)
+			for c in columns {
+				a1[convertInt64ToInt(c.cid)]	=	d1[c.name]!
+			}
+			return	a1
+		}
+		func convertDictionaryToTuple(d1:[String:Value]) -> ([Value],[Value]) {
+			let	a1	=	convertDictionaryToTuple(d1) as [Value]
+			let	ks	=	keyColumns().map { (c:ColumnInfo)->Value in a1[self.convertInt64ToInt(c.cid)]}
+			let	vs	=	dataColumns().map { (c:ColumnInfo)->Value in a1[self.convertInt64ToInt(c.cid)]}
+			return	(ks,vs)
+		}
+
+		func convertInt64ToInt(v:Int64) -> Int {
+			precondition(IntMax(Int.max) >= IntMax(v))
+			return	Int(v)
 		}
 		
 		////

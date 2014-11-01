@@ -35,7 +35,9 @@ public struct Section {
 		self.rows	=	x.allRowValues().map { (fields:[Value]) in
 			let	ks	=	[Value](fields[0..<kcs.count])
 			let	ds	=	[Value](fields[kcs.count..<cs.count])
-			return	Record(table: table, identity: ks, content: ds)
+			
+			assert(ks.count == 1)
+			return	Record(table: table, identity: ks[0], content: ds)
 		}
 	}
 	

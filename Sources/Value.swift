@@ -28,6 +28,20 @@ public enum Value {
 extension Value: Equatable {
 }
 
+extension Value: Hashable {
+	public var hashValue:Int {
+		get {
+			switch self {
+			case Null:				return	0
+			case let Integer(s):	return	s.hashValue
+			case let Float(s):		return	s.hashValue
+			case let Text(s):		return	s.hashValue
+			case let Blob(s):		return	s.hashValue
+			}
+		}
+	}
+}
+
 extension Value: NilLiteralConvertible {
 	public init(nilLiteral: ()) {
 		self	=	Value.Null
@@ -271,7 +285,7 @@ extension Value {
 
 
 ///	Represents BLOB.
-public class Blob
+public class Blob: Hashable
 {
 	init(address:UnsafePointer<()>, length:Int) {
 		precondition(address != UnsafePointer<Int8>.null())
@@ -280,6 +294,11 @@ public class Blob
 		value	=	NSData(bytes: address, length: length)
 	}
 	
+	public var hashValue:Int {
+		get {
+			return	value.hashValue
+		}
+	}
 	
 	var length:Int
 	{

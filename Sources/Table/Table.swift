@@ -16,6 +16,9 @@ import Foundation
 ///	Table object caches metadata. If you alter schema of a table, you have to make a 
 ///	new table object. Querying on altered table using old table object can cause
 ///	various problems.
+///
+///	Table is treated something like a dictionary with PK column (identity) and the
+///	other columns (content).
 public class Table {
 	public typealias	Identity	=	Record.Identity
 	public typealias	Content		=	Record.Content
@@ -47,8 +50,8 @@ public class Table {
 extension Table {
 	struct CommandMaker {
 		private static func makeSelectRowCommand(table:Internals.TableInfo) -> (identity:Identity)->Content? {
-			return	{ (keys:[Value])->[Value]? in
-				let	bs	=	combine(table.keyColumnNames(), keys)
+			return	{ (identity:Identity)->Content? in
+				let	bs	=	combine(table.keyColumnNames(), [identity])
 				let	dcs	=	table.dataColumnNames().map {Query.Identifier($0)}
 				let	t	=	Query.FilterTree.allOfEqualColumnValues(bs)
 				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
@@ -61,7 +64,7 @@ extension Table {
 				let	s	=	table.database.prepare(q.express().code)
 				
 				return	table.database.apply {
-					let	rs	=	s.execute(keys).allRowValues()
+					let	rs	=	s.execute([identity]).allRowValues()
 					precondition(rs.count <= 1)
 					return	rs.count == 0 ? nil : rs[0]
 				}
@@ -74,7 +77,7 @@ extension Table {
 			return	{ (identity:Identity, content:Content)->() in
 				
 				table.database.apply {
-					let	kbs	=	Query.Binding.bind(kcns, values: identity)
+					let	kbs	=	Query.Binding.bind(kcns, values: [identity])
 					let	dbs	=	Query.Binding.bind(dcns, values: content)
 					let	q	=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
 					let	rs	=	table.database.run(q)
@@ -87,7 +90,7 @@ extension Table {
 			let	dcns	=	table.dataColumnNames()
 			return	{ (identity:Identity)->() in
 				table.database.apply {
-					let	bs	=	combine(kcns, identity)
+					let	bs	=	combine(kcns, [identity])
 					let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
 					let	q	=	Query.Delete(table: Query.Identifier(table.name), filter: f)
 					let	rs	=	table.database.run(q)
@@ -122,21 +125,36 @@ extension Table {
 
 extension Table: SequenceType {
 
-	public func generate() -> GeneratorOf<Record> {
+	public func generate() -> GeneratorOf<(Identity,Content)> {
 		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
 		let	s	=	info.database.prepare(q.express().code)
-		
-		func next() -> Record? {
+
+		func next() -> (Identity,Content)? {
 			if s.step() {
 				let	r	=	s
 				let	kvs	=	info.keyColumnIndexes().map {r[$0]}
 				let	dvs	=	info.dataColumnIndexes().map {r[$0]}
-				return	Record(table: self, identity: kvs, content: dvs)
+				assert(kvs.count == 1)
+				return	(kvs[0], dvs)
 			} else {
 				return	nil
 			}
 		}
-		return	GeneratorOf<Record>(next)
+		return	GeneratorOf<(Identity,Content)>(next)
+		
+		
+//		func next() -> Record? {
+//			if s.step() {
+//				let	r	=	s
+//				let	kvs	=	info.keyColumnIndexes().map {r[$0]}
+//				let	dvs	=	info.dataColumnIndexes().map {r[$0]}
+//				assert(kvs.count == 1)
+//				return	Record(table: self, identity: kvs[0], content: dvs)
+//			} else {
+//				return	nil
+//			}
+//		}
+//		return	GeneratorOf<Record>(next)
 	}
 	
 //	///	Selects all rows.
@@ -170,28 +188,28 @@ extension Table {
 	}
 
 	
-	///	:id:	Key colum values. Must be ordered correctly.
-	public subscript(identity:Identity) -> Record? {
+//	///	:id:	Key colum values. Must be ordered correctly.
+//	public subscript(identity:Identity) -> Record? {
+//		get {
+//			let	fs	=	self.selectRow(identity: identity)
+//			return	fs == nil ? nil : Record(table: self, identity: identity, content: fs!)
+//		}
+//		set(v) {
+//			self.deleteRow(identity: identity)
+//			if let v2 = v {
+//				self.insertRow(identity: identity, content: v2.content)
+//			}
+//		}
+//	}
+	
+	public subscript(identity:Value) -> Content? {
 		get {
-			let	fs	=	self.selectRow(identity: identity)
-			return	fs == nil ? nil : Record(table: self, identity: identity, content: fs!)
+			return	self.selectRow(identity: identity)
 		}
 		set(v) {
 			self.deleteRow(identity: identity)
 			if let v2 = v {
-				self.insertRow(identity: identity, content: v2.content)
-			}
-		}
-	}
-	
-	public subscript(identity:Value) -> Content? {
-		get {
-			return	self.selectRow(identity: [identity])
-		}
-		set(v) {
-			self.deleteRow(identity: [identity])
-			if let v2 = v {
-				self.insertRow(identity: [identity], content: v2)
+				self.insertRow(identity: identity, content: v2)
 			}
 		}
 	}
@@ -225,13 +243,13 @@ extension Table {
 	public var keys:GeneratorOf<Identity> {
 		get {
 			var	g	=	generate()
-			return	GeneratorOf<Identity> {g.next()?.identity}
+			return	GeneratorOf<Identity> {g.next()?.0}
 		}
 	}
 	public var values:GeneratorOf<Content> {
 		get {
 			var	g	=	generate()
-			return	GeneratorOf<Content> {g.next()?.content}
+			return	GeneratorOf<Content> {g.next()?.1}
 		}
 	}
 
@@ -262,7 +280,13 @@ extension Table {
 
 
 
-
+extension Table {
+	public var dictionaryView:DictionaryView {
+		get {
+			return	DictionaryView(table: self)
+		}
+	}
+}
 
 
 

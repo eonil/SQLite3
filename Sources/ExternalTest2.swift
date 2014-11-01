@@ -11,9 +11,11 @@ import Foundation
 
 
 func test3() {
-	func collect(var g:GeneratorOf<Record>) -> [Record] {
-		var	a1	=	[] as [Record]
-		while let e = g.next() {
+	func collect(var t:Table) -> [[String:Value]] {
+		var	g1	=	t.dictionaryView.generate()
+		var	a1	=	[] as [[String:Value]]
+		
+		while let e = g1.next() {
 			a1.append(e)
 		}
 		return	a1
@@ -34,7 +36,7 @@ func test3() {
 		t1[111]	=	[42, "Here be dragons.", nil]
 		
 		///	Verify by selecting all current rows.
-		let	rs1	=	collect(t1.generate()) 
+		let	rs1	=	collect(t1)
 		assert(rs1.count == 1)
 		assert(rs1[0]["v1"]!.integer! == 42)
 		assert(rs1[0]["v2"]!.text! == "Here be dragons.")
@@ -43,7 +45,7 @@ func test3() {
 		t1[111]	=	[108, "Crouching tiger.", nil]
 		
 		///	Verify!
-		let	rs2	=	collect(t1.generate())
+		let	rs2	=	collect(t1)
 		assert(rs2.count == 1)
 		assert(rs2[0]["v2"]!.text! == "Crouching tiger.")
 		
@@ -51,7 +53,7 @@ func test3() {
 		t1[111]	=	nil
 		
 		///	Verify!
-		let	rs3	=	collect(t1.generate())
+		let	rs3	=	collect(t1)
 		assert(rs3.count == 0)
 	}
 	
@@ -69,7 +71,7 @@ func test3() {
 			t1[111]	=	[42, "Here be dragons.", nil]
 			
 			///	Verify by selecting all current rows.
-			let	rs1	=	collect(t1.generate())
+			let	rs1	=	collect(t1)
 			assert(rs1.count == 1)
 			assert(rs1[0]["v1"]!.integer! == 42)
 			assert(rs1[0]["v2"]!.text! == "Here be dragons.")
@@ -78,7 +80,7 @@ func test3() {
 			t1[111]	=	[108, "Crouching tiger.", nil]
 			
 			///	Verify!
-			let	rs2	=	collect(t1.generate())
+			let	rs2	=	collect(t1)
 			assert(rs2.count == 1)
 			assert(rs2[0]["v2"]!.text! == "Crouching tiger.")
 			
@@ -86,7 +88,7 @@ func test3() {
 			t1[111]	=	nil
 			
 			///	Verify!
-			let	rs3	=	collect(t1.generate())
+			let	rs3	=	collect(t1)
 			assert(rs3.count == 0)
 		}
 		
@@ -114,7 +116,7 @@ func test3() {
 					t1[111]	=	[108, "Crouching tiger.", nil]
 					
 					///	Verify the update.
-					let	rs2	=	collect(t1.generate())
+					let	rs2	=	collect(t1)
 					assert(rs2.count == 1)
 					assert(rs2[0]["v2"]!.text! == "Crouching tiger.")
 					
@@ -124,7 +126,7 @@ func test3() {
 				db1.applyConditionally(tx3)
 				
 				///	Verify inner rollback.
-				let	rs2	=	collect(t1.generate())
+				let	rs2	=	collect(t1)
 				assert(rs2.count == 1)
 				assert(rs2[0]["v1"]!.integer! == 42)
 				assert(rs2[0]["v2"]!.text! == "Here be dragons.")
@@ -133,7 +135,7 @@ func test3() {
 			}
 			
 			///	Verify outer rollback.
-			let	rs2	=	collect(t1.generate())
+			let	rs2	=	collect(t1)
 			assert(rs2.count == 0)
 		}
 		db1.apply(tx1)
