@@ -19,3 +19,46 @@ func combine <K,V> (keys:[K], values:[V]) -> [K:V] {
 	}
 	return	d
 }
+
+func collect <T:GeneratorType> (g:T) -> [T.Element] {
+	var	c	=	[] as [T.Element]
+	var g2	=	g
+	while let m = g2.next() {
+		c.append(m)
+	}
+	return	c
+}
+//func collect <T:SequenceType> (c:T) -> [T.Generator.Element] {
+//	return	collect(c.generate())
+//}
+
+
+
+
+
+
+
+
+///	MARK:
+///	MARK:	Operators
+
+infix operator >> {
+
+}
+infix operator >>? {
+
+}
+infix operator >>! {
+
+}
+
+func >> <T,U> (value:T, function:T->U) -> U {
+	return	function(value)
+}
+func >>? <T,U> (value:T?, function:T->U) -> U? {
+	return	value == nil ? nil : function(value!)
+}
+//func >>! <T,U> (value:T!, function:T->U) -> U {
+//	precondition(value != nil, "Supplied value `T` shouldn't be `nil`.")
+//	return	function(value!)
+//}

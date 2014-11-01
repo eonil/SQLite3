@@ -78,13 +78,7 @@ extension Table {
 				println(q.columns)
 				
 				return	table.database.apply {
-					let	x	=	table.database.prepare(q.express().code).execute(parameters: keys)
-					let r = x.next()
-					assert(r != nil)
-					let	fs	=	scanAllFieldValues(r!)
-					let r2 = x.next()
-					assert(r2 == nil)
-					return	fs
+					return	table.database.prepare(q.express().code).execute(parameters: keys).step()?.allColumnValues()
 				}
 			}
 		}
@@ -128,13 +122,11 @@ extension Table: SequenceType {
 
 	public func generate() -> GeneratorOf<Record> {
 		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
-		let	ss	=	info.database.prepare(q.express().code)
-		assert(ss.items.count == 1)
-		let	s	=	ss.items[0]
+		let	s	=	info.database.prepare(q.express().code)
 		
 		func next() -> Record? {
 			if s.step() {
-				let	r	=	s.row()
+				let	r	=	s
 				let	kvs	=	info.keyColumnIndexes.map {r[$0]}
 				let	dvs	=	info.dataColumnIndexes.map {r[$0]}
 				return	Record(table: self, keys: kvs, data: dvs)
@@ -153,7 +145,7 @@ extension Table: SequenceType {
 	
 	public var count:Int {
 		get {
-			let	rs	=	info.database.prepare("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute(parameters: []).all()
+			let	rs	=	info.database.prepare("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute(parameters: []).allRowsAsDictionaries()
 			assert(rs.count == 0)
 			assert(rs[0].count == 1)
 			let	r	=	rs[0]
@@ -389,7 +381,7 @@ public extension Table {
 		return	{ (parameters:[Value]) -> [[String:Value]] in
 			precondition(cc == parameters.count, "Parameter count doesn't match.")
 			return	self.info.database.apply {
-				stmts.execute(parameters: parameters).all()
+				stmts.execute(parameters: parameters).allRowsAsDictionaries()
 			}
 		}
 	}
@@ -407,24 +399,18 @@ public extension Table {
 		let	bs		=	cs2.map { Query.Binding($0) }
 		let	q		=	Query.Insert(table: Query.Identifier(info.name), bindings: bs)
 		let	x		=	q.express()
-		let	stmts	=	info.database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
+		let	stmt1	=	info.database.prepare(x.code)	//	Ignore the parameters. New one will be provided.
 		let	cc		=	cs.count
 		
 		return	{ (vss:[[Value]])->() in
 			self.info.database.apply {
-				precondition(stmts.items.count == 1)
-				let	stmt1	=	stmts.items[0]
 				for vs1 in vss {
 					precondition(cc == vs1.count, "Parameter count doesn't match.")
-					stmt1.bind2(parameters: vs1)
+					stmt1.bind(parameters: vs1)
 				}
 			}
 		}
 	}
-//
-//	public func update(destinationColumns cs:[String], filterColumns:[String]) -> ((sourceValues:[[Value]], constraintValues:[Value])]) -> () {
-//		
-//	}
 	
 	
 	
@@ -455,13 +441,6 @@ private func splitPairs <K,V> (dict1:[K:V]) -> (keys:[K], values:[V]) {
 	return	(ns,vs)
 }
 
-private func scanAllFieldValues(r:Row) -> [Value] {
-	var	fs	=	[] as [Value]
-	for i in 0..<r.numberOfFields {
-		fs.append(r[i])
-	}
-	return	fs
-}
 
 
 

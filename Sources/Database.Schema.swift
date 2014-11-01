@@ -23,14 +23,15 @@ public extension Database
 
 public extension Database.Schema {
 	public func namesOfAllTables() -> [String] {
-		let	d	=	database.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute(parameters: []).all()
+		let	x	=	database.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute(parameters: [])
+		let	d	=	x.allRowsAsDictionaries()
 		return	d.map {$0["name"]!.text!}
 	}
 	
 	public func table(of name:String) -> Schema.Table {
 		let	p	=	Query.Language.Syntax.Pragma(database: nil, name: "table_info", argument: Query.Language.Syntax.Pragma.Argument.Call(value: name))
 		let	c	=	p.description
-		let	d	=	database.prepare(c).execute(parameters: []).all()
+		let	d	=	database.prepare(c).execute(parameters: []).allRowsAsDictionaries()
 		
 		Debug.log(d)
 		
@@ -39,10 +40,7 @@ public extension Database.Schema {
 	
 	
 	public func create(table q:Query.Schema.Table.Create) {
-		func tx() {
-			database.run(q)
-		}
-		database.apply(transaction: tx)
+		database.apply { self.database.run(q) }
 	}
 	public func create(#tableName:String, keyColumnNames:[String], dataColumnNames:[String]) {
 		let	kcs	=	keyColumnNames.map {Schema.Column(name: $0, nullable: false, type: Schema.Column.TypeCode.None, unique: true, index: nil)}

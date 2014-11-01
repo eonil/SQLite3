@@ -18,7 +18,7 @@ struct Debug {
 //	static let	mode:Bool	=	false
 //	#endif
 	
-	static let	useCoreLogging	=	false
+	static let	useCoreLogging	=	true
 	
 	static func log<T>(object:@autoclosure()->T) {
 		func _log(object:@autoclosure()->T) {

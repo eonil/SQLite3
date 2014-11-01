@@ -205,7 +205,7 @@ Core
 				var	pStmt	=	C.NULL
 				let	r		=	sqlite3_prepare_v2(_rawptr, zSql, len, &pStmt, &zTail)
 				crashOnErrorWith(resultCode: r)
-				Core.log("`sqlite3_prepare_v2(\(_rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called")
+				Core.log("`sqlite3_prepare_v2(\(_rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called, SQL = \(SQL)")
 				
 				if pStmt == C.NULL
 				{

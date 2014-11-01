@@ -109,7 +109,7 @@ func test2() {
 					///	And rollback.
 					return	false
 				}
-				db1.applyConditionally(transaction: tx3)
+				db1.applyConditionally(tx3)
 				
 				///	Verify inner rollback.
 				let	rs2	=	t1.select()
