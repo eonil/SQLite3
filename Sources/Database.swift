@@ -8,6 +8,23 @@
 
 import Foundation
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+///	MARK:	Public Interfaces
+///	MARK:
+
 ///	`execute` (private methods) executes a query as is.
 ///	`run` (public methods) executes asserts for a transaction wrapping.
 ///
@@ -35,7 +52,6 @@ public class Database {
 	
 	
 	////////////////////////////////
-	
 	
 	public convenience init(location:Location) {
 		self.init(location: location, editable: false)
@@ -251,10 +267,8 @@ extension Database {
 
 
 ///	MARK:
-///	MARK:	Implementation Details
+///	MARK:	Internal/Private Implementations
 ///	MARK:
-
-
 
 ///	MARK:	Internal State Query
 extension Database {

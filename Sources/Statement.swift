@@ -9,9 +9,76 @@
 import Foundation
 
 
+///	MARK:
+///	MARK:	Public Interfaces
+///	MARK:
+
+extension Statement {
+	
+}
+
+///	MARK:	Introspection
+extension Statement: Printable {
+	public var description: String {
+		get {
+			return	"Statement(\(_core.sql()))"
+		}
+	}
+}
+
+///	MARK:	Execution Iteration
+extension Statement {
+	
+	public func execute(parameters:[Value]) -> Execution {
+		precondition(!running, "You cannot execute a statement which already started manual stepping.")
+		precondition(_execution == nil || _execution!.running == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
+		Debug.log("EonilSQLte3 executes: \(self), parameters: \(parameters)")
+		
+		self.reset()
+		self.bind(parameters)
+		
+		let	x	=	Execution(self)
+		_execution	=	x
+		return	x
+	}
+	public func execute(parameters:[Query.ParameterValueEvaluation]) -> Execution {
+		let	ps2	=	parameters.map {$0()}
+		return	execute(ps2)
+	}
+	public func execute() -> Execution {
+		return	execute([] as [Value])
+	}
+	
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+///	MARK:	Internal/Private Implementations
 ///	MARK:
 
 ///	Comments for Maintainers
@@ -26,7 +93,25 @@ import Foundation
 ///	retain the statement object, and you're responsible to keep
 ///	it alive.
 public final class Statement {
+	
 	unowned let	database:Database
+	
+	init(database:Database, core:Core.Statement) {
+		self.database	=	database
+		
+		_core	=	core
+		_rowidx	=	-1
+	}
+	deinit {
+		//	It's fine to deinitialise execution while running. SQLite3 handles them well.
+		assert(_execution == nil, "You cannot deinitialise a `Statement` while a linked `Execution` is alive. Deinitialise the execution first.")
+		_core.finalize()
+	}
+	
+	
+	
+	
+	////
 	
 	private let	_core:Core.Statement
 	private var	_rowidx:Int				///<	Counted for validation.
@@ -36,26 +121,8 @@ public final class Statement {
 	
 	private var	_execution	=	nil as Execution?
 	
-	init(database:Database, core:Core.Statement) {
-		self.database	=	database
-		
-		_core	=	core
-		_rowidx	=	-1
-	}
-	deinit {
-//		assert(!_started || _finished)
-		assert(_execution == nil, "You cannot deinitialise a `Statement` while a linked `Execution` is alive. Deinitialise the execution first.")
-		_core.finalize()
-	}
 }
 
-extension Statement: Printable {
-	public var description: String {
-		get {
-			return	"Statement(\(_core.sql()))"
-		}
-	}
-}
 
 
 
@@ -135,34 +202,6 @@ extension Statement {
 
 
 
-
-///	MARK:
-///	MARK:	Execution Iteration
-
-extension Statement {
-	
-	public func execute(parameters:[Value]) -> Execution {
-		precondition(!running, "You cannot execute a statement which already started manual stepping.")
-		precondition(_execution == nil || _execution!.running == false, "Previous execution of this statement-list is not finished. You cannot re-execute this statement-list until it once fully finished.")
-		Debug.log("EonilSQLte3 executes: \(self), parameters: \(parameters)")
-		
-		self.reset()
-		self.bind(parameters)
-		
-		let	x	=	Execution(self)
-		_execution	=	x
-		return	x
-	}
-	public func execute(parameters:[Query.ParameterValueEvaluation]) -> Execution {
-		let	ps2	=	parameters.map {$0()}
-		return	execute(ps2)
-	}
-	public func execute() -> Execution {
-		return	execute([] as [Value])
-	}
-	
-}
-
 	
 
 
@@ -176,14 +215,7 @@ extension Statement {
 
 
 
-///	Available only while execution is on going.
-public protocol Record {
-	func allColumnNames() -> [String]
-	func allColumnValues() -> [Value]
-	func allColumns() -> [(String,Value)]
-	func allColumnsAsDictionary() -> [String:Value]
-}
-	
+
 extension Statement {
 	
 	///	Set to `class` to prevent copying.
@@ -193,13 +225,6 @@ extension Statement {
 		private init(_ statement:Statement) {
 			s	=	statement
 		}
-		
-//		public func step() -> Record? {
-//			return	statement.step() ? StatementExecutionRowProxy(statement: statement) : nil
-//		}
-//		public func cancel() {
-//			statement.reset()
-//		}
 		
 		var statement:Statement {
 			get {
@@ -567,38 +592,6 @@ private struct StatementFieldValuesGenerator: GeneratorType {
 
 
 
-
-
-
-
-
-
-
-
-private struct StatementExecutionRowProxy: Record {
-	let	statement:Statement
-	
-	///	Available only while the execution is not done yet.
-	func allColumnNames() -> [String] {
-		return	statement >>>> snapshotFieldNamesOfRow
-	}
-	
-	///	Available only while the execution is not done yet.
-	func allColumnValues() -> [Value] {
-		return	statement >>>> snapshotFieldValuesOfRow
-	}
-	
-	///	Available only while the execution is not done yet.
-	func allColumns() -> [(String,Value)] {
-		return	statement >>>> snapshotFieldNamesAndValuesOfRow
-	}
-	
-	///	Available only while the execution is not done yet.
-	func allColumnsAsDictionary() -> [String:Value] {
-		return	statement >>>> snapshotRowAsDictionary
-	}
-	
-}
 
 
 

@@ -21,42 +21,6 @@ func test3() {
 		return	a1
 	}
 
-	func basics() {
-		
-		///	Create new mutable database in memory.
-		let	db1	=	Database(location: Database.Location.Memory, editable: true)
-		
-		///	Create a new table.
-		db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
-		
-		///	Make a single table accessor object.
-		let	t1	=	db1.tables["T1"]
-
-		///	Insert a new row.
-		t1[111]	=	[42, "Here be dragons.", nil]
-		
-		///	Verify by selecting all current rows.
-		let	rs1	=	collect(t1)
-		assert(rs1.count == 1)
-		assert(rs1[0]["v1"]!.integer! == 42)
-		assert(rs1[0]["v2"]!.text! == "Here be dragons.")
-
-		///	Update the row.
-		t1[111]	=	[108, "Crouching tiger.", nil]
-		
-		///	Verify!
-		let	rs2	=	collect(t1)
-		assert(rs2.count == 1)
-		assert(rs2[0]["v2"]!.text! == "Crouching tiger.")
-		
-		///	Delete the row.
-		t1[111]	=	nil
-		
-		///	Verify!
-		let	rs3	=	collect(t1)
-		assert(rs3.count == 0)
-	}
-	
 	func basicsWithTransaction() {
 		///	Create new mutable database in memory.
 		let	db1	=	Database(location: Database.Location.Memory, editable: true)
@@ -168,7 +132,6 @@ func test3() {
 		}
 	}
 	
-	basics()
 	basicsWithTransaction()
 	nestedTransactions()
 	customQuery()
