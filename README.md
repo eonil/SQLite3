@@ -1,6 +1,6 @@
 EonilSQLite3
 ============
-Hoon H., 2014/09/16
+Hoon H.
 
 
 
@@ -9,29 +9,38 @@ Hoon H., 2014/09/16
 
 This provides SQLite3 database access on Swift.
 
--	Simple table access like a dictionary. You can iterate rows using
-	tuples or dictionaries. 
+-	Access table like a huge dictionary. You can iterate rows using
+	tuples or dictionaries.
 
--	Auto-completion friendly query methods. No manual query command 
-	composition for basic CRUD and DDL operations. (currently stutter
-	due to slow compiler...)
-
--	Array and dictionary based input/output access manner. Dictionary 
-	like direct table access.
+-	No need to write query at all.
 
 -	Automatically supports nested transactions.
 
 -	Forces safety statically and dynamically. Does not allow you 
-	to do funny stuffs. Crashes on any illegal operations.
+	to do funny stuffs. Crashes relably on any illegal operations. 
+	There're many debug mode assertions to prevent to make any 
+	programmer errors as much as possible.
 
+
+
+Requirements
+------------
+-	Xcode 6.1 (Swift 1.1)
+-	iOS 8.0 or later or OS X 10.10 or later to run.
+-	iOS 7.x is supported without dynamic library packaging.
+
+Basically target iOS 8 due to dynamic library packaging limitation.
+But the code itself has no problem to run on iOS 7, so you can use
+this on iOS 7 target applications by copying source code files.
 
 
 
 Getting Started
 ---------------
 Embed the project as a subproject of your project, and link iOS dynamic
-framewor target. If you need to target iOS 7, then you have to copy the
-source files manually into your project. 
+framewor target. 
+
+
 
 
 
@@ -45,91 +54,93 @@ Schematic illustration.
 
 ````Swift
 
-	import EonilSQLite3
-
 	///	Create new mutable database in memory.
-	let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
+	let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+	func tx1() {
+		///	Create a new table.
+		db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
+		
+		///	Make a single table accessor object.
+		let	t1	=	db1.tables["T1"]
+		
+		///	Insert a new row.
+		t1[111]	=	[42, "Here be dragons.", nil]
+		
+		///	Verify by selecting all current rows.
+		let	rs1	=	collect(t1)
 
-	///	Create a new table.
-	db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
-
-	///	Make a single table accessor object.
-	let	t1	=	db1.tables["T1"]
-
-	///	Insert a new row.
-	t1[111]	=	[42, "Here be dragons.", nil]
-
-	///	Verify by selecting all current rows.
-	let	rs1	=	collect(t1)
-	assert(rs1.count == 1)
-	assert(rs1[0]["v1"]!.integer! == 42)
-	assert(rs1[0]["v2"]!.text! == "Here be dragons.")
-
-	///	Update the row.
-	t1[111]	=	[108, "Crouching tiger.", nil]
-
-	///	Verify!
-	let	rs2	=	collect(t1)
-	assert(rs2.count == 1)
-	assert(rs2[0]["v2"]!.text! == "Crouching tiger.")
-
-	///	Delete the row.
-	t1[111]	=	nil
-
-	///	Verify!
-	let	rs3	=	collect(t1)
-	assert(rs3.count == 0)
+		XCTAssert(rs1.count == 1)
+		XCTAssert(rs1[0]["v1"]!.integer! == 42)
+		XCTAssert(rs1[0]["v2"]!.text! == "Here be dragons.")
+		
+		///	Update the row.
+		t1[111]	=	[108, "Crouching tiger.", nil]
+		
+		///	Verify!
+		let	rs2	=	collect(t1)
+		XCTAssert(rs2.count == 1)
+		XCTAssert(rs2[0]["v2"]!.text! == "Crouching tiger.")
+		
+		///	Delete the row.
+		t1[111]	=	nil
+		
+		///	Verify!
+		let	rs3	=	collect(t1)
+		XCTAssert(rs3.count == 0)
+	}
+	
+	///	Perform a transaction with multiple commands.
+	db1.apply(tx1)
 
 ````
 
-You need to perform any operations always in an explicit transaction. It's 
-not allowed to run operations without transaction. 
+You need to perform all operations always in an explicit transaction. It's 
+not allowed to run operations without transaction. This is by design.
 
-Nested transaction is also supported. (using implicitly generated savepoint 
-names which you can customize)
+Nested transactions are also supported. It uses implicitly generated savepoint 
+names, and you can customise the name generation.
 
 ````Swift
 
-	let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
+	let	db1	=	Database(location: Connection.Location.Memory, editable: true)
 	
 	///	Out-most transaction.
-	func tx1()
-	{
-		db1.schema().create(table: "T1", column: ["c1"])
-		let	t1	=	db1.table(name: "T1")
+	func tx1() {
+		db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
+		let	t1	=	db1.tables["T1"]
 		
 		///	Outer transaction.
-		func tx2() -> Bool
-		{
-			t1.insert(rowWith: ["c1":"V1"])
-		
+		func tx2() -> Bool {
+			///	Insert a new row.
+			t1[111]	=	[42, "Here be dragons.", nil]
+			
 			///	Inner transaction.
-			func tx3() -> Bool
-			{
+			func tx3() -> Bool {
 				///	Update the row.
-				t1.update(rowsWithAllOf: ["c1":"V1"], bySetting: ["c1":"W2"])
+				t1[111]	=	[108, "Crouching tiger.", nil]
 				
 				///	Verify the update.
-				let	rs2	=	t1.select()
-				assert(rs2.count == 1)
-				assert(rs2[0]["c1"]! as String == "W2")
+				let	rs2	=	collect(t1)
+				XCTAssert(rs2.count == 1)
+				XCTAssert(rs2[0]["v2"]!.text! == "Crouching tiger.")
 				
 				///	And rollback.
 				return	false
 			}
-			db1.applyConditionally(transaction: tx3)
+			db1.applyConditionally(tx3)
 			
 			///	Verify inner rollback.
-			let	rs2	=	t1.select()
-			assert(rs2.count == 1)
-			assert(rs2[0]["c1"]! as String == "V1")
+			let	rs2	=	collect(t1)
+			XCTAssert(rs2.count == 1)
+			XCTAssert(rs2[0]["v1"]!.integer! == 42)
+			XCTAssert(rs2[0]["v2"]!.text! == "Here be dragons.")
 			
 			return	false
 		}
 		
 		///	Verify outer rollback.
-		let	rs2	=	t1.select()
-		assert(rs2.count == 0)
+		let	rs2	=	collect(t1)
+		XCTAssert(rs2.count == 0)
 	}
 	db1.apply(tx1)
 
@@ -138,33 +149,25 @@ names which you can customize)
 
 
 
+Executing custom SQL is not supported.
 
-
-Execute Custom SQL If You Want More
------------------------------------
-This library aims very simple, quick way to manipulate SQLite3.
-For the other things, you need to write your own query yourself
-manually. For example, this library does not provide type-safe
-way to `JOIN` or autoincement PK value.
-
+But if you really want it, you can do it by using mid-level classses.
+This requires re-opening of the database not to break abstraction.
+You can do `JOIN` or other stuffs with this, but this is not recommended.
+Honestly, if you can't find usefulness from the simple high-level classes,
+then it would be better to look for another library.
 
 ````Swift
 
-	let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
-	db1.schema().create(table: "T1", column: ["c1"])
+	let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
+	conn1.allTuplesByExecuting("CREATE TABLE T1 (k1 INTEGER PRIMARY KEY, v1, v2, v3);")
+	conn1.allTuplesByExecuting("INSERT INTO T1 (k1, v1, v2, v3) VALUES (111, 42, 'Here be dragons.', NULL);")
 	
-	let	t1	=	db1.table(name: "T1")
-	t1.insert(rowWith: ["c1":"V1"])
-	
-	db1.apply {
-		db1.run(query: "SELECT * FROM T1", success: { (data) -> () in
-			for row in data
-			{
-				assert(row[0] as String == "V1")
-			}
-		}, failure: { (message) -> () in
-			
-		})
+	for (_, row) in enumerate(conn1.allTuplesByExecuting("SELECT * FROM T1")) {
+		XCTAssert(row[0] == 111)
+		XCTAssert(row[1] == 42)
+		XCTAssert(row[2] == "Here be dragons.")
+		XCTAssert(row[3] == nil)
 	}
 
 ````
@@ -180,48 +183,15 @@ way to `JOIN` or autoincement PK value.
 
 
 
-
-
-Errors
+Author
 ------
-Valid input produces valid output.
-Invalid input causes state corruption, and program shouldn't continue.
-In this case, there're two options. 
-
--	Abort the program.
--	Return error instead of result.
-
-This library just crashes by default to simplify everything. You're responsible
-to provide valid inputs. Check current state id required. 
-
-Of course with a few of exceptions. If it's unacceptable expensive or impossible
-to check validity of input without actually executing it, then it will return
-`Evaluation<V>` to determine error or result. In this case the feature guarantees
-*strong exception safety* (C++ term). Which means program state will be fully 
-consistent even when the feature returns an error.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+This library is written by Hoon H..
 
 
 
 License
 -------
-MIT license.
+This library is licensed under MIT License.
 
 
 
