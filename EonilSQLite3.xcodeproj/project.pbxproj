@@ -311,7 +311,8 @@
 				4540C70519FFF56C00D7714F /* Core.Result.swift */,
 				4540C70619FFF56C00D7714F /* Core.Statement.swift */,
 			);
-			path = Core;
+			name = Core;
+			path = LowLevel;
 			sourceTree = "<group>";
 		};
 		4540C71419FFF57E00D7714F /* Query */ = {
