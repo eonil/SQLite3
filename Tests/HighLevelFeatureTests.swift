@@ -1,5 +1,5 @@
 //
-//  EonilSQLite3___OSX___Tests.swift
+//  HighLevelFeatureTests.swift
 //  EonilSQLite3 - OSX - Tests
 //
 //  Created by Hoon H. on 11/3/14.
@@ -14,20 +14,23 @@ import EonilSQLite3
 
 
 
-func collect(var t:Table) -> [[String:Value]] {
-	var	g1	=	t.dictionaryView.generate()
-	var	a1	=	[] as [[String:Value]]
-	
-	while let e = g1.next() {
-		a1.append(e)
+extension HighLevelFeatureTests {
+	func collect(var t:Table) -> [[String:Value]] {
+		var	g1	=	t.dictionaryView.generate()
+		var	a1	=	[] as [[String:Value]]
+		
+		while let e = g1.next() {
+			a1.append(e)
+		}
+		return	a1
 	}
-	return	a1
 }
 
 
-
 class HighLevelFeatureTests: XCTestCase {
-    
+	
+	
+	
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -40,9 +43,7 @@ class HighLevelFeatureTests: XCTestCase {
 	
 	
 	
-	
-	
-	func testBasicsHighLevelFeaturesWithTransaction() {
+	func testBasicsFeaturesWithTransaction() {
 		
 		///	Create new mutable database in memory.
 		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
@@ -84,7 +85,7 @@ class HighLevelFeatureTests: XCTestCase {
 	}
 	
 	
-	func testBasicHighLevelFeaturesWithNestedTransactions() {
+	func testBasicFeaturesWithNestedTransactions() {
 		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
 		
 		///	Out-most transaction.
@@ -124,6 +125,21 @@ class HighLevelFeatureTests: XCTestCase {
 			///	Verify outer rollback.
 			let	rs2	=	collect(t1)
 			XCTAssert(rs2.count == 0)
+		}
+		db1.apply(tx1)
+	}
+	
+	func testQueryingNonExistingRow() {
+		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+		func tx1() {
+			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
+			let	t1	=	db1.tables["T1"]
+			
+			///	Insert a new row.
+			t1[111]	=	[42, "Here be dragons.", nil]
+			
+			let	r1	=	t1[222]
+			XCTAssert(r1 == nil)
 		}
 		db1.apply(tx1)
 	}

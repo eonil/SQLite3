@@ -11,6 +11,10 @@
 		453D226C1A0690C200E329B2 /* HighLevelFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */; };
 		453D22771A0690E700E329B2 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D62B119C6DD34001E450D /* EonilSQLite3.framework */; };
 		453D227D1A0690FE00E329B2 /* HighLevelFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */; };
+		453D227F1A06925600E329B2 /* MidLevelFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D227E1A06925600E329B2 /* MidLevelFeatureTests.swift */; };
+		453D22801A06925600E329B2 /* MidLevelFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D227E1A06925600E329B2 /* MidLevelFeatureTests.swift */; };
+		453D22821A06929700E329B2 /* TestCommons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D22811A06929700E329B2 /* TestCommons.swift */; };
+		453D22831A06929700E329B2 /* TestCommons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D22811A06929700E329B2 /* TestCommons.swift */; };
 		4540C6F519FFF53C00D7714F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6F419FFF53C00D7714F /* main.swift */; };
 		4540C70819FFF56C00D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
 		4540C70919FFF56C00D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
@@ -155,6 +159,8 @@
 		453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighLevelFeatureTests.swift; sourceTree = "<group>"; };
 		453D22711A0690E700E329B2 /* EonilSQLite3 - iOS - Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EonilSQLite3 - iOS - Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		453D22741A0690E700E329B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		453D227E1A06925600E329B2 /* MidLevelFeatureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidLevelFeatureTests.swift; sourceTree = "<group>"; };
+		453D22811A06929700E329B2 /* TestCommons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCommons.swift; sourceTree = "<group>"; };
 		4540C6F219FFF53C00D7714F /* UnitTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
 		4540C6F419FFF53C00D7714F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4540C70219FFF56C00D7714F /* Core.Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Common.swift; sourceTree = "<group>"; };
@@ -267,6 +273,8 @@
 			isa = PBXGroup;
 			children = (
 				453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */,
+				453D227E1A06925600E329B2 /* MidLevelFeatureTests.swift */,
+				453D22811A06929700E329B2 /* TestCommons.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -644,7 +652,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				453D227F1A06925600E329B2 /* MidLevelFeatureTests.swift in Sources */,
 				453D226C1A0690C200E329B2 /* HighLevelFeatureTests.swift in Sources */,
+				453D22821A06929700E329B2 /* TestCommons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,7 +662,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				453D22801A06925600E329B2 /* MidLevelFeatureTests.swift in Sources */,
 				453D227D1A0690FE00E329B2 /* HighLevelFeatureTests.swift in Sources */,
+				453D22831A06929700E329B2 /* TestCommons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
