@@ -155,10 +155,6 @@
 		453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighLevelFeatureTests.swift; sourceTree = "<group>"; };
 		453D22711A0690E700E329B2 /* EonilSQLite3 - iOS - Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EonilSQLite3 - iOS - Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		453D22741A0690E700E329B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4540C6D419FFF48300D7714F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4540C6D519FFF48300D7714F /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
-		4540C6D719FFF48300D7714F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4540C6DA19FFF48300D7714F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4540C6F219FFF53C00D7714F /* UnitTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
 		4540C6F419FFF53C00D7714F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4540C70219FFF56C00D7714F /* Core.Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Common.swift; sourceTree = "<group>"; };
@@ -174,14 +170,10 @@
 		4540C79C1A000FE000D7714F /* ExternalTest1CRUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExternalTest1CRUD.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		454BA4441A02F51500C121C8 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPatch.swift; sourceTree = "<group>"; };
-		4552BA4D19C6E356008FFF3F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		455F841F1A06803D006177E8 /* CoreBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreBridge.h; sourceTree = "<group>"; };
 		455F84201A06803D006177E8 /* CoreBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreBridge.m; sourceTree = "<group>"; };
 		455F84211A06803D006177E8 /* EonilSQLite3-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EonilSQLite3-Bridging-Header.h"; sourceTree = "<group>"; };
 		458D62B119C6DD34001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		458D62EB19C6DEB0001E450D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		458D62EC19C6DEB0001E450D /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
-		458D631A19C6E2C1001E450D /* TestTool-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestTool-Bridging-Header.h"; sourceTree = "<group>"; };
 		4599DDBF1A06819C0067BB3C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
 		459B517819C72BBC0029EA46 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		459B517E19C75EDC0029EA46 /* InternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalTests.swift; sourceTree = "<group>"; };
@@ -295,25 +287,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4540C6D219FFF48300D7714F /* TestToolForOSX */ = {
-			isa = PBXGroup;
-			children = (
-				4540C6D519FFF48300D7714F /* ApplicationController.swift */,
-				4540C6D719FFF48300D7714F /* Images.xcassets */,
-				4540C6D919FFF48300D7714F /* MainMenu.xib */,
-				4540C6D319FFF48300D7714F /* Supporting Files */,
-			);
-			path = TestToolForOSX;
-			sourceTree = "<group>";
-		};
-		4540C6D319FFF48300D7714F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4540C6D419FFF48300D7714F /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		4540C6F319FFF53C00D7714F /* UnitTestForOSX */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,8 +335,6 @@
 				458D62C819C6DD8C001E450D /* Sources */,
 				453D226A1A0690C200E329B2 /* Tests */,
 				458D62C919C6DD8C001E450D /* Targets */,
-				458D62E919C6DEB0001E450D /* TestTool */,
-				4540C6D219FFF48300D7714F /* TestToolForOSX */,
 				4540C6F319FFF53C00D7714F /* UnitTestForOSX */,
 				453D225A1A068F2100E329B2 /* EonilSQLite3 - OSX - Tests */,
 				453D22721A0690E700E329B2 /* EonilSQLite3 - iOS - Tests */,
@@ -415,25 +386,6 @@
 				4540C79419FFFA2F00D7714F /* Info.plist */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		458D62E919C6DEB0001E450D /* TestTool */ = {
-			isa = PBXGroup;
-			children = (
-				458D62EC19C6DEB0001E450D /* ApplicationController.swift */,
-				458D62EA19C6DEB0001E450D /* (supporting files) */,
-				458D631A19C6E2C1001E450D /* TestTool-Bridging-Header.h */,
-			);
-			path = TestTool;
-			sourceTree = "<group>";
-		};
-		458D62EA19C6DEB0001E450D /* (supporting files) */ = {
-			isa = PBXGroup;
-			children = (
-				458D62EB19C6DEB0001E450D /* Info.plist */,
-				4552BA4D19C6E356008FFF3F /* main.swift */,
-			);
-			name = "(supporting files)";
 			sourceTree = "<group>";
 		};
 		458D631419C6E1D6001E450D /* (dependencies) */ = {
@@ -839,17 +791,6 @@
 			targetProxy = 453D22781A0690E700E329B2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4540C6D919FFF48300D7714F /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4540C6DA19FFF48300D7714F /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		453D22621A068F2100E329B2 /* Debug */ = {
