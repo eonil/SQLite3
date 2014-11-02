@@ -24,6 +24,13 @@ Layers
 -	Low-Level means C-interop layer. No logics or abstractions, just handles
 	interfacing and type conversions.
 
--	Mid-Level means exposing SQLite3 features as is. 
+-	Mid-Level means exposing SQLite3 features as is. Query builder is provided
+	for your convenience. Low level is fully hidden.
 
--	High-Level means extra abstraction for best convenience.
+-	High-Level means extra abstraction for best convenience. Instead, this is
+	very limited in features. Mid/low levels are fully hidden not to break 
+	abstraction.
+
+You can choose any level what you want to use, but you can't mix them. Once 
+established connection to a database file can be manipulated using only with 
+the type of the connection.

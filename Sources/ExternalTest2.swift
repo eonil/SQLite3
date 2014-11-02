@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import EonilSQLite3
 
 
 func test3() {
@@ -110,8 +110,8 @@ func test3() {
 		conn1.execute("CREATE TABLE T1 (k1 INTEGER PRIMARY KEY, v1, v2, v3);")
 		conn1.execute("INSERT INTO T1 (k1, v1, v2, v3) VALUES (111, 42, 'Here be dragons.', NULL);")
 		
-		for (_, row) in enumerate(conn1.run("SELECT * FROM T1")) {
-			assert(row["v2"]!.text! == "Here be dragons.")
+		for (_, row) in enumerate(conn1.execute("SELECT * FROM T1")) {
+			assert(row[1].text! == "Here be dragons.")
 		}
 		
 //			let	r1	=	t1[111]

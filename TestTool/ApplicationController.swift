@@ -9,8 +9,7 @@
 import UIKit
 import EonilSQLite3
 
-func main(argc:Int32, argv:UnsafeMutablePointer<UnsafeMutablePointer<Int8>>>>) -> Int32
-{
+func main(argc:Int32, argv:UnsafeMutablePointer<UnsafeMutablePointer<Int8>>) -> Int32 {
 	return	UIApplicationMain(argc, argv, nil, "ApplicationController")
 }
 
@@ -40,8 +39,7 @@ class ApplicationController: UIResponder, UIApplicationDelegate
 	{
 		core	=	Core()
 		
-		Test1.test1()
-		test2()
+//		test2()
 		test3()
 		
 		return true

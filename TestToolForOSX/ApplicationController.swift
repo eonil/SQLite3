@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import EonilSQLite3
 
 @NSApplicationMain
 class ApplicationController: NSObject, NSApplicationDelegate {
@@ -15,7 +16,10 @@ class ApplicationController: NSObject, NSApplicationDelegate {
 
 
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
-		// Insert code here to initialize your application
+		
+//		test2()
+		test3()
+		
 	}
 
 	func applicationWillTerminate(aNotification: NSNotification) {

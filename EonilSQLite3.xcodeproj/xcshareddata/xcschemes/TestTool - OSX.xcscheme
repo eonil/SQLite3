@@ -20,34 +20,6 @@
                ReferencedContainer = "container:EonilSQLite3.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4540C6DF19FFF48300D7714F"
-               BuildableName = "TestToolForOSXTests.xctest"
-               BlueprintName = "TestToolForOSXTests"
-               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4540C77B19FFF9C000D7714F"
-               BuildableName = "ddddTests.xctest"
-               BlueprintName = "ddddTests"
-               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -56,26 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4540C6DF19FFF48300D7714F"
-               BuildableName = "TestToolForOSXTests.xctest"
-               BlueprintName = "TestToolForOSXTests"
-               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4540C77B19FFF9C000D7714F"
-               BuildableName = "ddddTests.xctest"
-               BlueprintName = "ddddTests"
-               ReferencedContainer = "container:EonilSQLite3.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

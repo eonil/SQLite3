@@ -27,11 +27,14 @@ public final class Database {
 		self.configuration	=	configuration
 		self.connection		=	Connection(location: location, editable: editable)
 		
-//		_installDebuggingGuidanceAuthoriser()
+		_installDebuggingGuidanceAuthoriser()
 	}
 	
 	deinit {
-//		_uninstallDebuggingGuidanceAuthoriser()
+		_optimisation	=	Optimisation()
+		
+		_uninstallDebuggingGuidanceAuthoriser()
+		
 	}
 }
 
@@ -189,23 +192,23 @@ extension Database{
 	
 	
 	
-//	private func _installDebuggingGuidanceAuthoriser() {
-//		if !Debug.mode { return }
-//		
-//		let prohibitNameForLiveTables	=	{ [unowned self](databaseName:String, tableName:String) -> Bool in
-//			let	ok	=	self.tables.liveTableNamesInLinks().filter {$0 == tableName}.count == 0
-//			assert(ok, "Altering or dropping a table is not allowed while a `Table` object linked to the table is alive.")
-//			return	ok
-//		}
-//		
-//		let	auth1	=	Core.Connection.AuthorisationRoutingTable(alterTable: prohibitNameForLiveTables, dropTable: prohibitNameForLiveTables)
-//		connection.setAuthoriser(auth1)
-//	}
-//	private func _uninstallDebuggingGuidanceAuthoriser() {
-//		if !Debug.mode { return }
-//		
-//		connection.setAuthoriser(nil)
-//	}
+	private func _installDebuggingGuidanceAuthoriser() {
+		if !Debug.mode { return }
+		
+		let prohibitNameForLiveTables	=	{ [unowned self](databaseName:String, tableName:String) -> Bool in
+			let	ok	=	self.tables.liveTableNamesInLinks().filter {$0 == tableName}.count == 0
+			assert(ok, "Altering or dropping a table is not allowed while a `Table` object linked to the table is alive.")
+			return	ok
+		}
+		
+		let	auth1	=	Core.Connection.AuthorisationRoutingTable(alterTable: prohibitNameForLiveTables, dropTable: prohibitNameForLiveTables)
+		connection.setAuthoriser(auth1)
+	}
+	private func _uninstallDebuggingGuidanceAuthoriser() {
+		if !Debug.mode { return }
+		
+		connection.setAuthoriser(nil)
+	}
 
 
 }

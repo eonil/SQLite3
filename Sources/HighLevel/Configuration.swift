@@ -11,5 +11,6 @@ import Foundation
 public struct Configuration {
 //	public var	schemaEditable:Bool			///<	Allows user to edit schema.
 //	public var	contentEditable:Bool		///<	Allows user to edit contents.
-	var	savepointNameGenerator:()->String	///<	Crash the app if you can't generate any more names.
+	
+	var	savepointNameGenerator:()->String	///<	Specifies a name generator which will generate names for SAVEPOINT statement. Crash the app if you can't generate any more names.
 }

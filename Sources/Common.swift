@@ -58,7 +58,7 @@ infix operator >>>> {
 //
 //}
 
-func >>>> <T,U> (value:T, function:T->U) -> U {
+internal func >>>> <T,U> (value:T, function:T->U) -> U {
 	return	function(value)
 }
 //func >>>>? <T,U> (value:T?, function:T->U) -> U? {
@@ -77,6 +77,6 @@ infix operator ||| {
 
 }
 
-func ||| <T> (value:T?, substitude:T) -> T {
+internal func ||| <T> (value:T?, substitude:T) -> T {
 	return	value == nil ? substitude : value!
 }

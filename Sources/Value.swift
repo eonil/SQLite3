@@ -125,20 +125,20 @@ extension Value {
 //	init(){
 //		self	=	Value.Null
 //	}
-	init(_ v:Int64) {
+	public init(_ v:Int64) {
 		self	=	Integer(v)
 	}
-	init(_ v:Double) {
+	public init(_ v:Double) {
 		self	=	Float(v)
 	}
-	init(_ v:String) {
+	public init(_ v:String) {
 		self	=	Text(v)
 	}
-	init(_ v:Binary) {
+	public init(_ v:Binary) {
 		self	=	Blob(v)
 	}
 	
-	var null:Bool {
+	public var null:Bool {
 		get {
 			return	self == Value.Null
 //			switch self {
@@ -147,7 +147,7 @@ extension Value {
 //			}
 		}
 	}
-	var integer:Int64? {
+	public var integer:Int64? {
 		get {
 			switch self {
 			case let Integer(s):	return	s
@@ -155,7 +155,7 @@ extension Value {
 			}
 		}
 	}
-	var float:Double? {
+	public var float:Double? {
 		get {
 			switch self {
 			case let Float(s):		return	s
@@ -163,7 +163,7 @@ extension Value {
 			}
 		}
 	}
-	var text:String? {
+	public var text:String? {
 		get {
 			switch self {
 			case let Text(s):		return	s
@@ -171,7 +171,7 @@ extension Value {
 			}
 		}
 	}
-	var blob:Binary? {
+	public var blob:Binary? {
 		get {
 			switch self {
 			case let Blob(s):		return	s
