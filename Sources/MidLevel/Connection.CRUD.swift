@@ -1,5 +1,5 @@
 ////
-////  Database.CRUD.swift
+////  Connection.CRUD.swift
 ////  EonilSQLite3
 ////
 ////  Created by Hoon H. on 11/1/14.
@@ -8,7 +8,7 @@
 //
 //import Foundation
 //
-//extension Database {
+//extension Connection {
 //	
 //	public func select(table:String, rowsWithAllOf pairs:[String:Value]) -> [[String:Value]] {
 //		//		let	ss	=	splitPairs(pairs)
@@ -152,7 +152,7 @@
 //
 //
 //
-//public extension Database {
+//public extension Connection {
 //	private func selection(table:String, mode m:Query.FilterTree.Node.Combination, filterColumns cs:[String]) -> (constraintValues:[Value]) -> [[String:Value]] {
 //		let	cs2		=	parameterMappings(cs)
 //		let	t		=	filterTreeWith(samples: cs2, combinationStyle: m)

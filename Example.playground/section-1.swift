@@ -4,7 +4,7 @@ import Foundation
 import EonilSQLite3
 
 ///	Create new mutable database in memory.
-let	db1	=	Database(location: Database.Location.Memory, editable: true)
+let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 func tx1() {
 	
 	///	Create a new table.
@@ -38,5 +38,4 @@ func tx1() {
 }
 
 ///	Perform a transaction with multiple commands.
-db1.apply(tx1)
-
+db1.apply(tx

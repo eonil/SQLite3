@@ -89,14 +89,14 @@ extension Statement {
 ///
 ///	You should keep `Statement` object alive while you're running 
 ///	an `Execution`. If the statement dies before the execution 
-///	finishes, the program will crash. `Database` object does not
+///	finishes, the program will crash. `Connection` object does not
 ///	retain the statement object, and you're responsible to keep
 ///	it alive.
 public final class Statement {
 	
-	unowned let	database:Database
+	unowned let	database:Connection
 	
-	init(database:Database, core:Core.Statement) {
+	init(database:Connection, core:Core.Statement) {
 		self.database	=	database
 		
 		_core	=	core

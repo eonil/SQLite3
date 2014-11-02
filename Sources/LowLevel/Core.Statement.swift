@@ -36,9 +36,9 @@ extension Core
 	
 	class Statement
 	{
-		let	database:Core.Database
+		let	database:Core.Connection
 		
-		init(database:Core.Database, pointerToRawCStatementObject:COpaquePointer)
+		init(database:Core.Connection, pointerToRawCStatementObject:COpaquePointer)
 		{
 			self.database	=	database
 			

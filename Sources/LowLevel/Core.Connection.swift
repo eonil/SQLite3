@@ -1,5 +1,5 @@
 //
-//  Core.Database.swift
+//  Core.Connection.swift
 //  EonilSQLite3
 //
 //  Created by Hoon H. on 9/15/14.
@@ -14,9 +14,9 @@ import Foundation
 
 
 
-func |(left:Core.Database.OpenFlag, right:Core.Database.OpenFlag) -> Core.Database.OpenFlag
+func |(left:Core.Connection.OpenFlag, right:Core.Connection.OpenFlag) -> Core.Connection.OpenFlag
 {
-	return	Core.Database.OpenFlag(value: left.value | right.value)
+	return	Core.Connection.OpenFlag(value: left.value | right.value)
 }
 
 extension
@@ -26,7 +26,7 @@ Core
 	///	(Xcode 6.0.1)
 	///	If Swift starts to provide `deinit` also in `struct`, it is recommended
 	///	to use `struct` instead of `class`.
-	class Database
+	class Connection
 	{
 		typealias	Common	=	Core.Common
 		typealias	C		=	Core.Common.C
@@ -291,7 +291,7 @@ Core
 
 ///	MARK:
 
-extension Core.Database {
+extension Core.Connection {
 	
 //	struct ActionCode {
 //		static let	AlterTable	=	ActionCode(SQLITE_ALTER_TABLE)
@@ -321,12 +321,12 @@ extension Core.Database {
 
 
 private final class CallbackProxy: Eonil____SQLite3____Bridge____CallbackProxy {
-	let	routingTable:Core.Database.AuthorisationRoutingTable
-	init(routingTable:Core.Database.AuthorisationRoutingTable) {
+	let	routingTable:Core.Connection.AuthorisationRoutingTable
+	init(routingTable:Core.Connection.AuthorisationRoutingTable) {
 		self.routingTable	=	routingTable
 	}
 	private override func authoriseActionCode(actionCode: Int32, _ argA: UnsafePointer<Int8>, _ argB: UnsafePointer<Int8>, _ argC: UnsafePointer<Int8>, _ argD: UnsafePointer<Int8>) -> Int32 {
-		func resolve() -> Core.Database.AuthorisationRoutingTable.Authorise {
+		func resolve() -> Core.Connection.AuthorisationRoutingTable.Authorise {
 			switch actionCode {
 			case SQLITE_ALTER_TABLE:	return	routingTable.alterTable
 			case SQLITE_DROP_TABLE:		return	routingTable.dropTable

@@ -50,8 +50,8 @@ extension Core
 //	#define SQLITE_NOTFOUND    12   /* Unknown opcode in sqlite3_file_control() */
 //	#define SQLITE_FULL        13   /* Insertion failed because database is full */
 //	#define SQLITE_CANTOPEN    14   /* Unable to open the database file */
-//	#define SQLITE_PROTOCOL    15   /* Database lock protocol error */
-//	#define SQLITE_EMPTY       16   /* Database is empty */
+//	#define SQLITE_PROTOCOL    15   /* Connection lock protocol error */
+//	#define SQLITE_EMPTY       16   /* Connection is empty */
 //	#define SQLITE_SCHEMA      17   /* The database schema changed */
 //	#define SQLITE_TOOBIG      18   /* String or BLOB exceeds size limit */
 //	#define SQLITE_CONSTRAINT  19   /* Abort due to constraint violation */

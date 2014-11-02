@@ -15,12 +15,12 @@ struct Internals {
 extension Internals {
 	
 	struct TableInfo {
-		unowned let	database:Database
+		unowned let	database:Connection
 		
 		let	name:String
 		let	columns:[ColumnInfo]		///<	All table related column stuffs will be ordered exactly same with this array.
 		
-		private init(database:Database, name:String) {
+		private init(database:Connection, name:String) {
 			let	rs	=	database.apply {
 				database.run("PRAGMA table_info(\( Query.Identifier(name).express().code ))")
 			}
@@ -128,7 +128,7 @@ extension Internals {
 		
 		////
 		
-		static func fetch(db:Database, tableName:String) -> TableInfo {
+		static func fetch(db:Connection, tableName:String) -> TableInfo {
 			return	TableInfo(database: db, name: tableName)
 		}
 	}

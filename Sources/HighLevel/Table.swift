@@ -18,7 +18,7 @@ import Foundation
 ///
 ///	This proxy is linked by name, and metadata are cached. If you make any change on 
 ///	remote table in database, state of this object will be corrupted silently.
-///	To prevent this situation, `Database` object installs authoriser and crashs app
+///	To prevent this situation, `Connection` object installs authoriser and crashs app
 ///	on any trial to change existing table while any `Table` object is alive.
 ///
 public class Table {
@@ -45,7 +45,7 @@ public class Table {
 }
 
 extension Table {
-	public var database:Database {
+	public var database:Connection {
 		get {
 			return	owner.database
 		}

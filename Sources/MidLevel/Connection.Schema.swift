@@ -1,5 +1,5 @@
 //
-//  Database.Schema.swift
+//  Connection.Schema.swift
 //  EonilSQLite3
 //
 //  Created by Hoon H. on 9/18/14.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-public extension Database {
+public extension Connection {
 	///	Provides simple and convenient methods
 	public struct Schema {
-		let	database:Database
+		let	database:Connection
 	}
 }
 
@@ -19,7 +19,7 @@ public extension Database {
 
 
 
-public extension Database.Schema {
+public extension Connection.Schema {
 	public func namesOfAllTables() -> [String] {
 		let	x	=	database.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute()
 		let	d	=	x.allDictionaries()

@@ -104,7 +104,7 @@ public struct Test1 {
 		
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.apply {
 				println("DDD")
 			}
@@ -113,7 +113,7 @@ public struct Test1 {
 		
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.apply {
 				let	s	=	db1.prepare("SELECT \"AAA\";")
 				s.step()
@@ -123,7 +123,7 @@ public struct Test1 {
 		
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.apply {
 				let	s	=	db1.prepare("SELECT \"AAA\";")
 				s.step()
@@ -135,7 +135,7 @@ public struct Test1 {
 		
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.apply {
 				let	s	=	db1.prepare("SELECT \"AAA\";")
 				s.step()
@@ -153,7 +153,7 @@ public struct Test1 {
 		
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply { () -> () in
 				let	s	=	db1.prepare("SELECT name FROM sqlite_master;")
@@ -175,7 +175,7 @@ public struct Test1 {
 		}
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.apply {
 				let	s	=	db1.prepare("SELECT \"AAA\";")
 				
@@ -191,7 +191,7 @@ public struct Test1 {
 		}
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.apply {
 				let	rs1	=	db1.run("SELECT \"AAA\";")
 				println(rs1)
@@ -200,7 +200,7 @@ public struct Test1 {
 		}
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply {
 				let	s	=	db1.prepare("SELECT name FROM sqlite_master;")
@@ -217,7 +217,7 @@ public struct Test1 {
 		}
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply {
 				let	s	=	db1.prepare("SELECT name FROM sqlite_master;")
@@ -238,7 +238,7 @@ public struct Test1 {
 		}
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			db1.apply { () -> () in
 				let	rs	=	db1.run("SELECT name FROM sqlite_master;")
@@ -254,7 +254,7 @@ public struct Test1 {
 		
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 			
 			db1.apply { () -> () in
@@ -287,7 +287,7 @@ public struct Test1 {
 		
 		
 		run	{
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 		
 			let	k	=	db1.schema().allRowsOfRawMasterTable()
@@ -309,7 +309,7 @@ public struct Test1 {
 		
 		run	{
 			
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			func run() {
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 				db1.run(Query.Schema.Table.Create(temporary: false, definition: t1))
@@ -318,7 +318,7 @@ public struct Test1 {
 		}
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.apply {
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 				db1.run(Query.Schema.Table.Create(temporary: false, definition: t1))
@@ -331,7 +331,7 @@ public struct Test1 {
 		assert(Core.LeakDetector.theDetector.countAllInstances() == 0)
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			func run() {
 				let	t1	=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 				db1.run(Query.Schema.Table.Create(temporary: false, definition: t1))
@@ -357,7 +357,7 @@ public struct Test1 {
 		
 		
 //		run {
-//			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 //			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 //			
 //			let	t1	=	db1.table(name: "T1")
@@ -391,7 +391,7 @@ public struct Test1 {
 		
 		
 		run {
-			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["c1", "c2", "c3"])
 			
 			run {
@@ -417,7 +417,7 @@ public struct Test1 {
 		
 		
 //		run("prohibitionAlteringTableWhileTableObjectAlive") {
-//			let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//			let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 //			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["c1", "c2", "c3"])
 //			
 //			self.run {

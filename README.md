@@ -48,7 +48,7 @@ Schematic illustration.
 	import EonilSQLite3
 
 	///	Create new mutable database in memory.
-	let	db1	=	Database(location: Database.Location.Memory, editable: true)
+	let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 
 	///	Create a new table.
 	db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
@@ -90,7 +90,7 @@ names which you can customize)
 
 ````Swift
 
-	let	db1	=	Database(location: Database.Location.Memory, editable: true)
+	let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 	
 	///	Out-most transaction.
 	func tx1()
@@ -150,7 +150,7 @@ way to `JOIN` or autoincement PK value.
 
 ````Swift
 
-	let	db1	=	Database(location: Database.Location.Memory, editable: true)
+	let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 	db1.schema().create(table: "T1", column: ["c1"])
 	
 	let	t1	=	db1.table(name: "T1")

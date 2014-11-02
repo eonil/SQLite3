@@ -15,9 +15,9 @@ import Foundation
 ///	
 ///	DDL operations are not supported in this object. Schema 
 ///	must not be mutated while accessing data. 
-///	See `Database.schema` for that.
+///	See `Connection.schema` for that.
 public final class TableCollection: SequenceType {
-	unowned let	owner:Database
+	unowned let	owner:Connection
 	
 //	private var	_linkmap	=	[:] as [String:()->Table?]
 	private var	_links	=	[] as [()->Table?]
@@ -27,17 +27,17 @@ public final class TableCollection: SequenceType {
 	
 	////
 	
-	init(owner:Database) {
+	init(owner:Connection) {
 		self.owner	=	owner
 	}
 	deinit {
 		_assertNoDeadLinks()
-		assert(_links.count == 0, "You're deinitialising a `TableCollection` (or `Database`) object while there's some live `Table` object. Kill the tables first before deinitialising `TableCollection` or `Database`.")
+		assert(_links.count == 0, "You're deinitialising a `TableCollection` (or `Connection`) object while there's some live `Table` object. Kill the tables first before deinitialising `TableCollection` or `Connection`.")
 	}
 	
 	////
 	
-	public var database:Database {
+	public var database:Connection {
 		get {
 			return	owner
 		}

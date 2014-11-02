@@ -1,5 +1,5 @@
 //
-//  Database.ConvenientExtensions.swift
+//  Connection.ConvenientExtensions.swift
 //  EonilSQLite3
 //
 //  Created by Hoon H. on 11/1/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Database {
+extension Connection {
 	
 	///	Executes a single query.
 	///	You always need a valid transaction context to call this method.
@@ -50,14 +50,14 @@ extension Database {
 
 
 
-extension Database {
+extension Connection {
 	
 	public struct Default {
 		public struct Generator {
 			///	Maximum resolution is `1/(Int.max-1)` per a second.
 			///	That's the hard limit of this algorithm. If you need something
 			///	better, you have to make and specify your own generator on initializer
-			///	of `Database` class.
+			///	of `Connection` class.
 			public static func uniqueAtomicUnitName() -> String {
 				struct deduplicator {
 					var	lastSeed			=	0
@@ -97,10 +97,10 @@ extension Database {
 
 
 
-extension Database {
+extension Connection {
 	
 	///	Get schema informations.
-	public func schema() -> Database.Schema {
+	public func schema() -> Connection.Schema {
 		return	Schema(database: self)
 	}
 	

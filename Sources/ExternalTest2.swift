@@ -23,7 +23,7 @@ func test3() {
 
 	func basicsWithTransaction() {
 		///	Create new mutable database in memory.
-		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 		func tx1() {
 			///	Create a new table.
 			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
@@ -62,7 +62,7 @@ func test3() {
 	
 	
 	func nestedTransactions() {
-		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 		
 		///	Out-most transaction.
 		func tx1() {
@@ -106,7 +106,7 @@ func test3() {
 	}
 	
 	func customQuery() {
-		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 		db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
 		let	t1	=	db1.tables["T1"]
 		

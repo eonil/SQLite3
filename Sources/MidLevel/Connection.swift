@@ -1,5 +1,5 @@
 //
-//  Database.swift
+//  Connection.swift
 //  EonilSQLite3
 //
 //  Created by Hoon H. on 9/15/14.
@@ -35,11 +35,11 @@ import Foundation
 ///	To precent this situation, supply your own 
 ///	implementation of savepoint name generator at 
 ///	initializer.
-public class Database {
+public class Connection {
 	
-	private var	_core			=	Core.Database()
+	private var	_core			=	Core.Connection()
 	private var	_liveTableNames	=	[] as [String]
-	private var	_authoriser		=	nil as Core.Database.AuthorisationRoutingTable?
+	private var	_authoriser		=	nil as Core.Connection.AuthorisationRoutingTable?
 	
 	private let	_savepoint_name_gen:() -> String
 	
@@ -81,10 +81,10 @@ public class Database {
 			case let Location.PersistentFile(path: path):	return	passAssertingValidPersistentFilePath(path)
 			}
 		}
-		func resolve_flag() -> Core.Database.OpenFlag
+		func resolve_flag() -> Core.Connection.OpenFlag
 		{
-			if editable == false { return Core.Database.OpenFlag.Readonly }
-			return	Core.Database.OpenFlag.ReadWrite
+			if editable == false { return Core.Connection.OpenFlag.Readonly }
+			return	Core.Connection.OpenFlag.ReadWrite
 		}
 		
 		_savepoint_name_gen	=	atomicUnitNameGenerator
@@ -149,7 +149,7 @@ public class Database {
 
 
 ///	MARK:	Foundational Features
-extension Database {
+extension Connection {
 	
 	public var tables:TableCollection {
 		get {
@@ -271,7 +271,7 @@ extension Database {
 ///	MARK:
 
 ///	MARK:	Internal State Query
-extension Database {
+extension Connection {
 	
 	var hasExplicitTransaction:Bool {
 		get {
@@ -286,7 +286,7 @@ extension Database {
 
 
 ///	MARK:	Optimisations
-extension Database {
+extension Connection {
 	
 	private struct Optimisation {
 		struct CommonStatementCache {
@@ -335,7 +335,7 @@ extension Database {
 
 
 ///	MARK:	Table Proxy Object Management
-extension Database {
+extension Connection {
 	internal func notifyBornOfTableForName(n:String) {
 		_liveTableNames.append(n)
 	}
@@ -351,7 +351,7 @@ extension Database {
 			assert(ok, "Altering or dropping a table is not allowed while a `Table` object linked to the table is alive.")
 			return	ok
 		}
-		_authoriser	=	Core.Database.AuthorisationRoutingTable(alterTable: prohibitNameForLiveTables, dropTable: prohibitNameForLiveTables)
+		_authoriser	=	Core.Connection.AuthorisationRoutingTable(alterTable: prohibitNameForLiveTables, dropTable: prohibitNameForLiveTables)
 		_core.setAuthorizer(_authoriser)
 	}
 	private func _uninstallDebuggingGuidanceAuthoriser() {
@@ -394,7 +394,7 @@ extension Database {
 
 
 ///	MARK:	Transaction Execution Helpers
-extension Database {
+extension Connection {
 	
 	
 	

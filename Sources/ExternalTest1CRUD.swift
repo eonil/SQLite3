@@ -13,7 +13,7 @@
 //	func basics() {
 //		
 //		///	Create new mutable database in memory.
-//		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 //		
 //		///	Create a new table.
 //		db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
@@ -44,7 +44,7 @@
 //	
 //	func basicsWithTransaction() {
 //		///	Create new mutable database in memory.
-//		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 //		func tx1() {
 //			///	Create a new table.
 //			db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
@@ -82,7 +82,7 @@
 //	
 //	
 //	func nestedTransactions() {
-//		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 //		
 //		///	Out-most transaction.
 //		func tx1() {
@@ -124,7 +124,7 @@
 //	}
 //	
 //	func customQuery() {
-//		let	db1	=	Database(location: Database.Location.Memory, editable: true)
+//		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
 //		db1.schema().create(tableName: "T1", dataColumnNames: ["c1"])
 //		
 //		db1.insert("T1", rowWith: ["c1":"V1"])
