@@ -28,14 +28,4 @@ extension Core.Common {
 		static let	FALSE		=	Int32(0)
 		
 	}
-	
-	
-	
-	
-	
-//	struct
-//	Validation
-//	{
-//		
-//	}
 }

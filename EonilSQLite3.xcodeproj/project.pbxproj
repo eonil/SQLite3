@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4540C6D619FFF48300D7714F /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6D519FFF48300D7714F /* ApplicationController.swift */; };
-		4540C6D819FFF48300D7714F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4540C6D719FFF48300D7714F /* Images.xcassets */; };
-		4540C6DB19FFF48300D7714F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4540C6D919FFF48300D7714F /* MainMenu.xib */; };
+		453D225F1A068F2100E329B2 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; };
+		453D226C1A0690C200E329B2 /* HighLevelFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */; };
+		453D22771A0690E700E329B2 /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D62B119C6DD34001E450D /* EonilSQLite3.framework */; };
+		453D227D1A0690FE00E329B2 /* HighLevelFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */; };
 		4540C6F519FFF53C00D7714F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C6F419FFF53C00D7714F /* main.swift */; };
 		4540C70819FFF56C00D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
 		4540C70919FFF56C00D7714F /* Core.Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C70219FFF56C00D7714F /* Core.Common.swift */; };
@@ -37,15 +38,12 @@
 		4540C79619FFFA6500D7714F /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */; };
 		4540C79B1A000F9200D7714F /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */; };
 		4540C79F1A000FE000D7714F /* ExternalTest1CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C79C1A000FE000D7714F /* ExternalTest1CRUD.swift */; };
-		4540C7A21A000FFF00D7714F /* ExternalTest1CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C79C1A000FE000D7714F /* ExternalTest1CRUD.swift */; };
-		4540C7A31A000FFF00D7714F /* ExternalTest1CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4540C79C1A000FE000D7714F /* ExternalTest1CRUD.swift */; };
 		454BA4451A02F51500C121C8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BA4441A02F51500C121C8 /* Common.swift */; };
 		454BA4461A02F51500C121C8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BA4441A02F51500C121C8 /* Common.swift */; };
 		454BA4471A02F51500C121C8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BA4441A02F51500C121C8 /* Common.swift */; };
 		45505AE71A0162A800E0D3B8 /* SwiftPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */; };
 		45505AE81A0162A800E0D3B8 /* SwiftPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */; };
 		45505AE91A0162A800E0D3B8 /* SwiftPatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */; };
-		4552BA4E19C6E356008FFF3F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4552BA4D19C6E356008FFF3F /* main.swift */; };
 		455F84221A06803D006177E8 /* CoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F841F1A06803D006177E8 /* CoreBridge.h */; };
 		455F84231A06803D006177E8 /* CoreBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F841F1A06803D006177E8 /* CoreBridge.h */; };
 		455F84241A06803D006177E8 /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F84201A06803D006177E8 /* CoreBridge.m */; };
@@ -53,12 +51,7 @@
 		455F84261A06803D006177E8 /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F84201A06803D006177E8 /* CoreBridge.m */; };
 		455F84271A06803D006177E8 /* EonilSQLite3-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F84211A06803D006177E8 /* EonilSQLite3-Bridging-Header.h */; };
 		455F84281A06803D006177E8 /* EonilSQLite3-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F84211A06803D006177E8 /* EonilSQLite3-Bridging-Header.h */; };
-		458D62ED19C6DEB0001E450D /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D62EC19C6DEB0001E450D /* ApplicationController.swift */; };
-		4599DDBD1A06811C0067BB3C /* ExternalTest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F3CC081A05054C0078E091 /* ExternalTest2.swift */; };
-		4599DDBE1A06811D0067BB3C /* ExternalTest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F3CC081A05054C0078E091 /* ExternalTest2.swift */; };
 		4599DDC01A06819C0067BB3C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4599DDBF1A06819C0067BB3C /* libsqlite3.0.dylib */; };
-		4599DDC31A0681AE0067BB3C /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; };
-		4599DDC41A0681EE0067BB3C /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458D62B119C6DD34001E450D /* EonilSQLite3.framework */; };
 		459B517919C72BBC0029EA46 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
 		45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
 		45DEAE5F1A065AD90031CF27 /* Connection.CRUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DEAE501A065AD90031CF27 /* Connection.CRUD.swift */; };
@@ -128,19 +121,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		455F84291A0680D5006177E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 458D62A619C6DD00001E450D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 458D62B019C6DD34001E450D;
-			remoteInfo = "EonilSQLite3 - iOS";
-		};
-		4599DDC11A0681A80067BB3C /* PBXContainerItemProxy */ = {
+		453D22601A068F2100E329B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 458D62A619C6DD00001E450D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4540C72B19FFF59900D7714F;
 			remoteInfo = "EonilSQLite3 - OSX";
+		};
+		453D22781A0690E700E329B2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 458D62A619C6DD00001E450D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 458D62B019C6DD34001E450D;
+			remoteInfo = "EonilSQLite3 - iOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -154,30 +147,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		4540C74819FFF59900D7714F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4540C78E19FFF9C000D7714F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4540C6D119FFF48300D7714F /* TestTool - OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestTool - OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		453D22591A068F2100E329B2 /* EonilSQLite3 - OSX - Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EonilSQLite3 - OSX - Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		453D225C1A068F2100E329B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighLevelFeatureTests.swift; sourceTree = "<group>"; };
+		453D22711A0690E700E329B2 /* EonilSQLite3 - iOS - Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EonilSQLite3 - iOS - Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		453D22741A0690E700E329B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4540C6D419FFF48300D7714F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4540C6D519FFF48300D7714F /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
 		4540C6D719FFF48300D7714F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -202,7 +179,6 @@
 		455F84201A06803D006177E8 /* CoreBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreBridge.m; sourceTree = "<group>"; };
 		455F84211A06803D006177E8 /* EonilSQLite3-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EonilSQLite3-Bridging-Header.h"; sourceTree = "<group>"; };
 		458D62B119C6DD34001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		458D62E819C6DEB0001E450D /* TestTool - iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestTool - iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458D62EB19C6DEB0001E450D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		458D62EC19C6DEB0001E450D /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
 		458D631A19C6E2C1001E450D /* TestTool-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TestTool-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -236,11 +212,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4540C6CE19FFF48300D7714F /* Frameworks */ = {
+		453D22561A068F2100E329B2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4599DDC31A0681AE0067BB3C /* EonilSQLite3.framework in Frameworks */,
+				453D225F1A068F2100E329B2 /* EonilSQLite3.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		453D226E1A0690E700E329B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				453D22771A0690E700E329B2 /* EonilSQLite3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,17 +252,49 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		458D62E519C6DEB0001E450D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4599DDC41A0681EE0067BB3C /* EonilSQLite3.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		453D225A1A068F2100E329B2 /* EonilSQLite3 - OSX - Tests */ = {
+			isa = PBXGroup;
+			children = (
+				453D225B1A068F2100E329B2 /* Supporting Files */,
+			);
+			path = "EonilSQLite3 - OSX - Tests";
+			sourceTree = "<group>";
+		};
+		453D225B1A068F2100E329B2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				453D225C1A068F2100E329B2 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		453D226A1A0690C200E329B2 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				453D226B1A0690C200E329B2 /* HighLevelFeatureTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		453D22721A0690E700E329B2 /* EonilSQLite3 - iOS - Tests */ = {
+			isa = PBXGroup;
+			children = (
+				453D22731A0690E700E329B2 /* Supporting Files */,
+			);
+			path = "EonilSQLite3 - iOS - Tests";
+			sourceTree = "<group>";
+		};
+		453D22731A0690E700E329B2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				453D22741A0690E700E329B2 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		4540C6D219FFF48300D7714F /* TestToolForOSX */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,14 +357,16 @@
 		458D62A519C6DD00001E450D = {
 			isa = PBXGroup;
 			children = (
-				4599DDBF1A06819C0067BB3C /* libsqlite3.0.dylib */,
 				45C232C31A028B5D0068EA53 /* Example.playground */,
 				458D631419C6E1D6001E450D /* (dependencies) */,
 				458D62C819C6DD8C001E450D /* Sources */,
+				453D226A1A0690C200E329B2 /* Tests */,
 				458D62C919C6DD8C001E450D /* Targets */,
 				458D62E919C6DEB0001E450D /* TestTool */,
 				4540C6D219FFF48300D7714F /* TestToolForOSX */,
 				4540C6F319FFF53C00D7714F /* UnitTestForOSX */,
+				453D225A1A068F2100E329B2 /* EonilSQLite3 - OSX - Tests */,
+				453D22721A0690E700E329B2 /* EonilSQLite3 - iOS - Tests */,
 				458D62B219C6DD34001E450D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -357,10 +375,10 @@
 			isa = PBXGroup;
 			children = (
 				458D62B119C6DD34001E450D /* EonilSQLite3.framework */,
-				458D62E819C6DEB0001E450D /* TestTool - iOS.app */,
-				4540C6D119FFF48300D7714F /* TestTool - OSX.app */,
 				4540C6F219FFF53C00D7714F /* UnitTestForOSX */,
 				4540C72C19FFF59900D7714F /* EonilSQLite3.framework */,
+				453D22591A068F2100E329B2 /* EonilSQLite3 - OSX - Tests.xctest */,
+				453D22711A0690E700E329B2 /* EonilSQLite3 - iOS - Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -421,6 +439,7 @@
 		458D631419C6E1D6001E450D /* (dependencies) */ = {
 			isa = PBXGroup;
 			children = (
+				4599DDBF1A06819C0067BB3C /* libsqlite3.0.dylib */,
 				4540C79519FFFA6500D7714F /* libsqlite3.0.dylib */,
 			);
 			name = "(dependencies)";
@@ -501,24 +520,41 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4540C6D019FFF48300D7714F /* TestTool - OSX */ = {
+		453D22581A068F2100E329B2 /* EonilSQLite3 - OSX - Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4540C6E819FFF48300D7714F /* Build configuration list for PBXNativeTarget "TestTool - OSX" */;
+			buildConfigurationList = 453D22641A068F2100E329B2 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX - Tests" */;
 			buildPhases = (
-				4540C6CD19FFF48300D7714F /* Sources */,
-				4540C6CE19FFF48300D7714F /* Frameworks */,
-				4540C6CF19FFF48300D7714F /* Resources */,
-				4540C78E19FFF9C000D7714F /* Embed Frameworks */,
+				453D22551A068F2100E329B2 /* Sources */,
+				453D22561A068F2100E329B2 /* Frameworks */,
+				453D22571A068F2100E329B2 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4599DDC21A0681A80067BB3C /* PBXTargetDependency */,
+				453D22611A068F2100E329B2 /* PBXTargetDependency */,
 			);
-			name = "TestTool - OSX";
-			productName = TestToolForOSX;
-			productReference = 4540C6D119FFF48300D7714F /* TestTool - OSX.app */;
-			productType = "com.apple.product-type.application";
+			name = "EonilSQLite3 - OSX - Tests";
+			productName = "EonilSQLite3 - OSX - Tests";
+			productReference = 453D22591A068F2100E329B2 /* EonilSQLite3 - OSX - Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		453D22701A0690E700E329B2 /* EonilSQLite3 - iOS - Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 453D227A1A0690E700E329B2 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Tests" */;
+			buildPhases = (
+				453D226D1A0690E700E329B2 /* Sources */,
+				453D226E1A0690E700E329B2 /* Frameworks */,
+				453D226F1A0690E700E329B2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				453D22791A0690E700E329B2 /* PBXTargetDependency */,
+			);
+			name = "EonilSQLite3 - iOS - Tests";
+			productName = "EonilSQLite3 - iOS - Tests";
+			productReference = 453D22711A0690E700E329B2 /* EonilSQLite3 - iOS - Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4540C6F119FFF53C00D7714F /* UnitTestForOSX */ = {
 			isa = PBXNativeTarget;
@@ -573,25 +609,6 @@
 			productReference = 458D62B119C6DD34001E450D /* EonilSQLite3.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		458D62E719C6DEB0001E450D /* TestTool - iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 458D630419C6DEB1001E450D /* Build configuration list for PBXNativeTarget "TestTool - iOS" */;
-			buildPhases = (
-				458D62E419C6DEB0001E450D /* Sources */,
-				458D62E519C6DEB0001E450D /* Frameworks */,
-				458D62E619C6DEB0001E450D /* Resources */,
-				4540C74819FFF59900D7714F /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				455F842A1A0680D5006177E8 /* PBXTargetDependency */,
-			);
-			name = "TestTool - iOS";
-			productName = TestTool;
-			productReference = 458D62E819C6DEB0001E450D /* TestTool - iOS.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -600,7 +617,10 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				TargetAttributes = {
-					4540C6D019FFF48300D7714F = {
+					453D22581A068F2100E329B2 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					453D22701A0690E700E329B2 = {
 						CreatedOnToolsVersion = 6.1;
 					};
 					4540C6F119FFF53C00D7714F = {
@@ -610,9 +630,6 @@
 						CreatedOnToolsVersion = 6.1;
 					};
 					458D62B019C6DD34001E450D = {
-						CreatedOnToolsVersion = 6.0;
-					};
-					458D62E719C6DEB0001E450D = {
 						CreatedOnToolsVersion = 6.0;
 					};
 				};
@@ -632,20 +649,25 @@
 			targets = (
 				4540C72B19FFF59900D7714F /* EonilSQLite3 - OSX */,
 				458D62B019C6DD34001E450D /* EonilSQLite3 - iOS */,
+				453D22581A068F2100E329B2 /* EonilSQLite3 - OSX - Tests */,
+				453D22701A0690E700E329B2 /* EonilSQLite3 - iOS - Tests */,
 				4540C6F119FFF53C00D7714F /* UnitTestForOSX */,
-				4540C6D019FFF48300D7714F /* TestTool - OSX */,
-				458D62E719C6DEB0001E450D /* TestTool - iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4540C6CF19FFF48300D7714F /* Resources */ = {
+		453D22571A068F2100E329B2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4540C6D819FFF48300D7714F /* Images.xcassets in Resources */,
-				4540C6DB19FFF48300D7714F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		453D226F1A0690E700E329B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,23 +685,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		458D62E619C6DEB0001E450D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4540C6CD19FFF48300D7714F /* Sources */ = {
+		453D22551A068F2100E329B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4540C7A31A000FFF00D7714F /* ExternalTest1CRUD.swift in Sources */,
-				4540C6D619FFF48300D7714F /* ApplicationController.swift in Sources */,
-				4599DDBD1A06811C0067BB3C /* ExternalTest2.swift in Sources */,
+				453D226C1A0690C200E329B2 /* HighLevelFeatureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		453D226D1A0690E700E329B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				453D227D1A0690FE00E329B2 /* HighLevelFeatureTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,29 +825,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		458D62E419C6DEB0001E450D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				458D62ED19C6DEB0001E450D /* ApplicationController.swift in Sources */,
-				4552BA4E19C6E356008FFF3F /* main.swift in Sources */,
-				4540C7A21A000FFF00D7714F /* ExternalTest1CRUD.swift in Sources */,
-				4599DDBE1A06811D0067BB3C /* ExternalTest2.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		455F842A1A0680D5006177E8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 458D62B019C6DD34001E450D /* EonilSQLite3 - iOS */;
-			targetProxy = 455F84291A0680D5006177E8 /* PBXContainerItemProxy */;
-		};
-		4599DDC21A0681A80067BB3C /* PBXTargetDependency */ = {
+		453D22611A068F2100E329B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4540C72B19FFF59900D7714F /* EonilSQLite3 - OSX */;
-			targetProxy = 4599DDC11A0681A80067BB3C /* PBXContainerItemProxy */;
+			targetProxy = 453D22601A068F2100E329B2 /* PBXContainerItemProxy */;
+		};
+		453D22791A0690E700E329B2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 458D62B019C6DD34001E450D /* EonilSQLite3 - iOS */;
+			targetProxy = 453D22781A0690E700E329B2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -842,11 +852,10 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4540C6E919FFF48300D7714F /* Debug */ = {
+		453D22621A068F2100E329B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -860,10 +869,13 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -878,8 +890,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestToolForOSX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				INFOPLIST_FILE = "EonilSQLite3 - OSX - Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -888,11 +900,10 @@
 			};
 			name = Debug;
 		};
-		4540C6EA19FFF48300D7714F /* Release */ = {
+		453D22631A068F2100E329B2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -906,12 +917,15 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -919,12 +933,100 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestToolForOSX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				INFOPLIST_FILE = "EonilSQLite3 - OSX - Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		453D227B1A0690E700E329B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "EonilSQLite3 - iOS - Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		453D227C1A0690E700E329B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "EonilSQLite3 - iOS - Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1228,104 +1330,24 @@
 			};
 			name = Release;
 		};
-		458D630519C6DEB1001E450D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestTool/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		458D630619C6DEB1001E450D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestTool/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4540C6E819FFF48300D7714F /* Build configuration list for PBXNativeTarget "TestTool - OSX" */ = {
+		453D22641A068F2100E329B2 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - OSX - Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4540C6E919FFF48300D7714F /* Debug */,
-				4540C6EA19FFF48300D7714F /* Release */,
+				453D22621A068F2100E329B2 /* Debug */,
+				453D22631A068F2100E329B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+		};
+		453D227A1A0690E700E329B2 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				453D227B1A0690E700E329B2 /* Debug */,
+				453D227C1A0690E700E329B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "UnitTestForOSX" */ = {
 			isa = XCConfigurationList;
@@ -1359,15 +1381,6 @@
 			buildConfigurations = (
 				458D62C319C6DD35001E450D /* Debug */,
 				458D62C419C6DD35001E450D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		458D630419C6DEB1001E450D /* Build configuration list for PBXNativeTarget "TestTool - iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				458D630519C6DEB1001E450D /* Debug */,
-				458D630619C6DEB1001E450D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

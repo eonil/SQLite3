@@ -60,58 +60,6 @@ extension Table {
 
 
 
-extension Table {
-	struct CommandMaker {
-		private static func makeSelectRowCommand(table:Table) -> (identity:Identity)->Content? {
-			return	{ (identity:Identity)->Content? in
-				let	bs	=	combine(table.info.keyColumnNames(), [identity])
-				let	dcs	=	table.info.dataColumnNames().map {Query.Identifier($0)}
-				let	t	=	Query.FilterTree.allOfEqualColumnValues(bs)
-				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
-				let	s	=	table.database.compile(q.express().code)
-				
-				return	table.database.apply {
-					let	rs	=	s.execute([identity]).allTuples()
-					precondition(rs.count <= 1)
-					return	rs.count == 0 ? nil : rs[0]
-				}
-			}
-		}
-		
-		///	TODO:	Keep a prepared statement.
-		private static func makeInsertRowCommand(table:Table) -> (identity:Identity, content:Content)->() {
-			let	kcns	=	table.info.keyColumnNames()
-			let	dcns	=	table.info.dataColumnNames()
-			return	{ (identity:Identity, content:Content)->() in
-				
-				table.database.apply {
-					let	kbs	=	Query.Binding.bind(kcns, values: [identity])
-					let	dbs	=	Query.Binding.bind(dcns, values: content)
-					let	q	=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
-					let	rs	=	table.database.connection.run(q)
-					assert(rs.count == 0)
-				}
-			}
-		}
-		
-		///	TODO:	Keep a prepared statement.
-		private static func makeDeleteRowCommand(table:Table) -> (identity:Identity)->() {
-			let	kcns	=	table.info.keyColumnNames()
-			let	dcns	=	table.info.dataColumnNames()
-			return	{ (identity:Identity)->() in
-				table.database.apply {
-					let	bs	=	combine(kcns, [identity])
-					let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
-					let	q	=	Query.Delete(table: Query.Identifier(table.name), filter: f)
-					let	rs	=	table.database.connection.run(q)
-					assert(rs.count == 0)
-				}
-			}
-		}
-	}
-	
-}
-
 
 
 
@@ -308,6 +256,78 @@ extension Table {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///	MARK:
+///	MARK:	Private Features
+///	MARK:
+
+extension Table {
+	struct CommandMaker {
+		private static func makeSelectRowCommand(table:Table) -> (identity:Identity)->Content? {
+			return	{ [unowned table](identity:Identity)->Content? in
+				let	bs	=	combine(table.info.keyColumnNames(), [identity])
+				let	dcs	=	table.info.dataColumnNames().map {Query.Identifier($0)}
+				let	t	=	Query.FilterTree.allOfEqualColumnValues(bs)
+				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
+				let	s	=	table.database.compile(q.express().code)
+				
+				return	table.database.apply {
+					let	rs	=	s.execute([identity]).allTuples()
+					precondition(rs.count <= 1)
+					return	rs.count == 0 ? nil : rs[0]
+				}
+			}
+		}
+		
+		///	TODO:	Keep a prepared statement.
+		private static func makeInsertRowCommand(table:Table) -> (identity:Identity, content:Content)->() {
+			let	kcns	=	table.info.keyColumnNames()
+			let	dcns	=	table.info.dataColumnNames()
+			return	{ [unowned table](identity:Identity, content:Content)->() in
+				
+				table.database.apply {
+					let	kbs	=	Query.Binding.bind(kcns, values: [identity])
+					let	dbs	=	Query.Binding.bind(dcns, values: content)
+					let	q	=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
+					let	rs	=	table.database.connection.run(q)
+					assert(rs.count == 0)
+				}
+			}
+		}
+		
+		///	TODO:	Keep a prepared statement.
+		private static func makeDeleteRowCommand(table:Table) -> (identity:Identity)->() {
+			let	kcns	=	table.info.keyColumnNames()
+			let	dcns	=	table.info.dataColumnNames()
+			return	{ [unowned table](identity:Identity)->() in
+				table.database.apply {
+					let	bs	=	combine(kcns, [identity])
+					let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
+					let	q	=	Query.Delete(table: Query.Identifier(table.name), filter: f)
+					let	rs	=	table.database.connection.run(q)
+					assert(rs.count == 0)
+				}
+			}
+		}
+	}
+	
+}
 
 
 

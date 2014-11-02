@@ -28,8 +28,9 @@ Layers
 	for your convenience. Low level is fully hidden.
 
 -	High-Level means extra abstraction for best convenience. Instead, this is
-	very limited in features. Mid/low levels are fully hidden not to break 
-	abstraction.
+	very limited in features. Mutator mid/low levels are fully hidden not to 
+	break abstraction, but some mid-level features are exposed for read-only
+	operations.
 
 You can choose any level what you want to use, but you can't mix them. Once 
 established connection to a database file can be manipulated using only with 
