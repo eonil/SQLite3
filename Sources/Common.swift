@@ -80,3 +80,21 @@ infix operator ||| {
 internal func ||| <T> (value:T?, substitude:T) -> T {
 	return	value == nil ? substitude : value!
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

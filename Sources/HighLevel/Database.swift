@@ -205,21 +205,24 @@ extension Database{
 	
 	
 	private func _installDebuggingGuidanceAuthoriser() {
-		if !Debug.mode { return }
-		
-		let prohibitNameForLiveTables	=	{ [unowned self](databaseName:String, tableName:String) -> Bool in
-			let	ok	=	self.tables.liveTableNamesInLinks().filter {$0 == tableName}.count == 0
-			assert(ok, "Altering or dropping a table is not allowed while a `Table` object linked to the table is alive.")
-			return	ok
+		//	Expected to be eliminated by compiler in release mode.
+		if Debug.mode {
+			let prohibitNameForLiveTables	=	{ [unowned self](databaseName:String, tableName:String) -> Bool in
+				let	ok	=	self.tables.links.filter { let t1 = $0(); return t1 != nil && t1!.name == tableName}.count == 0
+				//			let	ok	=	self.tables.liveTableNamesInLinks().filter {$0 == tableName}.count == 0
+				assert(ok, "Altering or dropping a table is not allowed while a `Table` object is linked to the table is alive.")
+				return	ok
+			}
+			
+			let	auth1	=	Core.Connection.AuthorisationRoutingTable(alterTable: prohibitNameForLiveTables, dropTable: prohibitNameForLiveTables)
+			connection.setAuthoriser(auth1)
 		}
-		
-		let	auth1	=	Core.Connection.AuthorisationRoutingTable(alterTable: prohibitNameForLiveTables, dropTable: prohibitNameForLiveTables)
-		connection.setAuthoriser(auth1)
 	}
 	private func _uninstallDebuggingGuidanceAuthoriser() {
-		if !Debug.mode { return }
-		
-		connection.setAuthoriser(nil)
+		//	Expected to be eliminated by compiler in release mode.
+		if Debug.mode {
+			connection.setAuthoriser(nil)
+		}
 	}
 
 

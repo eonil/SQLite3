@@ -9,6 +9,22 @@
 import Foundation
 import EonilSQLite3
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public struct Test1 {
 	
 	public static func test1() {
@@ -142,7 +158,7 @@ public struct Test1 {
 		
 		run {
 			let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
-			conn1.execute("CREATE TABLE T1 (c1);")
+			conn1.run("CREATE TABLE T1 (c1);")
 			let	s	=	conn1.prepare("SELECT name FROM sqlite_master;")
 			println(s.numberOfFields)
 			assert(s.numberOfFields == 0)
@@ -176,7 +192,7 @@ public struct Test1 {
 		
 		run {
 			let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
-			let	rs1		=	conn1.execute("SELECT \"AAA\";")
+			let	rs1		=	conn1.run("SELECT \"AAA\";")
 			println(rs1)
 			assert(rs1.count == 1)
 		}
@@ -184,7 +200,7 @@ public struct Test1 {
 		run {
 			let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
 			
-			conn1.execute("CREATE TABLE T1 (c1);")
+			conn1.run("CREATE TABLE T1 (c1);")
 			let	s	=	conn1.prepare("SELECT name FROM sqlite_master;")
 			
 			s.step()
@@ -200,7 +216,7 @@ public struct Test1 {
 		run {
 			let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
 			
-			conn1.execute("CREATE TABLE T1 (c1);")
+			conn1.run("CREATE TABLE T1 (c1);")
 			let	s	=	conn1.prepare("SELECT name FROM sqlite_master;")
 			println(s.numberOfFields)
 			assert(s.numberOfFields == 0)
@@ -219,7 +235,7 @@ public struct Test1 {
 		
 		run {
 			let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
-			conn1.execute("CREATE TABLE T1 (c1);")
+			conn1.run("CREATE TABLE T1 (c1);")
 			let	rs	=	conn1.run("SELECT name FROM sqlite_master;")
 			for r in rs {
 				println(r)
@@ -233,7 +249,7 @@ public struct Test1 {
 		
 		run {
 			let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
-			conn1.execute("CREATE TABLE T1 (c1);")
+			conn1.run("CREATE TABLE T1 (c1);")
 			conn1.run("INSERT INTO T1 (c1) VALUES (123);")
 			conn1.run("INSERT INTO T1 (c1) VALUES (\"BBB\");")
 			conn1.run("INSERT INTO T1 (c1) VALUES (456.789);")
@@ -263,7 +279,7 @@ public struct Test1 {
 		
 		run	{
 			let	db1	=	Database(location: Connection.Location.Memory, editable: true)
-			db1.connection.execute("CREATE TABLE T1 (c1);")
+			db1.connection.run("CREATE TABLE T1 (c1);")
 		
 			let	k	=	db1.schema.allRowsOfRawMasterTable()
 			println(k)

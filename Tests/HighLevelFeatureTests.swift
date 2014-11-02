@@ -143,6 +143,21 @@ class HighLevelFeatureTests: XCTestCase {
 		}
 		db1.apply(tx1)
 	}
+	
+	func testManyRows1() {
+		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+		func tx1() {
+			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
+			let	t1	=	db1.tables["T1"]
+			
+			for i in 0..<64 {
+				t1[10000 + i]	=	[42, "Here be dragons.", nil]
+			}
+			
+			XCTAssert(t1.count == 64)
+		}
+		db1.apply(tx1)
+	}
 }
 
 

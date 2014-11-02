@@ -29,6 +29,7 @@ public class Table {
 	
 	let	info:Internals.TableInfo
 	
+	lazy var countRows:()->Int64								=	CommandMaker.makeCountRowsCommand(self)		///<	:returns:	Count of all rows in the table.
 	lazy var selectRow:(identity:Identity)->Content?			=	CommandMaker.makeSelectRowCommand(self)		///<	:returns:	Only data fields. No key field.
 	lazy var insertRow:(identity:Identity,content:Content)->()	=	CommandMaker.makeInsertRowCommand(self)		///<	:values:	Only data fields. No key field.
 	lazy var deleteRow:(identity:Identity)->()					=	CommandMaker.makeDeleteRowCommand(self)
@@ -57,32 +58,7 @@ extension Table {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 extension Table: SequenceType {
-
 	public func generate() -> GeneratorOf<(Identity,Content)> {
 		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
 		let	s	=	database.compile(q.express().code)
@@ -99,49 +75,14 @@ extension Table: SequenceType {
 			}
 		}
 		return	GeneratorOf<(Identity,Content)>(next)
-		
-		
-//		func next() -> Record? {
-//			if s.step() {
-//				let	r	=	s
-//				let	kvs	=	info.keyColumnIndexes().map {r[$0]}
-//				let	dvs	=	info.dataColumnIndexes().map {r[$0]}
-//				assert(kvs.count == 1)
-//				return	Record(table: self, identity: kvs[0], content: dvs)
-//			} else {
-//				return	nil
-//			}
-//		}
-//		return	GeneratorOf<Record>(next)
 	}
-	
-//	///	Selects all rows.
-//	public func all() -> [[String:Value]] {
-//		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
-//		return	snapshot(query: q)
-//	}
 }
-
-
-
-
-
-
-
-
-
-
 
 extension Table {
 
 	public var count:Int {
 		get {
-			let	rs	=	database.compile("SELECT count(*) FROM \(Query.Identifier(info.name).express().code)").execute().allDictionaries()
-			assert(rs.count == 0)
-			assert(rs[0].count == 1)
-			let	r	=	rs[0]
-			let	v	=	r[r.startIndex]
-			return	Int(v.1.integer!)
+			return	Int(countRows())
 		}
 	}
 	
@@ -278,8 +219,24 @@ extension Table {
 ///	MARK:
 
 extension Table {
-	struct CommandMaker {
-		private static func makeSelectRowCommand(table:Table) -> (identity:Identity)->Content? {
+	private struct CommandMaker {
+		
+		static func makeCountRowsCommand(table:Table) -> ()->Int64 {
+			return	{ [unowned table]()->Int64 in
+				let	s	=	table.database.compile("SELECT count(*) FROM \(Query.Identifier(table.info.name).express().code)")
+				
+				return	table.database.apply {
+					let	x	=	s.execute()
+					let	rs	=	x.allDictionaries()
+					assert(rs.count == 1)
+					assert(rs[0].count == 1)
+					let	r	=	rs[0]
+					let	v	=	r[r.startIndex]
+					return	v.1.integer!
+				}
+			}
+		}
+		static func makeSelectRowCommand(table:Table) -> (identity:Identity)->Content? {
 			return	{ [unowned table](identity:Identity)->Content? in
 				let	bs	=	combine(table.info.keyColumnNames(), [identity])
 				let	dcs	=	table.info.dataColumnNames().map {Query.Identifier($0)}
@@ -296,7 +253,7 @@ extension Table {
 		}
 		
 		///	TODO:	Keep a prepared statement.
-		private static func makeInsertRowCommand(table:Table) -> (identity:Identity, content:Content)->() {
+		static func makeInsertRowCommand(table:Table) -> (identity:Identity, content:Content)->() {
 			let	kcns	=	table.info.keyColumnNames()
 			let	dcns	=	table.info.dataColumnNames()
 			return	{ [unowned table](identity:Identity, content:Content)->() in
@@ -312,7 +269,7 @@ extension Table {
 		}
 		
 		///	TODO:	Keep a prepared statement.
-		private static func makeDeleteRowCommand(table:Table) -> (identity:Identity)->() {
+		static func makeDeleteRowCommand(table:Table) -> (identity:Identity)->() {
 			let	kcns	=	table.info.keyColumnNames()
 			let	dcns	=	table.info.dataColumnNames()
 			return	{ [unowned table](identity:Identity)->() in

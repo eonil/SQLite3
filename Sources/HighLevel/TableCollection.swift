@@ -83,14 +83,10 @@ public final class TableCollection: SequenceType {
 	
 	////
 	
-//	internal var links:[()->Table?] {
-//		get {
-//			return	_links
-//		}
-//	}
-	internal func liveTableNamesInLinks() -> [String] {
-		_assertNoDeadLinks()
-		return	_links.map {$0()!.name}
+	internal var links:[()->Table?] {
+		get {
+			return	_links
+		}
 	}
 	internal func registerByBornOfTable(t:Table) {
 		_assertNoDeadLinks()

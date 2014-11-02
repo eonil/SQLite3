@@ -516,9 +516,9 @@
 			productReference = 453D22711A0690E700E329B2 /* EonilSQLite3 - iOS - Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4540C6F119FFF53C00D7714F /* UnitTestForOSX */ = {
+		4540C6F119FFF53C00D7714F /* InternalTestForOSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "UnitTestForOSX" */;
+			buildConfigurationList = 4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "InternalTestForOSX" */;
 			buildPhases = (
 				4540C6EE19FFF53C00D7714F /* Sources */,
 				4540C6EF19FFF53C00D7714F /* Frameworks */,
@@ -528,7 +528,7 @@
 			);
 			dependencies = (
 			);
-			name = UnitTestForOSX;
+			name = InternalTestForOSX;
 			productName = UnitTestForOSX;
 			productReference = 4540C6F219FFF53C00D7714F /* UnitTestForOSX */;
 			productType = "com.apple.product-type.tool";
@@ -611,7 +611,7 @@
 				458D62B019C6DD34001E450D /* EonilSQLite3 - iOS */,
 				453D22581A068F2100E329B2 /* EonilSQLite3 - OSX - Tests */,
 				453D22701A0690E700E329B2 /* EonilSQLite3 - iOS - Tests */,
-				4540C6F119FFF53C00D7714F /* UnitTestForOSX */,
+				4540C6F119FFF53C00D7714F /* InternalTestForOSX */,
 			);
 		};
 /* End PBXProject section */
@@ -1293,6 +1293,7 @@
 				453D22631A068F2100E329B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		453D227A1A0690E700E329B2 /* Build configuration list for PBXNativeTarget "EonilSQLite3 - iOS - Tests" */ = {
 			isa = XCConfigurationList;
@@ -1301,8 +1302,9 @@
 				453D227C1A0690E700E329B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "UnitTestForOSX" */ = {
+		4540C6F619FFF53C00D7714F /* Build configuration list for PBXNativeTarget "InternalTestForOSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4540C6F719FFF53C00D7714F /* Debug */,

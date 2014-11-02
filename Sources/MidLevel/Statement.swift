@@ -103,7 +103,7 @@ public final class Statement {
 	}
 	deinit {
 		//	It's fine to deinitialise execution while running. SQLite3 handles them well.
-		assert(_execution == nil, "You cannot deinitialise a `Statement` while a linked `Execution` is alive. Deinitialise the execution first.")
+		assert(_execution == nil, "You cannot deinitialise a `Statement` while a linked `Execution` is alive. Deinitialise the execution first or keep the statement object until to be done.")
 		_core.finalize()
 	}
 	
