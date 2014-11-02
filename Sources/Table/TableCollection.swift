@@ -90,7 +90,7 @@ public final class TableCollection: SequenceType {
 		owner.notifyBornOfTableForName(t.name)
 	}
 	internal func unregisterByDeathOfTable(t:Table) {
-		//	Weak references seem to be already nil-lised before `deinit` of the object to be called.
+		//	Weak references becomes nil  to be already nil-lised before `deinit` of the object to be called.
 		//	Then, just remove dead links like collecting garbages.
 		
 		owner.notifyDeathOfTableForName(t.name)
