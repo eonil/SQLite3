@@ -93,11 +93,10 @@ extension Statement {
 ///	retain the statement object, and you're responsible to keep
 ///	it alive.
 public final class Statement {
+	unowned let	connection:Connection
 	
-	unowned let	database:Connection
-	
-	init(database:Connection, core:Core.Statement) {
-		self.database	=	database
+	init(connection:Connection, core:Core.Statement) {
+		self.connection	=	connection
 		
 		_core	=	core
 		_rowidx	=	-1

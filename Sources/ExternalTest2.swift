@@ -23,10 +23,10 @@ func test3() {
 
 	func basicsWithTransaction() {
 		///	Create new mutable database in memory.
-		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
+		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
 		func tx1() {
 			///	Create a new table.
-			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
+			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
 			
 			///	Make a single table accessor object.
 			let	t1	=	db1.tables["T1"]
@@ -62,11 +62,11 @@ func test3() {
 	
 	
 	func nestedTransactions() {
-		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
+		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
 		
 		///	Out-most transaction.
 		func tx1() {
-			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
+			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
 			let	t1	=	db1.tables["T1"]
 			
 			///	Outer transaction.
@@ -106,30 +106,25 @@ func test3() {
 	}
 	
 	func customQuery() {
-		let	db1	=	Connection(location: Connection.Location.Memory, editable: true)
-		db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
-		let	t1	=	db1.tables["T1"]
+		let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
+		conn1.execute("CREATE TABLE T1 (k1 INTEGER PRIMARY KEY, v1, v2, v3);")
+		conn1.execute("INSERT INTO T1 (k1, v1, v2, v3) VALUES (111, 42, 'Here be dragons.', NULL);")
 		
-		t1[111]	=	[42, "Here be dragons.", nil]
-		
-		db1.apply {
-			for (_, row) in enumerate(db1.run("SELECT * FROM T1")) {
-				assert(row["v2"]!.text! == "Here be dragons.")
-			}
+		for (_, row) in enumerate(conn1.run("SELECT * FROM T1")) {
+			assert(row["v2"]!.text! == "Here be dragons.")
 		}
 		
-		db1.apply {
-			let	r1	=	t1[111]
-			println(r1)
-			assert(r1 != nil)
-			assert(r1!.count == 3)
-			assert(r1! == [42, "Here be dragons.", nil])
-		}
-		db1.apply {
-			let	r1	=	t1[222]
-			println(r1)
-			assert(r1 == nil)
-		}
+//			let	r1	=	t1[111]
+//			println(r1)
+//			assert(r1 != nil)
+//			assert(r1!.count == 3)
+//			assert(r1! == [42, "Here be dragons.", nil])
+//		}
+//		db1.apply {
+//			let	r1	=	t1[222]
+//			println(r1)
+//			assert(r1 == nil)
+//		}
 	}
 	
 	basicsWithTransaction()

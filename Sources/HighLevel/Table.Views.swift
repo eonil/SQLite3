@@ -9,42 +9,11 @@
 import Foundation
 
 extension Table {
-//	struct TupleView: SequenceType {
-////		typealias	Index		=	RowIdentityIndex
-//		typealias	Generator	=	GeneratorOf<[Value]>
-//		
-//		let	table:Table
-//		
-//		subscript(identity:Identity) -> [Value]? {
-//			get {
-//				return	table[identity]
-//			}
-//			set(v) {
-//				table[identity]	=	v
-//			}
-//		}
-//		
-//		func generate() -> GeneratorOf<[Value]> {
-//			return	table.generate()
-//		}
-//	}
-//	struct RecordView: SequenceType {
-//		typealias	Index		=	Identity
-//		typealias	Generator	=	GeneratorOf<Record>
-//		subscript(identity:Identity) -> Record {
-//			get {
-//				
-//			}
-//			set(v) {
-//				
-//			}
-//		}
-//	}
-	
+
 	public struct DictionaryView: SequenceType {
 		typealias	Generator	=	GeneratorOf<[String:Value]>
 		
-		let	table:Table
+		unowned let	table:Table
 		
 
 		

@@ -1,15 +1,16 @@
 //
-//  Schema.swift
+//  Schema.Definitions.swift
 //  EonilSQLite3
 //
-//  Created by Hoon H. on 9/18/14.
+//  Created by Hoon H. on 11/2/14.
 //
 //
 
 import Foundation
 
-public struct Schema {
-	public let	tables:[Table]
+public extension Schema {
+	
+//	public let	tables:[Schema.Table]
 	
 	public struct Table {
 		public let	name:String
@@ -26,7 +27,7 @@ public struct Schema {
 		public let	index:Ordering?			///<	Index sorting order. This must be non-nil value if this column is set as a PK.
 		
 		public enum TypeCode : String {
-			case None			=	""				
+			case None			=	""
 			case Integer		=	"INTEGER"
 			case Float			=	"FLOAT"
 			case Text			=	"TEXT"

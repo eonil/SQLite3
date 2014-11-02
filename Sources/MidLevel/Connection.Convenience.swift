@@ -10,38 +10,6 @@ import Foundation
 
 extension Connection {
 	
-	///	Executes a single query.
-	///	You always need a valid transaction context to call this method.
-	public func run(query:Query.Expression) -> [[String:Value]] {
-		return	run(query.code, parameters: query.parameters.map {$0()})
-	}
-	
-	///	Executes a single query.
-	///	You always need a valid transaction context to call this method.
-	public func run(query:QueryExpressible) -> [[String:Value]] {
-		return	run(query.express())
-	}
-	
-	///	Executes a single query.
-	///	You always need a valid transaction context to call this method.
-	public func run(query:String) -> [[String:Value]] {
-		return	run(query, parameters: [])
-	}
-	
-	///	Executes a single query.
-	///	You always need a valid transaction context to call this method.
-	public func run(query:String, parameters:[Value]) -> [[String:Value]] {
-		precondition(hasExplicitTransaction == true)
-		return	runWithoutExplicitTransactionCheck(query, parameters: parameters)
-	}
-	
-	///	Executes a single query.
-	func runWithoutExplicitTransactionCheck(query:String, parameters:[Value]) -> [[String:Value]] {
-		let	s	=	compile(query)
-		let	x	=	s.execute(parameters)
-		return	x.allDictionaries()
-	}
-	
 }
 
 
@@ -97,14 +65,6 @@ extension Connection {
 
 
 
-extension Connection {
-	
-	///	Get schema informations.
-	public func schema() -> Connection.Schema {
-		return	Schema(database: self)
-	}
-	
-}
 
 
 

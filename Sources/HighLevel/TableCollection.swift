@@ -17,7 +17,7 @@ import Foundation
 ///	must not be mutated while accessing data. 
 ///	See `Connection.schema` for that.
 public final class TableCollection: SequenceType {
-	unowned let	owner:Connection
+	unowned let	owner:Database
 	
 //	private var	_linkmap	=	[:] as [String:()->Table?]
 	private var	_links	=	[] as [()->Table?]
@@ -27,17 +27,17 @@ public final class TableCollection: SequenceType {
 	
 	////
 	
-	init(owner:Connection) {
+	init(owner:Database) {
 		self.owner	=	owner
 	}
 	deinit {
 		_assertNoDeadLinks()
-		assert(_links.count == 0, "You're deinitialising a `TableCollection` (or `Connection`) object while there's some live `Table` object. Kill the tables first before deinitialising `TableCollection` or `Connection`.")
+		assert(_links.count == 0, "You're deinitialising a `TableCollection` (or `Database`) object while there're some live `Table` object. Kill the tables first before deinitialising `TableCollection` or `Database`.")
 	}
 	
 	////
 	
-	public var database:Connection {
+	public var database:Database {
 		get {
 			return	owner
 		}
@@ -45,7 +45,7 @@ public final class TableCollection: SequenceType {
 	public func generate() -> GeneratorOf<Table> {
 		_assertNoDeadLinks()
 		
-		let	rs	=	database.compile("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute().allDictionaries()
+		let	rs	=	database.connection.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute().allDictionaries()
 		var	g1	=	rs.generate()
 		return	GeneratorOf {
 			if let r = g1.next() {
@@ -83,17 +83,24 @@ public final class TableCollection: SequenceType {
 	
 	////
 	
+//	internal var links:[()->Table?] {
+//		get {
+//			return	_links
+//		}
+//	}
+	internal func liveTableNamesInLinks() -> [String] {
+		_assertNoDeadLinks()
+		return	_links.map {$0()!.name}
+	}
 	internal func registerByBornOfTable(t:Table) {
 		_assertNoDeadLinks()
 		
 		_links.append(linkWeakly(t))
-		owner.notifyBornOfTableForName(t.name)
 	}
 	internal func unregisterByDeathOfTable(t:Table) {
-		//	Weak references becomes nil  to be already nil-lised before `deinit` of the object to be called.
+		//	Weak references becomes nil before `deinit` of the object to be called.
 		//	Then, just remove dead links like collecting garbages.
 		
-		owner.notifyDeathOfTableForName(t.name)
 		_links	=	_links.filter {$0() != nil && $0()! !== t}
 		
 		_assertNoDeadLinks()
@@ -118,7 +125,7 @@ public final class TableCollection: SequenceType {
 	////
 	
 	private func _assertNoDeadLinks() {
-		assert(_links.filter {$0() == nil}.count == 0, "We have some dead links to some `Table` objects.")
+		assert(_links.filter {$0() == nil}.count == 0, "We have some dead links to some `Table` objects. This shouldn't happen.")
 	}
 	
 	private func _makeAndLinkTableForNameIfExists(name:String) -> Table? {

@@ -178,6 +178,7 @@ Core
 			_rawptr	=	C.NULL
 		}
 		
+		///	:routingTable:	`Core.Connection` retains this object until unset.
 		func setAuthorizer(routingTable:AuthorisationRoutingTable?) {
 			if let rt2 = routingTable {
 				precondition(_callback == nil)

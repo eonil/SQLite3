@@ -13,3 +13,17 @@ On Design
 	information for features require returning errors. Note that there's no
 	result on error situation, so it returns an enum. Implementation is 
 	`Error<E,V>` enum.
+
+
+
+
+
+Layers
+------
+
+-	Low-Level means C-interop layer. No logics or abstractions, just handles
+	interfacing and type conversions.
+
+-	Mid-Level means exposing SQLite3 features as is. 
+
+-	High-Level means extra abstraction for best convenience.
