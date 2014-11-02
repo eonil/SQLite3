@@ -8,22 +8,30 @@
 
 import Foundation
 
+
+
+///	Provides simple access to a SQLite3 database.
 public final class Database {
-	let	configuration:Configuration
-	let	connection:Connection
+	let	configuration:Configuration						///<	Current configuration.
+	let	connection:Connection							///<	Used connection.
 	
 	private lazy var	_schema:Schema				=	Schema(owner: self)
 	private lazy var	_tables:TableCollection		=	TableCollection(owner: self)
 	
 	private lazy var	_optimisation:Optimisation	=	Optimisation({ self.connection.prepare($0) })
 	
-	////
+
 	
+	///	Creates a new instance of a `Database` class.
+	///	
+	///	:location:	The source database location.
+	///	:editable:	Set `false` if you want to open the database in read-only mode.
 	public convenience init(location:Connection.Location, editable:Bool) {
 		self.init(location: location, editable: editable, configuration: Configuration(savepointNameGenerator: SavepointNameGenerator.uniqueAtomicUnitName))
 	}
 	
-	public init(location:Connection.Location, editable:Bool, configuration:Configuration) {
+	///	Not yet available publicly.
+	init(location:Connection.Location, editable:Bool, configuration:Configuration) {
 		self.configuration	=	configuration
 		self.connection		=	Connection(location: location, editable: editable)
 		
@@ -39,11 +47,15 @@ public final class Database {
 }
 
 extension Database {
+	
+	///	Gets schema editor.
 	public var schema:Schema {
 		get {
 			return	_schema
 		}
 	}
+	
+	///	Gets table collection.
 	public var tables:TableCollection {
 		get {
 			return	_tables
@@ -54,7 +66,7 @@ extension Database {
 	
 	///	Apply transaction to database.
 	public func apply(transaction:()->()) {
-		if connection.hasExplicitTransaction {
+		if connection.runningTransaction {
 			_performSavepointSession(transaction: transaction, name: configuration.savepointNameGenerator())
 		} else {
 			_performTransactionSession(transaction: transaction)
@@ -62,7 +74,7 @@ extension Database {
 	}
 	///	Apply transaction to database.
 	public func apply<T>(transaction:()->T) -> T {
-		if connection.hasExplicitTransaction {
+		if connection.runningTransaction {
 			return	_performSavepointSession(transaction: transaction, name: configuration.savepointNameGenerator())
 		} else {
 			return	_performTransactionSession(transaction: transaction)
@@ -71,7 +83,7 @@ extension Database {
 	
 	///	Apply transaction to database only when the transaction returns `true`.
 	public func applyConditionally<T>(transaction:()->T?) -> T? {
-		if connection.hasExplicitTransaction {
+		if connection.runningTransaction {
 			return	_performSavepointSessionConditionally(transaction: transaction, name: configuration.savepointNameGenerator())
 		} else {
 			return	_performTransactionSessionConditionally(transaction: transaction)
@@ -140,28 +152,28 @@ extension Database{
 	///	Run an atomic transaction.
 	///	Return `nil` in the transaction closure to rollback the transaction.
 	private func _performTransactionSessionConditionally<T>(transaction tx:()->T?) -> T? {
-		precondition(connection.hasExplicitTransaction == false)
+		precondition(connection.runningTransaction == false)
 		
-		_runWithoutExplicitTransactionCheck("BEGIN TRANSACTION;", parameters: [])
-//		optimisation.commonStatementCache.beginTransaction()
-		assert(connection.hasExplicitTransaction == true)
+//		_runWithoutExplicitTransactionCheck("BEGIN TRANSACTION;", parameters: [])
+		_optimisation.commonStatementCache.beginTransaction()
+		assert(connection.runningTransaction == true)
 		
 		if let v = tx() {
-			_runWithoutExplicitTransactionCheck("COMMIT TRANSACTION;", parameters: [])
-//			optimisation.commonStatementCache.commitTransaction()
-			assert(connection.hasExplicitTransaction == false)
+//			_runWithoutExplicitTransactionCheck("COMMIT TRANSACTION;", parameters: [])
+			_optimisation.commonStatementCache.commitTransaction()
+			assert(connection.runningTransaction == false)
 			return	v
 		} else {
-			_runWithoutExplicitTransactionCheck("ROLLBACK TRANSACTION;", parameters: [])
-//			optimisation.commonStatementCache.rollbackTransaction()
-			assert(connection.hasExplicitTransaction == false)
+//			_runWithoutExplicitTransactionCheck("ROLLBACK TRANSACTION;", parameters: [])
+			_optimisation.commonStatementCache.rollbackTransaction()
+			assert(connection.runningTransaction == false)
 			return	nil
 		}
 	}
 	///	Run a nested transaction using `SAVEPOINT`.
 	private func _performSavepointSessionConditionally<T>(transaction tx:()->T?, name n:String) -> T? {
 		precondition(n != "", "The atomic transaction subunit name shouldn't be empty.")
-		precondition(connection.hasExplicitTransaction == true)
+		precondition(connection.runningTransaction == true)
 		
 		connection.run(Query.Language.Syntax.SavepointStmt(name: Query.Identifier(n).description).description)
 		if let v = tx() {
@@ -175,12 +187,12 @@ extension Database{
 	
 	
 	
-	///	Executes a single query.
-	private func _runWithoutExplicitTransactionCheck(query:String, parameters:[Value]) -> [[String:Value]] {
-		let	s	=	compile(query)
-		let	x	=	s.execute(parameters)
-		return	x.allDictionaries()
-	}
+//	///	Executes a single query.
+//	private func _runWithoutExplicitTransactionCheck(query:String, parameters:[Value]) -> [[String:Value]] {
+//		let	s	=	compile(query)
+//		let	x	=	s.execute(parameters)
+//		return	x.allDictionaries()
+//	}
 	
 	
 	

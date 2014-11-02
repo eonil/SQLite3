@@ -76,22 +76,21 @@ public class Connection {
 
 
 
-///	`execute` (private methods) executes a query as is.
-///	`run` (public methods) executes asserts for a transaction wrapping.
-///
-///	This class uses unique `SAVEPOINT` name generator
-///	to support nested transaction. If you perform the
-///	`SAVEPOINT` operation youtself manually, the savepoint 
-///	name may be duplicated and derive unexpected result. 
-///	To precent this situation, supply your own 
-///	implementation of savepoint name generator at 
-///	initializer.
 extension Connection {
 	
 	public enum Location {
 		case Memory
 		case TemporaryFile
 		case PersistentFile(path:String)
+	}
+	
+	
+	
+	///	:returns:	whether currently an explicit transaction is on-going.
+	public var runningTransaction:Bool {
+		get {
+			return	_core.autocommit == false
+		}
 	}
 	
 	
@@ -103,6 +102,9 @@ extension Connection {
 	///
 	///	Produced statements will be invalidated when this database object
 	///	deinitialises.
+	///
+	///	:code:	A SQL command to be executed. This must be a single statement.
+	///			Otherwise, it will fail.
 	public func prepare(code:String) -> Statement {
 		let	(ss1, tail)	=	_core.prepare(code)
 		
@@ -111,12 +113,6 @@ extension Connection {
 		let	s1	=	ss1[0]
 		let	s2	=	Statement(connection: self, core: s1)
 		return	s2
-	}
-	
-	public func execute(code:String) -> [[Value]] {
-		let	s	=	prepare(code)
-		let	x	=	s.execute()
-		return	x.allTuples()
 	}
 	
 }
@@ -150,14 +146,6 @@ extension Connection {
 extension Connection {
 	
 	
-	
-	
-	
-	var hasExplicitTransaction:Bool {
-		get {
-			return	_core.autocommit == false
-		}
-	}
 	
 	
 	///	Executes a single query.
