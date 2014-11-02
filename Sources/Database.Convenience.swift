@@ -103,10 +103,6 @@ extension Database {
 	public func schema() -> Database.Schema {
 		return	Schema(database: self)
 	}
-	///	Get table object which provides table access features.
-	public func table(name n:String) -> Table {
-		return	Table(database: self, name: n)
-	}
 	
 }
 

@@ -28,16 +28,14 @@ public class Database {
 	
 //	private lazy var	optimisation:Optimisation	=	Optimisation({ self.prepare($0) })
 	
+	private lazy var	_tables:TableCollection	=	TableCollection(owner: self)
 	
 	
 	
 	
 	
-	public enum Location {
-		case Memory
-		case TemporaryFile
-		case PersistentFile(path:String)
-	}
+	////////////////////////////////
+	
 	
 	public convenience init(location:Location) {
 		self.init(location: location, editable: false)
@@ -75,7 +73,6 @@ public class Database {
 		
 		_savepoint_name_gen	=	atomicUnitNameGenerator
 		_core.open(resolve_name(), flags: resolve_flag())
-		
 		assert(_core.null == false)
 		
 		_installDebuggingGuidanceAuthoriser()
@@ -93,6 +90,16 @@ public class Database {
 	}
 	
 	
+	
+	
+	
+	
+	
+	public enum Location {
+		case Memory
+		case TemporaryFile
+		case PersistentFile(path:String)
+	}
 	
 }
 
@@ -127,6 +134,16 @@ public class Database {
 
 ///	MARK:	Foundational Features
 extension Database {
+	
+	public var tables:TableCollection {
+		get {
+			return	_tables
+		}
+	}
+	
+	
+	
+	
 	
 	///	Produces prepared statement.
 	///	You need to bound parameters to execute them later.
@@ -305,10 +322,10 @@ extension Database {
 
 ///	MARK:	Table Proxy Object Management
 extension Database {
-	func notifyBornOfTableForName(n:String) {
+	internal func notifyBornOfTableForName(n:String) {
 		_liveTableNames.append(n)
 	}
-	func notifyDeathOfTableForName(n:String) {
+	internal func notifyDeathOfTableForName(n:String) {
 		_liveTableNames	=	_liveTableNames.filter {$0 != n}
 	}
 	
@@ -362,7 +379,7 @@ extension Database {
 
 
 
-///	MARK:	Private Utilities
+///	MARK:	Transaction Execution Helpers
 extension Database {
 	
 	

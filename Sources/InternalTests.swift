@@ -10,18 +10,17 @@ import Foundation
 
 public struct Test1 {
 	
-	static func run(block:() -> ()) {
-		block()
-	}
-	
-	static func run(name:String, block:() -> ()) {
-		block()
-	}
-	
 	public static func test1() {
 		func log<T>(object:@autoclosure()->T) {
 			println(object())
 		}
+		func run(block:() -> ()) {
+			block()
+		}
+		func session(name:String, block:() -> ()) {
+			block()
+		}
+		
 		
 		
 		typealias	Q	=	Query
@@ -395,15 +394,19 @@ public struct Test1 {
 			let	db1	=	Database(location: Database.Location.Memory, editable: true)
 			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["c1", "c2", "c3"])
 			
-			let	t1	=	db1.table(name: "T1")			
-			t1[111]	=	["AAA", "BBB", "CCC"]
+			run {
+				let	t1	=	db1.tables["T1"]
+				t1[111]	=	["AAA", "BBB", "CCC"]
+				
+				let	v2	=	t1[111]!
+				println(v2)
+				assert(v2.count == 3)
+				assert(v2[0] == Value.Text("AAA"))
+				assert(v2[1] == Value.Text("BBB"))
+				assert(v2[2] == Value.Text("CCC"))
+			}
 			
-			let	v2	=	t1[111]!
-			println(v2)
-			assert(v2.count == 3)
-			assert(v2[0] == Value.Text("AAA"))
-			assert(v2[1] == Value.Text("BBB"))
-			assert(v2[2] == Value.Text("CCC"))
+			println(db1)
 		}
 		
 		

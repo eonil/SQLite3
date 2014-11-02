@@ -10,39 +10,52 @@ import Foundation
 
 
 
-
+///	A proxy for a name of a table.
 ///	Provides simple and convenient methods to get results easily on a single table.
 ///
-///	Table object caches metadata. If you alter schema of a table, you have to make a 
-///	new table object. Querying on altered table using old table object can cause
-///	various problems.
-///
 ///	Table is treated something like a dictionary with PK column (identity) and the
-///	other columns (content).
+///	other columns (content). Only signle column PK is supported.
+///
+///	This proxy is linked by name, and metadata are cached. If you make any change on 
+///	remote table in database, state of this object will be corrupted silently.
+///	To prevent this situation, `Database` object installs authoriser and crashs app
+///	on any trial to change existing table while any `Table` object is alive.
+///
 public class Table {
 	public typealias	Identity	=	Value
 	public typealias	Content		=	[Value]
 
+	unowned let owner:TableCollection
+	
 	let	info:Internals.TableInfo
 	
-	let	selectRow:(identity:Identity)->Content?				///<	:returns:	data fields.
-	let	insertRow:(identity:Identity,content:Content)->()		///<	:values:	data fields.
-	let	deleteRow:(identity:Identity)->()
+	lazy var selectRow:(identity:Identity)->Content?			=	CommandMaker.makeSelectRowCommand(self.info)		///<	:returns:	Only data fields. No key field.
+	lazy var insertRow:(identity:Identity,content:Content)->()	=	CommandMaker.makeInsertRowCommand(self.info)		///<	:values:	Only data fields. No key field.
+	lazy var deleteRow:(identity:Identity)->()					=	CommandMaker.makeDeleteRowCommand(self.info)
 	
-	init(database:Database, name:String) {
-		info	=	Internals.TableInfo.fetch(database, tableName: name)
+	init(owner:TableCollection, name:String) {
+		self.owner	=	owner
+		self.info	=	Internals.TableInfo.fetch(owner.database, tableName: name)
 		
-		self.selectRow		=	CommandMaker.makeSelectRowCommand(info)
-		self.insertRow		=	CommandMaker.makeInsertRowCommand(info)
-		self.deleteRow		=	CommandMaker.makeDeleteRowCommand(info)
-		
-		self.info.database.notifyBornOfTableForName(info.name)
+		self.owner.registerByBornOfTable(self)
 	}
 	deinit {
-		self.info.database.notifyDeathOfTableForName(info.name)
+		self.owner.unregisterByDeathOfTable(self)
 	}
 }
 
+extension Table {
+	public var database:Database {
+		get {
+			return	owner.database
+		}
+	}
+	public var name:String {
+		get {
+			return	info.name
+		}
+	}
+}
 
 
 

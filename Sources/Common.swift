@@ -32,6 +32,12 @@ func collect <T:GeneratorType> (g:T) -> [T.Element] {
 //	return	collect(c.generate())
 //}
 
+func linkWeakly <T where T: AnyObject> (target:T) -> ()->T? {
+	weak var	value	=	target as T?
+	return	{
+		return	value
+	}
+}
 
 
 
@@ -62,3 +68,15 @@ func >>>> <T,U> (value:T, function:T->U) -> U {
 //	precondition(value != nil, "Supplied value `T` shouldn't be `nil`.")
 //	return	function(value!)
 //}
+
+
+
+
+
+infix operator ||| {
+
+}
+
+func ||| <T> (value:T?, substitude:T) -> T {
+	return	value == nil ? substitude : value!
+}

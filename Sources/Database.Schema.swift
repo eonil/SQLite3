@@ -8,11 +8,9 @@
 
 import Foundation
 
-public extension Database
-{
+public extension Database {
 	///	Provides simple and convenient methods
-	public struct Schema
-	{
+	public struct Schema {
 		let	database:Database
 	}
 }

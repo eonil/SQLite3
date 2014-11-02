@@ -30,7 +30,7 @@ func test3() {
 		db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
 		
 		///	Make a single table accessor object.
-		let	t1	=	db1.table(name: "T1")
+		let	t1	=	db1.tables["T1"]
 
 		///	Insert a new row.
 		t1[111]	=	[42, "Here be dragons.", nil]
@@ -65,7 +65,7 @@ func test3() {
 			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
 			
 			///	Make a single table accessor object.
-			let	t1	=	db1.table(name: "T1")
+			let	t1	=	db1.tables["T1"]
 			
 			///	Insert a new row.
 			t1[111]	=	[42, "Here be dragons.", nil]
@@ -103,7 +103,7 @@ func test3() {
 		///	Out-most transaction.
 		func tx1() {
 			db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
-			let	t1	=	db1.table(name: "T1")
+			let	t1	=	db1.tables["T1"]
 			
 			///	Outer transaction.
 			func tx2() -> Bool {
@@ -144,7 +144,7 @@ func test3() {
 	func customQuery() {
 		let	db1	=	Database(location: Database.Location.Memory, editable: true)
 		db1.schema().create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
-		let	t1	=	db1.table(name: "T1")
+		let	t1	=	db1.tables["T1"]
 		
 		t1[111]	=	[42, "Here be dragons.", nil]
 		

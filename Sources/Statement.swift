@@ -329,17 +329,6 @@ extension Statement.Execution {
 			}
 		}
 	}
-	
-//	public struct Column {
-//		let	name:String
-//		let	origin:Origination
-//		
-//		struct Origination {
-//			let	database:String
-//			let	table:String
-//			let	column:String
-//		}
-//	}
 }
 
 
