@@ -17,7 +17,7 @@ public typealias	Binary	=	Blob
 ///	makes program more complex.
 ///
 ///	https://www.sqlite.org/datatype3.html
-public enum Value : StringLiteralConvertible {
+public enum Value : NilLiteralConvertible, IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
 	case Null
 	case Integer(Int64)
 	case Float(Double)
@@ -42,12 +42,11 @@ extension Value: Hashable {
 	}
 }
 
-extension Value: NilLiteralConvertible {
+extension Value {
 	public init(nilLiteral: ()) {
 		self	=	Value.Null
 	}
-}
-extension Value: IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
+
 	public init(integerLiteral value: Int64) {
 		self	=	Integer(value)
 	}
@@ -125,17 +124,17 @@ extension Value {
 //	init(){
 //		self	=	Value.Null
 //	}
-	public init(_ v:Int64) {
-		self	=	Integer(v)
+	public init(_ v:Int64?) {
+		self	=	v == nil ? Null : Integer(v!)
 	}
-	public init(_ v:Double) {
-		self	=	Float(v)
+	public init(_ v:Double?) {
+		self	=	v == nil ? Null : Float(v!)
 	}
-	public init(_ v:String) {
-		self	=	Text(v)
+	public init(_ v:String?) {
+		self	=	v == nil ? Null : Text(v!)
 	}
-	public init(_ v:Binary) {
-		self	=	Blob(v)
+	public init(_ v:Binary?) {
+		self	=	v == nil ? Null : Blob(v!)
 	}
 	
 	public var null:Bool {
