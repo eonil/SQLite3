@@ -179,7 +179,7 @@ class HighLevelFeatureTests: XCTestCase {
 				t1[0 + i]	=	[42, "Here be dragons.", nil]
 			}
 			
-			let	n1	=	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.GreaterThan, column: Query.Identifier("k1"), value: {30})
+			let	n1	=	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.EqualOrGreaterThan, column: Query.Identifier("k1"), value: {30})
 			let	f1	=	Query.FilterTree(root: n1)
 			
 			let	s1	=	t1.filter(f1)
@@ -188,8 +188,12 @@ class HighLevelFeatureTests: XCTestCase {
 			
 			let	rs1	=	collect(p1)
 			let	c1	=	rs1.count
-			println(c1)
+			
 			XCTAssert(rs1.count == 10)
+			XCTAssert(rs1[0]["k1"]!.integer! == 40)
+			XCTAssert(rs1[1]["k1"]!.integer! == 41)
+			XCTAssert(rs1[2]["k1"]!.integer! == 42)
+			XCTAssert(rs1[9]["k1"]!.integer! == 49)
 		}
 		db1.apply(tx1)
 	}
