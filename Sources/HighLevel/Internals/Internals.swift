@@ -107,14 +107,15 @@ extension Internals {
 		}
 		
 		func convertDictionaryToTuple(d1:[String:Value]) -> [Value] {
-			assert(d1.count == columns.count)
+			///	Supplied dictionary may have less values then the data columns in the table.
+			///	Missing fields will be filled as `NULL`.
 			var	a1	=	Array(count: columns.count, repeatedValue: Value.Null)
 			for c in columns {
 				a1[convertInt64ToInt(c.cid)]	=	d1[c.name]!
 			}
 			return	a1
 		}
-		func convertDictionaryToTuple(d1:[String:Value]) -> ([Value],[Value]) {
+		func convertDictionaryToKeyAndValueTuples(d1:[String:Value]) -> ([Value],[Value]) {
 			let	a1	=	convertDictionaryToTuple(d1) as [Value]
 			let	ks	=	keyColumns().map { (c:ColumnInfo)->Value in a1[self.convertInt64ToInt(c.cid)]}
 			let	vs	=	dataColumns().map { (c:ColumnInfo)->Value in a1[self.convertInt64ToInt(c.cid)]}

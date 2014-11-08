@@ -26,7 +26,7 @@ extension Table {
 			}
 			set(v) {
 				if let v2 = v {
-					let	(k,v)	=	table.info.convertDictionaryToTuple(v2)
+					let	(k,v)	=	table.info.convertDictionaryToKeyAndValueTuples(v2)
 					table[k[0]]	=	v
 				}
 				table[identity]	=	nil
