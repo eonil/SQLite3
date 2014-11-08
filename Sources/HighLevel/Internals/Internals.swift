@@ -108,10 +108,14 @@ extension Internals {
 		
 		func convertDictionaryToTuple(d1:[String:Value]) -> [Value] {
 			///	Supplied dictionary may have less values then the data columns in the table.
-			///	Missing fields will be filled as `NULL`.
+			///	Missing columns will be filled as `NULL`.
 			var	a1	=	Array(count: columns.count, repeatedValue: Value.Null)
 			for c in columns {
-				a1[convertInt64ToInt(c.cid)]	=	d1[c.name]!
+				if let v1 = d1[c.name] {
+					a1[convertInt64ToInt(c.cid)]	=	d1[c.name]!
+				} else {
+					//	Skip missing columns.
+				}
 			}
 			return	a1
 		}
