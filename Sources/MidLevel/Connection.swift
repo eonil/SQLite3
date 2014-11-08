@@ -27,24 +27,30 @@ public class Connection {
 		//	TODO:	Uncomment this. Commented due to weird compiler error.
 		//		assert(_core.null == true)
 		
-		func resolve_name() -> String
-		{
-			func passAssertingValidPersistentFilePath(path:String) -> String
-			{
+		func resolve_name() -> String {
+			func assertValidPersistentFilePath(path:String) {
 				assert(path != "")
 				assert(path != ":memory:")
-				return	path
+			}
+			func createIfNotExists(path:String)  {
+				let	ok1	=	NSFileManager.defaultManager().fileExistsAtPath(path)
+				if ok1 == false {
+					let	conn2	=	Core.Connection()
+					conn2.open(path, flags: Core.Connection.OpenFlag.ReadWrite | Core.Connection.OpenFlag.Create)
+					conn2.close()
+				}
 			}
 			
-			switch location
-			{
+			switch location {
 			case let Location.Memory:						return	":memory:"
 			case let Location.TemporaryFile:				return	""
-			case let Location.PersistentFile(path: path):	return	passAssertingValidPersistentFilePath(path)
+			case let Location.PersistentFile(path: path):
+				assertValidPersistentFilePath(path)
+				createIfNotExists(path)
+				return	path
 			}
 		}
-		func resolve_flag() -> Core.Connection.OpenFlag
-		{
+		func resolve_flag() -> Core.Connection.OpenFlag {
 			if editable == false { return Core.Connection.OpenFlag.Readonly }
 			return	Core.Connection.OpenFlag.ReadWrite
 		}

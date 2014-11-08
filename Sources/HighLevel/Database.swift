@@ -23,6 +23,8 @@ public final class Database {
 
 	
 	///	Creates a new instance of a `Database` class.
+	///	Opens a database at the location. Creates a new one if there's no file.
+	///	If there's non-SQLite3 file, program will crash.
 	///	
 	///	:location:	The source database location.
 	///	:editable:	Set `false` if you want to open the database in read-only mode.

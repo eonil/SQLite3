@@ -12,6 +12,7 @@ struct Configuration {
 //	public var	schemaEditable:Bool			///<	Allows user to edit schema.
 //	public var	contentEditable:Bool		///<	Allows user to edit contents.
 	
+//	var	allowCreationIfNotExists	=	true
 	
 	
 	///	Specifies a name generator which will generate names for `SAVEPOINT`
