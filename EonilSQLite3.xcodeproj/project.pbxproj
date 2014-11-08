@@ -164,7 +164,7 @@
 		453D22741A0690E700E329B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		453D227E1A06925600E329B2 /* MidLevelFeatureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidLevelFeatureTests.swift; sourceTree = "<group>"; };
 		453D22811A06929700E329B2 /* TestCommons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCommons.swift; sourceTree = "<group>"; };
-		4540C6F219FFF53C00D7714F /* UnitTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = UnitTestForOSX; path = InternalTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
+		4540C6F219FFF53C00D7714F /* InternalTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = InternalTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
 		4540C6F419FFF53C00D7714F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4540C70219FFF56C00D7714F /* Core.Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Common.swift; sourceTree = "<group>"; };
 		4540C70319FFF56C00D7714F /* Core.Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Connection.swift; sourceTree = "<group>"; };
@@ -358,7 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				458D62B119C6DD34001E450D /* EonilSQLite3.framework */,
-				4540C6F219FFF53C00D7714F /* UnitTestForOSX */,
+				4540C6F219FFF53C00D7714F /* InternalTestForOSX */,
 				4540C72C19FFF59900D7714F /* EonilSQLite3.framework */,
 				453D22591A068F2100E329B2 /* EonilSQLite3 - OSX - Tests.xctest */,
 				453D22711A0690E700E329B2 /* EonilSQLite3 - iOS - Tests.xctest */,
@@ -535,7 +535,7 @@
 			);
 			name = InternalTestForOSX;
 			productName = UnitTestForOSX;
-			productReference = 4540C6F219FFF53C00D7714F /* UnitTestForOSX */;
+			productReference = 4540C6F219FFF53C00D7714F /* InternalTestForOSX */;
 			productType = "com.apple.product-type.tool";
 		};
 		4540C72B19FFF59900D7714F /* EonilSQLite3 - OSX */ = {

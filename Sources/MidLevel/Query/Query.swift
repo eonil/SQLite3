@@ -208,11 +208,22 @@ public struct Query {
 	public struct FilterTree : QueryExpressible {
 		public let	root:Node
 		
+		public init(root:Node) {
+			self.root	=	root
+		}
+		
 		public func express() -> Query.Expression {
 			return	root.express()
 		}
 		
+		////
+		
 		public enum Node : QueryExpressible {
+			case Leaf(operation:Operation, column:Identifier, value:Query.ParameterValueEvaluation)
+			case Branch(combination:Combination, subnodes:[Node])
+			
+			////
+			
 			public enum Operation : QueryExpressible {
 				case Equal
 				case NotEqual
@@ -248,9 +259,6 @@ public struct Query {
 				}
 			}
 			
-			case Leaf(operation:Operation, column:Identifier, value:Query.ParameterValueEvaluation)
-			case Branch(combination:Combination, subnodes:[Node])
-			
 			public func express() -> Query.Expression {
 				switch self {
 				case let Leaf(operation: op, column: col, value: val):
@@ -266,9 +274,18 @@ public struct Query {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
 	public struct SortingList: QueryExpressible {
 		public	var	items:[Item]
 		
+		public init(items:[Item]) {
+			self.items	=	items
+		}
 		public func express() -> Query.Expression {
 			return	Expression.concatenation(separator: Query.Expression(", "), components: items.map({$0.express()}))
 		}
@@ -276,6 +293,11 @@ public struct Query {
 		public struct Item : QueryExpressible {
 			public var	column:Identifier
 			public var	order:Order
+			
+			public init(column:Identifier, order:Order) {
+				self.column	=	column
+				self.order	=	order
+			}
 			
 			public func express() -> Query.Expression {
 				return	Expression.concatenation(separator: Query.Expression.empty, components: [

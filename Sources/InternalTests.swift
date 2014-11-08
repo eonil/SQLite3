@@ -414,7 +414,12 @@ public struct Test1 {
 //		}
 		
 		
-		
+		run {
+			let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+			db1.apply {
+
+			}
+		}
 		
 	}
 }

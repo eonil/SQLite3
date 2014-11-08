@@ -116,8 +116,8 @@ extension Database {
 ///	MARK:
 
 extension Database {
-	func compile(code:String) -> Statement {
-		return	connection.prepare(code)
+	func compile(code:String) -> Program {
+		return	Program(database: self, midlevel: connection.prepare(code))
 	}
 	
 }

@@ -35,3 +35,35 @@ Layers
 You can choose any level what you want to use, but you can't mix them. Once 
 established connection to a database file can be manipulated using only with 
 the type of the connection.
+
+
+
+
+
+
+Lifecycle Management
+--------------------
+Low-level layer uses fully manual memory management. Though they're RCed objects,
+you need to open/close each object manually.
+
+Mid-level layer uses strict unique ownershop manner. Super object owns subobject,
+and you need to keep a strong reference to the superobject to make subobjects 
+alive. This organised a tree graph.
+
+High-level layer uses automatic semantics. Subobjects may retain superobjects to
+extend thier lifetime automatically. Cycles are avoided by retaining subobjects 
+as a weak/unowned. 
+
+	Database owns TableCollection, but not Table.
+	Table owns Database, but not TableCollection.
+
+	Program, Execution, Selection, List, Page all owns thier origin objects.
+
+
+
+
+
+
+
+
+

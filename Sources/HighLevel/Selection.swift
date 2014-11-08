@@ -21,11 +21,11 @@ public final class Selection {
 		
 	}
 	
-	func compile() -> Statement {
+	func compile() -> Program {
 		let	q	=	select(Query.Identifier(table.info.name), Query.ColumnList.All, filter)
 		let	e	=	q.express()
-		let	s	=	table.database.compile(e.code)
-		return	s
+		let	p	=	table.database.compile(e.code)
+		return	p
 	}
 	
 	public func sort(sortings:Query.SortingList) -> List {
@@ -34,19 +34,19 @@ public final class Selection {
 }
 
 public extension Selection {
-	public func arrays() -> Statement.Execution.ArrayView {
+	public func arrays() -> Execution.ArrayView {
 		let	q	=	select(Query.Identifier(table.info.name), Query.ColumnList.All, filter)
 		let	e	=	q.express()
 		let	s	=	table.database.compile(e.code)
 		let	x	=	s.execute(e.parameters)
-		return	x.arrays()
+		return	x.arrayView
 	}
-	public func dictionaries() -> Statement.Execution.DictionaryView {
+	public func dictionaries() -> Execution.DictionaryView {
 		let	q	=	select(Query.Identifier(table.info.name), Query.ColumnList.All, filter)
 		let	e	=	q.express()
 		let	s	=	table.database.compile(e.code)
 		let	x	=	s.execute(e.parameters)
-		return	x.dictionaries()
+		return	x.dictionaryView
 	}
 	
 //	public func tuples() -> Selection.TupleView {
@@ -56,6 +56,18 @@ public extension Selection {
 //		return	Selection.DictionaryView(statement)
 //	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //extension Selection {
 //	///	Provides most essential data iteration.

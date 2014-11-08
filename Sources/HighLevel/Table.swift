@@ -26,6 +26,7 @@ public class Table {
 	public typealias	Content		=	[Value]
 
 	unowned let owner:TableCollection
+	let			database:Database			///<	Extend database lifecycle.
 	
 	let	info:Internals.TableInfo
 	
@@ -35,8 +36,9 @@ public class Table {
 	lazy var deleteRow:(identity:Identity)->()					=	CommandMaker.makeDeleteRowCommand(self)
 	
 	init(owner:TableCollection, name:String) {
-		self.owner	=	owner
-		self.info	=	Internals.TableInfo.fetch(owner.database, tableName: name)
+		self.owner		=	owner
+		self.database	=	owner.database
+		self.info		=	Internals.TableInfo.fetch(owner.database, tableName: name)
 		
 		self.owner.registerByBornOfTable(self)
 	}
@@ -46,11 +48,11 @@ public class Table {
 }
 
 extension Table {
-	public var database:Database {
-		get {
-			return	owner.database
-		}
-	}
+//	public var database:Database {
+//		get {
+//			return	owner.database
+//		}
+//	}
 	public var name:String {
 		get {
 			return	info.name
@@ -61,8 +63,9 @@ extension Table {
 extension Table: SequenceType {
 	public func generate() -> GeneratorOf<(Identity,Content)> {
 		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil, sorts: nil, limit: nil, offset: nil)
-		let	s	=	database.compile(q.express().code)
-
+		let	p	=	database.compile(q.express().code)
+		let	s	=	p.midlevel
+		
 		func next() -> (Identity,Content)? {
 			if s.step() {
 				let	r	=	s

@@ -24,6 +24,16 @@ extension HighLevelFeatureTests {
 		}
 		return	a1
 	}
+	func collect(var p:Page) -> [[String:Value]] {
+		let	v1	=	p.dictionaryView
+		var	g1	=	v1.generate()
+		var	a1	=	[] as [[String:Value]]
+		
+		while let e = g1.next() {
+			a1.append(e)
+		}
+		return	a1
+	}
 }
 
 
@@ -155,6 +165,31 @@ class HighLevelFeatureTests: XCTestCase {
 			}
 			
 			XCTAssert(t1.count == 64)
+		}
+		db1.apply(tx1)
+	}
+	
+	func testPaging1() {
+		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+		func tx1() {
+			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2", "v3"])
+			let	t1	=	db1.tables["T1"]
+			
+			for i in 0..<64 {
+				t1[0 + i]	=	[42, "Here be dragons.", nil]
+			}
+			
+			let	n1	=	Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.GreaterThan, column: Query.Identifier("k1"), value: {30})
+			let	f1	=	Query.FilterTree(root: n1)
+			
+			let	s1	=	t1.filter(f1)
+			let	l1	=	s1.sort(Query.SortingList(items: [Query.SortingList.Item(column: Query.Identifier("k1"), order: Query.SortingList.Order.Ascending)]))
+			let	p1	=	l1[10..<20]
+			
+			let	rs1	=	collect(p1)
+			let	c1	=	rs1.count
+			println(c1)
+			XCTAssert(rs1.count == 10)
 		}
 		db1.apply(tx1)
 	}
