@@ -197,6 +197,28 @@ class HighLevelFeatureTests: XCTestCase {
 		}
 		db1.apply(tx1)
 	}
+	
+	
+	
+	func testTempFileMaking() {
+		let	db1	=	Database(location: Connection.Location.TemporaryFile, editable: true)
+	}
+	
+	func testPersistentFileMaking() {
+		let	p1	=	NSTemporaryDirectory()!
+		let	p2	=	p1.stringByAppendingPathComponent(NSUUID().UUIDString + ".test")
+		let	db1	=	Database(location: Connection.Location.PersistentFile(path: p2), editable: true)
+		
+	}
+	
+	func testPersistentFileMakingInCacheDir() {
+		let	p1	=	NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+		let	p2	=	p1.stringByAppendingPathComponent("EonilSQLite3-Test" + NSUUID().UUIDString + ".test")
+		let	db1	=	Database(location: Connection.Location.PersistentFile(path: p2), editable: true)
+		db1.apply {
+			db1.schema.create(tableName: "T1", dataColumnNames: ["c1"])
+		}
+	}
 }
 
 
