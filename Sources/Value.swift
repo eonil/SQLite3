@@ -17,7 +17,7 @@ public typealias	Binary	=	Blob
 ///	makes program more complex.
 ///
 ///	https://www.sqlite.org/datatype3.html
-public enum Value : NilLiteralConvertible, IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
+public enum Value : Equatable, Hashable, Printable, NilLiteralConvertible, IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
 	case Null
 	case Integer(Int64)
 	case Float(Double)
@@ -25,10 +25,10 @@ public enum Value : NilLiteralConvertible, IntegerLiteralConvertible, FloatLiter
 	case Blob(Binary)
 }
 
-extension Value: Equatable {
+public extension Value {
 }
 
-extension Value: Hashable {
+public extension Value {
 	public var hashValue:Int {
 		get {
 			switch self {
@@ -42,7 +42,7 @@ extension Value: Hashable {
 	}
 }
 
-extension Value {
+public extension Value {
 	public init(nilLiteral: ()) {
 		self	=	Value.Null
 	}
@@ -69,7 +69,7 @@ extension Value {
 	}
 }
 
-extension Value: Printable {
+public extension Value {
 	public var description:String {
 		get {
 			switch self {
@@ -96,31 +96,31 @@ public func == (l:Value, r:Value) -> Bool {
 	}
 }
 
-func == (l:Value, r:()?) -> Bool {
-	return	l == Value.Null && r == nil
-}
+//public func == (l:Value, r:()?) -> Bool {
+//	return	l == Value.Null && r == nil
+//}
+//
+//public func == (l:Value, r:Int) -> Bool {
+//	return	l == Int64(r)
+//}
+//public func == (l:Value, r:Int64) -> Bool {
+//	if let v2 = l.integer { return v2 == r }
+//	return	false
+//}
+//public func == (l:Value, r:Double) -> Bool {
+//	if let v2 = l.float { return v2 == r }
+//	return	false
+//}
+//public func == (l:Value, r:String) -> Bool {
+//	if let v2 = l.text { return v2 == r }
+//	return	false
+//}
+//public func == (l:Value, r:Binary) -> Bool {
+//	if let v2 = l.blob { return v2 == r }
+//	return	false
+//}
 
-func == (l:Value, r:Int) -> Bool {
-	return	l == Int64(r)
-}
-func == (l:Value, r:Int64) -> Bool {
-	if let v2 = l.integer { return v2 == r }
-	return	false
-}
-func == (l:Value, r:Double) -> Bool {
-	if let v2 = l.float { return v2 == r }
-	return	false
-}
-func == (l:Value, r:String) -> Bool {
-	if let v2 = l.text { return v2 == r }
-	return	false
-}
-func == (l:Value, r:Binary) -> Bool {
-	if let v2 = l.blob { return v2 == r }
-	return	false
-}
-
-extension Value {
+public extension Value {
 //	init(){
 //		self	=	Value.Null
 //	}
