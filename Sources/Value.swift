@@ -17,7 +17,7 @@ public typealias	Binary	=	Blob
 ///	makes program more complex.
 ///
 ///	https://www.sqlite.org/datatype3.html
-public enum Value {
+public enum Value : StringLiteralConvertible {
 	case Null
 	case Integer(Int64)
 	case Float(Double)
