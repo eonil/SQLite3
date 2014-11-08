@@ -249,9 +249,9 @@ extension Statement {
 		///	Once started and unfinished execution cannot be used.
 		///	If you want to avoid collecting of all rows, then you have to iterate this
 		///	manually yourself.
-		public func allTuples() -> [[Value]] {
+		public func allArrays() -> [[Value]] {
 			precondition(statement._started == false, "You cannot call this method on once started execution.")
-			return	tuples().generate() >>>> collect
+			return	arrays().generate() >>>> collect
 		}
 		
 		///	Returns snapshot of all rows at once. You can call this only on fresh new `Execution`.
@@ -263,9 +263,9 @@ extension Statement {
 			return	dictionaries().generate() >>>> collect
 		}
 		
-		///	Returns enumerable tuple view. Represents a row as a tuple of values.
-		public func tuples() -> TupleView {
-			return	TupleView(statement)
+		///	Returns enumerable array view. Represents a row as an array of values. Only field values, no clumn names.
+		public func arrays() -> ArrayView {
+			return	ArrayView(statement)
 		}
 		
 		///	Returns enumerable dictionary view. Represents a row as a dictionary of column names and field values.
@@ -282,7 +282,7 @@ extension Statement.Execution {
 	///	Provides most essential data iteration.
 	///	Shows only value part. You optionally can
 	///	take column names.
-	public final class TupleView: SequenceType {
+	public final class ArrayView: SequenceType {
 		unowned let	statement:Statement
 		init(_ s:Statement) {
 			self.statement	=	s

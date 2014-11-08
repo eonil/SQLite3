@@ -153,7 +153,7 @@ public final class TableCollection: SequenceType {
 		}
 	}
 	private func _countAllTablesInCurrentDatabase() -> Int {
-		let	rs	=	database.compile("SELECT count(*) FROM sqlite_master WHERE type='table';").execute().allTuples()
+		let	rs	=	database.compile("SELECT count(*) FROM sqlite_master WHERE type='table';").execute().allArrays()
 		assert(rs.count == 1)
 		let	r	=	rs[0]
 		assert(r.count == 1)

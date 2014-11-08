@@ -266,7 +266,30 @@ public struct Query {
 	}
 	
 	
-	
+	public struct SortingList: QueryExpressible {
+		public	var	items:[Item]
+		
+		public func express() -> Query.Expression {
+			return	Expression.concatenation(separator: Query.Expression(", "), components: items.map({$0.express()}))
+		}
+		
+		public struct Item : QueryExpressible {
+			public var	column:Identifier
+			public var	order:Order
+			
+			public func express() -> Query.Expression {
+				return	Expression.concatenation(separator: Query.Expression.empty, components: [
+					column.express(),
+					Expression(" " + order.rawValue)
+					])
+			}
+		}
+		
+		public enum Order : String {
+			case Ascending	=	"ASC"
+			case Descending	=	"DESC"
+		}
+	}
 	
 	
 	

@@ -21,16 +21,21 @@ public extension Query
 	///
 	public struct Select : QueryExpressible {
 		static func all(of table:Identifier) -> Select {
-			return	Select(table: table, columns: Query.ColumnList.All, filter: nil)
+			return	Select(table: table, columns: Query.ColumnList.All, filter: nil, sorts: nil, limit: nil, offset: nil)
 		}
 		
 		public let	table:Identifier
 		public let	columns:Query.ColumnList
 		public let	filter:Query.FilterTree?
+		public let	sorts:SortingList?
+		public let	limit:Int?
+		public let	offset:Int?
 
 		public func express() -> Query.Expression{
-			let	x1	=	(filter == nil ? Expression.empty : filter!.express()) as Expression
-			
+			let	filt1	=	filter == nil ? Expression.empty : concat([expr("WHERE "), filter!.express()])
+			let	sort1	=	sorts == nil ? Expression.empty : concat([expr("ORDER BY "), sorts!.express()])
+			let	lim1	=	limit == nil ? Expression.empty : expr("LIMIT \(limit!)")
+			let	off1	=	offset == nil ? Expression.empty : expr("OFFSET \(offset!)")
 			return	[
 				expr("SELECT"),
 				columns.express(),
@@ -38,8 +43,13 @@ public extension Query
 				expr("FROM"),
 				table.express(),
 				expr(" "),
-				Expression(code: (filter == nil ? "" : "WHERE "), parameters: []),
-				x1,
+				filt1,
+				expr(" "),
+				sort1,
+				expr(" "),
+				lim1,
+				expr(" "),
+				off1,
 			] >>>> concat
 		}
 	}

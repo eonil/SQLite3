@@ -80,7 +80,7 @@ public struct Test1 {
 		run	{
 			
 			let	f1	=	F.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: "col1", value: { 42 })
-			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
+			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1), sorts: nil, limit: nil, offset: nil)
 			let	s	=	q.express()
 			println(s.code, s.parameters)
 			
@@ -88,7 +88,7 @@ public struct Test1 {
 		
 //		run	{
 //			let	f1	=	("col1" as Q.Identifier) == (42 as Value)
-//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
+//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1), sorts: nil, limit: nil, offset: nil)
 //			let	s	=	q.express()
 //			println(s.code, s.parameters)
 //			
@@ -96,7 +96,7 @@ public struct Test1 {
 //		
 //		run	{
 //			let	f1	=	("col1" == 42) as Q.FilterTree.Node
-//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1))
+//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f1), sorts: nil, limit: nil, offset: nil)
 //			let	s	=	q.express()
 //			println(s.code, s.parameters)
 //			
@@ -109,7 +109,7 @@ public struct Test1 {
 //			let	f3:Q.FilterTree.Node	=	"col4" < 2324
 //			let	f4	=	f1 & f2
 //			let	f5	=	f4 | f3
-//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f5))
+//			let	q	=	Query.Select(table: "MyTable3", columns: columns(["col1"]), filter: Q.FilterTree(root: f5), sorts: nil, limit: nil, offset: nil)
 //			let	s	=	q.express()
 //			println(s.code, s.parameters)
 //			
@@ -310,7 +310,7 @@ public struct Test1 {
 			let	t1		=	Schema.Table(name: "T1", key: ["c1"], columns: [Schema.Column(name: "c1", nullable: false, type: Schema.Column.TypeCode.Text, unique: false, index: nil)])
 			conn1.run(Query.Schema.Table.Create(temporary: false, definition: t1))
 			
-			let	q1		=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
+			let	q1		=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil, sorts: nil, limit: nil, offset: nil)
 			conn1.run(q1)
 		}
 		
@@ -324,7 +324,7 @@ public struct Test1 {
 			let	q1	=	Query.Insert(table: "T1", bindings: [Query.Binding(column: "C1", value: { "text1!" })])
 			conn1.run(q1)
 			
-			let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil)
+			let	q2	=	Query.Select(table: "T1", columns: Query.ColumnList.All, filter: nil, sorts: nil, limit: nil, offset: nil)
 			for (_, r) in enumerate(conn1.run(q2)) {
 				println(r)
 			}

@@ -55,6 +55,9 @@
 		455F84261A06803D006177E8 /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F84201A06803D006177E8 /* CoreBridge.m */; };
 		455F84271A06803D006177E8 /* EonilSQLite3-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F84211A06803D006177E8 /* EonilSQLite3-Bridging-Header.h */; };
 		455F84281A06803D006177E8 /* EonilSQLite3-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F84211A06803D006177E8 /* EonilSQLite3-Bridging-Header.h */; };
+		4591E1281A0EA6C7002C12FC /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591E1271A0EA6C7002C12FC /* List.swift */; };
+		4591E1291A0EA6C7002C12FC /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591E1271A0EA6C7002C12FC /* List.swift */; };
+		4591E12A1A0EA6C7002C12FC /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591E1271A0EA6C7002C12FC /* List.swift */; };
 		4599DDC01A06819C0067BB3C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4599DDBF1A06819C0067BB3C /* libsqlite3.0.dylib */; };
 		459B517919C72BBC0029EA46 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459B517819C72BBC0029EA46 /* Value.swift */; };
 		45CC02B719C9C2ED00AEABCC /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC02B619C9C2ED00AEABCC /* Debug.swift */; };
@@ -161,7 +164,7 @@
 		453D22741A0690E700E329B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		453D227E1A06925600E329B2 /* MidLevelFeatureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MidLevelFeatureTests.swift; sourceTree = "<group>"; };
 		453D22811A06929700E329B2 /* TestCommons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCommons.swift; sourceTree = "<group>"; };
-		4540C6F219FFF53C00D7714F /* UnitTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = UnitTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
+		4540C6F219FFF53C00D7714F /* UnitTestForOSX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = UnitTestForOSX; path = InternalTestForOSX; sourceTree = BUILT_PRODUCTS_DIR; };
 		4540C6F419FFF53C00D7714F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4540C70219FFF56C00D7714F /* Core.Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Common.swift; sourceTree = "<group>"; };
 		4540C70319FFF56C00D7714F /* Core.Connection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.Connection.swift; sourceTree = "<group>"; };
@@ -180,6 +183,7 @@
 		455F84201A06803D006177E8 /* CoreBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreBridge.m; sourceTree = "<group>"; };
 		455F84211A06803D006177E8 /* EonilSQLite3-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EonilSQLite3-Bridging-Header.h"; sourceTree = "<group>"; };
 		458D62B119C6DD34001E450D /* EonilSQLite3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EonilSQLite3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4591E1271A0EA6C7002C12FC /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		4599DDBF1A06819C0067BB3C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
 		459B517819C72BBC0029EA46 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		459B517E19C75EDC0029EA46 /* InternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalTests.swift; sourceTree = "<group>"; };
@@ -442,6 +446,7 @@
 				45DEAE851A065AFD0031CF27 /* Table.Views.swift */,
 				45DEAE861A065AFD0031CF27 /* TableCollection.swift */,
 				45DEAE831A065AFD0031CF27 /* Selection.swift */,
+				4591E1271A0EA6C7002C12FC /* List.swift */,
 				45DEAEA51A0660E70031CF27 /* Program.swift */,
 				45DEAEB11A0673270031CF27 /* Internals */,
 			);
@@ -689,6 +694,7 @@
 				4540C76419FFF61400D7714F /* Value.swift in Sources */,
 				45DEAE611A065AD90031CF27 /* Connection.CRUD.swift in Sources */,
 				45DEAE8F1A065AFD0031CF27 /* Selection.swift in Sources */,
+				4591E12A1A0EA6C7002C12FC /* List.swift in Sources */,
 				45DEAE951A065AFD0031CF27 /* Table.Views.swift in Sources */,
 				45DEAEA81A0660E70031CF27 /* Program.swift in Sources */,
 				4540C70B19FFF56C00D7714F /* Core.Connection.swift in Sources */,
@@ -735,6 +741,7 @@
 				45DEAE681A065AD90031CF27 /* Expression.swift in Sources */,
 				45DEAE7A1A065AD90031CF27 /* Query.swift in Sources */,
 				4540C75C19FFF61400D7714F /* Core.Connection.swift in Sources */,
+				4591E1281A0EA6C7002C12FC /* List.swift in Sources */,
 				45DEAEA21A065EBF0031CF27 /* Configuration.swift in Sources */,
 				4540C74E19FFF61400D7714F /* Value.swift in Sources */,
 				45DEAE6B1A065AD90031CF27 /* Query.Basic.swift in Sources */,
@@ -774,6 +781,7 @@
 				45DEAE721A065AD90031CF27 /* Query.Language.swift in Sources */,
 				4540C70A19FFF56C00D7714F /* Core.Connection.swift in Sources */,
 				45DEAEA31A065EBF0031CF27 /* Configuration.swift in Sources */,
+				4591E1291A0EA6C7002C12FC /* List.swift in Sources */,
 				454BA4461A02F51500C121C8 /* Common.swift in Sources */,
 				459B517919C72BBC0029EA46 /* Value.swift in Sources */,
 				45DEAEA71A0660E70031CF27 /* Program.swift in Sources */,

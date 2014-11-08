@@ -14,10 +14,10 @@ import EonilSQLite3
 
 
 extension Connection {
-	func allTuplesByExecuting(code:String) -> [[Value]] {
+	func allArraysByExecuting(code:String) -> [[Value]] {
 		let	s	=	prepare(code)
 		let	x	=	s.execute()
-		return	x.allTuples()
+		return	x.allArrays()
 	}
 }
 
@@ -36,10 +36,10 @@ class MidLevelFeatureTests: XCTestCase {
 	
 	func testCustomQuery1() {
 		let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)
-		conn1.allTuplesByExecuting("CREATE TABLE T1 (k1 INTEGER PRIMARY KEY, v1, v2, v3);")
-		conn1.allTuplesByExecuting("INSERT INTO T1 (k1, v1, v2, v3) VALUES (111, 42, 'Here be dragons.', NULL);")
+		conn1.allArraysByExecuting("CREATE TABLE T1 (k1 INTEGER PRIMARY KEY, v1, v2, v3);")
+		conn1.allArraysByExecuting("INSERT INTO T1 (k1, v1, v2, v3) VALUES (111, 42, 'Here be dragons.', NULL);")
 		
-		for (_, row) in enumerate(conn1.allTuplesByExecuting("SELECT * FROM T1")) {
+		for (_, row) in enumerate(conn1.allArraysByExecuting("SELECT * FROM T1")) {
 			XCTAssert(row[0] == 111)
 			XCTAssert(row[1] == 42)
 			XCTAssert(row[2] == "Here be dragons.")

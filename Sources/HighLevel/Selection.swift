@@ -13,20 +13,40 @@ import Foundation
 ///	You can't reuse this object after you once consumed it.
 public final class Selection {
 	let	table:Table						///<	Source table.
-	let	statement:Statement				///<	Compiled statement program.
-	let	execution:Statement.Execution	///<	Execution state.
+	let	filter:Query.FilterTree
 	
-	init(table:Table, statement:Statement, execution:Statement.Execution) {
-		self.table		=	table
-		self.statement	=	statement
-		self.execution	=	execution
+	init(table t:Table, filter f:Query.FilterTree) {
+		self.table		=	t
+		self.filter		=	f
+		
 	}
 	
-	public func tuples() -> Statement.Execution.TupleView {
-		return	Statement.Execution.TupleView(statement)
+	func compile() -> Statement {
+		let	q	=	select(Query.Identifier(table.info.name), Query.ColumnList.All, filter)
+		let	e	=	q.express()
+		let	s	=	table.database.compile(e.code)
+		return	s
+	}
+	
+	public func sort(sortings:Query.SortingList) -> List {
+		return	List(selection: self, sortings: sortings)
+	}
+}
+
+public extension Selection {
+	public func arrays() -> Statement.Execution.ArrayView {
+		let	q	=	select(Query.Identifier(table.info.name), Query.ColumnList.All, filter)
+		let	e	=	q.express()
+		let	s	=	table.database.compile(e.code)
+		let	x	=	s.execute(e.parameters)
+		return	x.arrays()
 	}
 	public func dictionaries() -> Statement.Execution.DictionaryView {
-		return	Statement.Execution.DictionaryView(statement)
+		let	q	=	select(Query.Identifier(table.info.name), Query.ColumnList.All, filter)
+		let	e	=	q.express()
+		let	s	=	table.database.compile(e.code)
+		let	x	=	s.execute(e.parameters)
+		return	x.dictionaries()
 	}
 	
 //	public func tuples() -> Selection.TupleView {

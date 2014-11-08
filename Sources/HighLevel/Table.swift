@@ -60,7 +60,7 @@ extension Table {
 
 extension Table: SequenceType {
 	public func generate() -> GeneratorOf<(Identity,Content)> {
-		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil)
+		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil, sorts: nil, limit: nil, offset: nil)
 		let	s	=	database.compile(q.express().code)
 
 		func next() -> (Identity,Content)? {
@@ -152,12 +152,7 @@ extension Table {
 extension Table {
 
 	public func filter(f:Query.FilterTree) -> Selection {
-		let	q	=	select(Query.Identifier(info.name), Query.ColumnList.All, f)
-		let	e	=	q.express()
-		let	s	=	database.compile(e.code)
-		let	x	=	s.execute(e.parameters)
-		let	t	=	Selection(table: self, statement: s, execution: x)
-		return	t
+		return	Selection(table: self, filter: f)
 	}
 	
 //	public func section(f:Query.FilterTree) -> Section {
@@ -240,12 +235,12 @@ extension Table {
 			return	{ [unowned table](identity:Identity)->Content? in
 				let	bs	=	combine(table.info.keyColumnNames(), [identity])
 				let	dcs	=	table.info.dataColumnNames().map {Query.Identifier($0)}
-				let	t	=	Query.FilterTree.allOfEqualColumnValues(bs)
-				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: t)
+				let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
+				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: f, sorts: nil, limit: nil, offset: nil)
 				let	s	=	table.database.compile(q.express().code)
 				
 				return	table.database.apply {
-					let	rs	=	s.execute([identity]).allTuples()
+					let	rs	=	s.execute([identity]).allArrays()
 					precondition(rs.count <= 1)
 					return	rs.count == 0 ? nil : rs[0]
 				}
