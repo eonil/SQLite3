@@ -10,12 +10,15 @@ import Foundation
 
 extension Table {
 
-	public struct DictionaryView: SequenceType {
+	public final class DictionaryView: SequenceType {
 		typealias	Generator	=	GeneratorOf<[String:Value]>
 		
 		unowned let	table:Table
 		
 
+		init(table:Table) {
+			self.table	=	table
+		}
 		
 		public subscript(identity:Identity) -> [String:Value]? {
 			get {
@@ -26,10 +29,11 @@ extension Table {
 			}
 			set(v) {
 				if let v2 = v {
-					let	(k,v)	=	table.info.convertDictionaryToKeyAndValueTuples(v2)
-					table[k[0]]	=	v
+					let	(_,v)	=	table.info.convertDictionaryToKeyAndValueTuples(v2)		//	Do not use returned key. That's empty because field value is not supplied as a part of the dictionary.
+					table[identity]	=	v
+				} else {
+					table[identity]	=	nil
 				}
-				table[identity]	=	nil
 			}
 		}
 		

@@ -112,7 +112,7 @@ extension Internals {
 			var	a1	=	Array(count: columns.count, repeatedValue: Value.Null)
 			for c in columns {
 				if let v1 = d1[c.name] {
-					a1[convertInt64ToInt(c.cid)]	=	d1[c.name]!
+					a1[convertInt64ToInt(c.cid)]	=	v1
 				} else {
 					//	Skip missing columns.
 				}

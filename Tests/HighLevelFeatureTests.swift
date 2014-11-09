@@ -219,6 +219,37 @@ class HighLevelFeatureTests: XCTestCase {
 			db1.schema.create(tableName: "T1", dataColumnNames: ["c1"])
 		}
 	}
+	
+	
+//	
+//	///	This must fail.
+//	func testInsertWithMissingFields1() {
+//		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+//		func tx1() {
+//			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2"])
+//			let	t1	=	db1.tables["T1"]
+//			
+//			t1[111]	=	["Here be dragons."]
+//		}
+//		db1.apply(tx1)
+//	}
+	
+	
+	
+	func testInsertWithMissingFields2() {
+		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+		func tx1() {
+			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2"])
+			let	t1	=	db1.tables["T1"]
+			let	ds1	=	t1.dictionaryView
+			ds1[111]	=	["b1": Value("A")] as [String:Value]?
+			
+			let	r1	=	ds1[111]
+			println(r1)
+		}
+		db1.apply(tx1)
+	}
+
 }
 
 
