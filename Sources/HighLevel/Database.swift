@@ -18,7 +18,7 @@ public final class Database {
 	private lazy var	_schema:Schema				=	Schema(owner: self)
 	private lazy var	_tables:TableCollection		=	TableCollection(owner: self)
 	
-	private lazy var	_optimisation:Optimisation	=	Optimisation({ self.connection.prepare($0) })
+	private var	_optimisation:Optimisation
 	
 
 	
@@ -29,13 +29,19 @@ public final class Database {
 	///	:location:	The source database location.
 	///	:editable:	Set `false` if you want to open the database in read-only mode.
 	public convenience init(location:Connection.Location, editable:Bool) {
-		self.init(location: location, editable: editable, configuration: Configuration(savepointNameGenerator: SavepointNameGenerator.uniqueAtomicUnitName))
+		self.init(location: location, editable: editable, configuration: Configuration())
 	}
 	
 	///	Not yet available publicly.
 	init(location:Connection.Location, editable:Bool, configuration:Configuration) {
+		assert(configuration.sessionwideSavepointName != "", "SAVEPOINT name shouldn't be empty.")
+		
+		let	conn1	=	Connection(location: location, editable: editable)
+		
 		self.configuration	=	configuration
-		self.connection		=	Connection(location: location, editable: editable)
+		self.connection		=	conn1
+
+		_optimisation		=	Optimisation({ conn1.prepare($0) }, savepointName: Query.Identifier(configuration.sessionwideSavepointName).description)
 		
 		_installDebuggingGuidanceAuthoriser()
 	}
@@ -69,7 +75,7 @@ extension Database {
 	///	Apply transaction to database.
 	public func apply(transaction:()->()) {
 		if connection.runningTransaction {
-			_performSavepointSession(transaction: transaction, name: configuration.savepointNameGenerator())
+			_performSavepointSession(transaction: transaction)
 		} else {
 			_performTransactionSession(transaction: transaction)
 		}
@@ -77,7 +83,7 @@ extension Database {
 	///	Apply transaction to database.
 	public func apply<T>(transaction:()->T) -> T {
 		if connection.runningTransaction {
-			return	_performSavepointSession(transaction: transaction, name: configuration.savepointNameGenerator())
+			return	_performSavepointSession(transaction: transaction)
 		} else {
 			return	_performTransactionSession(transaction: transaction)
 		}
@@ -86,7 +92,7 @@ extension Database {
 	///	Apply transaction to database only when the transaction returns `true`.
 	public func applyConditionally<T>(transaction:()->T?) -> T? {
 		if connection.runningTransaction {
-			return	_performSavepointSessionConditionally(transaction: transaction, name: configuration.savepointNameGenerator())
+			return	_performSavepointSessionConditionally(transaction: transaction)
 		} else {
 			return	_performTransactionSessionConditionally(transaction: transaction)
 		}
@@ -142,9 +148,9 @@ extension Database{
 	}
 	
 	///	Run a nested transaction which always comits using `SAVEPOINT`.
-	private func _performSavepointSession<T>(transaction tx:()->T, name n:String) -> T {
+	private func _performSavepointSession<T>(transaction tx:()->T) -> T {
 		func tx2() -> T? { return tx() as T? }		//	This `as` is very important.
-		if let v1 = _performSavepointSessionConditionally(transaction: tx2, name:n) {
+		if let v1 = _performSavepointSessionConditionally(transaction: tx2) {
 			return	v1
 		} else {
 			fatalError("Transaction failed unexpectedly.")
@@ -173,8 +179,7 @@ extension Database{
 		}
 	}
 	///	Run a nested transaction using `SAVEPOINT`.
-	private func _performSavepointSessionConditionally<T>(transaction tx:()->T?, name n:String) -> T? {
-		precondition(n != "", "The atomic transaction subunit name shouldn't be empty.")
+	private func _performSavepointSessionConditionally<T>(transaction tx:()->T?) -> T? {
 		precondition(connection.runningTransaction == true)
 		
 //		connection.run(Query.Language.Syntax.SavepointStmt(name: Query.Identifier(n).description).description)
@@ -266,7 +271,7 @@ private struct Optimisation {
 	let	commonStatementCache	=	CommonStatementCache()
 	init() {
 	}
-	init(_ prepare:(cmd:String)->Statement) {
+	init(_ prepare:(cmd:String)->Statement, savepointName:String) {
 		func make1(cmd:String) -> ()->() {
 			let	stmt1	=	prepare(cmd: cmd)
 			return	{ stmt1.execute().all() }
@@ -280,9 +285,9 @@ private struct Optimisation {
 				beginTransaction: make1("BEGIN TRANSACTION;"),
 				commitTransaction: make1("COMMIT TRANSACTION;"),
 				rollbackTransaction: make1("ROLLBACK TRANSACTION;"),
-				savepoint: make1("SAVEPOINT tx1;"),
-				releaseSavepoint: make1("RELEASE SAVEPOINT tx1;"),
-				rollbackSavepoint: make1("ROLLBACK TO SAVEPOINT tx1;")
+				savepoint: make1("SAVEPOINT \(savepointName);"),
+				releaseSavepoint: make1("RELEASE SAVEPOINT \(savepointName);"),
+				rollbackSavepoint: make1("ROLLBACK TO SAVEPOINT \(savepointName);")
 			)
 	}
 }
