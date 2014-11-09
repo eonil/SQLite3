@@ -250,22 +250,31 @@ extension Table {
 			}
 		}
 		
-		///	TODO:	Keep a prepared statement.
+		///	Inserts a row with all column values.
 		static func makeInsertRowCommand(table:Table) -> (identity:Identity, content:Content)->() {
+			let	etrap	=	{Debug.trapError("This parameter shouldn't be used."); return Value.Null} as ()->Value
 			let	kcns	=	table.info.keyColumnNames()
 			let	dcns	=	table.info.dataColumnNames()
+			
+			let	kbs		=	Query.Binding.bind(kcns, values: Array(count: kcns.count, repeatedValue: etrap))
+			let	dbs		=	Query.Binding.bind(dcns, values: Array(count: dcns.count, repeatedValue: etrap))
+			let	q		=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
+			let	e		=	q.express()
+			let	s		=	table.database.compile(e.code)
+			
 			return	{ [unowned table](identity:Identity, content:Content)->() in
+				assert(kcns.count == 1)					//	Parameter count must equal.
+				assert(dcns.count == content.count)		//	Parameter count must equal.
 				
-				table.database.apply {
-					let	kbs	=	Query.Binding.bind(kcns, values: [identity])
-					let	dbs	=	Query.Binding.bind(dcns, values: content)
-					let	q	=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
-					let	rs	=	table.database.connection.run(q)
-					assert(rs.count == 0)
+				table.database.apply {					
+					let	ps	=	[identity] + content
+					s.execute(ps).all()
 				}
 			}
 		}
 		
+		///	Deletes a row with PK columns.
+		///	This method does not support generic filter. PK based selection only.
 		///	TODO:	Keep a prepared statement.
 		static func makeDeleteRowCommand(table:Table) -> (identity:Identity)->() {
 			let	kcns	=	table.info.keyColumnNames()

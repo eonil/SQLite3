@@ -174,13 +174,13 @@ public struct Query {
 			self.value	=	value
 		}
 		
-		static func bind(names:[String], values:[Value]) -> [Binding] {
+		static func bind(names:[String], values:[ParameterValueEvaluation]) -> [Binding] {
 			precondition(names.count == values.count)
 			var	bs	=	[] as [Binding]
 			for i in 0..<names.count {
 				let	n	=	names[i]
 				let	v	=	values[i]
-				let	b	=	Binding(column: Identifier(n), value: { v })
+				let	b	=	Binding(column: Identifier(n), value: v)
 				bs.append(b)
 			}
 			return	bs
