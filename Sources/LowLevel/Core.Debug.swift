@@ -25,14 +25,14 @@ extension Core {
 		static var theDetector	=	LeakDetector()
 		
 		mutating func registerInstance(inst:COpaquePointer, of type:TargetObjectType) {
-			if Debug.mode {
+			if Debug.mode || Test.mode {
 				precondition(inst != COpaquePointer.null())
 				precondition(find(instanceListForType[type]!, inst) == nil)
 				instanceListForType[type]!.append(inst)
 			}
 		}
 		mutating func unregisterInstance(inst:COpaquePointer, of type:TargetObjectType) {
-			if Debug.mode {
+			if Debug.mode || Test.mode {
 				precondition(inst != COpaquePointer.null())
 				let	idx	=	find(instanceListForType[type]!, inst)
 				
@@ -46,13 +46,13 @@ extension Core {
 			}
 		}
 		func countAllInstances() -> Int {
-			if Debug.mode {
+			if Debug.mode || Test.mode {
 				let	a1	=	map(instanceListForType.values, { (v:[COpaquePointer]) -> (Int) in return v.count })
 				let	a2	=	reduce(a1, 0, +)
 				return	a2
 			}
 			else {
-				Core.Common.crash(message: "Unsupported feature on RELEASE build.")
+				Core.Common.crash(message: "Unsupported feature on RELEASE build. Do not try to call this on RELEASE build.")
 			}
 		}
 		

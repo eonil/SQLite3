@@ -12,21 +12,22 @@ import Foundation
 
 
 struct Debug {
-//	#if	DEBUG
-	static let	mode:Bool	=	true
-//	#else
-//	static let	mode:Bool	=	false
-//	#endif
+	static var mode:Bool {
+		get {
+			#if	DEBUG
+				return	true
+			#else
+				return	false
+			#endif
+		}
+	}
 	
 	static let	useCoreLogging	=	false
 	
 	static func log<T>(object:@autoclosure()->T) {
-		func _log(object:@autoclosure()->T) {
-			if mode {
-				println(object())
-			}
+		if Debug.mode && Test.mode {
+			println(object())
 		}
-		_log(object())
 	}
 	
 	

@@ -124,6 +124,9 @@
 		45DEAEB31A0673270031CF27 /* Internals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DEAEB21A0673270031CF27 /* Internals.swift */; };
 		45DEAEB41A0673270031CF27 /* Internals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DEAEB21A0673270031CF27 /* Internals.swift */; };
 		45DEAEB51A0673270031CF27 /* Internals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DEAEB21A0673270031CF27 /* Internals.swift */; };
+		45E7B9021A0EE8EC0030A406 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B9011A0EE8EC0030A406 /* Test.swift */; };
+		45E7B9031A0EE8EC0030A406 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B9011A0EE8EC0030A406 /* Test.swift */; };
+		45E7B9041A0EE9410030A406 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B9011A0EE8EC0030A406 /* Test.swift */; };
 		45F3CC091A05054C0078E091 /* ExternalTest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F3CC081A05054C0078E091 /* ExternalTest2.swift */; };
 /* End PBXBuildFile section */
 
@@ -210,6 +213,7 @@
 		45DEAEA91A0662760031CF27 /* SavepointNameGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavepointNameGenerator.swift; sourceTree = "<group>"; };
 		45DEAEAD1A0664D20031CF27 /* Schema.Definitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.Definitions.swift; sourceTree = "<group>"; };
 		45DEAEB21A0673270031CF27 /* Internals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Internals.swift; sourceTree = "<group>"; };
+		45E7B9011A0EE8EC0030A406 /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		45F3CC081A05054C0078E091 /* ExternalTest2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalTest2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -372,6 +376,7 @@
 				45505AE61A0162A800E0D3B8 /* SwiftPatch.swift */,
 				454BA4441A02F51500C121C8 /* Common.swift */,
 				45CC02B619C9C2ED00AEABCC /* Debug.swift */,
+				45E7B9011A0EE8EC0030A406 /* Test.swift */,
 				459B517819C72BBC0029EA46 /* Value.swift */,
 				45DEAE801A065AFD0031CF27 /* HighLevel */,
 				45DEAE4E1A065AD90031CF27 /* MidLevel */,
@@ -700,6 +705,7 @@
 				4540C70B19FFF56C00D7714F /* Core.Connection.swift in Sources */,
 				455F84261A06803D006177E8 /* CoreBridge.m in Sources */,
 				45DEAE6D1A065AD90031CF27 /* Query.Basic.swift in Sources */,
+				45E7B9041A0EE9410030A406 /* Test.swift in Sources */,
 				45DEAEA41A065EBF0031CF27 /* Configuration.swift in Sources */,
 				45DEAE791A065AD90031CF27 /* Query.Schema.swift in Sources */,
 				4540C70919FFF56C00D7714F /* Core.Common.swift in Sources */,
@@ -742,6 +748,7 @@
 				45DEAE7A1A065AD90031CF27 /* Query.swift in Sources */,
 				4540C75C19FFF61400D7714F /* Core.Connection.swift in Sources */,
 				4591E1281A0EA6C7002C12FC /* List.swift in Sources */,
+				45E7B9021A0EE8EC0030A406 /* Test.swift in Sources */,
 				45DEAEA21A065EBF0031CF27 /* Configuration.swift in Sources */,
 				4540C74E19FFF61400D7714F /* Value.swift in Sources */,
 				45DEAE6B1A065AD90031CF27 /* Query.Basic.swift in Sources */,
@@ -782,6 +789,7 @@
 				4540C70A19FFF56C00D7714F /* Core.Connection.swift in Sources */,
 				45DEAEA31A065EBF0031CF27 /* Configuration.swift in Sources */,
 				4591E1291A0EA6C7002C12FC /* List.swift in Sources */,
+				45E7B9031A0EE8EC0030A406 /* Test.swift in Sources */,
 				454BA4461A02F51500C121C8 /* Common.swift in Sources */,
 				459B517919C72BBC0029EA46 /* Value.swift in Sources */,
 				45DEAEA71A0660E70031CF27 /* Program.swift in Sources */,
@@ -1026,6 +1034,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D TEST";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/LowLevel/Interop/EonilSQLite3-Bridging-Header.h";
@@ -1063,6 +1072,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D TEST";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/LowLevel/Interop/EonilSQLite3-Bridging-Header.h";
@@ -1175,6 +1185,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 			};
 			name = Debug;
