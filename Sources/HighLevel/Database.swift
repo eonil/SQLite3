@@ -177,12 +177,15 @@ extension Database{
 		precondition(n != "", "The atomic transaction subunit name shouldn't be empty.")
 		precondition(connection.runningTransaction == true)
 		
-		connection.run(Query.Language.Syntax.SavepointStmt(name: Query.Identifier(n).description).description)
+//		connection.run(Query.Language.Syntax.SavepointStmt(name: Query.Identifier(n).description).description)
+		_optimisation.commonStatementCache.savepoint()
 		if let v = tx() {
-			connection.run(Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(n).description).description)
+//			connection.run(Query.Language.Syntax.ReleaseStmt(name: Query.Identifier(n).description).description)
+			_optimisation.commonStatementCache.releaseSavepoint()
 			return	v
 		} else {
-			connection.run(Query.Language.Syntax.RollbackStmt(name: Query.Identifier(n).description).description)
+//			connection.run(Query.Language.Syntax.RollbackStmt(name: Query.Identifier(n).description).description)
+			_optimisation.commonStatementCache.rollbackSavepoint()
 			return	nil
 		}
 	}
@@ -252,9 +255,13 @@ extension Database{
 ///	MARK:	Optimisations
 private struct Optimisation {
 	struct CommonStatementCache {
-		let	beginTransaction	=	{} as ()->()
-		let	commitTransaction	=	{} as ()->()
-		let	rollbackTransaction	=	{} as ()->()
+		let	beginTransaction	=	trapUnimplementedFunction as ()->()
+		let	commitTransaction	=	trapUnimplementedFunction as ()->()
+		let	rollbackTransaction	=	trapUnimplementedFunction as ()->()
+		
+		let	savepoint			=	trapUnimplementedFunction as ()->()
+		let	releaseSavepoint	=	trapUnimplementedFunction as ()->()
+		let	rollbackSavepoint	=	trapUnimplementedFunction as ()->()
 	}
 	let	commonStatementCache	=	CommonStatementCache()
 	init() {
@@ -264,17 +271,27 @@ private struct Optimisation {
 			let	stmt1	=	prepare(cmd: cmd)
 			return	{ stmt1.execute().all() }
 		}
+		func make2(cmd:String) -> (name:String)->() {
+			let	stmt1	=	prepare(cmd: cmd)
+			return	{ name in stmt1.execute([Value.Text(name)]).all() }
+		}
 		commonStatementCache	=
 			CommonStatementCache(
 				beginTransaction: make1("BEGIN TRANSACTION;"),
 				commitTransaction: make1("COMMIT TRANSACTION;"),
-				rollbackTransaction: make1("ROLLBACK TRANSACTION;"))
+				rollbackTransaction: make1("ROLLBACK TRANSACTION;"),
+				savepoint: make1("SAVEPOINT tx1;"),
+				releaseSavepoint: make1("RELEASE SAVEPOINT tx1;"),
+				rollbackSavepoint: make1("ROLLBACK TO SAVEPOINT tx1;")
+			)
 	}
 }
 
 
 
-
+private func trapUnimplementedFunction<T,U>(T)->(U) {
+	trapError("This function is a placeholder and not been implemented.")
+}
 
 
 

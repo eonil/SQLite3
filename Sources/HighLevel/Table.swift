@@ -217,9 +217,9 @@ extension Table {
 ///	MARK:
 
 extension Table {
-	private struct CommandMaker {
+	private final class CommandMaker {
 		
-		static func makeCountRowsCommand(table:Table) -> ()->Int64 {
+		class func makeCountRowsCommand(table:Table) -> ()->Int64 {
 			return	{ [unowned table]()->Int64 in
 				let	s	=	table.database.compile("SELECT count(*) FROM \(Query.Identifier(table.info.name).express().code)")
 				
@@ -234,9 +234,9 @@ extension Table {
 				}
 			}
 		}
-		static func makeSelectRowCommand(table:Table) -> (identity:Identity)->Content? {
+		class  func makeSelectRowCommand(table:Table) -> (identity:Identity)->Content? {
 			return	{ [unowned table](identity:Identity)->Content? in
-				let	bs	=	combine(table.info.keyColumnNames(), [identity])
+				let	bs	=	combine(table.info.keyColumnNames(), [{identity}])
 				let	dcs	=	table.info.dataColumnNames().map {Query.Identifier($0)}
 				let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
 				let	q	=	Query.Select(table: Query.Identifier(table.name), columns: Query.ColumnList.Items(names: dcs), filter: f, sorts: nil, limit: nil, offset: nil)
@@ -251,13 +251,12 @@ extension Table {
 		}
 		
 		///	Inserts a row with all column values.
-		static func makeInsertRowCommand(table:Table) -> (identity:Identity, content:Content)->() {
-			let	etrap	=	{Debug.trapError("This parameter shouldn't be used."); return Value.Null} as ()->Value
+		class  func makeInsertRowCommand(table:Table) -> (identity:Identity, content:Content)->() {
 			let	kcns	=	table.info.keyColumnNames()
 			let	dcns	=	table.info.dataColumnNames()
 			
-			let	kbs		=	Query.Binding.bind(kcns, values: Array(count: kcns.count, repeatedValue: etrap))
-			let	dbs		=	Query.Binding.bind(dcns, values: Array(count: dcns.count, repeatedValue: etrap))
+			let	kbs		=	Query.Binding.bind(kcns, values: Array(count: kcns.count, repeatedValue: trapUndefinedParameter))
+			let	dbs		=	Query.Binding.bind(dcns, values: Array(count: dcns.count, repeatedValue: trapUndefinedParameter))
 			let	q		=	Query.Insert(table: Query.Identifier(table.name), bindings: kbs+dbs)
 			let	e		=	q.express()
 			let	s		=	table.database.compile(e.code)
@@ -276,16 +275,23 @@ extension Table {
 		///	Deletes a row with PK columns.
 		///	This method does not support generic filter. PK based selection only.
 		///	TODO:	Keep a prepared statement.
-		static func makeDeleteRowCommand(table:Table) -> (identity:Identity)->() {
+		class  func makeDeleteRowCommand(table:Table) -> (identity:Identity)->() {
 			let	kcns	=	table.info.keyColumnNames()
-			let	dcns	=	table.info.dataColumnNames()
+			let	bs		=	combine(kcns, [trapUndefinedParameter])
+			let	f		=	Query.FilterTree.allOfEqualColumnValues(bs)
+			let	q		=	Query.Delete(table: Query.Identifier(table.name), filter: f)
+			let	e		=	q.express()
+			let	p		=	table.database.compile(e.code)
+			
 			return	{ [unowned table](identity:Identity)->() in
 				table.database.apply {
-					let	bs	=	combine(kcns, [identity])
-					let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
-					let	q	=	Query.Delete(table: Query.Identifier(table.name), filter: f)
-					let	rs	=	table.database.connection.run(q)
-					assert(rs.count == 0)
+//					let	bs	=	combine(kcns, [identity])
+//					let	f	=	Query.FilterTree.allOfEqualColumnValues(bs)
+//					let	q	=	Query.Delete(table: Query.Identifier(table.name), filter: f)
+//					let	rs	=	table.database.connection.run(q)
+//					assert(rs.count == 0)
+					
+					p.execute([identity]).all()
 				}
 			}
 		}
@@ -294,4 +300,9 @@ extension Table {
 }
 
 
+
+
+private func trapUndefinedParameter() -> Value {
+	trapError("This parameter shouldn't be used.")
+}
 

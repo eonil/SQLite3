@@ -30,8 +30,6 @@ public struct Query {
 	
 	
 	
-	static let	missingParameter	=	{ Debug.trapConvenientExtensionsError("Value for this parameter is intentionally missing. It must be provided later."); return Value.Null } as Query.ParameterValueEvaluation
-
 	
 	
 
@@ -109,7 +107,7 @@ public struct Query {
 		public let	name:String
 		
 		public init(_ name:String) {
-			precondition(find(name, "\"") == nil, "Identifiers which contains double-quote(\") are not currently supported by Swift layer.")
+			assert(find(name, "\"") == nil, "Identifiers which contains double-quote(\") are not currently supported by Swift layer.")
 			
 			self.name	=	name
 		}
@@ -350,18 +348,18 @@ public struct Query {
 
 ///	MARK:	Convenient Filter Tree Generation
 extension Query.FilterTree {
-	static func allOfEqualColumnValues(cvs:[String:Value]) -> Query.FilterTree {
+	static func allOfEqualColumnValues(cvs:[String:Query.ParameterValueEvaluation]) -> Query.FilterTree {
 		var	ns	=	[] as [Node]
 		for (c, v) in cvs {
-			ns.append(Query.FilterTree.Node.Leaf(operation: Node.Operation.Equal, column: Query.Identifier(c), value: {v}))
+			ns.append(Query.FilterTree.Node.Leaf(operation: Node.Operation.Equal, column: Query.Identifier(c), value: v))
 		}
 		let	n	=	Node.Branch(combination: Node.Combination.And, subnodes: ns)
 		return	Query.FilterTree(root: n)
 	}
-	static func anyOfEuqlaColumnValues(cvs:[String:Value]) -> Query.FilterTree{
+	static func anyOfEuqlaColumnValues(cvs:[String:Query.ParameterValueEvaluation]) -> Query.FilterTree{
 		var	ns	=	[] as [Node]
 		for (c, v) in cvs {
-			ns.append(Query.FilterTree.Node.Leaf(operation: Node.Operation.Equal, column: Query.Identifier(c), value: {v}))
+			ns.append(Query.FilterTree.Node.Leaf(operation: Node.Operation.Equal, column: Query.Identifier(c), value: v))
 		}
 		let	n	=	Node.Branch(combination: Node.Combination.Or, subnodes: ns)
 		return	Query.FilterTree(root: n)
@@ -398,6 +396,21 @@ func expr(s:String) -> Query.Expression {
 func concat(exprs:[Query.Expression]) -> Query.Expression {
 	return	Query.Expression.concatenation(separator: Query.Expression(""), components: exprs)
 }
+
+
+
+
+
+
+
+
+private func missintParameter() -> Value {
+	trapConvenientExtensionsError("Value for this parameter is intentionally missing. It must be provided later.")
+}
+
+
+
+
 
 
 
