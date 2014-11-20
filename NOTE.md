@@ -46,7 +46,7 @@ Lifecycle Management
 Low-level layer uses fully manual memory management. Though they're RCed objects,
 you need to open/close each object manually.
 
-Mid-level layer uses strict unique ownershop manner. Super object owns subobject,
+Mid-level layer uses strict unique ownership manner. Super object owns subobject,
 and you need to keep a strong reference to the superobject to make subobjects 
 alive. This organised a tree graph.
 

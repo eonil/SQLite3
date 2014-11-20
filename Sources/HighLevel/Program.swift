@@ -113,6 +113,10 @@ extension Execution {
 			self.execution	=	x
 			x.program.midlevel.step()
 		}
+		deinit {
+			///	Reset statemet to unhold the mid-level execution.
+			execution.midlevel.statement.reset()
+		}
 		public lazy var columns:[String]	=	{
 			var	cs	=	[] as [String]
 			cs.reserveCapacity(self.execution.program.midlevel.numberOfFields)
@@ -160,6 +164,10 @@ extension Execution {
 				}
 				_columns	=	cs
 			}
+		}
+		deinit {
+			///	Reset statemet to unhold the mid-level execution.
+			execution.midlevel.statement.reset()
 		}
 		public func generate() -> GeneratorOf<[String:Value]> {
 			let	s	=	self.execution.program.midlevel

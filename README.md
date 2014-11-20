@@ -156,6 +156,8 @@ You can do `JOIN` or other stuffs with this, but this is not recommended.
 Honestly, if you can't find usefulness from the simple high-level classes,
 then it would be better to look for another library.
 
+
+
 ````Swift
 
 	let	conn1	=	Connection(location: Connection.Location.Memory, editable: true)

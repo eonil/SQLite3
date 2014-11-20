@@ -263,26 +263,34 @@ class HighLevelFeatureTests: XCTestCase {
 				let	ds1	=	t1.dictionaryView
 				
 				ds1[111]	=	["v1": Value("AA")] as [String:Value]?
-				ds1[222]	=	["v1": Value("BB")] as [String:Value]?
+				ds1[222]	=	["v1": Value("AA")] as [String:Value]?
+				ds1[333]	=	["v1": Value("AA")] as [String:Value]?
 				
 				let	r1	=	ds1[111]!
 				let	r2	=	ds1[222]!
+				let	r3	=	ds1[333]!
 				
 				XCTAssert(r1["k1"]!.integer! == 111)
 				XCTAssert(r1["v1"]!.text! == "AA")
 				
 				XCTAssert(r2["k1"]!.integer! == 222)
-				XCTAssert(r2["v1"]!.text! == "BB")
-			
+				XCTAssert(r2["v1"]!.text! == "AA")
+				
+				XCTAssert(r3["k1"]!.integer! == 333)
+				XCTAssert(r3["v1"]!.text! == "AA")
 			})()
 			
 			({ ()->() in
+				let	s1	=	t1.filter(Query.FilterTree(root: Query.FilterTree.Node.Leaf(operation: Query.FilterTree.Node.Operation.Equal, column: Query.Identifier("v1"), value: {"AA"})))
+				let	s2	=	s1.sort(Query.SortingList(items: [Query.SortingList.Item(column: Query.Identifier("k1"), order: Query.SortingList.Order.Ascending)]))
+				let	x1	=	s2[]
 				
-				let	ds1	=	t1.dictionaryView
-				
-				var	g1	=	ds1.generate()
-				let	r1	=	g1.next()
-				println(r1)
+				({ ()->() in
+					let	ds1	=	x1.dictionaryView
+					var	g1	=	ds1.generate()
+					let	r1	=	g1.next()
+					println(r1)
+				})()
 				
 				
 			})()
