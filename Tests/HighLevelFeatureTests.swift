@@ -242,14 +242,53 @@ class HighLevelFeatureTests: XCTestCase {
 			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2"])
 			let	t1	=	db1.tables["T1"]
 			let	ds1	=	t1.dictionaryView
-			ds1[111]	=	["b1": Value("A")] as [String:Value]?
+			ds1[111]	=	[:] as [String:Value]?
 			
 			let	r1	=	ds1[111]
-			println(r1)
+			XCTAssert(r1!["k1"]!.integer! == 111)
 		}
 		db1.apply(tx1)
 	}
 
+	
+	
+	func testIterationCancellation1() {
+		let	db1	=	Database(location: Connection.Location.Memory, editable: true)
+		func tx1() {
+			db1.schema.create(tableName: "T1", keyColumnNames: ["k1"], dataColumnNames: ["v1", "v2"])
+			let	t1	=	db1.tables["T1"]
+			
+			({ ()->() in
+			
+				let	ds1	=	t1.dictionaryView
+				
+				ds1[111]	=	["v1": Value("AA")] as [String:Value]?
+				ds1[222]	=	["v1": Value("BB")] as [String:Value]?
+				
+				let	r1	=	ds1[111]!
+				let	r2	=	ds1[222]!
+				
+				XCTAssert(r1["k1"]!.integer! == 111)
+				XCTAssert(r1["v1"]!.text! == "AA")
+				
+				XCTAssert(r2["k1"]!.integer! == 222)
+				XCTAssert(r2["v1"]!.text! == "BB")
+			
+			})()
+			
+			({ ()->() in
+				
+				let	ds1	=	t1.dictionaryView
+				
+				var	g1	=	ds1.generate()
+				let	r1	=	g1.next()
+				println(r1)
+				
+				
+			})()
+		}
+		db1.apply(tx1)
+	}
 }
 
 

@@ -97,8 +97,7 @@ Schematic illustration.
 You need to perform all operations always in an explicit transaction. It's 
 not allowed to run operations without transaction. This is by design.
 
-Nested transactions are also supported. It uses implicitly generated savepoint 
-names, and you can customise the name generation.
+Nested transactions are also supported. It uses implicitly generated savepoint name.
 
 ````Swift
 
