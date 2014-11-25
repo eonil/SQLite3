@@ -61,7 +61,6 @@
 		459727F61A0F29580097454C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459727F51A0F29580097454C /* AppDelegate.swift */; };
 		459727F81A0F29580097454C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 459727F71A0F29580097454C /* Images.xcassets */; };
 		459727FB1A0F29580097454C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459727F91A0F29580097454C /* MainMenu.xib */; };
-		4597280E1A0F29790097454C /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; };
 		459728111A0F29840097454C /* EonilSQLite3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; };
 		459728121A0F29840097454C /* EonilSQLite3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4540C72C19FFF59900D7714F /* EonilSQLite3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4599DDC01A06819C0067BB3C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4599DDBF1A06819C0067BB3C /* libsqlite3.0.dylib */; };
@@ -294,7 +293,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				459728111A0F29840097454C /* EonilSQLite3.framework in Frameworks */,
-				4597280E1A0F29790097454C /* EonilSQLite3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,7 +681,7 @@
 		458D62A619C6DD00001E450D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				TargetAttributes = {
 					453D22581A068F2100E329B2 = {
 						CreatedOnToolsVersion = 6.1;
@@ -1591,6 +1589,7 @@
 				4597280A1A0F29590097454C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
