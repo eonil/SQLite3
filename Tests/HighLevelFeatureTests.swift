@@ -212,7 +212,7 @@ class HighLevelFeatureTests: XCTestCase {
 	}
 	
 	func testPersistentFileMakingInCacheDir() {
-		let	p1	=	NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as String
+		let	p1	=	NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
 		let	p2	=	p1.stringByAppendingPathComponent("EonilSQLite3-Test" + NSUUID().UUIDString + ".test")
 		let	db1	=	Database(location: Connection.Location.PersistentFile(path: p2), editable: true)
 		db1.apply {

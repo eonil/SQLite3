@@ -24,7 +24,7 @@ struct Debug {
 	
 	static let	useCoreLogging	=	false
 	
-	static func log<T>(object:@autoclosure()->T) {
+	static func log<T>(@autoclosure object:()->T) {
 		if Debug.mode && Test.mode {
 			println(object())
 		}

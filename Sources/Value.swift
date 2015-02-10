@@ -287,7 +287,7 @@ public extension Value {
 public class Blob: Hashable
 {
 	init(address:UnsafePointer<()>, length:Int) {
-		precondition(address != UnsafePointer<Int8>.null())
+		precondition(address != nil)
 		precondition(length >= 0)
 		
 		value	=	NSData(bytes: address, length: length)

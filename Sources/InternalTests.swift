@@ -28,7 +28,7 @@ import Foundation
 public struct Test1 {
 	
 	public static func test1() {
-		func log<T>(object:@autoclosure()->T) {
+		func log<T>(@autoclosure object:()->T) {
 			println(object())
 		}
 		func run(block:() -> ()) {

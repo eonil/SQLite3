@@ -160,7 +160,7 @@ Core
 			
 			let	name2	=	filename.cStringUsingEncoding(NSUTF8StringEncoding)!
 			
-			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, UnsafePointer<Int8>.null())
+			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, nil)
 			crashOnErrorWith(resultCode: r)
 			Core.LeakDetector.theDetector.registerInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 		}
@@ -228,7 +228,7 @@ Core
 			var	zSql	=	UnsafePointer<Int8>(sql2.UTF8String)
 			
 			///	`zTail` is NULL if the SQL string fully consumed. otheriwse, there's some content and `fromCString` shouldn't be nil.
-			var	zTail	=	UnsafePointer<Int8>.null()
+			var	zTail	=	nil as UnsafePointer<Int8>
 			
 			var	len1	=	sql2.lengthOfBytesUsingEncoding(NSUTF8StringEncoding);
 			

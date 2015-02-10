@@ -229,8 +229,10 @@ extension Table {
 					assert(rs.count == 1)
 					assert(rs[0].count == 1)
 					let	r	=	rs[0]
-					let	v	=	r[r.startIndex]
-					return	v.1.integer!
+//					let	v	=	r[r.startIndex]
+//					return	v.1.integer!
+					let	v	=	r.values.first!
+					return	v.integer!
 				}
 			}
 		}

@@ -9,7 +9,7 @@
 import Foundation
 
 extension Core {
-	static func log<T>(object:@autoclosure()->T) {
+	static func log<T>(@autoclosure object:()->T) {
 		if Debug.mode && Debug.useCoreLogging {
 			println(object())
 		}

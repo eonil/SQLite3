@@ -268,8 +268,9 @@ private struct Optimisation {
 		let	releaseSavepoint	=	trapUnimplementedFunction as ()->()
 		let	rollbackSavepoint	=	trapUnimplementedFunction as ()->()
 	}
-	let	commonStatementCache	=	CommonStatementCache()
+	let	commonStatementCache	:	CommonStatementCache
 	init() {
+		commonStatementCache	=	CommonStatementCache()
 	}
 	init(_ prepare:(cmd:String)->Statement, savepointName:String) {
 		func make1(cmd:String) -> ()->() {

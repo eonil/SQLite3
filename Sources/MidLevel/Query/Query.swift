@@ -35,10 +35,10 @@ public struct Query {
 
 	///	Represents a fragment of a query.
 	public struct Expression {
-		let	code		=	""
-		let	parameters	=	[] as [ParameterValueEvaluation]
+		let	code		:	String
+		let	parameters	:	[ParameterValueEvaluation]
 		
-		static let	empty				=	Expression(code: "", parameters: [])
+		static let	empty	=	Expression(code: "", parameters: [])
 		
 		////
 		

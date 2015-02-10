@@ -21,8 +21,8 @@ extension Internals {
 		let	columns:[ColumnInfo]		///<	All table related column stuffs will be ordered exactly same with this array.
 		
 		private init(database:Database, name:String) {
-			let	rs	=	database.apply {
-				database.connection.run("PRAGMA table_info(\( Query.Identifier(name).express().code ))")
+			let	rs:[[String:Value]]	=	database.apply {
+				return	database.connection.run("PRAGMA table_info(\( Query.Identifier(name).express().code ))")
 			}
 			let	cs	=	rs.map {ColumnInfo($0)}
 			
