@@ -53,7 +53,7 @@ public extension Query.Schema.Table {
 				typealias	FX		=	Query.Language.Syntax.ConflictClause
 				typealias	FXX		=	Query.Language.Syntax.ConflictClause.Reaction
 				
-				let	pk	=	definition.key.filter {$0 == c.name}.count > 0
+				let	pk	=	self.definition.key.filter {$0 == c.name}.count > 0
 				func resolveColumnDef() -> CDEF {
 					func keyConstraints() -> [CC] {
 						return	pk ? [

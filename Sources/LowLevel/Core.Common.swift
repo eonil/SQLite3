@@ -22,7 +22,7 @@ extension Core.Common {
 	
 	struct C {
 		
-		static let	NULL		=	COpaquePointer.null()
+		static let	NULL		=	nil as COpaquePointer
 		
 		static let	TRUE		=	Int32(1)
 		static let	FALSE		=	Int32(0)

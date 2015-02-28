@@ -26,14 +26,14 @@ extension Core {
 		
 		mutating func registerInstance(inst:COpaquePointer, of type:TargetObjectType) {
 			if Debug.mode || Test.mode {
-				precondition(inst != COpaquePointer.null())
+				precondition(inst != nil)
 				precondition(find(instanceListForType[type]!, inst) == nil)
 				instanceListForType[type]!.append(inst)
 			}
 		}
 		mutating func unregisterInstance(inst:COpaquePointer, of type:TargetObjectType) {
 			if Debug.mode || Test.mode {
-				precondition(inst != COpaquePointer.null())
+				precondition(inst != nil)
 				let	idx	=	find(instanceListForType[type]!, inst)
 				
 				precondition(idx != nil)

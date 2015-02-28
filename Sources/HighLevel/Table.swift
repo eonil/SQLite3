@@ -69,8 +69,8 @@ extension Table: SequenceType {
 		func next() -> (Identity,Content)? {
 			if s.step() {
 				let	r	=	s
-				let	kvs	=	info.keyColumnIndexes().map {r[$0]}
-				let	dvs	=	info.dataColumnIndexes().map {r[$0]}
+				let	kvs	=	self.info.keyColumnIndexes().map {r[$0]}
+				let	dvs	=	self.info.dataColumnIndexes().map {r[$0]}
 				assert(kvs.count == 1)
 				return	(kvs[0], dvs)
 			} else {

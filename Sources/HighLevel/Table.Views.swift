@@ -41,7 +41,7 @@ extension Table {
 			var	g1	=	table.generate()
 			func next() -> [String:Value]? {
 				if let (id1, con1) = g1.next() {
-					let	d1	=	table.info.convertTupleToDictionary([id1], con1)
+					let	d1	=	self.table.info.convertTupleToDictionary([id1], con1)
 					return	d1
 				}
 				return	nil

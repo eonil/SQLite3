@@ -204,9 +204,9 @@ Core
 				Core.log("SQL command = \(String.fromCString(zSql)!)")
 				
 				var	pStmt	=	C.NULL
-				let	r		=	sqlite3_prepare_v2(_rawptr, zSql, len, &pStmt, &zTail)
-				crashOnErrorWith(resultCode: r)
-				Core.log("`sqlite3_prepare_v2(\(_rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called, SQL = \(SQL)")
+				let	r		=	sqlite3_prepare_v2(self._rawptr, zSql, len, &pStmt, &zTail)
+				self.crashOnErrorWith(resultCode: r)
+				Core.log("`sqlite3_prepare_v2(\(self._rawptr), \(zSql), \(len), &\(pStmt), &\(zTail))` called, SQL = \(SQL)")
 				
 				if pStmt == C.NULL
 				{
@@ -259,7 +259,7 @@ Core
 		
 		
 		
-		private var	_rawptr		=	COpaquePointer.null()
+		private var	_rawptr		=	nil as COpaquePointer
 		private var	_callback	=	nil as CallbackProxy?
 	}
 }
@@ -329,8 +329,8 @@ private final class CallbackProxy: Eonil____SQLite3____Bridge____CallbackProxy {
 	private override func authoriseActionCode(actionCode: Int32, _ argA: UnsafePointer<Int8>, _ argB: UnsafePointer<Int8>, _ argC: UnsafePointer<Int8>, _ argD: UnsafePointer<Int8>) -> Int32 {
 		func resolve() -> Core.Connection.AuthorisationRoutingTable.Authorise {
 			switch actionCode {
-			case SQLITE_ALTER_TABLE:	return	routingTable.alterTable
-			case SQLITE_DROP_TABLE:		return	routingTable.dropTable
+			case SQLITE_ALTER_TABLE:	return	self.routingTable.alterTable
+			case SQLITE_DROP_TABLE:		return	self.routingTable.dropTable
 			default:					return	{ (_, _) in return true }
 			}
 		}
