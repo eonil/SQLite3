@@ -151,7 +151,7 @@ public struct Query {
 			//	Don't know why but this works only when order is reversed.
 			//	Seemd to be a compiler bug.
 			switch self {
-			case let Items(s):	return	Expression.concatenation(separator: Query.Expression(", "), components: s.names.map {$0.express()})
+			case let Items(s):	return	Expression.concatenation(separator: Query.Expression(", "), components: s.map {$0.express()})
 			case let All:		return	Expression(code: "*", parameters: [])
 			}
 		}

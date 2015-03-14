@@ -25,13 +25,11 @@ This provides SQLite3 database access on Swift.
 
 Requirements
 ------------
--	Xcode 6.1 (Swift 1.1)
+-	Xcode 6.3 beta 3, Build 6D543q (Swift 1.2)
 -	iOS 8.0 or later or OS X 10.10 or later to run.
--	iOS 7.x is supported without dynamic library packaging.
 
 Basically target iOS 8 due to dynamic library packaging limitation.
-But the code itself has no problem to run on iOS 7, so you can use
-this on iOS 7 target applications by copying source code files.
+I dropped iOS 7.x support. I don't think it's truly meaningful here.
 
 
 

@@ -260,18 +260,23 @@ extension Database{
 ///	MARK:	Optimisations
 private struct Optimisation {
 	struct CommonStatementCache {
-		let	beginTransaction	=	trapUnimplementedFunction as ()->()
-		let	commitTransaction	=	trapUnimplementedFunction as ()->()
-		let	rollbackTransaction	=	trapUnimplementedFunction as ()->()
 		
-		let	savepoint			=	trapUnimplementedFunction as ()->()
-		let	releaseSavepoint	=	trapUnimplementedFunction as ()->()
-		let	rollbackSavepoint	=	trapUnimplementedFunction as ()->()
+		var	beginTransaction	=	trapUnimplementedFunction as ()->()
+		var	commitTransaction	=	trapUnimplementedFunction as ()->()
+		var	rollbackTransaction	=	trapUnimplementedFunction as ()->()
+		
+		var	savepoint			=	trapUnimplementedFunction as ()->()
+		var	releaseSavepoint	=	trapUnimplementedFunction as ()->()
+		var	rollbackSavepoint	=	trapUnimplementedFunction as ()->()
+		
 	}
+	
 	let	commonStatementCache	:	CommonStatementCache
+	
 	init() {
 		commonStatementCache	=	CommonStatementCache()
 	}
+	
 	init(_ prepare:(cmd:String)->Statement, savepointName:String) {
 		func make1(cmd:String) -> ()->() {
 			let	stmt1	=	prepare(cmd: cmd)

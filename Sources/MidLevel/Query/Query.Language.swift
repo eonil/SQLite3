@@ -121,14 +121,14 @@ extension Query.Language.Syntax {
 							let	s1	=	value.autoincrement ? "AUTOINCREMENT" : ""
 							return	"PRIMARY KEY \(s2) \(value.conflict) \(s1)"
 						
-						case .NotNull(let value):
-							return	"NOT NULL \(value.conflict)"
+						case .NotNull(let conflict):
+							return	"NOT NULL \(conflict)"
 						
-						case .Unique(let value):
-							return	"UNIQUE \(value.conflict)"
+						case .Unique(let conflict):
+							return	"UNIQUE \(conflict)"
 						
-						case .Collate(let value):
-							return	"COLLATE \(value.name)"
+						case .Collate(let name):
+							return	"COLLATE \(name)"
 					}
 				}
 			}
@@ -225,10 +225,10 @@ extension Query.Language.Syntax {
 				get {
 					switch self {
 						case let .Set(value):
-							return	"=\(value.value)"
+							return	"=\(value)"
 						
 						case let .Call(value):
-							return	"(\(value.value))"
+							return	"(\(value))"
 					}
 				}
 			}
