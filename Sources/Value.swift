@@ -17,7 +17,7 @@ public typealias	Binary	=	Blob
 ///	makes program more complex.
 ///
 ///	https://www.sqlite.org/datatype3.html
-public enum Value : Equatable, Hashable, Printable, NilLiteralConvertible, IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
+public enum Value : Equatable, Hashable, CustomStringConvertible, NilLiteralConvertible, IntegerLiteralConvertible, FloatLiteralConvertible, StringLiteralConvertible {
 	case Null
 	case Integer(Int64)
 	case Float(Double)
@@ -287,7 +287,7 @@ public extension Value {
 public class Blob: Hashable
 {
 	init(address:UnsafePointer<()>, length:Int) {
-		precondition(address != UnsafePointer<Int8>.null())
+		precondition(address != nil)
 		precondition(length >= 0)
 		
 		value	=	NSData(bytes: address, length: length)

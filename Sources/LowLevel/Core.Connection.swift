@@ -160,7 +160,7 @@ Core
 			
 			let	name2	=	filename.cStringUsingEncoding(NSUTF8StringEncoding)!
 			
-			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, UnsafePointer<Int8>.null())
+			let	r		=	sqlite3_open_v2(name2, &_rawptr, flags.value, UnsafePointer<Int8>())
 			crashOnErrorWith(resultCode: r)
 			Core.LeakDetector.theDetector.registerInstance(_rawptr, of: Core.LeakDetector.TargetObjectType.db)
 		}
@@ -199,7 +199,7 @@ Core
 			assert(_rawptr != C.NULL)
 			
 			///	This does not use input zSql after it has been used.
-			func once(zSql:UnsafePointer<Int8>, len:Int32, inout zTail:UnsafePointer<Int8>) -> Core.Statement?
+			func once(zSql:UnsafePointer<Int8>, _ len:Int32, inout _ zTail:UnsafePointer<Int8>) -> Core.Statement?
 			{
 				Core.log("SQL command = \(String.fromCString(zSql)!)")
 				
@@ -228,7 +228,7 @@ Core
 			var	zSql	=	UnsafePointer<Int8>(sql2.UTF8String)
 			
 			///	`zTail` is NULL if the SQL string fully consumed. otheriwse, there's some content and `fromCString` shouldn't be nil.
-			var	zTail	=	UnsafePointer<Int8>.null()
+			var	zTail	=	UnsafePointer<Int8>()
 			
 			var	len1	=	sql2.lengthOfBytesUsingEncoding(NSUTF8StringEncoding);
 			
@@ -259,7 +259,7 @@ Core
 		
 		
 		
-		private var	_rawptr		=	COpaquePointer.null()
+		private var	_rawptr		=	COpaquePointer.init()
 		private var	_callback	=	nil as CallbackProxy?
 	}
 }

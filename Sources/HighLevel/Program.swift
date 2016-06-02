@@ -121,14 +121,14 @@ extension Execution {
 			}
 			return	cs
 			}()
-		public func generate() -> GeneratorOf<[Value]> {
+		public func generate() -> AnyGenerator<[Value]> {
 			let	s	=	execution.program.midlevel
-			return	GeneratorOf {
+			return	AnyGenerator {
 				if s.running {
 					var	a1	=	[] as [Value]
-					s.numberOfFields >>>> a1.reserveCapacity
+                    a1.reserveCapacity(s.numberOfFields)
 					for i in 0..<s.numberOfFields {
-						s.columnValueAtIndex(i) >>>> a1.append
+                        a1.append(s.columnValueAtIndex(i))
 					}
 					s.step()
 					return	a1
@@ -161,10 +161,10 @@ extension Execution {
 				_columns	=	cs
 			}
 		}
-		public func generate() -> GeneratorOf<[String:Value]> {
+		public func generate() -> AnyGenerator<[String:Value]> {
 			let	s	=	self.execution.program.midlevel
 			let	cs	=	_columns
-			return	GeneratorOf {
+			return	AnyGenerator {
 				if s.running {
 					var	d1	=	[:] as [String:Value]
 					for i in 0..<s.numberOfFields {

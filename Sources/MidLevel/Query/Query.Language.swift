@@ -46,7 +46,7 @@ extension Query.Language.Syntax {
 //		return	value == nil ? "" : "\(value!)"
 //	}
 	
-	struct ConflictClause : Printable {
+	struct ConflictClause : CustomStringConvertible {
 		enum Reaction : String {
 			case Rollback	=	"ROLLBACK"
 			case Abort		=	"ABORT"
@@ -72,7 +72,7 @@ extension Query.Language.Syntax {
 	
 	
 	///	http://www.sqlite.org/syntaxdiagrams.html#column-def
-	struct ColumnDef : Printable {
+	struct ColumnDef : CustomStringConvertible {
 		var	name:Name
 		var	type:TypeName?
 		var	constraints:[ColumnConstraint]
@@ -81,7 +81,7 @@ extension Query.Language.Syntax {
 			get {
 				let	a1	=	constraints.map({ n in return n.description }) as [String]
 				let	s2	=	type == nil ? "" : type!.rawValue
-				let	s1	=	reduce(a1, "", +) as String
+				let	s1	=	a1.reduce("", combine: +)
 				return	"\(name) \(s2) \(s1)"
 			}
 		}
@@ -91,11 +91,11 @@ extension Query.Language.Syntax {
 	
 	
 	///	http://www.sqlite.org/syntaxdiagrams.html#column-constraint
-	struct ColumnConstraint : Printable {
+	struct ColumnConstraint : CustomStringConvertible {
 		var	name:Name?
 		var	option:Option
 		
-		enum Option : Printable {
+		enum Option : CustomStringConvertible {
 			case PrimaryKey(ordering:PrimaryKeyOrdering?, conflict:ConflictClause, autoincrement:Bool)
 			case NotNull(conflict:ConflictClause)
 			case Unique(conflict:ConflictClause)
@@ -121,14 +121,14 @@ extension Query.Language.Syntax {
 							let	s1	=	value.autoincrement ? "AUTOINCREMENT" : ""
 							return	"PRIMARY KEY \(s2) \(value.conflict) \(s1)"
 						
-						case .NotNull(let value):
-							return	"NOT NULL \(value.conflict)"
+						case .NotNull(let conflict):
+							return	"NOT NULL \(conflict)"
 						
-						case .Unique(let value):
-							return	"UNIQUE \(value.conflict)"
+						case .Unique(let conflict):
+							return	"UNIQUE \(conflict)"
 						
-						case .Collate(let value):
-							return	"COLLATE \(value.name)"
+						case .Collate(let name):
+							return	"COLLATE \(name)"
 					}
 				}
 			}
@@ -169,7 +169,7 @@ extension Query.Language.Syntax {
 	
 	
 	///	http://www.sqlite.org/lang_savepoint.html
-	struct SavepointStmt : Printable {
+	struct SavepointStmt : CustomStringConvertible {
 		var	name:String
 		
 		var description:String {
@@ -178,7 +178,7 @@ extension Query.Language.Syntax {
 			}
 		}
 	}
-	struct ReleaseStmt : Printable {
+	struct ReleaseStmt : CustomStringConvertible {
 		var	name:String
 		
 		var description:String {
@@ -187,7 +187,7 @@ extension Query.Language.Syntax {
 			}
 		}
 	}
-	struct RollbackStmt : Printable {
+	struct RollbackStmt : CustomStringConvertible {
 		var	name:String?
 		
 		var description:String {
@@ -212,12 +212,12 @@ extension Query.Language.Syntax {
 	
 	
 	///	http://www.sqlite.org/pragma.html
-	struct Pragma : Printable {
+	struct Pragma : CustomStringConvertible {
 		let	database:String?
 		let	name:String
 		let	argument:Argument
 		
-		enum Argument : Printable {
+		enum Argument : CustomStringConvertible {
 			case Set(value:String)		///<	Value assignment style pragma. `PRAGMA name1=value1`.
 			case Call(value:String)		///<	Function call style pragma. `PRAGMA name1(value1)`.
 			
@@ -225,10 +225,10 @@ extension Query.Language.Syntax {
 				get {
 					switch self {
 						case let .Set(value):
-							return	"=\(value.value)"
+							return	"=\(value)"
 						
 						case let .Call(value):
-							return	"(\(value.value))"
+							return	"(\(value))"
 					}
 				}
 			}

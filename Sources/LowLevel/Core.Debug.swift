@@ -9,9 +9,9 @@
 import Foundation
 
 extension Core {
-	static func log<T>(object:@autoclosure()->T) {
+	static func log<T>(@autoclosure object:()->T) {
 		if Debug.mode && Debug.useCoreLogging {
-			println(object())
+			print(object())
 		}
 	}
 
@@ -26,15 +26,15 @@ extension Core {
 		
 		mutating func registerInstance(inst:COpaquePointer, of type:TargetObjectType) {
 			if Debug.mode || Test.mode {
-				precondition(inst != COpaquePointer.null())
-				precondition(find(instanceListForType[type]!, inst) == nil)
+				precondition(inst != COpaquePointer.init())
+				precondition(instanceListForType[type]!.indexOf(inst) == nil)
 				instanceListForType[type]!.append(inst)
 			}
 		}
 		mutating func unregisterInstance(inst:COpaquePointer, of type:TargetObjectType) {
 			if Debug.mode || Test.mode {
-				precondition(inst != COpaquePointer.null())
-				let	idx	=	find(instanceListForType[type]!, inst)
+				precondition(inst != COpaquePointer.init())
+				let	idx	=	instanceListForType[type]!.indexOf(inst)
 				
 				precondition(idx != nil)
 				instanceListForType[type]!.removeAtIndex(idx!)
@@ -47,8 +47,8 @@ extension Core {
 		}
 		func countAllInstances() -> Int {
 			if Debug.mode || Test.mode {
-				let	a1	=	map(instanceListForType.values, { (v:[COpaquePointer]) -> (Int) in return v.count })
-				let	a2	=	reduce(a1, 0, +)
+				let	a1	=   instanceListForType.values.map({ (v:[COpaquePointer]) -> (Int) in return v.count })
+				let	a2	=	a1.reduce(0, combine: +)
 				return	a2
 			}
 			else {

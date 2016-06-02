@@ -35,8 +35,8 @@ public struct Query {
 
 	///	Represents a fragment of a query.
 	public struct Expression {
-		let	code		=	""
-		let	parameters	=	[] as [ParameterValueEvaluation]
+		let	code		:   String
+		let	parameters	:   [ParameterValueEvaluation]
 		
 		static let	empty				=	Expression(code: "", parameters: [])
 		
@@ -68,11 +68,11 @@ public struct Query {
 			for _ in 0..<values.count {
 				qs0.append("?")
 			}
-			let	qs2	=	join(", ", qs0)
+			let	qs2	=	qs0.joinWithSeparator(", ")
 			return	Expression(code: qs2, parameters: values)
 		}
-		static func concatenation(#separator:Expression, components:[Expression]) -> Expression {
-			func add(left:Expression, right:Expression) -> Expression {
+		static func concatenation(separator separator:Expression, components:[Expression]) -> Expression {
+			func add(left:Expression, _ right:Expression) -> Expression {
 				return	Expression(code: left.code + right.code, parameters: left.parameters + right.parameters)
 			}
 			func add_with_sep(left:Expression, right:Expression) -> Expression {
@@ -103,12 +103,12 @@ public struct Query {
 	
 	
 	///	Represents names such as table or column.
-	public struct Identifier : QueryExpressible, StringLiteralConvertible, Printable {
+	public struct Identifier : QueryExpressible, StringLiteralConvertible, CustomStringConvertible {
 		public let	name:String
 		
 		public init(_ name:String) {
-			assert(find(name, "\"") == nil, "Identifiers which contains double-quote(\") are not currently supported by Swift layer.")
-			
+			assert(name.characters.contains("\"") == false, "Identifiers which contains double-quote(\") are not currently supported by Swift layer.")
+
 			self.name	=	name
 		}
 		
@@ -151,7 +151,7 @@ public struct Query {
 			//	Don't know why but this works only when order is reversed.
 			//	Seemd to be a compiler bug.
 			switch self {
-			case let Items(s):	return	Expression.concatenation(separator: Query.Expression(", "), components: s.names.map {$0.express()})
+			case let Items(s):	return	Expression.concatenation(separator: Query.Expression(", "), components: s.map { $0.express() })
 			case let All:		return	Expression(code: "*", parameters: [])
 			}
 		}

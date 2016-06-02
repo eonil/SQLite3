@@ -61,7 +61,7 @@ extension Table {
 }
 
 extension Table: SequenceType {
-	public func generate() -> GeneratorOf<(Identity,Content)> {
+	public func generate() -> AnyGenerator<(Identity,Content)> {
 		let	q	=	Query.Select(table: Query.Identifier(info.name), columns: Query.ColumnList.All, filter: nil, sorts: nil, limit: nil, offset: nil)
 		let	p	=	database.compile(q.express().code)
 		let	s	=	p.midlevel
@@ -77,7 +77,7 @@ extension Table: SequenceType {
 				return	nil
 			}
 		}
-		return	GeneratorOf<(Identity,Content)>(next)
+		return	AnyGenerator<(Identity,Content)>(body: next)
 	}
 }
 
@@ -127,16 +127,16 @@ extension Table {
 	}
 	
 	
-	public var keys:GeneratorOf<Identity> {
+	public var keys:AnyGenerator<Identity> {
 		get {
 			var	g	=	generate()
-			return	GeneratorOf<Identity> {g.next()?.0}
+			return	AnyGenerator<Identity> {g.next()?.0}
 		}
 	}
-	public var values:GeneratorOf<Content> {
+	public var values:AnyGenerator<Content> {
 		get {
 			var	g	=	generate()
-			return	GeneratorOf<Content> {g.next()?.1}
+			return	AnyGenerator<Content> {g.next()?.1}
 		}
 	}
 

@@ -54,17 +54,17 @@ public extension Schema {
 //	public func create(table q:Query.Schema.Table.Create) {
 //		database.apply { self.database.connection.run(q) }
 //	}
-	public func create(#tableName:String, keyColumnNames:[String], dataColumnNames:[String]) {
+	public func create(tableName tableName:String, keyColumnNames:[String], dataColumnNames:[String]) {
 		let	kcs	=	keyColumnNames.map {Schema.Column(name: $0, nullable: false, type: Schema.Column.TypeCode.None, unique: true, index: nil)}
 		let	dcs	=	dataColumnNames.map {Schema.Column(name: $0, nullable: true, type: Schema.Column.TypeCode.None, unique: false, index: nil)}
 		let	def	=	Schema.Table(name: tableName, key: keyColumnNames, columns: kcs+dcs)
 		let	cmd	=	Query.Schema.Table.Create(temporary: false, definition: def)
 		database.apply { self.database.connection.run(cmd) }
 	}
-	public func create(#tableName:String, keyColumnName:String, dataColumnNames:[String]) {
+	public func create(tableName tableName:String, keyColumnName:String, dataColumnNames:[String]) {
 		create(tableName: tableName, keyColumnNames: [keyColumnName], dataColumnNames: dataColumnNames)
 	}
-	public func create(#tableName:String, dataColumnNames:[String]) {
+	public func create(tableName tableName:String, dataColumnNames:[String]) {
 		create(tableName: tableName, keyColumnNames: [], dataColumnNames: dataColumnNames)
 	}
 	

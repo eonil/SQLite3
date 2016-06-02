@@ -76,7 +76,7 @@ public extension Query.Schema.Table {
 			}
 			
 			let	ss1	=	definition.columns.map(resolveColumnCode)
-			let	ss2	=	join(", ", ss1)
+			let	ss2	=	ss1.joinWithSeparator(", ")
 			
 			return	[
 				expr("CREATE "),

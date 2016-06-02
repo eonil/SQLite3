@@ -10,7 +10,7 @@ import Foundation
 
 
 
-func combine <K,V> (keys:[K], values:[V]) -> [K:V] {
+func combine <K,V> (keys:[K], _ values:[V]) -> [K:V] {
 	precondition(keys.count == values.count)
 	
 	var	d	=	[:] as [K:V]

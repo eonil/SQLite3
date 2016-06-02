@@ -11,7 +11,7 @@ import Foundation
 extension Table {
 
 	public final class DictionaryView: SequenceType {
-		typealias	Generator	=	GeneratorOf<[String:Value]>
+		public typealias	Generator	=	AnyGenerator<[String:Value]>
 		
 		unowned let	table:Table
 		
@@ -37,7 +37,7 @@ extension Table {
 			}
 		}
 		
-		public func generate() -> GeneratorOf<[String:Value]> {
+		public func generate() -> AnyGenerator<[String:Value]> {
 			var	g1	=	table.generate()
 			func next() -> [String:Value]? {
 				if let (id1, con1) = g1.next() {
@@ -46,7 +46,7 @@ extension Table {
 				}
 				return	nil
 			}
-			return	GeneratorOf(next)
+			return	AnyGenerator(body: next)
 		}
 	}
 	

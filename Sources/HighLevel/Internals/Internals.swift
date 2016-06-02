@@ -76,10 +76,10 @@ extension Internals {
 //			return	find([keyColumnName()], name)
 //		}
 		func findKeyColumnIndexForName(name:String) -> Int? {
-			return	find(keyColumnNames(), name)
+			return	keyColumnNames().indexOf(name)
 		}
 		func findDataColumnIndexForName(name:String) -> Int? {
-			return	find(dataColumnNames(), name)
+			return	dataColumnNames().indexOf(name)
 		}
 		
 		

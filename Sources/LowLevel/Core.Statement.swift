@@ -143,7 +143,7 @@ extension Core
 			precondition(index < dataCount())
 			let	cs	=	sqlite3_column_name(_rawptr, index)
 			
-			precondition(cs != UnsafePointer<Int8>.null())
+			precondition(cs != UnsafePointer<Int8>())
 			let	s1	=	String.fromCString(cs)!
 			return	s1
 		}

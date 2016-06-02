@@ -42,12 +42,12 @@ public final class TableCollection: SequenceType {
 			return	owner
 		}
 	}
-	public func generate() -> GeneratorOf<Table> {
+	public func generate() -> AnyGenerator<Table> {
 		_assertNoDeadLinks()
 		
 		let	rs	=	database.connection.prepare("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute().allDictionaries()
 		var	g1	=	rs.generate()
-		return	GeneratorOf {
+		return	AnyGenerator {
 			if let r = g1.next() {
 				let	n	=	r["name"]!
 				return	Table(owner: self, name: n.text!)
@@ -138,14 +138,14 @@ public final class TableCollection: SequenceType {
 		return	a.first?()
 	}
 	private func _checkTableExistenceOnDatabase(name:String) -> Bool {
-		return	filter(_generateAllTableNamesInCurrentDatabase(), {$0 == name}).count > 0
+        return _generateAllTableNamesInCurrentDatabase().filter({ $0 == name }).count > 0
 	}
-	private func _generateAllTableNamesInCurrentDatabase() -> GeneratorOf<String> {
+	private func _generateAllTableNamesInCurrentDatabase() -> AnyGenerator<String> {
 //		let	rs	=	database.compile("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;").execute().allDictionaries()
 		let	s	=	database.compile("SELECT name FROM sqlite_master WHERE type='table';")
 		let	rs	=	s.execute().allDictionaries()
 		var	g1	=	rs.generate()
-		return	GeneratorOf {
+		return	AnyGenerator {
 			if let r = g1.next() {
 				return	r["name"]!.text!
 			}

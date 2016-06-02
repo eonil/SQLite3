@@ -27,7 +27,7 @@ public class List {
 	///	:range:	Specify `LIMIT` and `OFFSET` in range form. `LIMIT` is `distance(range.startIndex, range.endIndex)`, and `OFFSET` is just `startIndex`.
 	public subscript(range:Range<Int>) -> Page {
 		get {
-			let	limit	=	distance(range.startIndex, range.endIndex)
+			let	limit	=	range.startIndex.distanceTo(range.endIndex)
 			let	offset	=	range.startIndex
 			return	Page(list: self, limit: limit, offset: offset)
 		}

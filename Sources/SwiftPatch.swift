@@ -17,16 +17,15 @@ func enumerate<T:GeneratorType>(g:T) -> EnumerateGenerator<T> {
 
 
 extension Array {
-	init(_ elements:GeneratorOf<T>) {
-		self.init()
-		for e in elements {
-			self.append(e)
-		}
-	}
-	init(_ elements:LazyBidirectionalCollection<[T]>) {
-		self.init()
-		for e in elements {
-			self.append(e)
-		}
-	}
+//	init(_ elements:AnyGenerator<Element>) {
+//		for e in elements {
+//			self.append(e)
+//		}
+//	}
+//	init(_ elements:LazyBidirectionalCollection<[Element]>) {
+//		self.init()
+//		for e in elements {
+//			self.append(e)
+//		}
+//	}
 }
